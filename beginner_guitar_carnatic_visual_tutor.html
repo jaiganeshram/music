@@ -565,6 +565,60 @@
             font-size: 13px;
             color: #cbd5e1;
         }
+    
+        .kattai-dropdown-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #0f172a;
+            border: 1px solid rgba(245, 158, 11, 0.4);
+            padding: 6px 14px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+        }
+
+        .kattai-dropdown-label {
+            font-size: 13.5px;
+            font-weight: 700;
+            color: var(--accent-gold);
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .kattai-select {
+            background: #090d16;
+            border: 1px solid rgba(245, 158, 11, 0.35);
+            color: #ffffff;
+            font-family: 'Noto Sans Tamil', 'Outfit', sans-serif;
+            font-size: 13.5px;
+            font-weight: 600;
+            padding: 8px 14px;
+            border-radius: 8px;
+            outline: none;
+            cursor: pointer;
+            transition: border-color 0.2s;
+        }
+
+        .kattai-select:focus {
+            border-color: var(--accent-gold);
+            box-shadow: 0 0 0 2px rgba(245, 158, 11, 0.25);
+        }
+
+        .kattai-select optgroup {
+            background: #090d16;
+            color: var(--accent-gold);
+            font-weight: 700;
+        }
+
+        .kattai-select option {
+            background: #0f172a;
+            color: #ffffff;
+            font-weight: 500;
+            padding: 6px;
+        }
+    
     </style>
 </head>
 <body>
@@ -588,6 +642,64 @@
     <!-- Control Panel -->
     <div class="control-panel-card">
         <div class="selector-row">
+            
+            <!-- 1. Kattai / Shruti Combobox -->
+            <div class="select-group" style="flex: 0 0 auto; min-width: 200px;">
+                <label for="guitarMelodyVoiceSelect" style="color: #f43f5e;">🎙️ ஸ்வரக் குரல் (Voice):</label>
+                <select id="guitarMelodyVoiceSelect" class="lesson-select" style="border-color: #f43f5e; color: #fecdd3;" onchange="setMelodyVoice(this.value)">
+                    <option value="guitar" selected>🎸 1. அக்யூஸ்டிக் கிட்டார் (Acoustic Guitar)</option>
+                    <option value="piano">🎹 2. கிராண்ட் பியானோ (Grand Piano)</option>
+                    <option value="veena">🎻 3. சரஸ்வதி வீணை (Saraswati Veena)</option>
+                    <option value="vocal">🎙️ 4. மனிதக் குரல் (Carnatic Vocal)</option>
+                    <option value="flute">🪈 5. புல்லாங்குழல் (Bamboo Flute / Venu)</option>
+                    <option value="jalatharangam">🔔 6. ஜலதரங்கம் மணி (Bell Chime)</option>
+                    <option value="pure_sine">🔊 7. சுத்த சைன் அலை (Pure Sine)</option>
+                </select>
+            </div>
+
+            <div class="select-group" style="flex: 0 0 auto; min-width: 200px;">
+                <label for="kattaiSelect" style="color: #fbbf24;">🪕 கட்டை (Kattai):</label>
+                <select id="kattaiSelect" class="lesson-select" style="border-color: #f59e0b;" onchange="onKattaiChange(this.value)">
+                    <optgroup label="── 👨 ஆண்கள் & கிட்டார் (MALE / GUITAR) ──">
+                        <option value="1|C|130.81" selected>1 கட்டை (C - 130.8 Hz) • 👨 Bass</option>
+                        <option value="1.5|C#|138.59">1½ கட்டை (C# - 138.6 Hz) • 👨 Standard ⭐</option>
+                        <option value="2|D|146.83">2 கட்டை (D - 146.8 Hz) • 👨 Tenor</option>
+                        <option value="2.5|D#|155.56">2½ கட்டை (D# - 155.6 Hz) • 👨 High</option>
+                    </optgroup>
+                    <optgroup label="── 👩 பெண்கள் சுருதி (FEMALE RANGE) ──">
+                        <option value="4|F|174.61">4 கட்டை (F - 174.6 Hz) • 👩 Alto</option>
+                        <option value="4.5|F#|185.00">4½ கட்டை (F# - 185.0 Hz) • 👩 Mezzo</option>
+                        <option value="5|G|196.00">5 கட்டை (G - 196.0 Hz) • 👩 Standard ⭐</option>
+                        <option value="5.5|G#|207.65">5½ கட்டை (G# - 207.6 Hz) • 👩 High</option>
+                    </optgroup>
+                    <optgroup label="── 👦👧 சிறுவர்கள் & குழந்தைகள் (KIDS) ──">
+                        <option value="3|E|164.81">3 கட்டை (E - 164.8 Hz) • 👦 சிறுவர்கள்</option>
+                        <option value="6|A|220.00">6 கட்டை (A - 220.0 Hz) • 👧 குழந்தைகள்</option>
+                    </optgroup>
+                </select>
+            </div>
+
+            <!-- 2. Drone Instrument Combobox -->
+            <div class="select-group" style="flex: 0 0 auto; min-width: 200px;">
+                <label for="guitarDroneSelect" style="color: #38bdf8;">🎵 ஸ்ருதி கருவி:</label>
+                <select id="guitarDroneSelect" class="lesson-select" style="border-color: #38bdf8;" onchange="onGuitarDroneChange(this.value)">
+                    <option value="off">🔇 சுருதி அணைப்பு (OFF / Mute)</option>
+                    <option value="tanpura_pa" selected>🪕 1. இயல்பான பஞ்சம தம்புரா (Normal Tanpura Pa-Sa-Sa)</option>
+                    <option value="tanpura_tanjore">🪕 2. தஞ்சாவூர் தம்புரா (Tanjore Classical)</option>
+                    <option value="tanpura_ma">🪕 3. மத்யம தம்புரா (Ma-Sa-Sa-Sa)</option>
+                    <option value="tanpura_ni">🪕 4. நிஷாத தம்புரா (Ni-Sa-Sa-Sa)</option>
+                    <option value="tanpura_dha">🪕 5. தைவத தம்புரா (Dha-Sa-Sa-Sa)</option>
+                    <option value="harmonium">🎹 6. ஹார்மோனியம் சுருதி (Surpeti)</option>
+                    <option value="flute">🪈 7. புல்லாங்குழல் வேணு (Flute Drone)</option>
+                    <option value="veena">🎻 8. சரஸ்வதி வீணை (Veena Drone)</option>
+                    <option value="chitra_veena">🪕 9. சித்ரவீணை / கோட்டு (Chitra Veena)</option>
+                    <option value="jalatharangam">🔔 10. ஜலதரங்கம் கோயில் மணி (Bell)</option>
+                    <option value="guitar">🎸 11. அக்யூஸ்டிக் கிட்டார் (Guitar)</option>
+                    <option value="om_drone">🧘 12. ஓம் பிரணவ நாதம் (108Hz OM)</option>
+                    <option value="pure_sine">🔊 13. சுத்த ஸ்டுடியோ சைன் (Sine)</option>
+                </select>
+            </div>
+    
             <div class="select-group" id="selector-wrapper-lessons">
                 <label for="lessonSelect">📖 பாடம் தேர்வு செய்க (Select Lesson):</label>
                 <select id="lessonSelect" class="lesson-select" onchange="changeLesson(this.value)">
@@ -708,6 +820,12 @@
                 <button class="btn btn-primary" id="playBtn" onclick="togglePlay()">▶ வாசி (Play)</button>
                 <button class="btn" onclick="prevStep()">⏮ முந்தையது</button>
                 <button class="btn" onclick="nextStep()">⏭ அடுத்தது</button>
+                <button id="guitarToneBtn" type="button" class="btn" onclick="toggleGuitarTone()" style="background:#1e293b; border:1.5px solid #38bdf8; color:#38bdf8; font-weight:800; padding:8px 14px; border-radius:8px; cursor:pointer;" title="கிட்டார் ஸ்வர ஒலி / தம்புரா மட்டும் மாற்ற">
+                    🎵 கிட்டார் ஒலி: ON
+                </button>
+                <button id="guitarSustainBtn" type="button" class="btn" onclick="toggleGuitarSustain()" style="background:#581c87; border:1.5px solid #c084fc; color:#ffffff; font-weight:800; padding:8px 14px; border-radius:8px; cursor:pointer;" title="சஸ்டைன் ஆன் / ஆஃப் மாற்ற">
+                    ⏳ சஸ்டைன்: ON (1.4s)
+                </button>
                 <button id="muteToggleBtn" type="button" class="btn" onclick="toggleAppMute()" style="background:#1e293b; border:1.5px solid #3b82f6; color:#93c5fd; font-weight:800; padding:8px 14px; border-radius:8px; cursor:pointer;" title="கணினி ஒலியை மியூட் செய்ய (Mute App Synth)">
                     🔊 ஆப் ஒலி: ஆன் (App Sound)
                 </button>
@@ -1044,9 +1162,96 @@
     </div>
 
 <script>
-    // Audio Synthesizer
+    // ==========================================
+    // GLOBAL GUITAR AUDIO STATE & CONTROLS (ALWAYS DEFINED FIRST)
+    // ==========================================
     let audioCtx = null;
     let isAppAudioMuted = false;
+    let isGuitarToneEnabled = true;
+    let currentMelodyVoice = 'guitar'; // Default: Acoustic Guitar
+
+    function setMelodyVoice(voice) {
+        currentMelodyVoice = voice;
+        const sel = document.getElementById('guitarMelodyVoiceSelect');
+        if (sel) sel.value = voice;
+    }
+    let isGuitarSustainOn = true;
+    let guitarSustainSec = 1.4;
+    let activeGuitarVoices = [];
+    let masterCompressor = null;
+    let masterHeadroomGain = null;
+
+    function getMasterOutput() {
+        if (!audioCtx) return null;
+        if (!masterCompressor) {
+            try {
+                masterCompressor = audioCtx.createDynamicsCompressor();
+                masterCompressor.threshold.setValueAtTime(-3.0, audioCtx.currentTime);
+                masterCompressor.knee.setValueAtTime(10.0, audioCtx.currentTime);
+                masterCompressor.ratio.setValueAtTime(16.0, audioCtx.currentTime);
+                masterCompressor.attack.setValueAtTime(0.002, audioCtx.currentTime);
+                masterCompressor.release.setValueAtTime(0.12, audioCtx.currentTime);
+
+                masterHeadroomGain = audioCtx.createGain();
+                masterHeadroomGain.gain.setValueAtTime(0.82, audioCtx.currentTime);
+
+                masterCompressor.connect(masterHeadroomGain);
+                masterHeadroomGain.connect(audioCtx.destination);
+            } catch(e) {
+                return audioCtx.destination;
+            }
+        }
+        return masterCompressor;
+    }
+
+    function stopAllGuitarVoices(crossfadeSec = 0.035) {
+        if (!audioCtx) return;
+        const now = audioCtx.currentTime;
+        for (const v of activeGuitarVoices) {
+            try {
+                v.gain.gain.cancelScheduledValues(now);
+                const gVal = v.gain.gain.value;
+                v.gain.gain.setValueAtTime(gVal > 0.0001 ? gVal : 0.001, now);
+                v.gain.gain.linearRampToValueAtTime(0.0001, now + crossfadeSec);
+                v.oscs.forEach(o => {
+                    try { o.stop(now + crossfadeSec + 0.02); } catch(e) {}
+                });
+            } catch(e) {}
+        }
+        activeGuitarVoices = [];
+    }
+
+    async function ensureAudioCtx() {
+        try {
+            if (!audioCtx) {
+                const AudioCtxClass = window.AudioContext || window.webkitAudioContext;
+                audioCtx = new AudioCtxClass();
+            }
+            if (audioCtx.state === 'suspended') {
+                await audioCtx.resume();
+            }
+            getMasterOutput();
+            return audioCtx;
+        } catch(e) {
+            return null;
+        }
+    }
+
+    if (typeof window !== 'undefined') {
+        window.addEventListener('click', () => {
+            if (!audioCtx) {
+                const AudioCtxClass = window.AudioContext || window.webkitAudioContext;
+                audioCtx = new AudioCtxClass();
+            }
+            if (audioCtx && audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+        }, { passive: true });
+    }
+
+    // Audio Synthesizer
+    // audioCtx already declared
+    // isAppAudioMuted declared above
 
     function toggleAppMute() {
         isAppAudioMuted = !isAppAudioMuted;
@@ -1058,25 +1263,315 @@
         }
     }
 
+    // ==========================================
+    // 🎹 9 MULTI-INSTRUMENT ACOUSTIC GUITAR/MELODY ENGINES
+    // ==========================================
+    function synthVocalTone(audioCtx, freq, effectiveSustain, masterOut, now) {
+        const osc1 = audioCtx.createOscillator();
+        const osc2 = audioCtx.createOscillator();
+        osc1.type = 'sine';
+        osc1.frequency.setValueAtTime(freq, now);
+        osc2.type = 'triangle';
+        osc2.frequency.setValueAtTime(freq * 2.0, now);
+
+        const g1 = audioCtx.createGain();
+        const g2 = audioCtx.createGain();
+        g1.gain.setValueAtTime(0.70, now);
+        g2.gain.setValueAtTime(0.30, now);
+        osc1.connect(g1);
+        osc2.connect(g2);
+
+        const filter = audioCtx.createBiquadFilter();
+        filter.type = 'lowpass';
+        filter.frequency.setValueAtTime(2800, now);
+        g1.connect(filter);
+        g2.connect(filter);
+
+        const noteGain = audioCtx.createGain();
+        const peakG = 0.45;
+        noteGain.gain.setValueAtTime(0.0001, now);
+        noteGain.gain.linearRampToValueAtTime(peakG, now + 0.025);
+        noteGain.gain.linearRampToValueAtTime(0.0001, now + effectiveSustain);
+
+        filter.connect(noteGain);
+        if (masterOut) noteGain.connect(masterOut);
+        else noteGain.connect(audioCtx.destination);
+
+        const oscs = [osc1, osc2];
+        oscs.forEach(o => { o.start(now); o.stop(now + effectiveSustain + 0.05); });
+        return { gain: noteGain, oscs: oscs };
+    }
+
+    function synthPianoTone(audioCtx, freq, effectiveSustain, masterOut, now) {
+        const hammerOsc = audioCtx.createOscillator();
+        const hammerGain = audioCtx.createGain();
+        hammerOsc.type = 'triangle';
+        hammerOsc.frequency.setValueAtTime(freq * 3.5, now);
+        hammerGain.gain.setValueAtTime(0.35, now);
+        hammerGain.gain.exponentialRampToValueAtTime(0.0001, now + 0.04);
+        hammerOsc.connect(hammerGain);
+        hammerOsc.start(now);
+        hammerOsc.stop(now + 0.05);
+
+        const osc1 = audioCtx.createOscillator();
+        const osc2 = audioCtx.createOscillator();
+        osc1.type = 'triangle';
+        osc1.frequency.setValueAtTime(freq, now);
+        osc2.type = 'sine';
+        osc2.frequency.setValueAtTime(freq * 2.0, now);
+
+        const g1 = audioCtx.createGain();
+        const g2 = audioCtx.createGain();
+        g1.gain.setValueAtTime(0.75, now);
+        g2.gain.setValueAtTime(0.25, now);
+        osc1.connect(g1);
+        osc2.connect(g2);
+
+        const filter = audioCtx.createBiquadFilter();
+        filter.type = 'lowpass';
+        filter.frequency.setValueAtTime(3800, now);
+        filter.frequency.exponentialRampToValueAtTime(1400, now + Math.min(effectiveSustain, 0.8));
+        g1.connect(filter);
+        g2.connect(filter);
+        hammerGain.connect(filter);
+
+        const noteGain = audioCtx.createGain();
+        const peakG = 0.50;
+        noteGain.gain.setValueAtTime(0.0001, now);
+        noteGain.gain.linearRampToValueAtTime(peakG, now + 0.006);
+        noteGain.gain.exponentialRampToValueAtTime(peakG * 0.45, now + 0.15);
+        noteGain.gain.linearRampToValueAtTime(peakG * 0.20, now + (effectiveSustain * 0.70));
+        noteGain.gain.linearRampToValueAtTime(0.0001, now + effectiveSustain);
+
+        filter.connect(noteGain);
+        if (masterOut) noteGain.connect(masterOut);
+        else noteGain.connect(audioCtx.destination);
+
+        const oscs = [hammerOsc, osc1, osc2];
+        [osc1, osc2].forEach(o => { o.start(now); o.stop(now + effectiveSustain + 0.05); });
+        return { gain: noteGain, oscs: oscs };
+    }
+
+    function synthVeenaTone(audioCtx, freq, effectiveSustain, masterOut, now) {
+        const osc = audioCtx.createOscillator();
+        const oscSub = audioCtx.createOscillator();
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(freq, now);
+        oscSub.type = 'triangle';
+        oscSub.frequency.setValueAtTime(freq * 2.0, now);
+
+        const g1 = audioCtx.createGain();
+        const g2 = audioCtx.createGain();
+        g1.gain.setValueAtTime(0.60, now);
+        g2.gain.setValueAtTime(0.40, now);
+        osc.connect(g1);
+        oscSub.connect(g2);
+
+        const bodyFilter = audioCtx.createBiquadFilter();
+        bodyFilter.type = 'bandpass';
+        bodyFilter.frequency.setValueAtTime(1100, now);
+        bodyFilter.Q.setValueAtTime(1.8, now);
+
+        g1.connect(bodyFilter);
+        g2.connect(bodyFilter);
+
+        const noteGain = audioCtx.createGain();
+        const peakG = 0.48;
+        noteGain.gain.setValueAtTime(0.0001, now);
+        noteGain.gain.linearRampToValueAtTime(peakG, now + 0.008);
+        noteGain.gain.exponentialRampToValueAtTime(peakG * 0.60, now + 0.12);
+        noteGain.gain.linearRampToValueAtTime(0.0001, now + effectiveSustain);
+
+        bodyFilter.connect(noteGain);
+        if (masterOut) noteGain.connect(masterOut);
+        else noteGain.connect(audioCtx.destination);
+
+        const oscs = [osc, oscSub];
+        oscs.forEach(o => { o.start(now); o.stop(now + effectiveSustain + 0.05); });
+        return { gain: noteGain, oscs: oscs };
+    }
+
+    function synthFluteTone(audioCtx, freq, effectiveSustain, masterOut, now) {
+        const osc = audioCtx.createOscillator();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(freq, now);
+
+        const bambooFilter = audioCtx.createBiquadFilter();
+        bambooFilter.type = 'lowpass';
+        bambooFilter.frequency.setValueAtTime(2400, now);
+        osc.connect(bambooFilter);
+
+        const noteGain = audioCtx.createGain();
+        const peakG = 0.42;
+        noteGain.gain.setValueAtTime(0.0001, now);
+        noteGain.gain.linearRampToValueAtTime(peakG, now + 0.040);
+        noteGain.gain.linearRampToValueAtTime(peakG * 0.90, now + (effectiveSustain * 0.60));
+        noteGain.gain.linearRampToValueAtTime(0.0001, now + effectiveSustain);
+
+        bambooFilter.connect(noteGain);
+        if (masterOut) noteGain.connect(masterOut);
+        else noteGain.connect(audioCtx.destination);
+
+        osc.start(now);
+        osc.stop(now + effectiveSustain + 0.05);
+        return { gain: noteGain, oscs: [osc] };
+    }
+
+    function synthGuitarTone(audioCtx, freq, effectiveSustain, masterOut, now) {
+        const osc1 = audioCtx.createOscillator();
+        const osc2 = audioCtx.createOscillator();
+        osc1.type = 'triangle';
+        osc1.frequency.setValueAtTime(freq, now);
+        osc2.type = 'sawtooth';
+        osc2.frequency.setValueAtTime(freq * 2.0, now);
+
+        const g1 = audioCtx.createGain();
+        const g2 = audioCtx.createGain();
+        g1.gain.setValueAtTime(0.70, now);
+        g2.gain.setValueAtTime(0.30, now);
+        osc1.connect(g1);
+        osc2.connect(g2);
+
+        const bodyFilter = audioCtx.createBiquadFilter();
+        bodyFilter.type = 'lowpass';
+        bodyFilter.frequency.setValueAtTime(2200, now);
+        bodyFilter.Q.setValueAtTime(1.0, now);
+        g1.connect(bodyFilter);
+        g2.connect(bodyFilter);
+
+        const noteGain = audioCtx.createGain();
+        const peakG = 0.45;
+        noteGain.gain.setValueAtTime(0.0001, now);
+        noteGain.gain.linearRampToValueAtTime(peakG, now + 0.008);
+        if (effectiveSustain > 0.4) {
+            noteGain.gain.linearRampToValueAtTime(peakG * 0.70, now + (effectiveSustain * 0.35));
+            noteGain.gain.linearRampToValueAtTime(peakG * 0.35, now + (effectiveSustain * 0.75));
+            noteGain.gain.linearRampToValueAtTime(0.0001, now + effectiveSustain);
+        } else {
+            noteGain.gain.linearRampToValueAtTime(0.0001, now + effectiveSustain);
+        }
+
+        bodyFilter.connect(noteGain);
+        if (masterOut) noteGain.connect(masterOut);
+        else noteGain.connect(audioCtx.destination);
+
+        const oscs = [osc1, osc2];
+        oscs.forEach(o => { o.start(now); o.stop(now + effectiveSustain + 0.05); });
+        return { gain: noteGain, oscs: oscs };
+    }
+
+    function synthJalatharangamTone(audioCtx, freq, effectiveSustain, masterOut, now) {
+        const osc = audioCtx.createOscillator();
+        const chime = audioCtx.createOscillator();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(freq, now);
+        chime.type = 'sine';
+        chime.frequency.setValueAtTime(freq * 2.756, now);
+
+        const g1 = audioCtx.createGain();
+        const g2 = audioCtx.createGain();
+        g1.gain.setValueAtTime(0.85, now);
+        g2.gain.setValueAtTime(0.35, now);
+        g2.gain.exponentialRampToValueAtTime(0.0001, now + 0.3);
+
+        osc.connect(g1);
+        chime.connect(g2);
+
+        const noteGain = audioCtx.createGain();
+        const peakG = 0.48;
+        noteGain.gain.setValueAtTime(0.0001, now);
+        noteGain.gain.linearRampToValueAtTime(peakG, now + 0.004);
+        noteGain.gain.exponentialRampToValueAtTime(0.0001, now + effectiveSustain);
+
+        g1.connect(noteGain);
+        g2.connect(noteGain);
+        if (masterOut) noteGain.connect(masterOut);
+        else noteGain.connect(audioCtx.destination);
+
+        const oscs = [osc, chime];
+        oscs.forEach(o => { o.start(now); o.stop(now + effectiveSustain + 0.05); });
+        return { gain: noteGain, oscs: oscs };
+    }
+
+    function synthPureSineTone(audioCtx, freq, effectiveSustain, masterOut, now) {
+        const osc = audioCtx.createOscillator();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(freq, now);
+
+        const noteGain = audioCtx.createGain();
+        const peakG = 0.40;
+        noteGain.gain.setValueAtTime(0.0001, now);
+        noteGain.gain.linearRampToValueAtTime(peakG, now + 0.020);
+        noteGain.gain.linearRampToValueAtTime(0.0001, now + effectiveSustain);
+
+        osc.connect(noteGain);
+        if (masterOut) noteGain.connect(masterOut);
+        else noteGain.connect(audioCtx.destination);
+
+        osc.start(now);
+        osc.stop(now + effectiveSustain + 0.05);
+        return { gain: noteGain, oscs: [osc] };
+    }
+
     function playTone(freq) {
-        // If muted or mic is listening, DO NOT play computer speaker tone (to avoid audio disturbance/feedback)
-        if (isAppAudioMuted || isMicListening) {
+        if (!isGuitarToneEnabled || isAppAudioMuted || (typeof isMicListening !== 'undefined' && isMicListening)) {
             return;
         }
         try {
-            if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-            if (audioCtx.state === 'suspended') audioCtx.resume();
-            const osc = audioCtx.createOscillator();
-            const gain = audioCtx.createGain();
-            osc.type = 'triangle';
-            osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
-            gain.gain.setValueAtTime(0.001, audioCtx.currentTime);
-            gain.gain.exponentialRampToValueAtTime(0.35, audioCtx.currentTime + 0.02);
-            gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.75);
-            osc.connect(gain);
-            gain.connect(audioCtx.destination);
-            osc.start();
-            osc.stop(audioCtx.currentTime + 0.8);
+            if (!audioCtx) {
+                const AudioCtxClass = window.AudioContext || window.webkitAudioContext;
+                audioCtx = new AudioCtxClass();
+            }
+            if (audioCtx.state === 'suspended') {
+                try { audioCtx.resume(); } catch(e) {}
+            }
+            if (!audioCtx) return;
+
+            const masterOut = getMasterOutput();
+            const now = audioCtx.currentTime;
+
+            // Cap guitar polyphony to max 3 concurrent ringing strings
+            while (activeGuitarVoices.length >= 3) {
+                const oldV = activeGuitarVoices.shift();
+                try {
+                    oldV.gain.gain.cancelScheduledValues(now);
+                    const gVal = oldV.gain.gain.value;
+                    oldV.gain.gain.setValueAtTime(gVal > 0.0001 ? gVal : 0.001, now);
+                    oldV.gain.gain.linearRampToValueAtTime(0.0001, now + 0.03);
+                    oldV.oscs.forEach(o => {
+                        try { o.stop(now + 0.04); } catch(e) {}
+                    });
+                } catch(e) {}
+            }
+
+            const effectiveSustain = isGuitarSustainOn ? Math.max(0.2, guitarSustainSec) : 0.35;
+
+            let voiceRec = null;
+            if (currentMelodyVoice === 'piano') {
+                voiceRec = synthPianoTone(audioCtx, freq, effectiveSustain, masterOut, now);
+            } else if (currentMelodyVoice === 'veena') {
+                voiceRec = synthVeenaTone(audioCtx, freq, effectiveSustain, masterOut, now);
+            } else if (currentMelodyVoice === 'flute') {
+                voiceRec = synthFluteTone(audioCtx, freq, effectiveSustain, masterOut, now);
+            } else if (currentMelodyVoice === 'jalatharangam') {
+                voiceRec = synthJalatharangamTone(audioCtx, freq, effectiveSustain, masterOut, now);
+            } else if (currentMelodyVoice === 'vocal') {
+                voiceRec = synthVocalTone(audioCtx, freq, effectiveSustain, masterOut, now);
+            } else if (currentMelodyVoice === 'pure_sine') {
+                voiceRec = synthPureSineTone(audioCtx, freq, effectiveSustain, masterOut, now);
+            } else {
+                // Default: Acoustic Guitar
+                voiceRec = synthGuitarTone(audioCtx, freq, effectiveSustain, masterOut, now);
+            }
+
+            if (voiceRec) {
+                activeGuitarVoices.push(voiceRec);
+                setTimeout(() => {
+                    const idx = activeGuitarVoices.indexOf(voiceRec);
+                    if (idx !== -1) activeGuitarVoices.splice(idx, 1);
+                }, (effectiveSustain + 0.1) * 1000);
+            }
+
         } catch(e) {
             console.log("Audio error:", e);
         }
@@ -1672,6 +2167,251 @@
                 { title: 'பல்லவி வரி 3 (நன்னு பாலிம்ப சமயம்மிதே)', sections: [['G3','P','G3','R2'], ['S','R2'], ['G3','P']] }
             ]
         }
+    ,
+
+        // --- Jantai Varisais 3 to 10 ---
+        'j3': {
+            raga: 'maya',
+            title: '3. ஜண்டை வரிசை 3 (SSS RRR GGG MMM - மும்முறை தட்டு)',
+            desc: 'ஒவ்வொரு ஸ்வரத்தையும் மும்முறை தட்டி வாசிக்கும் தீவிர ஜண்டை பயிற்சி',
+            lines: [
+                { title: 'பாகம் 1: ஏறுவரிசை துவக்கம் (SSS RRR GGG MMM)', sections: [['S','S','S','R1'], ['R1','R1','G3','G3'], ['G3','M1','M1','M1']] },
+                { title: 'பாகம் 2: ஏறுவரிசை முடிவு (PPP DDD NNN ṠṠṠ)', sections: [['P','P','P','D1'], ['D1','D1','N3','N3'], ['N3','S5','S5','S5']] },
+                { title: 'பாகம் 3: இறங்குவரிசை துவக்கம் (ṠṠṠ NNN DDD PPP)', sections: [['S5','S5','S5','N3'], ['N3','N3','D1','D1'], ['D1','P','P','P']] },
+                { title: 'பாகம் 4: இறங்குவரிசை முடிவு (MMM GGG RRR SSS)', sections: [['M1','M1','M1','G3'], ['G3','G3','R1','R1'], ['R1','S','S','S']] }
+            ]
+        },
+        'j4': {
+            raga: 'maya',
+            title: '4. ஜண்டை வரிசை 4 (SRSR SSRR RGRG RRGG)',
+            desc: 'ஒற்றை ஸ்வரமும் ஜண்டை ஸ்வரமும் பின்னிப் பிணைந்து வரும் அதிவேகப் பயிற்சி',
+            lines: [
+                { title: 'பாகம் 1: ஏறுவரிசை 1 (SRSR SSRR)', sections: [['S','R1','S','R1'], ['S','S','R1','R1']] },
+                { title: 'பாகம் 2: ஏறுவரிசை 2 (RGRG RRGG)', sections: [['R1','G3','R1','G3'], ['R1','R1','G3','G3']] },
+                { title: 'பாகம் 3: ஏறுவரிசை 3 (GMGM GGMM)', sections: [['G3','M1','G3','M1'], ['G3','G3','M1','M1']] },
+                { title: 'பாகம் 4: ஏறுவரிசை 4 (MPMP MMPP)', sections: [['M1','P','M1','P'], ['M1','M1','P','P']] },
+                { title: 'பாகம் 5: இறங்குவரிசை 1 (ṠNṠN ṠṠNN)', sections: [['S5','N3','S5','N3'], ['S5','S5','N3','N3']] },
+                { title: 'பாகம் 6: இறங்குவரிசை 2 (NDND NNDD)', sections: [['N3','D1','N3','D1'], ['N3','N3','D1','D1']] },
+                { title: 'பாகம் 7: இறங்குவரிசை 3 (DPDP DDPP)', sections: [['D1','P','D1','P'], ['D1','D1','P','P']] },
+                { title: 'பாகம் 8: இறங்குவரிசை 4 (PMPM PMPP)', sections: [['P','M1','P','M1'], ['P','P','M1','M1']] }
+            ]
+        },
+        'j5': {
+            raga: 'maya',
+            title: '5. ஜண்டை வரிசை 5 (SSRR GGMM RRGG MMPP)',
+            desc: 'நான்கு நால்வராக இரட்டை ஸ்வரங்கள் தாவும் முறை',
+            lines: [
+                { title: 'பாகம் 1: ஏறுவரிசை 1 (SSRR GGMM)', sections: [['S','S','R1','R1'], ['G3','G3','M1','M1']] },
+                { title: 'பாகம் 2: ஏறுவரிசை 2 (RRGG MMPP)', sections: [['R1','R1','G3','G3'], ['M1','M1','P','P']] },
+                { title: 'பாகம் 3: ஏறுவரிசை 3 (GGMM PPDD)', sections: [['G3','G3','M1','M1'], ['P','P','D1','D1']] },
+                { title: 'பாகம் 4: ஏறுவரிசை 4 (MMPP DDNN)', sections: [['M1','M1','P','P'], ['D1','D1','N3','N3']] },
+                { title: 'பாகம் 5: இறங்குவரிசை 1 (ṠṠNN DDPP)', sections: [['S5','S5','N3','N3'], ['D1','D1','P','P']] },
+                { title: 'பாகம் 6: இறங்குவரிசை 2 (NNDD PPMM)', sections: [['N3','N3','D1','D1'], ['P','P','M1','M1']] },
+                { title: 'பாகம் 7: இறங்குவரிசை 3 (DDPP MMGG)', sections: [['D1','D1','P','P'], ['M1','M1','G3','G3']] },
+                { title: 'பாகம் 8: இறங்குவரிசை 4 (PPMM GGRR)', sections: [['P','P','M1','M1'], ['G3','G3','R1','R1']] }
+            ]
+        },
+        'j6': {
+            raga: 'maya',
+            title: '6. ஜண்டை வரிசை 6 (SSRR SSGR RRGG RRMG)',
+            desc: 'ஜண்டை மற்றும் குறுக்கு தாது ஸ்வரங்களின் இணைப்பு',
+            lines: [
+                { title: 'பாகம் 1: ஏறுவரிசை 1 (SSRR SSGR)', sections: [['S','S','R1','R1'], ['S','S','G3','R1']] },
+                { title: 'பாகம் 2: ஏறுவரிசை 2 (RRGG RRMG)', sections: [['R1','R1','G3','G3'], ['R1','R1','M1','G3']] },
+                { title: 'பாகம் 3: ஏறுவரிசை 3 (GGMM GGPM)', sections: [['G3','G3','M1','M1'], ['G3','G3','P','M1']] },
+                { title: 'பாகம் 4: ஏறுவரிசை 4 (MMPP MMDP)', sections: [['M1','M1','P','P'], ['M1','M1','D1','P']] },
+                { title: 'பாகம் 5: இறங்குவரிசை 1 (ṠṠNN ṠṠDN)', sections: [['S5','S5','N3','N3'], ['S5','S5','D1','N3']] },
+                { title: 'பாகம் 6: இறங்குவரிசை 2 (NNDD NNPD)', sections: [['N3','N3','D1','D1'], ['N3','N3','P','D1']] },
+                { title: 'பாகம் 7: இறங்குவரிசை 3 (DDPP DDMP)', sections: [['D1','D1','P','P'], ['D1','D1','M1','P']] },
+                { title: 'பாகம் 8: இறங்குவரிசை 4 (PPMM PPGM)', sections: [['P','P','M1','M1'], ['P','P','G3','M1']] }
+            ]
+        },
+        'j7': {
+            raga: 'maya',
+            title: '7. ஜண்டை வரிசை 7 (SSRR GGMM PPDD NNṠṠ - முழு சுற்று)',
+            desc: 'முழுமையான 8 ஸ்வர இரட்டை ஜண்டை ஓட்டம்',
+            lines: [
+                { title: 'பாகம் 1: ஏறுவரிசை முதல் பாதி (SSRR GGMM)', sections: [['S','S','R1','R1'], ['G3','G3','M1','M1']] },
+                { title: 'பாகம் 2: ஏறுவரிசை இரண்டாம் பாதி (PPDD NNṠṠ)', sections: [['P','P','D1','D1'], ['N3','N3','S5','S5']] },
+                { title: 'பாகம் 3: இறங்குவரிசை முதல் பாதி (ṠṠNN DDPP)', sections: [['S5','S5','N3','N3'], ['D1','D1','P','P']] },
+                { title: 'பாகம் 4: இறங்குவரிசை இரண்டாம் பாதி (MMGG RRSS)', sections: [['M1','M1','G3','G3'], ['R1','R1','S','S']] }
+            ]
+        },
+        'j8': {
+            raga: 'maya',
+            title: '8. ஜண்டை வரிசை 8 (SSSS RRRR GGGG MMMM - நான்கு முறை தட்டு)',
+            desc: 'விரல்களுக்கு அதீத பலம் மற்றும் வேகம் தரும் 4 முறை தட்டும் ஜண்டை பயிற்சி',
+            lines: [
+                { title: 'பாகம் 1: ஏறுவரிசை 1 (SSSS RRRR)', sections: [['S','S','S','S'], ['R1','R1','R1','R1']] },
+                { title: 'பாகம் 2: ஏறுவரிசை 2 (GGGG MMMM)', sections: [['G3','G3','G3','G3'], ['M1','M1','M1','M1']] },
+                { title: 'பாகம் 3: ஏறுவரிசை 3 (PPPP DDDD)', sections: [['P','P','P','P'], ['D1','D1','D1','D1']] },
+                { title: 'பாகம் 4: ஏறுவரிசை 4 (NNNN ṠṠṠṠ)', sections: [['N3','N3','N3','N3'], ['S5','S5','S5','S5']] },
+                { title: 'பாகம் 5: இறங்குவரிசை 1 (ṠṠṠṠ NNNN)', sections: [['S5','S5','S5','S5'], ['N3','N3','N3','N3']] },
+                { title: 'பாகம் 6: இறங்குவரிசை 2 (DDDD PPPP)', sections: [['D1','D1','D1','D1'], ['P','P','P','P']] },
+                { title: 'பாகம் 7: இறங்குவரிசை 3 (MMMM GGGG)', sections: [['M1','M1','M1','M1'], ['G3','G3','G3','G3']] },
+                { title: 'பாகம் 8: இறங்குவரிசை 4 (RRRR SSSS)', sections: [['R1','R1','R1','R1'], ['S','S','S','S']] }
+            ]
+        },
+        'j9': {
+            raga: 'maya',
+            title: '9. ஜண்டை வரிசை 9 (SRGR SSRR RGMG RRGG)',
+            desc: 'சுற்றிச் சுழன்று வரும் ஜண்டை மற்றும் தாது வடிவங்களின் சங்கமம்',
+            lines: [
+                { title: 'பாகம் 1: ஏறுவரிசை 1 (SRGR SSRR)', sections: [['S','R1','G3','R1'], ['S','S','R1','R1']] },
+                { title: 'பாகம் 2: ஏறுவரிசை 2 (RGMG RRGG)', sections: [['R1','G3','M1','G3'], ['R1','R1','G3','G3']] },
+                { title: 'பாகம் 3: ஏறுவரிசை 3 (GMPM GGMM)', sections: [['G3','M1','P','M1'], ['G3','G3','M1','M1']] },
+                { title: 'பாகம் 4: ஏறுவரிசை 4 (MPDP MMPP)', sections: [['M1','P','D1','P'], ['M1','M1','P','P']] },
+                { title: 'பாகம் 5: இறங்குவரிசை 1 (ṠNDN ṠṠNN)', sections: [['S5','N3','D1','N3'], ['S5','S5','N3','N3']] },
+                { title: 'பாகம் 6: இறங்குவரிசை 2 (NDPD NNDD)', sections: [['N3','D1','P','D1'], ['N3','N3','D1','D1']] },
+                { title: 'பாகம் 7: இறங்குவரிசை 3 (DPM P DDPP)', sections: [['D1','P','M1','P'], ['D1','D1','P','P']] },
+                { title: 'பாகம் 8: இறங்குவரிசை 4 (PMGM PPMM)', sections: [['P','M1','G3','M1'], ['P','P','M1','M1']] }
+            ]
+        },
+        'j10': {
+            raga: 'maya',
+            title: '10. ஜண்டை வரிசை 10 (SSRRGGMM PPDDNNṠṠ - மகா ஜண்டை நிறைவு)',
+            desc: 'ஜண்டை வரிசைகளின் மகுடமான நிறைவுப் பயிற்சி',
+            lines: [
+                { title: 'பாகம் 1: ஏறுவரிசை ஆரம்பம்', sections: [['S','S','R1','R1'], ['G3','G3','M1','M1']] },
+                { title: 'பாகம் 2: ஏறுவரிசை உச்சம்', sections: [['P','P','D1','D1'], ['N3','N3','S5','S5']] },
+                { title: 'பாகம் 3: இறங்குவரிசை ஆரம்பம்', sections: [['S5','S5','N3','N3'], ['D1','D1','P','P']] },
+                { title: 'பாகம் 4: இறங்குவரிசை நிறைவு', sections: [['M1','M1','G3','G3'], ['R1','R1','S','S']] }
+            ]
+        },
+
+        // --- Dhatu Varisais 3 to 10 ---
+        'd3': {
+            raga: 'maya',
+            title: '3. தாது வரிசை 3 (SM GR SM GR / ṠP DN ṠP DN)',
+            desc: 'நான்கு ஸ்வர இடைவெளி தாவல் பயிற்சி (ஸ ➔ ம மற்றும் ஸ் ➔ ப)',
+            lines: [
+                { title: 'பாகம் 1: ஏறுவரிசை முதல் வரி (SM GR SM GR)', sections: [['S','M1','G3','R1'], ['S','M1','G3','R1']] },
+                { title: 'பாகம் 2: ஏறுவரிசை இரண்டாம் வரி (RP MG RP MG)', sections: [['R1','P','M1','G3'], ['R1','P','M1','G3']] },
+                { title: 'பாகம் 3: ஏறுவரிசை மூன்றாம் வரி (GD PM GD PM)', sections: [['G3','D1','P','M1'], ['G3','D1','P','M1']] },
+                { title: 'பாகம் 4: ஏறுவரிசை நான்காம் வரி (MN DP MN DP)', sections: [['M1','N3','D1','P'], ['M1','N3','D1','P']] },
+                { title: 'பாகம் 5: இறங்குவரிசை முதல் வரி (ṠP DN ṠP DN)', sections: [['S5','P','D1','N3'], ['S5','P','D1','N3']] },
+                { title: 'பாகம் 6: இறங்குவரிசை இரண்டாம் வரி (NM DP NM DP)', sections: [['N3','M1','D1','P'], ['N3','M1','D1','P']] },
+                { title: 'பாகம் 7: இறங்குவரிசை மூன்றாம் வரி (DG PM DG PM)', sections: [['D1','G3','P','M1'], ['D1','G3','P','M1']] },
+                { title: 'பாகம் 8: இறங்குவரிசை நான்காம் வரி (PR MG PR MG)', sections: [['P','R1','M1','G3'], ['P','R1','M1','G3']] }
+            ]
+        },
+        'd4': {
+            raga: 'maya',
+            title: '4. தாது வரிசை 4 (S M G R S R G M)',
+            desc: 'நீண்ட பாய்ச்சலும் தொடர்ந்து நேர்வரிசை ஓட்டமும் இணையும் தாது பயிற்சி',
+            lines: [
+                { title: 'பாகம் 1: ஏறுவரிசை 1 (S M G R S R G M)', sections: [['S','M1','G3','R1'], ['S','R1','G3','M1']] },
+                { title: 'பாகம் 2: ஏறுவரிசை 2 (R P M G R G M P)', sections: [['R1','P','M1','G3'], ['R1','G3','M1','P']] },
+                { title: 'பாகம் 3: ஏறுவரிசை 3 (G D P M G M P D)', sections: [['G3','D1','P','M1'], ['G3','M1','P','D1']] },
+                { title: 'பாகம் 4: ஏறுவரிசை 4 (M N D P M P D N)', sections: [['M1','N3','D1','P'], ['M1','P','D1','N3']] },
+                { title: 'பாகம் 5: இறங்குவரிசை 1 (Ṡ P D N Ṡ N D P)', sections: [['S5','P','D1','N3'], ['S5','N3','D1','P']] },
+                { title: 'பாகம் 6: இறங்குவரிசை 2 (N M P D N D P M)', sections: [['N3','M1','P','D1'], ['N3','D1','P','M1']] },
+                { title: 'பாகம் 7: இறங்குவரிசை 3 (D G M P D P M G)', sections: [['D1','G3','M1','P'], ['D1','P','M1','G3']] },
+                { title: 'பாகம் 8: இறங்குவரிசை 4 (P R G M P M G R)', sections: [['P','R1','G3','M1'], ['P','M1','G3','R1']] }
+            ]
+        },
+        'd5': {
+            raga: 'maya',
+            title: '5. தாது வரிசை 5 (SP DM GP MR / ṠM GP DN ṠR)',
+            desc: 'பஞ்சம தாவல் (ஸ ➔ ப) கொண்ட அதீத இடைவெளி தாது முறை',
+            lines: [
+                { title: 'பாகம் 1: ஏறுவரிசை 1 (SP DM GP MR)', sections: [['S','P','D1','M1'], ['G3','P','M1','R1']] },
+                { title: 'பாகம் 2: ஏறுவரிசை 2 (RD PN MD PG)', sections: [['R1','D1','P','N3'], ['M1','D1','P','G3']] },
+                { title: 'பாகம் 3: ஏறுவரிசை 3 (GN ṠD PN DM)', sections: [['G3','N3','S5','D1'], ['P','N3','D1','M1']] },
+                { title: 'பாகம் 4: ஏறுவரிசை 4 (MṠ ND DN ṠṠ)', sections: [['M1','S5','N3','D1'], ['D1','N3','S5','S5']] },
+                { title: 'பாகம் 5: இறங்குவரிசை 1 (ṠM GP DN ṠR)', sections: [['S5','M1','G3','P'], ['D1','N3','S5','R1']] },
+                { title: 'பாகம் 6: இறங்குவரிசை 2 (NG PM PD NṠ)', sections: [['N3','G3','P','M1'], ['P','D1','N3','S5']] },
+                { title: 'பாகம் 7: இறங்குவரிசை 3 (DR MG MP DN)', sections: [['D1','R1','M1','G3'], ['M1','P','D1','N3']] },
+                { title: 'பாகம் 8: இறங்குவரிசை 4 (PS GR GM PD)', sections: [['P','S','G3','R1'], ['G3','M1','P','D1']] }
+            ]
+        },
+        'd6': {
+            raga: 'maya',
+            title: '6. தாது வரிசை 6 (SR SG SM SP / ṠN ṠD ṠP ṠM)',
+            desc: 'ஆதார ஸ்வரத்தில் இருந்து வரிசையாக விரியும் தாது பயிற்சி',
+            lines: [
+                { title: 'பாகம் 1: ஏறுவரிசை (SR SG SM SP)', sections: [['S','R1','S','G3'], ['S','M1','S','P']] },
+                { title: 'பாகம் 2: ஏறுவரிசை தொடர்ச்சி (SD SN SṠ ṠṠ)', sections: [['S','D1','S','N3'], ['S','S5','S5','S5']] },
+                { title: 'பாகம் 3: இறங்குவரிசை (ṠN ṠD ṠP ṠM)', sections: [['S5','N3','S5','D1'], ['S5','P','S5','M1']] },
+                { title: 'பாகம் 4: இறங்குவரிசை தொடர்ச்சி (ṠG ṠR ṠS SS)', sections: [['S5','G3','S5','R1'], ['S5','S','S','S']] }
+            ]
+        },
+        'd7': {
+            raga: 'maya',
+            title: '7. தாது வரிசை 7 (SG RM GP MD / ṠD NP DM PG)',
+            desc: 'ஒன்று விட்டு ஒன்று சீரான தாவல் பயிற்சி',
+            lines: [
+                { title: 'பாகம் 1: ஏறுவரிசை 1 (SG RM GP MD)', sections: [['S','G3','R1','M1'], ['G3','P','M1','D1']] },
+                { title: 'பாகம் 2: ஏறுவரிசை 2 (PN DṠ NṘ ṠṠ)', sections: [['P','N3','D1','S5'], ['N3','S5','S5','S5']] },
+                { title: 'பாகம் 3: இறங்குவரிசை 1 (ṠD NP DM PG)', sections: [['S5','D1','N3','P'], ['D1','M1','P','G3']] },
+                { title: 'பாகம் 4: இறங்குவரிசை 2 (MR GS RN SS)', sections: [['M1','R1','G3','S'], ['R1','S','S','S']] }
+            ]
+        },
+        'd8': {
+            raga: 'maya',
+            title: '8. தாது வரிசை 8 (SM GR GP MR / ṠP DN DM PG)',
+            desc: 'குறுக்கு மறுக்கான தீவிர தாது பயிற்சி',
+            lines: [
+                { title: 'பாகம் 1: ஏறுவரிசை 1 (SM GR GP MR)', sections: [['S','M1','G3','R1'], ['G3','P','M1','R1']] },
+                { title: 'பாகம் 2: ஏறுவரிசை 2 (RP MD PN GP)', sections: [['R1','P','M1','D1'], ['P','N3','G3','P']] },
+                { title: 'பாகம் 3: இறங்குவரிசை 1 (ṠP DN DM PG)', sections: [['S5','P','D1','N3'], ['D1','M1','P','G3']] },
+                { title: 'பாகம் 4: இறங்குவரிசை 2 (NM DP PM GR)', sections: [['N3','M1','D1','P'], ['P','M1','G3','R1']] }
+            ]
+        },
+        'd9': {
+            raga: 'maya',
+            title: '9. தாது வரிசை 9 (SGRS RMGR GMPM / ṠNDṠ NDPM DPMD)',
+            desc: 'வட்ட வடிவ சுழற்சி தாது பயிற்சி',
+            lines: [
+                { title: 'பாகம் 1: ஏறுவரிசை 1 (SGRS RMGR)', sections: [['S','G3','R1','S'], ['R1','M1','G3','R1']] },
+                { title: 'பாகம் 2: ஏறுவரிசை 2 (GMPM PNDP)', sections: [['G3','M1','P','M1'], ['P','N3','D1','P']] },
+                { title: 'பாகம் 3: இறங்குவரிசை 1 (ṠNDṠ NDPM)', sections: [['S5','N3','D1','S5'], ['N3','D1','P','M1']] },
+                { title: 'பாகம் 4: இறங்குவரிசை 2 (DPMD PMGR)', sections: [['D1','P','M1','D1'], ['P','M1','G3','R1']] }
+            ]
+        },
+        'd10': {
+            raga: 'maya',
+            title: '10. தாது வரிசை 10 (மகா தாது நிறைவு)',
+            desc: 'அனைத்து தாது வகைகளின் சாராம்சம் கொண்ட நிறைவுப் பயிற்சி',
+            lines: [
+                { title: 'பாகம் 1: ஏறுவரிசை ஆரம்பம்', sections: [['S','G3','R1','M1'], ['G3','P','M1','D1']] },
+                { title: 'பாகம் 2: ஏறுவரிசை முடிவு', sections: [['P','N3','D1','S5'], ['N3','S5','S5','S5']] },
+                { title: 'பாகம் 3: இறங்குவரிசை ஆரம்பம்', sections: [['S5','D1','N3','P'], ['D1','M1','P','G3']] },
+                { title: 'பாகம் 4: இறங்குவரிசை முடிவு', sections: [['M1','R1','G3','S'], ['R1','S','S','S']] }
+            ]
+        },
+
+        // --- Alankarams 5 to 7 ---
+        'a5': {
+            raga: 'maya',
+            title: '5. திரிபுட தாள அலங்காரம் (Triputa Tala - 7 அக்ஷரம்: 3+2+2)',
+            desc: 'திஸ்ர லகு மற்றும் 2 திருதங்கள் கொண்ட 7 அக்ஷர தாளம்',
+            lines: [
+                { title: 'பாகம் 1: ஏறுவரிசை 1 (SRG SR GM)', sections: [['S','R1','G3','S'], ['R1','G3','M1','M1']] },
+                { title: 'பாகம் 2: ஏறுவரிசை 2 (RGM RG MP)', sections: [['R1','G3','M1','R1'], ['G3','M1','P','P']] },
+                { title: 'பாகம் 3: இறங்குவரிசை 1 (ṠND ṠN DP)', sections: [['S5','N3','D1','S5'], ['N3','D1','P','P']] },
+                { title: 'பாகம் 4: இறங்குவரிசை 2 (NDP ND PM)', sections: [['N3','D1','P','N3'], ['D1','P','M1','M1']] }
+            ]
+        },
+        'a6': {
+            raga: 'maya',
+            title: '6. அட தாள அலங்காரம் (Ata Tala - 14 அக்ஷரம்: 5+5+2+2)',
+            desc: 'கண்ட லகு + கண்ட லகு + 2 திருதங்கள் கொண்ட கம்பீர தாளம்',
+            lines: [
+                { title: 'பாகம் 1: ஏறுவரிசை 1 (SRGMP SRGMP GM PD)', sections: [['S','R1','G3','M1'], ['P','S','R1','G3'], ['M1','P','G3','M1'], ['P','D1','D1','D1']] },
+                { title: 'பாகம் 2: இறங்குவரிசை 1 (ṠNDPM ṠNDPM DP MG)', sections: [['S5','N3','D1','P'], ['M1','S5','N3','D1'], ['P','M1','D1','P'], ['M1','G3','G3','G3']] }
+            ]
+        },
+        'a7': {
+            raga: 'maya',
+            title: '7. ஏக தாள அலங்காரம் (Eka Tala - 4 அக்ஷரம்: 4)',
+            desc: 'ஒரே ஒரு சதுஸ்ர லகு கொண்ட 4 அக்ஷர அடிப்படை தாளம்',
+            lines: [
+                { title: 'பாகம் 1: ஏறுவரிசை (SRGM RGMP GMPD MPDN)', sections: [['S','R1','G3','M1'], ['R1','G3','M1','P'], ['G3','M1','P','D1'], ['M1','P','D1','N3']] },
+                { title: 'பாகம் 2: இறங்குவரிசை (ṠNDP NDPM DPMG PMGR)', sections: [['S5','N3','D1','P'], ['N3','D1','P','M1'], ['D1','P','M1','G3'], ['P','M1','G3','R1']] }
+            ]
+        }
+
     };
 
     // Helper to extract flattened sequence
@@ -2559,6 +3299,245 @@
     }
 
     // Step UI Update
+    
+    // Changeable Kattai / Shruti Transposition Handler
+    let currentKattaiRatio = 1.0;
+    // ==========================================
+    // ==========================================
+    // STUDIO MASTER OUTPUT & DYNAMICS LIMITER (PREVENTS AUDIO BREAKING / CLIPPING)
+    // ==========================================
+    // masterCompressor declared above
+    // masterHeadroomGain declared above
+
+    function getMasterOutput() {
+        if (!audioCtx) return null;
+        if (!masterCompressor) {
+            try {
+                masterCompressor = audioCtx.createDynamicsCompressor();
+                masterCompressor.threshold.setValueAtTime(-3.0, audioCtx.currentTime);
+                masterCompressor.knee.setValueAtTime(10.0, audioCtx.currentTime);
+                masterCompressor.ratio.setValueAtTime(16.0, audioCtx.currentTime);
+                masterCompressor.attack.setValueAtTime(0.002, audioCtx.currentTime);
+                masterCompressor.release.setValueAtTime(0.12, audioCtx.currentTime);
+
+                masterHeadroomGain = audioCtx.createGain();
+                masterHeadroomGain.gain.setValueAtTime(0.82, audioCtx.currentTime);
+
+                masterCompressor.connect(masterHeadroomGain);
+                masterHeadroomGain.connect(audioCtx.destination);
+            } catch(e) {
+                return audioCtx.destination;
+            }
+        }
+        return masterCompressor;
+    }
+
+    // activeGuitarVoices declared above
+
+    function stopAllGuitarVoices(crossfadeSec = 0.035) {
+        if (!audioCtx) return;
+        const now = audioCtx.currentTime;
+        for (const v of activeGuitarVoices) {
+            try {
+                v.gain.gain.cancelScheduledValues(now);
+                const gVal = v.gain.gain.value;
+                v.gain.gain.setValueAtTime(gVal > 0.0001 ? gVal : 0.001, now);
+                v.gain.gain.linearRampToValueAtTime(0.0001, now + crossfadeSec);
+                v.oscs.forEach(o => {
+                    try { o.stop(now + crossfadeSec + 0.02); } catch(e) {}
+                });
+            } catch(e) {}
+        }
+        activeGuitarVoices = [];
+    }
+
+    // ==========================================
+    // 🎵 ACOUSTIC DRONE / TANPURA ENGINE (SOOTHING & GENTLE)
+    // ==========================================
+    let guitarDroneOscs = [];
+    let guitarDroneGain = null;
+    let guitarDroneFilter = null;
+    let currentGuitarDroneInst = 'tanpura_pa';
+    let isGuitarDroneActive = false; // Default OFF
+
+    
+    // isGuitarToneEnabled declared above
+    
+    // isGuitarSustainOn declared above
+    // guitarSustainSec declared above
+
+    function toggleGuitarSustain() {
+        isGuitarSustainOn = !isGuitarSustainOn;
+        const btn = document.getElementById('guitarSustainBtn');
+        if (btn) {
+            if (isGuitarSustainOn) {
+                btn.style.background = '#581c87';
+                btn.style.borderColor = '#c084fc';
+                btn.style.color = '#ffffff';
+                btn.innerHTML = `⏳ சஸ்டைன்: ON (${guitarSustainSec.toFixed(1)}s)`;
+            } else {
+                btn.style.background = '#1e293b';
+                btn.style.borderColor = '#64748b';
+                btn.style.color = '#94a3b8';
+                btn.innerHTML = '⏳ சஸ்டைன்: OFF (0.3s)';
+            }
+        }
+    }
+    
+    function toggleGuitarTone() {
+        isGuitarToneEnabled = !isGuitarToneEnabled;
+        const btn = document.getElementById('guitarToneBtn');
+        if (btn) {
+            if (isGuitarToneEnabled) {
+                btn.style.background = '#1e293b';
+                btn.style.borderColor = '#38bdf8';
+                btn.style.color = '#38bdf8';
+                btn.innerHTML = '🎵 கிட்டார் ஒலி: ON';
+            } else {
+                btn.style.background = '#d97706';
+                btn.style.borderColor = '#fbbf24';
+                btn.style.color = '#ffffff';
+                btn.innerHTML = '🪕 தம்புரா மட்டும் (Note Muted)';
+            }
+        }
+    }
+    
+    function onGuitarDroneChange(inst) {
+        currentGuitarDroneInst = inst;
+        if (inst === 'off') {
+            isGuitarDroneActive = false;
+            stopGuitarDrone();
+        } else {
+            // User selected an instrument from dropdown
+            isGuitarDroneActive = true;
+            startGuitarDrone();
+        }
+    }
+
+    function startGuitarDrone() {
+        if (!isGuitarDroneActive || currentGuitarDroneInst === 'off') return;
+        try {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+            stopGuitarDrone();
+
+            const now = audioCtx.currentTime;
+            guitarDroneGain = audioCtx.createGain();
+            guitarDroneGain.gain.setValueAtTime(0.0001, now);
+            guitarDroneGain.gain.exponentialRampToValueAtTime(0.06, now + 1.2);
+            guitarDroneGain.connect(getMasterOutput() || audioCtx.destination);
+
+            guitarDroneFilter = audioCtx.createBiquadFilter();
+            guitarDroneFilter.type = 'lowpass';
+            guitarDroneFilter.frequency.setValueAtTime(450, now);
+            guitarDroneFilter.Q.value = 1.2;
+            guitarDroneFilter.connect(guitarDroneGain);
+
+            const baseSa = 130.81 * (typeof currentKattaiRatio !== 'undefined' ? currentKattaiRatio : 1.0);
+
+            if (currentGuitarDroneInst === 'tanpura_pa' || currentGuitarDroneInst === 'tanpura_ma') {
+                const ratio = (currentGuitarDroneInst === 'tanpura_ma') ? 0.66742 : 0.74915;
+                const freqs = [baseSa * ratio, baseSa * 1.0, baseSa * 1.002, baseSa * 0.5];
+                freqs.forEach((f, idx) => {
+                    const osc = audioCtx.createOscillator();
+                    const g = audioCtx.createGain();
+                    osc.type = (idx % 2 === 0) ? 'triangle' : 'sine';
+                    osc.frequency.setValueAtTime(f, now);
+                    g.gain.setValueAtTime(0.25, now);
+                    osc.connect(g);
+                    g.connect(guitarDroneFilter);
+                    osc.start(now);
+                    guitarDroneOscs.push(osc);
+                });
+            } else if (currentGuitarDroneInst === 'harmonium') {
+                guitarDroneFilter.frequency.setValueAtTime(550, now);
+                [baseSa * 0.5, baseSa * 0.75, baseSa * 1.0].forEach(f => {
+                    const osc = audioCtx.createOscillator();
+                    const g = audioCtx.createGain();
+                    osc.type = 'triangle';
+                    osc.frequency.setValueAtTime(f, now);
+                    g.gain.setValueAtTime(0.18, now);
+                    osc.connect(g);
+                    g.connect(guitarDroneFilter);
+                    osc.start(now);
+                    guitarDroneOscs.push(osc);
+                });
+            } else if (currentGuitarDroneInst === 'flute') {
+                guitarDroneFilter.frequency.setValueAtTime(650, now);
+                [baseSa, baseSa * 1.4983].forEach(f => {
+                    const osc = audioCtx.createOscillator();
+                    const g = audioCtx.createGain();
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(f, now);
+                    g.gain.setValueAtTime(0.20, now);
+                    osc.connect(g);
+                    g.connect(guitarDroneFilter);
+                    osc.start(now);
+                    guitarDroneOscs.push(osc);
+                });
+            } else if (currentGuitarDroneInst === 'veena') {
+                guitarDroneFilter.frequency.setValueAtTime(500, now);
+                [baseSa * 0.5, baseSa * 0.75, baseSa * 1.0].forEach(f => {
+                    const osc = audioCtx.createOscillator();
+                    const g = audioCtx.createGain();
+                    osc.type = 'triangle';
+                    osc.frequency.setValueAtTime(f, now);
+                    g.gain.setValueAtTime(0.20, now);
+                    osc.connect(g);
+                    g.connect(guitarDroneFilter);
+                    osc.start(now);
+                    guitarDroneOscs.push(osc);
+                });
+            }
+        } catch(e) {}
+    }
+
+    function stopGuitarDrone() {
+        if (guitarDroneGain && audioCtx) {
+            try {
+                const now = audioCtx.currentTime;
+                guitarDroneGain.gain.setValueAtTime(guitarDroneGain.gain.value, now);
+                guitarDroneGain.gain.exponentialRampToValueAtTime(0.00001, now + 0.3);
+            } catch(e) {}
+        }
+        setTimeout(() => {
+            guitarDroneOscs.forEach(o => {
+                try { o.stop(); } catch(e) {}
+            });
+            guitarDroneOscs = [];
+        }, 350);
+    }
+
+    function onKattaiChange(valStr) {
+        const [kStr, noteName, freqStr, fitDesc] = valStr.split('|');
+        const newFreq = parseFloat(freqStr);
+        // Base reference is C (130.81 Hz)
+        currentKattaiRatio = newFreq / 130.81;
+
+        // Update all swara frequencies dynamically
+        if (typeof allSwaras !== 'undefined') {
+            for (let k in allSwaras) {
+                if (allSwaras[k].baseFreq) {
+                    allSwaras[k].freq = allSwaras[k].baseFreq * currentKattaiRatio;
+                } else {
+                    allSwaras[k].baseFreq = allSwaras[k].freq;
+                    allSwaras[k].freq = allSwaras[k].baseFreq * currentKattaiRatio;
+                }
+            }
+        }
+
+        const kattaiHeaderBadge = document.getElementById('headerKattaiBadge');
+        if (kattaiHeaderBadge) {
+            kattaiHeaderBadge.textContent = `${kStr} கட்டை (${noteName} - ${newFreq.toFixed(1)} Hz) • ${fitDesc}`;
+        }
+
+        updateStepUI(false);
+    }
+    
     function updateStepUI(playAudio = true) {
         if (!flatStepSequence || flatStepSequence.length === 0) return;
         if (currentStepIndex >= flatStepSequence.length) currentStepIndex = 0;
@@ -2780,7 +3759,8 @@
         }
     }
 
-    function togglePlay() {
+    async function togglePlay() {
+        await ensureAudioCtx();
         const btn = document.getElementById('playBtn');
         if (!isPlaying) {
             isPlaying = true;
@@ -2792,6 +3772,7 @@
             }, currentSpeed);
         } else {
             isPlaying = false;
+            stopAllGuitarVoices(0.05);
             btn.innerHTML = '▶ வாசி (Play)';
             btn.classList.remove('playing');
             clearInterval(playInterval);

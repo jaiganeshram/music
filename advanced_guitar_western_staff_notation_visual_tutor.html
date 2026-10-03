@@ -1,0 +1,2146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yamaha F280 Advanced Western Classical Guitar Staff Notation Studio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-main: #060913;
+            --bg-card: rgba(15, 23, 42, 0.88);
+            --bg-card-hover: rgba(23, 33, 56, 0.95);
+            --border-card: rgba(251, 191, 36, 0.2);
+            --border-highlight: #fbbf24;
+            --accent-gold: #fbbf24;
+            --accent-cyan: #38bdf8;
+            --accent-emerald: #34d399;
+            --accent-rose: #f43f5e;
+            --accent-purple: #c084fc;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --fret-board-wood: #1e130c;
+            --fret-wire: #cbd5e1;
+            --pearl-inlay: radial-gradient(circle, #ffffff 20%, #cbd5e1 70%, #94a3b8 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg-main);
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(251, 191, 36, 0.12) 0px, transparent 50%),
+                radial-gradient(at 100% 0%, rgba(192, 132, 252, 0.1) 0px, transparent 50%),
+                radial-gradient(at 50% 100%, rgba(56, 189, 248, 0.08) 0px, transparent 50%);
+            background-attachment: fixed;
+            color: var(--text-main);
+            min-height: 100vh;
+            padding: 24px;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1440px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        /* Top Header */
+        header {
+            background: var(--bg-card);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--border-card);
+            border-radius: 20px;
+            padding: 24px 32px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.6);
+        }
+
+        .header-title-group {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .header-icon {
+            width: 54px;
+            height: 54px;
+            background: linear-gradient(135deg, #d97706, #b45309);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            box-shadow: 0 0 20px rgba(251, 191, 36, 0.4);
+        }
+
+        h1 {
+            font-size: 26px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #ffffff 30%, #fbbf24 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.5px;
+        }
+
+        .subtitle {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-top: 2px;
+            font-weight: 400;
+        }
+
+        .header-stats {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .stat-pill {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 8px 16px;
+            border-radius: 12px;
+            font-size: 13px;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .stat-pill strong {
+            color: var(--accent-gold);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* Studio Navigation Tabs */
+        .studio-nav-bar {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(15, 23, 42, 0.7);
+            padding: 6px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            overflow-x: auto;
+        }
+
+        .studio-tab-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-family: 'Outfit', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            padding: 10px 18px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .studio-tab-btn:hover {
+            color: var(--text-main);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .studio-tab-btn.active {
+            background: linear-gradient(135deg, #d97706, #b45309);
+            color: #ffffff;
+            box-shadow: 0 4px 12px rgba(217, 119, 6, 0.4);
+        }
+
+        /* Lesson Selection Bar */
+        .lesson-selection-bar {
+            background: var(--bg-card);
+            border: 1px solid var(--border-card);
+            border-radius: 18px;
+            padding: 18px 24px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+        }
+
+        .lesson-dropdown-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .lesson-dropdown-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--accent-gold);
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .lesson-select {
+            flex: 1;
+            background: #0f172a;
+            border: 1px solid rgba(251, 191, 36, 0.3);
+            color: #ffffff;
+            font-family: 'Outfit', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            padding: 10px 16px;
+            border-radius: 10px;
+            outline: none;
+            cursor: pointer;
+            transition: border-color 0.2s;
+        }
+
+        .lesson-select:focus {
+            border-color: var(--accent-gold);
+            box-shadow: 0 0 0 2px rgba(251, 191, 36, 0.2);
+        }
+
+        .lesson-select optgroup {
+            background: #090d16;
+            color: var(--accent-gold);
+            font-weight: 700;
+        }
+
+        .lesson-select option {
+            background: #0f172a;
+            color: #ffffff;
+            font-weight: 500;
+        }
+
+        .transport-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-ctrl {
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: var(--text-main);
+            font-family: 'Outfit', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            padding: 10px 18px;
+            border-radius: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+
+        .btn-ctrl:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.25);
+            transform: translateY(-1px);
+        }
+
+        .btn-ctrl.btn-primary {
+            background: linear-gradient(135deg, #10b981, #059669);
+            border: none;
+            color: white;
+            box-shadow: 0 4px 14px rgba(16, 185, 129, 0.35);
+        }
+
+        .btn-ctrl.btn-primary:hover {
+            background: linear-gradient(135deg, #34d399, #10b981);
+            transform: translateY(-1px);
+        }
+
+        .btn-ctrl.btn-primary.playing {
+            background: linear-gradient(135deg, #f43f5e, #e11d48);
+            box-shadow: 0 4px 14px rgba(244, 63, 94, 0.35);
+        }
+
+        .btn-ctrl.btn-mic {
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid rgba(244, 63, 94, 0.4);
+            color: #fda4af;
+        }
+
+        .btn-ctrl.btn-mic.listening {
+            background: linear-gradient(135deg, #e11d48, #be123c);
+            color: white;
+            animation: pulse-border 1.5s infinite;
+        }
+
+        @keyframes pulse-border {
+            0% { box-shadow: 0 0 0 0 rgba(244, 63, 94, 0.6); }
+            70% { box-shadow: 0 0 0 8px rgba(244, 63, 94, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(244, 63, 94, 0); }
+        }
+
+        .speed-pill-group {
+            display: flex;
+            align-items: center;
+            background: #0f172a;
+            border-radius: 10px;
+            padding: 3px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .speed-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-size: 12px;
+            font-weight: 600;
+            padding: 6px 12px;
+            border-radius: 7px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .speed-btn.active {
+            background: var(--accent-gold);
+            color: #090d16;
+            font-weight: 700;
+        }
+
+        /* Classical Piece Technique Callout */
+        .piece-technique-banner {
+            background: var(--bg-card);
+            border: 1px solid var(--border-card);
+            border-radius: 20px;
+            padding: 20px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .technique-title-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .technique-badge-icon {
+            font-size: 24px;
+        }
+
+        .technique-piece-title {
+            font-size: 18px;
+            font-weight: 800;
+            color: #ffffff;
+        }
+
+        .technique-piece-desc {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .pima-badges-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .pima-badge {
+            background: rgba(251, 191, 36, 0.1);
+            border: 1px solid rgba(251, 191, 36, 0.3);
+            color: var(--accent-gold);
+            font-size: 12px;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 8px;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* Master Sheet Music Score Card */
+        .score-visual-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-card);
+            border-radius: 20px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            box-shadow: 0 15px 35px -10px rgba(0, 0, 0, 0.5);
+        }
+
+        .score-card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            padding-bottom: 14px;
+        }
+
+        .score-title-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .score-title {
+            font-size: 20px;
+            font-weight: 800;
+            color: #ffffff;
+            letter-spacing: -0.3px;
+        }
+
+        .score-badge {
+            background: rgba(251, 191, 36, 0.15);
+            border: 1px solid rgba(251, 191, 36, 0.35);
+            color: var(--accent-gold);
+            font-size: 12px;
+            font-weight: 700;
+            padding: 4px 12px;
+            border-radius: 8px;
+        }
+
+        .score-engraving-container {
+            background: #080c18;
+            border: 1px solid rgba(251, 191, 36, 0.18);
+            border-radius: 16px;
+            padding: 24px;
+            overflow-x: auto;
+            position: relative;
+        }
+
+        #masterScoreSvg {
+            width: 100%;
+            min-width: 900px;
+            display: block;
+        }
+
+        /* SVG Interactive Note Styling */
+        .score-note-group {
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .score-note-group:hover .note-head {
+            fill: var(--accent-gold) !important;
+            filter: drop-shadow(0 0 6px rgba(251, 191, 36, 0.8));
+        }
+
+        .score-note-group.active-note .note-head {
+            fill: var(--accent-gold) !important;
+            filter: drop-shadow(0 0 12px rgba(251, 191, 36, 1));
+        }
+
+        .score-note-group.active-note .note-stem {
+            stroke: var(--accent-gold) !important;
+            stroke-width: 2.5 !important;
+        }
+
+        .score-note-group.active-note .beat-count-text {
+            fill: var(--accent-gold) !important;
+            font-weight: 900 !important;
+        }
+
+        /* Yamaha F280 Reverse Fretboard */
+        .fretboard-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-card);
+            border-radius: 20px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .fretboard-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .fretboard-title-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .fretboard-title {
+            font-size: 18px;
+            font-weight: 800;
+            color: #ffffff;
+        }
+
+        .yamaha-badge {
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #f8fafc;
+            font-size: 12px;
+            font-weight: 700;
+            padding: 4px 12px;
+            border-radius: 8px;
+            letter-spacing: 0.5px;
+        }
+
+        .fretboard-wrapper {
+            background: #0f172a;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 16px;
+            padding: 16px;
+            overflow-x: auto;
+        }
+
+        .fretboard-wood {
+            display: flex;
+            flex-direction: column;
+            background: linear-gradient(180deg, #1e130c 0%, #2b1810 50%, #170d08 100%);
+            border-radius: 10px;
+            position: relative;
+            box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.8), 0 8px 20px rgba(0, 0, 0, 0.4);
+            border: 2px solid #3d2417;
+            min-width: 980px;
+        }
+
+        .fretboard-numbers-row {
+            display: flex;
+            height: 28px;
+            background: rgba(0, 0, 0, 0.4);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .fret-num-cell {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--text-muted);
+            border-left: 1px dashed rgba(255, 255, 255, 0.08);
+        }
+
+        .fret-num-cell.nut-col {
+            flex: 0 0 60px;
+            border-left: 3px solid #f8fafc;
+            color: var(--accent-gold);
+            background: rgba(251, 191, 36, 0.1);
+        }
+
+        .guitar-string-row {
+            display: flex;
+            height: 44px;
+            position: relative;
+            align-items: center;
+        }
+
+        .string-wire-line {
+            position: absolute;
+            left: 0;
+            right: 60px;
+            height: 2px;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .string-s1 { height: 1.5px; background: linear-gradient(90deg, #94a3b8, #e2e8f0, #94a3b8); }
+        .string-s2 { height: 2px; background: linear-gradient(90deg, #94a3b8, #cbd5e1, #94a3b8); }
+        .string-s3 { height: 2.5px; background: linear-gradient(90deg, #d97706, #fde68a, #d97706); }
+        .string-s4 { height: 3px; background: linear-gradient(90deg, #b45309, #fbbf24, #b45309); }
+        .string-s5 { height: 3.5px; background: linear-gradient(90deg, #92400e, #f59e0b, #92400e); }
+        .string-s6 { height: 4px; background: linear-gradient(90deg, #78350f, #d97706, #78350f); }
+
+        .fret-slot {
+            flex: 1;
+            height: 100%;
+            border-left: 2px solid var(--fret-wire);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2;
+        }
+
+        .fret-slot.nut-slot {
+            flex: 0 0 60px;
+            border-left: 4px solid #f8fafc;
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .fret-pearl-dot {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--pearl-inlay);
+            box-shadow: 0 0 6px rgba(255, 255, 255, 0.8);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .note-fret-target {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            background: rgba(15, 23, 42, 0.9);
+            border: 2px solid var(--accent-gold);
+            color: #ffffff;
+            font-size: 13px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+            z-index: 5;
+        }
+
+        .note-fret-target:hover {
+            transform: scale(1.15);
+            background: var(--accent-gold);
+            color: #090d16;
+            box-shadow: 0 0 15px var(--accent-gold);
+        }
+
+        .note-fret-target.active-pulsar {
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            border-color: #ffffff;
+            color: #090d16;
+            transform: scale(1.22);
+            box-shadow: 0 0 25px rgba(251, 191, 36, 0.9);
+            animation: bounce-pulse 0.8s infinite alternate;
+        }
+
+        @keyframes bounce-pulse {
+            0% { transform: scale(1.15); box-shadow: 0 0 15px rgba(251, 191, 36, 0.8); }
+            100% { transform: scale(1.28); box-shadow: 0 0 25px rgba(251, 191, 36, 1); }
+        }
+
+        /* Action Details & Status Bar */
+        .action-details-bar {
+            background: var(--bg-card);
+            border: 1px solid var(--border-card);
+            border-radius: 18px;
+            padding: 18px 24px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+        }
+
+        .detail-card {
+            background: rgba(15, 23, 42, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 14px;
+            padding: 14px 18px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .detail-label {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .detail-value {
+            font-size: 18px;
+            font-weight: 800;
+            color: #ffffff;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .detail-value.highlight {
+            color: var(--accent-gold);
+        }
+
+        /* Guitar TAB Sheet Section */
+        .tab-sheet-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border-card);
+            border-radius: 20px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .tab-table-wrapper {
+            background: #0f172a;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 14px;
+            padding: 16px;
+            overflow-x: auto;
+        }
+
+        .tab-grid-table {
+            border-collapse: collapse;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            width: 100%;
+            min-width: 800px;
+        }
+
+        .tab-grid-table td {
+            padding: 6px 12px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            color: var(--text-muted);
+        }
+
+        .tab-grid-table td.tab-string-label {
+            font-weight: 700;
+            color: var(--accent-gold);
+            border-right: 2px solid var(--accent-gold);
+            text-align: left;
+            width: 80px;
+        }
+
+        .tab-grid-table td.tab-active-cell {
+            background: rgba(251, 191, 36, 0.2);
+            color: var(--accent-gold);
+            font-weight: 800;
+            border-radius: 6px;
+            box-shadow: 0 0 10px rgba(251, 191, 36, 0.4);
+        }
+
+        /* Metronome Section */
+        .metronome-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border-card);
+            border-radius: 20px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .metro-controls-row {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .bpm-display-group {
+            display: flex;
+            align-items: baseline;
+            gap: 10px;
+        }
+
+        .bpm-val {
+            font-size: 48px;
+            font-weight: 900;
+            color: var(--accent-gold);
+            font-family: 'JetBrains Mono', monospace;
+            line-height: 1;
+        }
+
+        .bpm-label {
+            font-size: 14px;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .metro-slider {
+            flex: 1;
+            min-width: 200px;
+            accent-color: var(--accent-gold);
+        }
+
+        .metro-pendulum-track {
+            height: 8px;
+            background: rgba(15, 23, 42, 0.8);
+            border-radius: 4px;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .metro-pendulum-bob {
+            position: absolute;
+            top: -4px;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: var(--accent-gold);
+            box-shadow: 0 0 12px var(--accent-gold);
+            transition: left 0.1s linear;
+        }
+
+        .metro-beats-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .metro-beat-dot {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.1s;
+        }
+
+        .metro-beat-dot.accent-flash {
+            background: var(--accent-rose);
+            box-shadow: 0 0 15px var(--accent-rose);
+            transform: scale(1.25);
+        }
+
+        .metro-beat-dot.normal-flash {
+            background: var(--accent-gold);
+            box-shadow: 0 0 12px var(--accent-gold);
+            transform: scale(1.2);
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .lesson-selection-bar {
+                flex-direction: column;
+                align-items: stretch;
+            }
+        }
+    
+        .hit-counter-badge {
+            position: absolute;
+            top: -9px;
+            right: -9px;
+            background: linear-gradient(135deg, #f43f5e, #be123c);
+            color: #ffffff;
+            font-size: 11px;
+            font-weight: 900;
+            padding: 2px 6px;
+            border-radius: 10px;
+            border: 1.5px solid #ffffff;
+            box-shadow: 0 0 12px rgba(244, 63, 94, 0.95);
+            font-family: 'JetBrains Mono', monospace;
+            animation: hit-pulse 0.35s ease;
+            z-index: 10;
+        }
+
+        @keyframes hit-pulse {
+            0% { transform: scale(1.4); }
+            100% { transform: scale(1.0); }
+        }
+    
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <div class="header-title-group">
+                <div class="header-icon">🎼</div>
+                <div>
+                    <h1>Yamaha F280 Advanced Western Classical Guitar Staff Notation Studio</h1>
+                    <div class="subtitle">Master Classical Repertoire • Multi-Measure Engraved Scores • Polyphonic & Arpeggio Guidance</div>
+                </div>
+            </div>
+            <div class="header-stats">
+                <div class="stat-pill">Piece: <strong id="headerUnitBadge">Romanza (Spanish Romance)</strong></div>
+                <div class="stat-pill">Key: <strong id="headerKeyBadge">E Minor</strong></div>
+                <div class="stat-pill">Tempo: <strong id="headerTempoBadge">84 BPM</strong></div>
+            </div>
+        </header>
+
+        <!-- Studio Navigation Bar -->
+        <nav class="studio-nav-bar">
+            <button class="studio-tab-btn active" onclick="switchStudioTab('sheet')">🎼 Master Classical Score</button>
+            <button class="studio-tab-btn" onclick="switchStudioTab('tab')">🎸 Classical TAB Sheet</button>
+            <button class="studio-tab-btn" onclick="switchStudioTab('metronome')">⏱ Concert Metronome</button>
+            <button class="studio-tab-btn" onclick="switchStudioTab('tuner')">🎸 Master Tuner (E-A-D-G-B-E)</button>
+            <button class="studio-tab-btn" onclick="switchStudioTab('theory')">📖 Classical Technique Guide</button>
+        </nav>
+
+        <!-- Lesson Selection & Transport Bar -->
+        <div class="lesson-selection-bar">
+            <div class="lesson-dropdown-group">
+                <span class="lesson-dropdown-label">📚 Classical Piece:</span>
+                <select id="lessonSelect" class="lesson-select" onchange="changeLesson(this.value)">
+                    <optgroup label="── MASTER CLASSICAL REPERTOIRE ──">
+                        <option value="adv_romanza" selected>1. Romanza / Spanish Romance (Anonymous - E Minor Masterpiece)</option>
+                        <option value="adv_bach_bourree">2. Bourrée in E Minor (J.S. Bach - BWV 996 Two-Voice Counterpoint)</option>
+                        <option value="adv_lagrima">3. Lágrima / Teardrop (Francisco Tárrega - E Major Preludio)</option>
+                        <option value="adv_asturias">4. Asturias / Leyenda (Isaac Albéniz - Flamenco-Classical)</option>
+                        <option value="adv_fur_elise">5. Für Elise (Ludwig van Beethoven - Guitar Arrangement)</option>
+                        <option value="adv_kemps_jig">6. Kemp's Jig (Renaissance Lute Classic)</option>
+                    </optgroup>
+                    <optgroup label="── ADVANCED SCALES & POSITIONS ──">
+                        <option value="adv_major_scale_pos5">7. A Major Scale - Position V (5th Fret Extended)</option>
+                        <option value="adv_pentatonic_box">8. E Minor Pentatonic & Blues - Position VII</option>
+                        <option value="adv_dorian_mode">9. D Dorian & A Aeolian Modal Study</option>
+                    </optgroup>
+                </select>
+            </div>
+
+            <!-- Transport Controls -->
+            <div class="transport-controls">
+                <button id="playBtn" class="btn-ctrl btn-primary" onclick="togglePlay()">
+                    <span id="playIcon">▶</span> <span id="playText">Play</span>
+                </button>
+                <button class="btn-ctrl" onclick="prevStep()">⏮ Prev</button>
+                <button class="btn-ctrl" onclick="nextStep()">Next ⏭</button>
+                <button class="btn-ctrl" onclick="resetLesson()">↺ Reset</button>
+                <button id="micBtn" class="btn-ctrl btn-mic" onclick="toggleMicListener()">🎙 Mic Pitch AI</button>
+                
+                <div class="speed-pill-group">
+                    <button class="speed-btn" onclick="setSpeed(0.5, this)">0.5x</button>
+                    <button class="speed-btn active" onclick="setSpeed(1.0, this)">1.0x</button>
+                    <button class="speed-btn" onclick="setSpeed(1.5, this)">1.5x</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Classical Piece Technique Banner -->
+        <div id="techniqueBanner" class="piece-technique-banner">
+            <div class="technique-title-group">
+                <div class="technique-badge-icon">🎻</div>
+                <div>
+                    <div class="technique-piece-title" id="techPieceTitle">Romanza (Spanish Romance)</div>
+                    <div class="technique-piece-desc" id="techPieceDesc">Key: E Minor • Time: 3/4 • Technique: Cantabile Melodic Treble with P-I-M-A Arpeggio Bass</div>
+                </div>
+            </div>
+            <div class="pima-badges-row">
+                <div class="pima-badge">p = Thumb (Bass)</div>
+                <div class="pima-badge">i = Index</div>
+                <div class="pima-badge">m = Middle</div>
+                <div class="pima-badge">a = Ring (Melody)</div>
+            </div>
+        </div>
+
+        <!-- Main Studio: Master Interactive Sheet Music Score -->
+        <div id="sheetMusicCard" class="score-visual-card">
+            <div class="score-card-header">
+                <div class="score-title-group">
+                    <span class="score-title" id="scoreLessonTitle">Romanza / Spanish Romance (Anonymous)</span>
+                    <span class="score-badge" id="scoreTimeSigBadge">Time: 3/4 • Cantabile</span>
+                </div>
+                <div style="font-size: 13px; color: var(--text-muted);">
+                    💡 Click any note on the staff score to jump • Synchronized with Yamaha F280 fretboard below
+                </div>
+            </div>
+
+            <div class="score-engraving-container">
+                <svg id="masterScoreSvg" viewBox="0 0 1000 420">
+                    <!-- Engraved dynamically by JS -->
+                </svg>
+            </div>
+        </div>
+
+        <!-- Yamaha F280 Reverse Fretboard Card -->
+        <div id="fretboardCard" class="fretboard-card">
+            <div class="fretboard-header">
+                <div class="fretboard-title-group">
+                    <span class="fretboard-title">🎸 Yamaha F280 Reverse Fretboard Guidance (Positions I to XII)</span>
+                    <span class="yamaha-badge">Yamaha F280 Dreadnought Natural</span>
+                </div>
+                <div style="font-size: 13px; color: var(--text-muted);">
+                    Left = 12th Fret ⟵ Fret 1 ⟵ Nut & Open Strings (Right)
+                </div>
+            </div>
+
+            <div class="fretboard-wrapper">
+                <div class="fretboard-wood" id="fretboardWood">
+                    <div class="fretboard-numbers-row" id="fretNumHeader">
+                        <!-- Injected by JS: 12 down to 1 + Nut -->
+                    </div>
+                    <div id="stringsContainer">
+                        <!-- Injected by JS -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Action Details & Real-Time Status -->
+        <div id="actionDetailsBar" class="action-details-bar">
+            <div class="detail-card">
+                <span class="detail-label">Current Classical Note</span>
+                <span class="detail-value highlight" id="activeNoteName">E (High E)</span>
+            </div>
+            <div class="detail-card">
+                <span class="detail-label">String & Fret</span>
+                <span class="detail-value" id="activeFretInfo">String 1 • Fret 7</span>
+            </div>
+            <div class="detail-card">
+                <span class="detail-label">Finger & Technique</span>
+                <span class="detail-value" id="activeFingerInfo">a (Ring) • Cantabile</span>
+            </div>
+            <div class="detail-card">
+                <span class="detail-label">Measure & Beat</span>
+                <span class="detail-value" id="activeBeatInfo">Measure 1 • Beat 1</span>
+            </div>
+            <div class="detail-card">
+                <span class="detail-label">Mic AI Detected</span>
+                <span class="detail-value" id="activeMicInfo">Listening...</span>
+            </div>
+        </div>
+
+        <!-- Guitar TAB Sheet Section (Tab 2) -->
+        <div id="tabSheetSection" class="tab-sheet-section" style="display: none;">
+            <div class="score-card-header">
+                <span class="score-title">🎸 Advanced Classical Guitar TAB</span>
+                <span class="score-badge">Synchronized Score & Tablature</span>
+            </div>
+            <div class="tab-table-wrapper">
+                <table class="tab-grid-table" id="guitarTabTable">
+                    <!-- Injected by JS -->
+                </table>
+            </div>
+        </div>
+
+        <!-- Metronome Studio Section (Tab 3) -->
+        <div id="metronomeSection" class="metronome-section" style="display: none;">
+            <div class="score-card-header">
+                <span class="score-title">⏱ Concert Metronome Studio</span>
+                <span class="score-badge" id="metroTimeSigBadge">3/4 Cantabile</span>
+            </div>
+            <div class="metro-controls-row">
+                <div class="bpm-display-group">
+                    <span class="bpm-val" id="metroBpmVal">84</span>
+                    <span class="bpm-label">BPM</span>
+                </div>
+                <input type="range" min="40" max="220" value="84" class="metro-slider" id="metroBpmSlider" oninput="updateMetronomeBPM(this.value)">
+                <button id="metroPlayBtn" class="btn-ctrl btn-primary" onclick="toggleMetronome()">▶ Start Metronome</button>
+            </div>
+            <div class="metro-pendulum-track">
+                <div class="metro-pendulum-bob" id="metroBob" style="left: 0%;"></div>
+            </div>
+            <div class="metro-beats-row" id="metroBeatsRow">
+                <!-- Beat dots injected by JS -->
+            </div>
+        </div>
+
+        <!-- Tuner Section (Tab 4) -->
+        <div id="tunerSection" class="tab-sheet-section" style="display: none;">
+            <div class="score-card-header">
+                <span class="score-title">🎸 Concert Pitch Reference</span>
+                <span class="score-badge">A440 Concert Standard</span>
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 14px; padding: 20px;">
+                <button class="btn-ctrl" onclick="playGuitarTone(329.63)" style="padding: 16px; flex-direction: column;">
+                    <strong style="font-size: 20px; color: var(--accent-gold);">1st - E4</strong>
+                    <span>329.63 Hz</span>
+                </button>
+                <button class="btn-ctrl" onclick="playGuitarTone(246.94)" style="padding: 16px; flex-direction: column;">
+                    <strong style="font-size: 20px; color: var(--accent-gold);">2nd - B3</strong>
+                    <span>246.94 Hz</span>
+                </button>
+                <button class="btn-ctrl" onclick="playGuitarTone(196.00)" style="padding: 16px; flex-direction: column;">
+                    <strong style="font-size: 20px; color: var(--accent-gold);">3rd - G3</strong>
+                    <span>196.00 Hz</span>
+                </button>
+                <button class="btn-ctrl" onclick="playGuitarTone(146.83)" style="padding: 16px; flex-direction: column;">
+                    <strong style="font-size: 20px; color: var(--accent-gold);">4th - D3</strong>
+                    <span>146.83 Hz</span>
+                </button>
+                <button class="btn-ctrl" onclick="playGuitarTone(110.00)" style="padding: 16px; flex-direction: column;">
+                    <strong style="font-size: 20px; color: var(--accent-gold);">5th - A2</strong>
+                    <span>110.00 Hz</span>
+                </button>
+                <button class="btn-ctrl" onclick="playGuitarTone(82.41)" style="padding: 16px; flex-direction: column;">
+                    <strong style="font-size: 20px; color: var(--accent-gold);">6th - E2</strong>
+                    <span>82.41 Hz</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Theory Section (Tab 5) -->
+        <div id="theorySection" class="tab-sheet-section" style="display: none;">
+            <div class="score-card-header">
+                <span class="score-title">📖 Advanced Classical Guitar Techniques</span>
+                <span class="score-badge">Conservatory Fundamentals</span>
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; padding: 20px;">
+                <div class="detail-card">
+                    <strong style="color: var(--accent-gold); font-size: 16px;">1. Right-Hand P-I-M-A Technique</strong>
+                    <p style="font-size: 14px; color: var(--text-muted); line-height: 1.6; margin-top: 8px;">
+                        <strong>p (pulgar):</strong> Thumb strikes down on bass strings 4, 5, 6.<br>
+                        <strong>i (índice):</strong> Index finger strikes upward on string 3.<br>
+                        <strong>m (medio):</strong> Middle finger strikes upward on string 2.<br>
+                        <strong>a (anular):</strong> Ring finger strikes upward on treble string 1.
+                    </p>
+                </div>
+                <div class="detail-card">
+                    <strong style="color: var(--accent-gold); font-size: 16px;">2. Rest Stroke (Apoyando) vs Free Stroke (Tirando)</strong>
+                    <p style="font-size: 14px; color: var(--text-muted); line-height: 1.6; margin-top: 8px;">
+                        <strong>Apoyando (Rest Stroke):</strong> Finger strikes string and rests on the adjacent lower string for maximum volume and warmth.<br>
+                        <strong>Tirando (Free Stroke):</strong> Finger curves into palm without touching adjacent strings for fast arpeggios.
+                    </p>
+                </div>
+                <div class="detail-card">
+                    <strong style="color: var(--accent-gold); font-size: 16px;">3. Fretboard Positions (Pos I to XII)</strong>
+                    <p style="font-size: 14px; color: var(--text-muted); line-height: 1.6; margin-top: 8px;">
+                        Position is defined by where the 1st finger rests. <strong>Pos V</strong> means 1st finger is on Fret 5, 2nd finger on Fret 6, 3rd finger on Fret 7, 4th finger on Fret 8.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    // Master Advanced Note Database
+    const advancedNoteDefs = {
+        // String 1 (High E) - Extended Positions
+        'E4_0': { name: 'E', octave: 4, freq: 329.63, strNum: 1, fretNum: 0, finger: 0, fingerName: 'Open String', staffStep: 11, lineType: 'Space 4 (Top space)' },
+        'F4_1': { name: 'F', octave: 4, freq: 349.23, strNum: 1, fretNum: 1, finger: 1, fingerName: '1st Finger (Index)', staffStep: 12, lineType: 'Line 5 (Top line)' },
+        'G4_3': { name: 'G', octave: 4, freq: 392.00, strNum: 1, fretNum: 3, finger: 3, fingerName: '3rd Finger (Ring)', staffStep: 13, lineType: 'Space above Line 5' },
+        'A4_5': { name: 'A', octave: 4, freq: 440.00, strNum: 1, fretNum: 5, finger: 1, fingerName: '1st Finger (Pos V)', staffStep: 14, lineType: 'Ledger Line 1 above' },
+        'B4_7': { name: 'B', octave: 4, freq: 493.88, strNum: 1, fretNum: 7, finger: 3, fingerName: '3rd Finger (Pos V)', staffStep: 15, lineType: 'Space above Ledger 1' },
+        'C5_8': { name: 'C', octave: 5, freq: 523.25, strNum: 1, fretNum: 8, finger: 4, fingerName: '4th Finger (Pinky)', staffStep: 16, lineType: 'Ledger Line 2 above' },
+        'D5_10': { name: 'D', octave: 5, freq: 587.33, strNum: 1, fretNum: 10, finger: 2, fingerName: '2nd Finger (Pos IX)', staffStep: 17, lineType: 'Space above Ledger 2' },
+        'E5_12': { name: 'E', octave: 5, freq: 659.25, strNum: 1, fretNum: 12, finger: 4, fingerName: '4th Finger (Pos IX)', staffStep: 18, lineType: 'Ledger Line 3 above' },
+
+        // String 2 (B)
+        'B3_0': { name: 'B', octave: 3, freq: 246.94, strNum: 2, fretNum: 0, finger: 0, fingerName: 'Open String', staffStep: 8, lineType: 'Line 3 (Middle line)' },
+        'C4_1': { name: 'C', octave: 4, freq: 261.63, strNum: 2, fretNum: 1, finger: 1, fingerName: '1st Finger (Index)', staffStep: 9, lineType: 'Space 3' },
+        'D4_3': { name: 'D', octave: 4, freq: 293.66, strNum: 2, fretNum: 3, finger: 3, fingerName: '3rd Finger (Ring)', staffStep: 10, lineType: 'Line 4' },
+        'E4_5': { name: 'E', octave: 4, freq: 329.63, strNum: 2, fretNum: 5, finger: 1, fingerName: '1st Finger (Pos V)', staffStep: 11, lineType: 'Space 4' },
+        'F4_6': { name: 'F', octave: 4, freq: 349.23, strNum: 2, fretNum: 6, finger: 2, fingerName: '2nd Finger (Pos V)', staffStep: 12, lineType: 'Line 5' },
+        'G4_8': { name: 'G', octave: 4, freq: 392.00, strNum: 2, fretNum: 8, finger: 4, fingerName: '4th Finger (Pinky)', staffStep: 13, lineType: 'Space above Line 5' },
+
+        // String 3 (G)
+        'G3_0': { name: 'G', octave: 3, freq: 196.00, strNum: 3, fretNum: 0, finger: 0, fingerName: 'Open String', staffStep: 6, lineType: 'Line 2' },
+        'A3_2': { name: 'A', octave: 3, freq: 220.00, strNum: 3, fretNum: 2, finger: 2, fingerName: '2nd Finger (Middle)', staffStep: 7, lineType: 'Space 2' },
+        'B3_4': { name: 'B', octave: 3, freq: 246.94, strNum: 3, fretNum: 4, finger: 3, fingerName: '3rd Finger (Pos II)', staffStep: 8, lineType: 'Line 3' },
+        'C4_5': { name: 'C', octave: 4, freq: 261.63, strNum: 3, fretNum: 5, finger: 1, fingerName: '1st Finger (Pos V)', staffStep: 9, lineType: 'Space 3' },
+        'D4_7': { name: 'D', octave: 4, freq: 293.66, strNum: 3, fretNum: 7, finger: 3, fingerName: '3rd Finger (Pos V)', staffStep: 10, lineType: 'Line 4' },
+
+        // String 4 (D)
+        'D3_0': { name: 'D', octave: 3, freq: 146.83, strNum: 4, fretNum: 0, finger: 0, fingerName: 'Open String', staffStep: 3, lineType: 'Space below Line 1' },
+        'E3_2': { name: 'E', octave: 3, freq: 164.81, strNum: 4, fretNum: 2, finger: 2, fingerName: '2nd Finger (Middle)', staffStep: 4, lineType: 'Line 1' },
+        'F3_3': { name: 'F', octave: 3, freq: 174.61, strNum: 4, fretNum: 3, finger: 3, fingerName: '3rd Finger (Ring)', staffStep: 5, lineType: 'Space 1' },
+        'G3_5': { name: 'G', octave: 3, freq: 196.00, strNum: 4, fretNum: 5, finger: 1, fingerName: '1st Finger (Pos V)', staffStep: 6, lineType: 'Line 2' },
+        'A3_7': { name: 'A', octave: 3, freq: 220.00, strNum: 4, fretNum: 7, finger: 3, fingerName: '3rd Finger (Pos V)', staffStep: 7, lineType: 'Space 2' },
+
+        // String 5 (A)
+        'A2_0': { name: 'A', octave: 2, freq: 110.00, strNum: 5, fretNum: 0, finger: 0, fingerName: 'Open String', staffStep: 0, lineType: 'Ledger Line 2 below' },
+        'B2_2': { name: 'B', octave: 2, freq: 123.47, strNum: 5, fretNum: 2, finger: 2, fingerName: '2nd Finger (Middle)', staffStep: 1, lineType: 'Space below Ledger 1' },
+        'C3_3': { name: 'C', octave: 3, freq: 130.81, strNum: 5, fretNum: 3, finger: 3, fingerName: '3rd Finger (Middle C)', staffStep: 2, lineType: 'Ledger Line 1 below' },
+        'D3_5': { name: 'D', octave: 3, freq: 146.83, strNum: 5, fretNum: 5, finger: 1, fingerName: '1st Finger (Pos V)', staffStep: 3, lineType: 'Space below Line 1' },
+        'E3_7': { name: 'E', octave: 3, freq: 164.81, strNum: 5, fretNum: 7, finger: 3, fingerName: '3rd Finger (Pos V)', staffStep: 4, lineType: 'Line 1' },
+
+        // String 6 (Low E)
+        'E2_0': { name: 'E', octave: 2, freq: 82.41, strNum: 6, fretNum: 0, finger: 0, fingerName: 'Open String', staffStep: -3, lineType: 'Ledger Line 3 below' },
+        'F2_1': { name: 'F', octave: 2, freq: 87.31, strNum: 6, fretNum: 1, finger: 1, fingerName: '1st Finger (Index)', staffStep: -2, lineType: 'Space below Ledger 3' },
+        'G2_3': { name: 'G', octave: 2, freq: 98.00, strNum: 6, fretNum: 3, finger: 3, fingerName: '3rd Finger (Ring)', staffStep: -1, lineType: 'Space below Ledger 2' },
+        'A2_5': { name: 'A', octave: 2, freq: 110.00, strNum: 6, fretNum: 5, finger: 1, fingerName: '1st Finger (Pos V)', staffStep: 0, lineType: 'Ledger Line 2 below' },
+        'B2_7': { name: 'B', octave: 2, freq: 123.47, strNum: 6, fretNum: 7, finger: 3, fingerName: '3rd Finger (Pos V)', staffStep: 1, lineType: 'Space below Ledger 1' }
+    };
+
+    // Advanced Classical Repertoire Database
+    const advancedLessonsData = {
+        'adv_romanza': {
+            unit: 'Romanza (Spanish Romance)',
+            key: 'E Minor',
+            title: 'Romanza / Spanish Romance (Anonymous - Master Classical Piece)',
+            timeSig: '3/4',
+            tempo: 84,
+            tip: 'Cantabile Melodic Treble with P-I-M-A Arpeggio Bass',
+            measures: [
+                // Measure 1: High B arpeggio over Low E bass
+                { measureNum: 1, chord: 'Em', notes: [
+                    { noteKey: 'B4_7', duration: 'quarter', pima: 'a', count: '1' },
+                    { noteKey: 'G3_0', duration: 'quarter', pima: 'i', count: '2' },
+                    { noteKey: 'B3_0', duration: 'quarter', pima: 'm', count: '3' }
+                ]},
+                // Measure 2: High B
+                { measureNum: 2, chord: null, notes: [
+                    { noteKey: 'B4_7', duration: 'quarter', pima: 'a', count: '1' },
+                    { noteKey: 'G3_0', duration: 'quarter', pima: 'i', count: '2' },
+                    { noteKey: 'B3_0', duration: 'quarter', pima: 'm', count: '3' }
+                ]},
+                // Measure 3: High A
+                { measureNum: 3, chord: null, notes: [
+                    { noteKey: 'A4_5', duration: 'quarter', pima: 'a', count: '1' },
+                    { noteKey: 'G3_0', duration: 'quarter', pima: 'i', count: '2' },
+                    { noteKey: 'B3_0', duration: 'quarter', pima: 'm', count: '3' }
+                ]},
+                // Measure 4: High G
+                { measureNum: 4, chord: null, notes: [
+                    { noteKey: 'G4_3', duration: 'quarter', pima: 'a', count: '1' },
+                    { noteKey: 'G3_0', duration: 'quarter', pima: 'i', count: '2' },
+                    { noteKey: 'B3_0', duration: 'quarter', pima: 'm', count: '3' }
+                ]},
+                // Measure 5: High F
+                { measureNum: 5, chord: 'B7', notes: [
+                    { noteKey: 'F4_1', duration: 'quarter', pima: 'a', count: '1' },
+                    { noteKey: 'D3_0', duration: 'quarter', pima: 'i', count: '2' },
+                    { noteKey: 'B3_0', duration: 'quarter', pima: 'm', count: '3' }
+                ]},
+                // Measure 6: Open E
+                { measureNum: 6, chord: null, notes: [
+                    { noteKey: 'E4_0', duration: 'quarter', pima: 'a', count: '1' },
+                    { noteKey: 'G3_0', duration: 'quarter', pima: 'i', count: '2' },
+                    { noteKey: 'B3_0', duration: 'quarter', pima: 'm', count: '3' }
+                ]},
+                // Measure 7: Low B bass cadence
+                { measureNum: 7, chord: 'Em', notes: [
+                    { noteKey: 'E2_0', duration: 'half', pima: 'p', count: '1 - 2' },
+                    { noteKey: 'E4_0', duration: 'quarter', pima: 'a', count: '3' }
+                ]}
+            ]
+        },
+        'adv_bach_bourree': {
+            unit: 'Bourrée in E Minor (Bach BWV 996)',
+            key: 'E Minor',
+            title: 'Bourrée in E Minor (J.S. Bach - Polyphonic Two-Voice Counterpoint)',
+            timeSig: '4/4',
+            tempo: 90,
+            tip: 'Two-part polyphony: crisp bass line with lively upbeat treble.',
+            measures: [
+                { measureNum: 1, chord: 'Em', notes: [
+                    { noteKey: 'E4_0', duration: 'quarter', pima: 'i', count: '1' },
+                    { noteKey: 'F4_1', duration: 'quarter', pima: 'm', count: '2' },
+                    { noteKey: 'G4_3', duration: 'quarter', pima: 'a', count: '3' },
+                    { noteKey: 'E4_0', duration: 'quarter', pima: 'm', count: '4' }
+                ]},
+                { measureNum: 2, chord: 'D', notes: [
+                    { noteKey: 'D4_3', duration: 'quarter', pima: 'm', count: '1' },
+                    { noteKey: 'E4_0', duration: 'quarter', pima: 'i', count: '2' },
+                    { noteKey: 'F4_1', duration: 'quarter', pima: 'm', count: '3' },
+                    { noteKey: 'D4_3', duration: 'quarter', pima: 'm', count: '4' }
+                ]},
+                { measureNum: 3, chord: 'C', notes: [
+                    { noteKey: 'C4_1', duration: 'quarter', pima: 'm', count: '1' },
+                    { noteKey: 'D4_3', duration: 'quarter', pima: 'i', count: '2' },
+                    { noteKey: 'E4_0', duration: 'quarter', pima: 'm', count: '3' },
+                    { noteKey: 'C4_1', duration: 'quarter', pima: 'm', count: '4' }
+                ]},
+                { measureNum: 4, chord: 'B7', notes: [
+                    { noteKey: 'B3_0', duration: 'half', pima: 'p', count: '1 - 2' },
+                    { noteKey: 'E2_0', duration: 'half', pima: 'p', count: '3 - 4' }
+                ]}
+            ]
+        },
+        'adv_lagrima': {
+            unit: 'Lágrima (Francisco Tárrega)',
+            key: 'E Major',
+            title: 'Lágrima / Teardrop (Francisco Tárrega - E Major Preludio)',
+            timeSig: '3/4',
+            tempo: 72,
+            tip: 'Romantic lyricism: expressive vibrato on high notes and resonant bass.',
+            measures: [
+                { measureNum: 1, chord: 'E', notes: [
+                    { noteKey: 'G4_3', duration: 'half', pima: 'a', count: '1 - 2' },
+                    { noteKey: 'B4_7', duration: 'quarter', pima: 'a', count: '3' }
+                ]},
+                { measureNum: 2, chord: null, notes: [
+                    { noteKey: 'E5_12', duration: 'half', pima: 'a', count: '1 - 2' },
+                    { noteKey: 'D5_10', duration: 'quarter', pima: 'a', count: '3' }
+                ]},
+                { measureNum: 3, chord: 'B7', notes: [
+                    { noteKey: 'C5_8', duration: 'half', pima: 'a', count: '1 - 2' },
+                    { noteKey: 'B4_7', duration: 'quarter', pima: 'a', count: '3' }
+                ]},
+                { measureNum: 4, chord: 'E', notes: [
+                    { noteKey: 'G4_3', duration: 'half', pima: 'a', count: '1 - 2' },
+                    { noteKey: 'E4_0', duration: 'quarter', pima: 'm', count: '3' }
+                ]}
+            ]
+        },
+        'adv_asturias': {
+            unit: 'Asturias / Leyenda (Isaac Albéniz)',
+            key: 'D / E Flamenco',
+            title: 'Asturias / Leyenda (Isaac Albéniz - Flamenco-Classical Theme)',
+            timeSig: '3/4',
+            tempo: 110,
+            tip: 'Rapid alternating thumb and index pedal-point technique.',
+            measures: [
+                { measureNum: 1, chord: 'Em', notes: [
+                    { noteKey: 'B4_7', duration: 'quarter', pima: 'm', count: '1' },
+                    { noteKey: 'B3_0', duration: 'quarter', pima: 'p', count: '2' },
+                    { noteKey: 'B4_7', duration: 'quarter', pima: 'm', count: '3' }
+                ]},
+                { measureNum: 2, chord: null, notes: [
+                    { noteKey: 'A4_5', duration: 'quarter', pima: 'm', count: '1' },
+                    { noteKey: 'B3_0', duration: 'quarter', pima: 'p', count: '2' },
+                    { noteKey: 'G4_3', duration: 'quarter', pima: 'm', count: '3' }
+                ]},
+                { measureNum: 3, chord: null, notes: [
+                    { noteKey: 'F4_1', duration: 'quarter', pima: 'm', count: '1' },
+                    { noteKey: 'B3_0', duration: 'quarter', pima: 'p', count: '2' },
+                    { noteKey: 'E4_0', duration: 'quarter', pima: 'm', count: '3' }
+                ]},
+                { measureNum: 4, chord: 'B7', notes: [
+                    { noteKey: 'D4_3', duration: 'quarter', pima: 'm', count: '1' },
+                    { noteKey: 'B3_0', duration: 'quarter', pima: 'p', count: '2' },
+                    { noteKey: 'E4_0', duration: 'quarter', pima: 'm', count: '3' }
+                ]}
+            ]
+        },
+        'adv_fur_elise': {
+            unit: 'Für Elise (Beethoven)',
+            key: 'A Minor',
+            title: 'Für Elise (Ludwig van Beethoven - Classical Guitar Arrangement)',
+            timeSig: '3/8',
+            tempo: 90,
+            tip: 'Rapid semitone oscillation between E and D# on high strings.',
+            measures: [
+                { measureNum: 1, chord: 'Am', notes: [
+                    { noteKey: 'E4_0', duration: 'quarter', pima: 'm', count: '1' },
+                    { noteKey: 'D4_3', duration: 'quarter', pima: 'i', count: '2' },
+                    { noteKey: 'E4_0', duration: 'quarter', pima: 'm', count: '3' }
+                ]},
+                { measureNum: 2, chord: null, notes: [
+                    { noteKey: 'D4_3', duration: 'quarter', pima: 'i', count: '1' },
+                    { noteKey: 'E4_0', duration: 'quarter', pima: 'm', count: '2' },
+                    { noteKey: 'B3_0', duration: 'quarter', pima: 'i', count: '3' }
+                ]},
+                { measureNum: 3, chord: null, notes: [
+                    { noteKey: 'D4_3', duration: 'quarter', pima: 'm', count: '1' },
+                    { noteKey: 'C4_1', duration: 'quarter', pima: 'i', count: '2' },
+                    { noteKey: 'A3_2', duration: 'quarter', pima: 'p', count: '3' }
+                ]}
+            ]
+        },
+        'adv_kemps_jig': {
+            unit: 'Kemp\'s Jig (Renaissance Classic)',
+            key: 'G Major',
+            title: 'Kemp\'s Jig (Renaissance Lute/Guitar Classic)',
+            timeSig: '6/8',
+            tempo: 100,
+            tip: 'Joyful renaissance dance in 6/8 compound meter.',
+            measures: [
+                { measureNum: 1, chord: 'G', notes: [
+                    { noteKey: 'G3_0', duration: 'quarter', pima: 'p', count: '1' },
+                    { noteKey: 'B3_0', duration: 'quarter', pima: 'i', count: '2' },
+                    { noteKey: 'D4_3', duration: 'quarter', pima: 'm', count: '3' }
+                ]},
+                { measureNum: 2, chord: null, notes: [
+                    { noteKey: 'G4_3', duration: 'half', pima: 'a', count: '1 - 2' },
+                    { noteKey: 'D4_3', duration: 'quarter', pima: 'm', count: '3' }
+                ]},
+                { measureNum: 3, chord: 'C', notes: [
+                    { noteKey: 'E4_0', duration: 'quarter', pima: 'm', count: '1' },
+                    { noteKey: 'C4_1', duration: 'quarter', pima: 'i', count: '2' },
+                    { noteKey: 'G3_0', duration: 'quarter', pima: 'p', count: '3' }
+                ]}
+            ]
+        },
+        'adv_major_scale_pos5': {
+            unit: 'A Major Scale - Position V',
+            key: 'A Major',
+            title: 'A Major Scale - Position V (5th Fret Extended 2-Octave Scale)',
+            timeSig: '4/4',
+            tempo: 80,
+            tip: 'Strict position playing: 1st finger anchored on 5th fret across all strings.',
+            measures: [
+                { measureNum: 1, chord: 'A', notes: [
+                    { noteKey: 'A2_5', duration: 'quarter', pima: '1', count: '1' },
+                    { noteKey: 'B2_7', duration: 'quarter', pima: '3', count: '2' },
+                    { noteKey: 'D3_5', duration: 'quarter', pima: '1', count: '3' },
+                    { noteKey: 'E3_7', duration: 'quarter', pima: '3', count: '4' }
+                ]},
+                { measureNum: 2, chord: null, notes: [
+                    { noteKey: 'G3_5', duration: 'quarter', pima: '1', count: '1' },
+                    { noteKey: 'A3_7', duration: 'quarter', pima: '3', count: '2' },
+                    { noteKey: 'C4_5', duration: 'quarter', pima: '1', count: '3' },
+                    { noteKey: 'D4_7', duration: 'quarter', pima: '3', count: '4' }
+                ]},
+                { measureNum: 3, chord: null, notes: [
+                    { noteKey: 'E4_5', duration: 'quarter', pima: '1', count: '1' },
+                    { noteKey: 'G4_8', duration: 'quarter', pima: '4', count: '2' },
+                    { noteKey: 'A4_5', duration: 'half', pima: '1', count: '3 - 4' }
+                ]}
+            ]
+        },
+        'adv_pentatonic_box': {
+            unit: 'E Minor Pentatonic (Pos VII)',
+            key: 'E Minor',
+            title: 'E Minor Pentatonic & Blues - Position VII (7th Fret)',
+            timeSig: '4/4',
+            tempo: 95,
+            tip: 'Essential soloing vocabulary in the classic 7th fret box.',
+            measures: [
+                { measureNum: 1, chord: 'Em', notes: [
+                    { noteKey: 'B2_7', duration: 'quarter', pima: '1', count: '1' },
+                    { noteKey: 'D3_5', duration: 'quarter', pima: '3', count: '2' },
+                    { noteKey: 'E3_7', duration: 'quarter', pima: '1', count: '3' },
+                    { noteKey: 'G3_5', duration: 'quarter', pima: '3', count: '4' }
+                ]},
+                { measureNum: 2, chord: null, notes: [
+                    { noteKey: 'A3_7', duration: 'quarter', pima: '1', count: '1' },
+                    { noteKey: 'B4_7', duration: 'quarter', pima: '1', count: '2' },
+                    { noteKey: 'D5_10', duration: 'quarter', pima: '4', count: '3' },
+                    { noteKey: 'E5_12', duration: 'quarter', pima: '4', count: '4' }
+                ]}
+            ]
+        },
+        'adv_dorian_mode': {
+            unit: 'D Dorian Modal Study',
+            key: 'D Dorian',
+            title: 'D Dorian & A Aeolian Modal Study',
+            timeSig: '4/4',
+            tempo: 85,
+            tip: 'Minor mode with a characteristic natural 6th (B natural).',
+            measures: [
+                { measureNum: 1, chord: 'Dm7', notes: [
+                    { noteKey: 'D3_0', duration: 'quarter', pima: 'p', count: '1' },
+                    { noteKey: 'E3_2', duration: 'quarter', pima: 'i', count: '2' },
+                    { noteKey: 'F3_3', duration: 'quarter', pima: 'm', count: '3' },
+                    { noteKey: 'G3_0', duration: 'quarter', pima: 'i', count: '4' }
+                ]},
+                { measureNum: 2, chord: 'G7', notes: [
+                    { noteKey: 'A3_2', duration: 'quarter', pima: 'm', count: '1' },
+                    { noteKey: 'B3_0', duration: 'quarter', pima: 'a', count: '2' },
+                    { noteKey: 'C4_1', duration: 'quarter', pima: 'm', count: '3' },
+                    { noteKey: 'D4_3', duration: 'quarter', pima: 'a', count: '4' }
+                ]}
+            ]
+        }
+    };
+
+    // State Variables
+    let currentLessonKey = 'adv_romanza';
+    let currentStepIndex = 0;
+    let flatStepSequence = [];
+    let isPlaying = false;
+    let playTimer = null;
+    let speedMultiplier = 1.0;
+    let audioCtx = null;
+    let masterVolume = 0.8;
+
+    // Metronome State
+    let isMetroRunning = false;
+    let metroTimer = null;
+    let metroBpm = 84;
+    let metroBeatIndex = 0;
+    let metroBeatsPerBar = 3;
+
+    // Audio Engine
+    function initAudio() {
+        if (!audioCtx) {
+            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        if (audioCtx.state === 'suspended') {
+            audioCtx.resume();
+        }
+    }
+
+    function playGuitarTone(freq) {
+        try {
+            initAudio();
+            const now = audioCtx.currentTime;
+            const osc = audioCtx.createOscillator();
+            const oscHarmonic = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+
+            osc.type = 'triangle';
+            osc.frequency.setValueAtTime(freq, now);
+
+            oscHarmonic.type = 'sine';
+            oscHarmonic.frequency.setValueAtTime(freq * 2, now);
+
+            gain.gain.setValueAtTime(0.0001, now);
+            gain.gain.exponentialRampToValueAtTime(0.38 * masterVolume, now + 0.015);
+            gain.gain.exponentialRampToValueAtTime(0.0001, now + 1.3);
+
+            osc.connect(gain);
+            oscHarmonic.connect(gain);
+            gain.connect(audioCtx.destination);
+
+            osc.start(now);
+            oscHarmonic.start(now);
+            osc.stop(now + 1.35);
+            oscHarmonic.stop(now + 1.35);
+        } catch(e) {}
+    }
+
+    // Build Flat Sequence
+    function buildFlatStepSequence() {
+        flatStepSequence = [];
+        const lesson = advancedLessonsData[currentLessonKey];
+        if (!lesson) return;
+
+        lesson.measures.forEach((measure, mIdx) => {
+            measure.notes.forEach((n, nIdx) => {
+                flatStepSequence.push({
+                    globalIndex: flatStepSequence.length,
+                    measureNum: measure.measureNum,
+                    measureIdx: mIdx,
+                    noteIdxInMeasure: nIdx,
+                    chord: (nIdx === 0) ? measure.chord : null,
+                    noteKey: n.noteKey,
+                    duration: n.duration,
+                    pima: n.pima,
+                    count: n.count
+                });
+            });
+        });
+    }
+
+    // Render Master Classical Score (Multi-Measure SVG Engraver)
+    function renderInteractiveStaffScore() {
+        const svg = document.getElementById('masterScoreSvg');
+        const lesson = advancedLessonsData[currentLessonKey];
+        if (!svg || !lesson) return;
+
+        svg.innerHTML = '';
+
+        const measures = lesson.measures;
+        const totalMeasures = measures.length;
+        const measuresPerLine = (totalMeasures > 4) ? 4 : totalMeasures;
+        const totalLines = Math.ceil(totalMeasures / measuresPerLine);
+
+        const svgWidth = 1000;
+        const lineStaffHeight = 145;
+        const totalSvgHeight = Math.max(240, totalLines * lineStaffHeight + 50);
+        svg.setAttribute('viewBox', `0 0 ${svgWidth} ${totalSvgHeight}`);
+
+        const leftMargin = 40;
+        const rightMargin = 960;
+        const contentWidth = rightMargin - leftMargin;
+
+        let globalNoteCounter = 0;
+
+        for (let lineIdx = 0; lineIdx < totalLines; lineIdx++) {
+            const lineY = 65 + (lineIdx * lineStaffHeight);
+            const lineStartMeasure = lineIdx * measuresPerLine;
+            const lineEndMeasure = Math.min(totalMeasures, lineStartMeasure + measuresPerLine);
+            const lineMeasureCount = lineEndMeasure - lineStartMeasure;
+            const measureWidth = (contentWidth - 80) / lineMeasureCount;
+
+            // Draw 5 Staff Lines
+            for (let s = 0; s < 5; s++) {
+                const y = lineY + (s * 12);
+                const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                line.setAttribute('x1', leftMargin.toString());
+                line.setAttribute('y1', y.toString());
+                line.setAttribute('x2', rightMargin.toString());
+                line.setAttribute('y2', y.toString());
+                line.setAttribute('stroke', '#475569');
+                line.setAttribute('stroke-width', '1.5');
+                svg.appendChild(line);
+            }
+
+            // Treble Clef 𝄞
+            const clef = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+            clef.setAttribute('x', (leftMargin + 5).toString());
+            clef.setAttribute('y', (lineY + 44).toString());
+            clef.setAttribute('font-size', '56');
+            clef.setAttribute('fill', '#fbbf24');
+            clef.setAttribute('font-family', 'serif');
+            clef.textContent = '𝄞';
+            svg.appendChild(clef);
+
+            // Time Signature on Line 1
+            if (lineIdx === 0) {
+                const timeSigStr = lesson.timeSig || '3/4';
+                const [topNum, botNum] = timeSigStr.split('/');
+                
+                const tTop = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                tTop.setAttribute('x', (leftMargin + 52).toString());
+                tTop.setAttribute('y', (lineY + 20).toString());
+                tTop.setAttribute('font-size', '20');
+                tTop.setAttribute('font-weight', '900');
+                tTop.setAttribute('fill', '#f8fafc');
+                tTop.textContent = topNum;
+                svg.appendChild(tTop);
+
+                const tBot = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                tBot.setAttribute('x', (leftMargin + 52).toString());
+                tBot.setAttribute('y', (lineY + 44).toString());
+                tBot.setAttribute('font-size', '20');
+                tBot.setAttribute('font-weight', '900');
+                tBot.setAttribute('fill', '#f8fafc');
+                tBot.textContent = botNum;
+                svg.appendChild(tBot);
+            }
+
+            // Start Bar Line
+            const startBar = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+            startBar.setAttribute('x1', leftMargin.toString());
+            startBar.setAttribute('y1', lineY.toString());
+            startBar.setAttribute('x2', leftMargin.toString());
+            startBar.setAttribute('y2', (lineY + 48).toString());
+            startBar.setAttribute('stroke', '#64748b');
+            startBar.setAttribute('stroke-width', '2');
+            svg.appendChild(startBar);
+
+            // Measures
+            for (let m = 0; m < lineMeasureCount; m++) {
+                const currentMIndex = lineStartMeasure + m;
+                const measureData = measures[currentMIndex];
+                const measureStartX = leftMargin + 80 + (m * measureWidth);
+                const measureEndX = measureStartX + measureWidth;
+
+                // Measure Bar Line
+                const barLine = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                barLine.setAttribute('x1', measureEndX.toString());
+                barLine.setAttribute('y1', lineY.toString());
+                barLine.setAttribute('x2', measureEndX.toString());
+                barLine.setAttribute('y2', (lineY + 48).toString());
+                barLine.setAttribute('stroke', (currentMIndex === totalMeasures - 1) ? '#ffffff' : '#64748b');
+                barLine.setAttribute('stroke-width', (currentMIndex === totalMeasures - 1) ? '3' : '1.5');
+                svg.appendChild(barLine);
+
+                // Double Bar on End
+                if (currentMIndex === totalMeasures - 1) {
+                    const dBar = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                    dBar.setAttribute('x1', (measureEndX - 5).toString());
+                    dBar.setAttribute('y1', lineY.toString());
+                    dBar.setAttribute('x2', (measureEndX - 5).toString());
+                    dBar.setAttribute('y2', (lineY + 48).toString());
+                    dBar.setAttribute('stroke', '#ffffff');
+                    dBar.setAttribute('stroke-width', '1.5');
+                    svg.appendChild(dBar);
+                }
+
+                // Measure Number
+                const mNumText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                mNumText.setAttribute('x', (measureStartX + 4).toString());
+                mNumText.setAttribute('y', (lineY - 10).toString());
+                mNumText.setAttribute('font-size', '11');
+                mNumText.setAttribute('font-weight', '700');
+                mNumText.setAttribute('fill', '#94a3b8');
+                mNumText.textContent = measureData.measureNum.toString();
+                svg.appendChild(mNumText);
+
+                // Chord Symbol
+                if (measureData.chord) {
+                    const chordText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                    chordText.setAttribute('x', (measureStartX + 18).toString());
+                    chordText.setAttribute('y', (lineY - 14).toString());
+                    chordText.setAttribute('font-size', '15');
+                    chordText.setAttribute('font-weight', '900');
+                    chordText.setAttribute('fill', '#fbbf24');
+                    chordText.textContent = measureData.chord;
+                    svg.appendChild(chordText);
+                }
+
+                // Render Notes
+                const noteCount = measureData.notes.length;
+                const noteSpacing = measureWidth / (noteCount + 1);
+
+                measureData.notes.forEach((noteItem, nIdx) => {
+                    const stepIdx = globalNoteCounter++;
+                    const noteX = measureStartX + ((nIdx + 1) * noteSpacing);
+                    const nInfo = advancedNoteDefs[noteItem.noteKey];
+                    if (!nInfo) return;
+
+                    const noteY = (lineY + 48) - ((nInfo.staffStep - 4) * 6);
+
+                    const noteGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+                    noteGroup.setAttribute('class', 'score-note-group');
+                    noteGroup.setAttribute('id', `score-note-${stepIdx}`);
+                    noteGroup.setAttribute('data-step-idx', stepIdx.toString());
+                    noteGroup.onclick = () => jumpToStep(stepIdx);
+
+                    // PIMA Right Hand Fingering (above note)
+                    if (noteItem.pima) {
+                        const pimaText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                        pimaText.setAttribute('x', noteX.toString());
+                        pimaText.setAttribute('y', (lineY - 6).toString());
+                        pimaText.setAttribute('font-size', '11');
+                        pimaText.setAttribute('font-family', 'JetBrains Mono, monospace');
+                        pimaText.setAttribute('font-weight', '700');
+                        pimaText.setAttribute('fill', '#fbbf24');
+                        pimaText.setAttribute('text-anchor', 'middle');
+                        pimaText.textContent = noteItem.pima;
+                        noteGroup.appendChild(pimaText);
+                    }
+
+                    // Ledger Lines
+                    if (noteY >= lineY + 60) {
+                        for (let ly = lineY + 60; ly <= noteY + 3; ly += 12) {
+                            const lLine = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                            lLine.setAttribute('x1', (noteX - 12).toString());
+                            lLine.setAttribute('y1', ly.toString());
+                            lLine.setAttribute('x2', (noteX + 12).toString());
+                            lLine.setAttribute('y2', ly.toString());
+                            lLine.setAttribute('stroke', '#cbd5e1');
+                            lLine.setAttribute('stroke-width', '1.5');
+                            noteGroup.appendChild(lLine);
+                        }
+                    } else if (noteY <= lineY - 12) {
+                        for (let ly = lineY - 12; ly >= noteY - 3; ly -= 12) {
+                            const lLine = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                            lLine.setAttribute('x1', (noteX - 12).toString());
+                            lLine.setAttribute('y1', ly.toString());
+                            lLine.setAttribute('x2', (noteX + 12).toString());
+                            lLine.setAttribute('y2', ly.toString());
+                            lLine.setAttribute('stroke', '#cbd5e1');
+                            lLine.setAttribute('stroke-width', '1.5');
+                            noteGroup.appendChild(lLine);
+                        }
+                    }
+
+                    // Note Head
+                    const isWhole = (noteItem.duration === 'whole');
+                    const isHalf = (noteItem.duration === 'half');
+                    const isHollow = isWhole || isHalf;
+
+                    const noteHead = document.createElementNS('http://www.w3.org/2000/svg', 'ellipse');
+                    noteHead.setAttribute('class', 'note-head');
+                    noteHead.setAttribute('cx', noteX.toString());
+                    noteHead.setAttribute('cy', noteY.toString());
+                    noteHead.setAttribute('rx', '7');
+                    noteHead.setAttribute('ry', '4.8');
+                    noteHead.setAttribute('fill', isHollow ? '#080c18' : '#ffffff');
+                    noteHead.setAttribute('stroke', '#ffffff');
+                    noteHead.setAttribute('stroke-width', isHollow ? '2.5' : '1');
+                    noteHead.setAttribute('transform', `rotate(-18 ${noteX} ${noteY})`);
+                    noteGroup.appendChild(noteHead);
+
+                    // Note Stem
+                    if (!isWhole) {
+                        const stemUp = (nInfo.staffStep < 8);
+                        const stemX = stemUp ? (noteX + 6.5) : (noteX - 6.5);
+                        const stemEndY = stemUp ? (noteY - 28) : (noteY + 28);
+
+                        const stem = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                        stem.setAttribute('class', 'note-stem');
+                        stem.setAttribute('x1', stemX.toString());
+                        stem.setAttribute('y1', noteY.toString());
+                        stem.setAttribute('x2', stemX.toString());
+                        stem.setAttribute('y2', stemEndY.toString());
+                        stem.setAttribute('stroke', '#ffffff');
+                        stem.setAttribute('stroke-width', '1.8');
+                        noteGroup.appendChild(stem);
+                    }
+
+                    // Active Note Arrow Cursor Indicator (▼)
+                    const cursorArrow = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                    cursorArrow.setAttribute('class', 'cursor-arrow');
+                    cursorArrow.setAttribute('x', noteX.toString());
+                    cursorArrow.setAttribute('y', (lineY - 18).toString());
+                    cursorArrow.setAttribute('font-size', '16');
+                    cursorArrow.setAttribute('fill', '#fbbf24');
+                    cursorArrow.setAttribute('text-anchor', 'middle');
+                    cursorArrow.setAttribute('display', 'none');
+                    cursorArrow.textContent = '▼';
+                    noteGroup.appendChild(cursorArrow);
+
+                    // Beat Count Label underneath Note
+                    const countLabel = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                    countLabel.setAttribute('class', 'beat-count-text');
+                    countLabel.setAttribute('x', noteX.toString());
+                    countLabel.setAttribute('y', (lineY + 70).toString());
+                    countLabel.setAttribute('font-size', '12');
+                    countLabel.setAttribute('font-family', 'JetBrains Mono, monospace');
+                    countLabel.setAttribute('font-weight', '600');
+                    countLabel.setAttribute('fill', '#94a3b8');
+                    countLabel.setAttribute('text-anchor', 'middle');
+                    countLabel.textContent = noteItem.count;
+                    noteGroup.appendChild(countLabel);
+
+                    svg.appendChild(noteGroup);
+                });
+            }
+        }
+    }
+
+    // Build Yamaha F280 Reverse Fretboard (12 -> 1 -> Nut 0)
+    function renderYamahaFretboard() {
+        const headerRow = document.getElementById('fretNumHeader');
+        const container = document.getElementById('stringsContainer');
+        headerRow.innerHTML = '';
+        container.innerHTML = '';
+
+        for (let f = 12; f >= 1; f--) {
+            const cell = document.createElement('div');
+            cell.className = 'fret-num-cell';
+            cell.textContent = f.toString();
+            headerRow.appendChild(cell);
+        }
+        const nutCell = document.createElement('div');
+        nutCell.className = 'fret-num-cell nut-col';
+        nutCell.textContent = 'NUT (0)';
+        headerRow.appendChild(nutCell);
+
+        for (let s = 1; s <= 6; s++) {
+            const row = document.createElement('div');
+            row.className = 'guitar-string-row';
+            row.id = `string-row-${s}`;
+
+            const wire = document.createElement('div');
+            wire.className = `string-wire-line string-s${s}`;
+            row.appendChild(wire);
+
+            for (let f = 12; f >= 1; f--) {
+                const slot = document.createElement('div');
+                slot.className = 'fret-slot';
+                slot.id = `slot-${s}-${f}`;
+
+                if (s === 3) {
+                    if ([3, 5, 7, 9].includes(f)) {
+                        const pearl = document.createElement('div');
+                        pearl.className = 'fret-pearl-dot';
+                        slot.appendChild(pearl);
+                    } else if (f === 12) {
+                        const p1 = document.createElement('div');
+                        p1.className = 'fret-pearl-dot';
+                        p1.style.top = '6px';
+                        const p2 = document.createElement('div');
+                        p2.className = 'fret-pearl-dot';
+                        p2.style.bottom = '6px';
+                        slot.appendChild(p1);
+                        slot.appendChild(p2);
+                    }
+                }
+                row.appendChild(slot);
+            }
+
+            const nutSlot = document.createElement('div');
+            nutSlot.className = 'fret-slot nut-slot';
+            nutSlot.id = `slot-${s}-0`;
+            row.appendChild(nutSlot);
+
+            container.appendChild(row);
+        }
+    }
+
+    // Highlight Note on Yamaha Fretboard
+    function highlightFretboardNote(noteKey, currentHit = 1, totalHits = 1) {
+        document.querySelectorAll('.note-fret-target').forEach(el => el.remove());
+
+        const nInfo = advancedNoteDefs[noteKey];
+        if (!nInfo) return;
+
+        const slot = document.getElementById(`slot-${nInfo.strNum}-${nInfo.fretNum}`);
+        if (slot) {
+            const target = document.createElement('div');
+            target.className = 'note-fret-target active-pulsar';
+            target.style.position = 'relative';
+
+            let badgeHtml = '';
+            if (totalHits > 1) {
+                badgeHtml = `<span class="hit-counter-badge">${currentHit}/${totalHits}</span>`;
+            }
+
+            target.innerHTML = `<span>${nInfo.name}</span>${badgeHtml}`;
+            target.title = `${nInfo.name} (${nInfo.fingerName}) - Hit ${currentHit} of ${totalHits}`;
+            target.onclick = (e) => {
+                e.stopPropagation();
+                playGuitarTone(nInfo.freq);
+            };
+            slot.appendChild(target);
+        }
+    }
+
+    // Render Guitar TAB Sheet
+    function renderGuitarTabSheet() {
+        const table = document.getElementById('guitarTabTable');
+        const lesson = advancedLessonsData[currentLessonKey];
+        if (!table || !lesson) return;
+        table.innerHTML = '';
+
+        const stringNames = [
+            { num: 1, name: 'e (1st)' },
+            { num: 2, name: 'B (2nd)' },
+            { num: 3, name: 'G (3rd)' },
+            { num: 4, name: 'D (4th)' },
+            { num: 5, name: 'A (5th)' },
+            { num: 6, name: 'E (6th)' }
+        ];
+
+        stringNames.forEach(str => {
+            const tr = document.createElement('tr');
+            const th = document.createElement('td');
+            th.className = 'tab-string-label';
+            th.textContent = str.name;
+            tr.appendChild(th);
+
+            flatStepSequence.forEach(step => {
+                const td = document.createElement('td');
+                td.id = `tab-cell-${str.num}-${step.globalIndex}`;
+                const nInfo = advancedNoteDefs[step.noteKey];
+                if (nInfo && nInfo.strNum === str.num) {
+                    td.textContent = nInfo.fretNum.toString();
+                    td.style.fontWeight = 'bold';
+                    td.style.color = '#fbbf24';
+                } else {
+                    td.textContent = '─';
+                }
+                tr.appendChild(td);
+            });
+
+            table.appendChild(tr);
+        });
+    }
+
+    // Update Step UI
+    function updateStepUI(playAudio = true) {
+        if (!flatStepSequence || flatStepSequence.length === 0) return;
+        if (currentStepIndex >= flatStepSequence.length) currentStepIndex = 0;
+
+        const cur = flatStepSequence[currentStepIndex];
+        const nInfo = advancedNoteDefs[cur.noteKey];
+        if (!nInfo) return;
+
+        if (playAudio) {
+            playGuitarTone(nInfo.freq);
+        }
+
+        // Highlight Active Score Note
+        document.querySelectorAll('.score-note-group').forEach(el => {
+            el.classList.remove('active-note');
+            const arrow = el.querySelector('.cursor-arrow');
+            if (arrow) arrow.style.display = 'none';
+        });
+
+        const activeNoteGroup = document.getElementById(`score-note-${currentStepIndex}`);
+        if (activeNoteGroup) {
+            activeNoteGroup.classList.add('active-note');
+            const arrow = activeNoteGroup.querySelector('.cursor-arrow');
+            if (arrow) arrow.style.display = 'block';
+        }
+
+        // Calculate consecutive repeat / hit streak
+        let streakStart = currentStepIndex;
+        while (streakStart > 0 && flatStepSequence[streakStart - 1].noteKey === cur.noteKey) {
+            streakStart--;
+        }
+        let streakEnd = currentStepIndex;
+        while (streakEnd < flatStepSequence.length - 1 && flatStepSequence[streakEnd + 1].noteKey === cur.noteKey) {
+            streakEnd++;
+        }
+        const currentHit = currentStepIndex - streakStart + 1;
+        const totalHits = streakEnd - streakStart + 1;
+
+        // Highlight Yamaha Fretboard with Hit Numbering Badge
+        highlightFretboardNote(cur.noteKey, currentHit, totalHits);
+
+        // Update Action Details
+        document.getElementById('activeNoteName').textContent = `${nInfo.name} (${nInfo.lineType})`;
+        document.getElementById('activeFretInfo').textContent = `String ${nInfo.strNum} • Fret ${nInfo.fretNum}`;
+        document.getElementById('activeFingerInfo').textContent = `${nInfo.fingerName} • RH: ${cur.pima || 'p'}`;
+        document.getElementById('activeBeatInfo').textContent = `Measure ${cur.measureNum} • Beat ${cur.count}` + (totalHits > 1 ? ` • Hit ${currentHit}/${totalHits}` : '');
+
+        // Highlight TAB Cell
+        document.querySelectorAll('.tab-active-cell').forEach(el => el.classList.remove('tab-active-cell'));
+        const activeTabCell = document.getElementById(`tab-cell-${nInfo.strNum}-${currentStepIndex}`);
+        if (activeTabCell) activeTabCell.classList.add('tab-active-cell');
+    }
+
+    // Transport Navigation
+    function nextStep() {
+        if (currentStepIndex < flatStepSequence.length - 1) {
+            currentStepIndex++;
+        } else {
+            currentStepIndex = 0;
+        }
+        updateStepUI(true);
+    }
+
+    function prevStep() {
+        if (currentStepIndex > 0) {
+            currentStepIndex--;
+        } else {
+            currentStepIndex = flatStepSequence.length - 1;
+        }
+        updateStepUI(true);
+    }
+
+    function jumpToStep(idx) {
+        currentStepIndex = idx;
+        updateStepUI(true);
+    }
+
+    function resetLesson() {
+        if (isPlaying) togglePlay();
+        currentStepIndex = 0;
+        updateStepUI(false);
+    }
+
+    // Auto Playback
+    function togglePlay() {
+        const btn = document.getElementById('playBtn');
+        const icon = document.getElementById('playIcon');
+        const text = document.getElementById('playText');
+
+        if (isPlaying) {
+            isPlaying = false;
+            clearInterval(playTimer);
+            btn.classList.remove('playing');
+            icon.textContent = '▶';
+            text.textContent = 'Play';
+        } else {
+            isPlaying = true;
+            btn.classList.add('playing');
+            icon.textContent = '⏸';
+            text.textContent = 'Pause';
+
+            const lesson = advancedLessonsData[currentLessonKey];
+            const baseBpm = lesson.tempo || 84;
+            const msPerQuarter = (60 / baseBpm) * 1000 / speedMultiplier;
+
+            updateStepUI(true);
+
+            playTimer = setInterval(() => {
+                if (currentStepIndex < flatStepSequence.length - 1) {
+                    currentStepIndex++;
+                    updateStepUI(true);
+                } else {
+                    currentStepIndex = 0;
+                    updateStepUI(true);
+                }
+            }, msPerQuarter);
+        }
+    }
+
+    function setSpeed(multiplier, elem) {
+        speedMultiplier = multiplier;
+        document.querySelectorAll('.speed-btn').forEach(b => b.classList.remove('active'));
+        elem.classList.add('active');
+        if (isPlaying) {
+            togglePlay();
+            togglePlay();
+        }
+    }
+
+    // Lesson Switcher
+    function changeLesson(lessonKey) {
+        if (isPlaying) togglePlay();
+        currentLessonKey = lessonKey;
+        currentStepIndex = 0;
+
+        const lesson = advancedLessonsData[lessonKey];
+        document.getElementById('headerUnitBadge').textContent = lesson.unit;
+        document.getElementById('headerKeyBadge').textContent = lesson.key || 'E Minor';
+        document.getElementById('headerTempoBadge').textContent = `${lesson.tempo || 84} BPM`;
+        document.getElementById('scoreLessonTitle').textContent = lesson.title;
+        document.getElementById('scoreTimeSigBadge').textContent = `Time: ${lesson.timeSig || '3/4'}`;
+        document.getElementById('techPieceTitle').textContent = lesson.unit;
+        document.getElementById('techPieceDesc').textContent = `Key: ${lesson.key} • Time: ${lesson.timeSig} • Technique: ${lesson.tip}`;
+
+        buildFlatStepSequence();
+        renderInteractiveStaffScore();
+        renderGuitarTabSheet();
+        updateStepUI(false);
+    }
+
+    // Switch Studio Tab
+    function switchStudioTab(tab) {
+        document.querySelectorAll('.studio-tab-btn').forEach(btn => btn.classList.remove('active'));
+        event.target.classList.add('active');
+
+        document.getElementById('sheetMusicCard').style.display = (tab === 'sheet') ? 'flex' : 'none';
+        document.getElementById('techniqueBanner').style.display = (tab === 'sheet') ? 'flex' : 'none';
+        document.getElementById('fretboardCard').style.display = (tab === 'sheet' || tab === 'tab') ? 'flex' : 'none';
+        document.getElementById('actionDetailsBar').style.display = (tab === 'sheet' || tab === 'tab') ? 'grid' : 'none';
+        document.getElementById('tabSheetSection').style.display = (tab === 'tab') ? 'flex' : 'none';
+        document.getElementById('metronomeSection').style.display = (tab === 'metronome') ? 'flex' : 'none';
+        document.getElementById('tunerSection').style.display = (tab === 'tuner') ? 'flex' : 'none';
+        document.getElementById('theorySection').style.display = (tab === 'theory') ? 'flex' : 'none';
+    }
+
+    // Metronome Studio
+    function toggleMetronome() {
+        const btn = document.getElementById('metroPlayBtn');
+        if (isMetroRunning) {
+            isMetroRunning = false;
+            clearInterval(metroTimer);
+            btn.textContent = '▶ Start Metronome';
+            btn.classList.remove('playing');
+        } else {
+            isMetroRunning = true;
+            btn.textContent = '⏸ Stop Metronome';
+            btn.classList.add('playing');
+            metroBeatIndex = 0;
+            renderMetroBeats();
+
+            const intervalMs = (60 / metroBpm) * 1000;
+            metroTimer = setInterval(() => {
+                runMetroBeat();
+            }, intervalMs);
+        }
+    }
+
+    function updateMetronomeBPM(val) {
+        metroBpm = parseInt(val);
+        document.getElementById('metroBpmVal').textContent = metroBpm;
+        if (isMetroRunning) {
+            toggleMetronome();
+            toggleMetronome();
+        }
+    }
+
+    function renderMetroBeats() {
+        const row = document.getElementById('metroBeatsRow');
+        row.innerHTML = '';
+        for (let b = 0; b < metroBeatsPerBar; b++) {
+            const dot = document.createElement('div');
+            dot.className = 'metro-beat-dot';
+            dot.id = `metro-dot-${b}`;
+            row.appendChild(dot);
+        }
+    }
+
+    function runMetroBeat() {
+        const isAccent = (metroBeatIndex === 0);
+        playMetroTick(isAccent);
+
+        const bob = document.getElementById('metroBob');
+        bob.style.left = (metroBeatIndex % 2 === 0) ? '0%' : '94%';
+
+        document.querySelectorAll('.metro-beat-dot').forEach((d, idx) => {
+            d.classList.remove('accent-flash', 'normal-flash');
+            if (idx === metroBeatIndex) {
+                d.classList.add(isAccent ? 'accent-flash' : 'normal-flash');
+            }
+        });
+
+        metroBeatIndex = (metroBeatIndex + 1) % metroBeatsPerBar;
+    }
+
+    function playMetroTick(isAccent) {
+        try {
+            initAudio();
+            const now = audioCtx.currentTime;
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(isAccent ? 1200 : 800, now);
+            gain.gain.setValueAtTime(0.0001, now);
+            gain.gain.exponentialRampToValueAtTime(0.3 * masterVolume, now + 0.005);
+            gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.06);
+
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.start(now);
+            osc.stop(now + 0.07);
+        } catch(e) {}
+    }
+
+    // Initialization
+    window.addEventListener('DOMContentLoaded', () => {
+        buildFlatStepSequence();
+        renderYamahaFretboard();
+        renderInteractiveStaffScore();
+        renderGuitarTabSheet();
+        renderMetroBeats();
+        updateStepUI(false);
+    });
+    </script>
+</body>
+</html>

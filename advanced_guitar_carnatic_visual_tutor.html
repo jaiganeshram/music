@@ -1,0 +1,2446 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🪕 Advanced Carnatic Guitar Visual Master Studio & Kutcheri Repertoire (Yamaha F280)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@600;800&family=Cinzel:wght@700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #060b14;
+            --card-bg: #0d172a;
+            --card-border: #1e3a5f;
+            --gold-primary: #f59e0b;
+            --gold-light: #fef08a;
+            --accent-cyan: #06b6d4;
+            --accent-blue: #3b82f6;
+            --accent-green: #10b981;
+            --accent-rose: #f43f5e;
+            --accent-purple: #a855f7;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --yamaha-neck: #170d06;
+            --yamaha-fretwire: #cbd5e1;
+            --yamaha-nut: #ffffff;
+            --yamaha-pearl: #f1f5f9;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Outfit', sans-serif; }
+        body {
+            background: var(--bg-dark);
+            color: var(--text-main);
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-y: scroll;
+            min-height: 100vh;
+        }
+        .container { max-width: 1420px; width: 100%; }
+
+        /* Grand Kutcheri Header */
+        .main-header {
+            background: linear-gradient(135deg, #1c1917 0%, #0c1424 50%, #1e1b4b 100%);
+            border: 2px solid #f59e0b;
+            border-radius: 16px;
+            padding: 22px 26px;
+            text-align: center;
+            margin-bottom: 14px;
+            box-shadow: 0 10px 35px rgba(0,0,0,0.6), inset 0 0 25px rgba(245,158,11,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        .main-header h1 {
+            font-size: 27px;
+            color: #fbbf24;
+            font-weight: 900;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .main-header h1 .badge-kutcheri {
+            background: linear-gradient(135deg, #b45309, #d97706);
+            color: #ffffff;
+            font-size: 12.5px;
+            padding: 4px 12px;
+            border-radius: 20px;
+            border: 1px solid #fef08a;
+            font-weight: 800;
+        }
+        .main-header p { font-size: 14px; color: #cbd5e1; }
+
+        /* Navigation Studio Tabs */
+        .studio-nav-tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 14px;
+            flex-wrap: wrap;
+        }
+        .nav-tab-btn {
+            background: #0d172a;
+            border: 2px solid #1e3a5f;
+            color: #94a3b8;
+            padding: 10px 18px;
+            border-radius: 10px;
+            font-size: 13.5px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 7px;
+        }
+        .nav-tab-btn:hover { border-color: #f59e0b; color: white; transform: translateY(-1px); }
+        .nav-tab-btn.active {
+            background: linear-gradient(135deg, #b45309, #d97706);
+            color: white;
+            border-color: #fef08a;
+            box-shadow: 0 0 16px rgba(245,158,11,0.6);
+        }
+
+        /* Control Panel */
+        .control-panel {
+            background: var(--card-bg);
+            border: 2px solid var(--card-border);
+            border-radius: 14px;
+            padding: 14px 18px;
+            margin-bottom: 14px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+
+        .lesson-select-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex: 1;
+            min-width: 380px;
+        }
+        .lesson-select-wrapper label { font-weight: 800; color: #fbbf24; font-size: 13.5px; white-space: nowrap; }
+
+        .lesson-dropdown {
+            background: #060b14;
+            color: #ffffff;
+            border: 2px solid #f59e0b;
+            padding: 10px 14px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 800;
+            width: 100%;
+            cursor: pointer;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        .lesson-dropdown:hover, .lesson-dropdown:focus { border-color: #fde047; box-shadow: 0 0 12px rgba(245,158,11,0.4); }
+
+        .btn-group { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+
+        .action-btn {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 9px 15px;
+            border-radius: 8px;
+            font-size: 13.5px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.15s, transform 0.1s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .action-btn:hover { background: #1d4ed8; transform: translateY(-1px); }
+        .action-btn.secondary { background: #1e293b; border: 1px solid #475569; color: #cbd5e1; }
+        .action-btn.secondary:hover { background: #334155; color: white; }
+
+        .play-btn {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            border: none;
+            padding: 9px 20px;
+            border-radius: 8px;
+            font-size: 13.5px;
+            font-weight: 800;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+            box-shadow: 0 4px 12px rgba(16,185,129,0.3);
+        }
+        .play-btn:hover { background: linear-gradient(135deg, #059669, #047857); transform: translateY(-1px); }
+        .play-btn.playing {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            box-shadow: 0 4px 12px rgba(239,68,68,0.4);
+        }
+
+        /* Tanpura Drone Toggle Button */
+        .tanpura-btn {
+            background: linear-gradient(135deg, #92400e, #b45309);
+            color: #fef08a;
+            border: 2px solid #fbbf24;
+            padding: 9px 16px;
+            border-radius: 8px;
+            font-size: 13.5px;
+            font-weight: 800;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+        .tanpura-btn:hover { background: linear-gradient(135deg, #b45309, #d97706); transform: translateY(-1px); }
+        .tanpura-btn.active {
+            background: linear-gradient(135deg, #d97706, #f59e0b);
+            color: #000;
+            box-shadow: 0 0 16px rgba(245,158,11,0.8);
+        }
+
+        /* Mic AI Listen Button */
+        .mic-btn {
+            background: linear-gradient(135deg, #7c3aed, #6d28d9);
+            color: white;
+            border: 2px solid #a78bfa;
+            padding: 9px 16px;
+            border-radius: 8px;
+            font-size: 13.5px;
+            font-weight: 800;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+        .mic-btn:hover { background: linear-gradient(135deg, #6d28d9, #5b21b6); transform: translateY(-1px); }
+        .mic-btn.listening {
+            background: linear-gradient(135deg, #dc2626, #b91c1c);
+            border-color: #f87171;
+            animation: pulse-mic 1.5s infinite;
+        }
+        @keyframes pulse-mic {
+            0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
+            70% { box-shadow: 0 0 0 12px rgba(239, 68, 68, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+        }
+
+        .speed-btn {
+            background: #060b14;
+            border: 1px solid #475569;
+            color: #94a3b8;
+            padding: 7px 11px;
+            border-radius: 6px;
+            font-size: 12.5px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+        .speed-btn:hover { border-color: #f59e0b; color: white; }
+        .speed-btn.active { background: #d97706; color: white; border-color: #fef08a; box-shadow: 0 0 8px rgba(217,119,6,0.6); }
+
+        /* Kaalam (Speed) Selector */
+        .kaalam-btn {
+            background: #091322;
+            border: 1.5px solid #38bdf8;
+            color: #38bdf8;
+            padding: 7px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 800;
+            cursor: pointer;
+        }
+        .kaalam-btn.active {
+            background: #0284c7;
+            color: #ffffff;
+            border-color: #bae6fd;
+            box-shadow: 0 0 10px rgba(2,132,199,0.7);
+        }
+
+        /* Mic Pitch Live Monitor Card */
+        .mic-monitor-card {
+            background: linear-gradient(135deg, #1e1b4b, #0f172a);
+            border: 2px solid #8b5cf6;
+            border-radius: 12px;
+            padding: 12px 18px;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+            box-shadow: 0 4px 16px rgba(139,92,246,0.25);
+        }
+        .mic-status-text { font-size: 14px; font-weight: 800; color: #c4b5fd; display: flex; align-items: center; gap: 8px; }
+        .mic-freq-badge {
+            background: #060b14;
+            border: 1px solid #6d28d9;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 13.5px;
+            font-weight: 800;
+            color: #a78bfa;
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .mic-feedback-pill {
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 800;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .mic-feedback-pill.match { background: #065f46; color: #6ee7b7; border: 1px solid #10b981; }
+        .mic-feedback-pill.waiting { background: #1e293b; color: #94a3b8; border: 1px solid #475569; }
+        .mic-feedback-pill.error { background: #7f1d1d; color: #fca5a5; border: 1px solid #ef4444; }
+
+        /* Lesson Banner */
+        .lesson-banner {
+            background: linear-gradient(90deg, #1e1b4b 0%, #2e1065 50%, #451a03 100%);
+            border: 2px solid #f59e0b;
+            border-radius: 12px;
+            padding: 14px 20px;
+            margin-bottom: 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        .lesson-title-area h2 { font-size: 20px; color: #fbbf24; font-weight: 800; }
+        .lesson-title-area p { font-size: 13.5px; color: #cbd5e1; margin-top: 3px; }
+        .lesson-badges { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+        .badge-pill {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12.5px;
+            font-weight: 800;
+            color: #e0e7ff;
+        }
+
+        /* 1. ADVANCED CARNATIC GAMAKA & SWARA VISUALIZER CARD */
+        .gamaka-card {
+            background: #091322;
+            border: 2px solid #38bdf8;
+            border-radius: 14px;
+            padding: 16px 20px;
+            margin-bottom: 14px;
+            box-shadow: 0 6px 25px rgba(0,0,0,0.5);
+            overflow-x: auto;
+        }
+        .gamaka-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .gamaka-card-header h3 { font-size: 16.5px; color: #38bdf8; font-weight: 800; display: flex; align-items: center; gap: 8px; }
+        .gamaka-guide-pill {
+            background: #1e293b;
+            border: 1px solid #475569;
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            color: #fde047;
+            font-weight: 700;
+        }
+
+        .gamaka-canvas-wrapper {
+            background: #0c1424;
+            border-radius: 10px;
+            padding: 14px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: auto;
+            border: 2px solid #1e3a5f;
+            box-shadow: inset 0 2px 10px rgba(0,0,0,0.5);
+        }
+        .gamaka-svg-element {
+            width: 100%;
+            max-width: 1050px;
+            height: 155px;
+        }
+
+        /* 2. 6-STRING GUITAR FRETBOARD CARD (YAMAHA F280 REVERSE VIEW) */
+        .fretboard-card {
+            background: #120b06;
+            border: 2.5px solid #f59e0b;
+            border-radius: 16px;
+            padding: 16px 18px;
+            margin-bottom: 14px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6), inset 0 0 30px rgba(0,0,0,0.5);
+            overflow-x: auto;
+            scroll-behavior: smooth;
+        }
+        .fretboard-card::-webkit-scrollbar { height: 10px; }
+        .fretboard-card::-webkit-scrollbar-track { background: #060b14; border-radius: 6px; }
+        .fretboard-card::-webkit-scrollbar-thumb {
+            background: linear-gradient(90deg, #b45309, #f59e0b);
+            border-radius: 6px;
+            border: 1px solid #fef08a;
+        }
+
+        .fretboard-direction-bar {
+            background: linear-gradient(90deg, #92400e, #d97706, #92400e);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 13.5px;
+            font-weight: 800;
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+
+        .fretboard-grid {
+            display: grid;
+            grid-template-columns: 140px repeat(12, 1fr) 65px; /* Reverse: 12 on LEFT -> 1 on RIGHT -> NUT on FAR RIGHT */
+            border: 2px solid #475569;
+            background: var(--yamaha-neck);
+            border-radius: 8px;
+            min-width: 1020px;
+            overflow: hidden;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.6);
+        }
+
+        .fret-header-cell {
+            background: #1e293b;
+            color: #93c5fd;
+            text-align: center;
+            padding: 8px 4px;
+            font-size: 12px;
+            font-weight: 800;
+            border-bottom: 2px solid #f59e0b;
+            border-right: 1px solid #334155;
+        }
+        .fret-header-cell:last-child { border-right: none; }
+
+        .string-name-cell {
+            background: #0f172a;
+            color: #cbd5e1;
+            padding: 10px 10px;
+            font-size: 12px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid #1e293b;
+            border-right: 2px solid #475569;
+        }
+        .string-name-cell.active-string { background: #271a0c; color: #fbbf24; }
+
+        /* FRET WIRES & YAMAHA F280 PEARL INLAYS */
+        .fret-slot {
+            position: relative;
+            height: 56px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-right: 3.5px solid var(--yamaha-fretwire);
+            box-shadow: 1px 0 3px rgba(255, 255, 255, 0.2);
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            background: #160c06;
+            transition: background 0.15s, box-shadow 0.15s;
+        }
+        .fret-slot.nut-slot {
+            border-left: 9px solid var(--yamaha-nut) !important;
+            box-shadow: -3px 0 10px rgba(255, 255, 255, 0.5) !important;
+            background: rgba(255,255,255,0.05);
+        }
+
+        /* Yamaha F280 Inlay Pearl Dots (5, 7, 9 & double 12) */
+        .yamaha-pearl-dot {
+            width: 14px;
+            height: 14px;
+            background: radial-gradient(circle, #ffffff 35%, #e2e8f0 70%, #94a3b8 100%);
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 0 0 2px #000;
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0.7;
+            border: 1px solid rgba(0,0,0,0.5);
+        }
+        .yamaha-pearl-dot.double-top { top: calc(28% - 7px); }
+        .yamaha-pearl-dot.double-bot { top: calc(72% - 7px); }
+
+        .string-wire-line {
+            position: absolute;
+            width: 100%;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.9);
+        }
+
+        /* Swara Badges on Fretboard */
+        .fret-swara-badge {
+            position: relative;
+            z-index: 2;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 900;
+            font-size: 13.5px;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.7);
+            border: 2px solid #ffffff;
+            transition: transform 0.15s, box-shadow 0.15s;
+            opacity: 0.88;
+        }
+        .fret-swara-badge:hover { transform: scale(1.15); opacity: 1; border-color: #fbbf24; }
+        .fret-swara-badge.active-playing {
+            opacity: 1 !important;
+            border: 3px solid #ffffff !important;
+            box-shadow: 0 0 22px #ffffff, 0 0 35px #f59e0b !important;
+            transform: scale(1.22);
+            z-index: 10;
+        }
+        .fret-swara-badge .sub-fret-finger {
+            font-size: 8.5px;
+            font-weight: 800;
+            color: #fef08a;
+            line-height: 1;
+            margin-top: 1px;
+        }
+
+        /* Action Details Card */
+        .action-details-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 10px;
+            margin-bottom: 14px;
+        }
+        .action-card-item {
+            background: var(--card-bg);
+            border: 2px solid var(--card-border);
+            border-radius: 12px;
+            padding: 12px 16px;
+            border-left: 5px solid #f59e0b;
+        }
+        .action-card-item .card-label { font-size: 11.5px; color: var(--text-muted); margin-bottom: 3px; font-weight: 600; }
+        .action-card-item .card-value { font-size: 15.5px; font-weight: 800; color: #ffffff; }
+
+        /* Dynamic Lesson Flow Card */
+        .lesson-flow-card {
+            background: var(--card-bg);
+            border: 2px solid var(--card-border);
+            border-radius: 14px;
+            padding: 16px 20px;
+            margin-bottom: 14px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+        .flow-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            border-bottom: 1px solid var(--card-border);
+            padding-bottom: 8px;
+        }
+        .flow-header h3 { font-size: 16px; color: #fbbf24; font-weight: 800; }
+        .flow-header span { font-size: 12px; color: #94a3b8; }
+
+        .flow-lines-container { display: flex; flex-direction: column; gap: 12px; }
+        .flow-line-row {
+            background: #060b14;
+            border: 1px solid #1e3a5f;
+            border-radius: 10px;
+            padding: 10px 14px;
+        }
+        .flow-line-title {
+            font-size: 12.5px;
+            font-weight: 800;
+            color: #fde047;
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .flow-measure-grid { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+        .flow-measure-box {
+            display: flex;
+            gap: 6px;
+            background: #0c182c;
+            border: 1px solid #23456d;
+            border-radius: 8px;
+            padding: 5px 8px;
+        }
+        .flow-bar-divider { font-size: 20px; color: #f59e0b; font-weight: 900; margin: 0 2px; }
+
+        .c-swara-box {
+            background: #111c30;
+            border: 1.5px solid #1e3a5f;
+            border-radius: 8px;
+            padding: 6px 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.15s;
+            min-width: 58px;
+        }
+        .c-swara-box:hover { border-color: #f59e0b; transform: translateY(-2px); }
+        .c-swara-box.active {
+            background: #b45309;
+            border-color: #fef08a;
+            box-shadow: 0 0 14px rgba(245,158,11,0.8);
+            transform: scale(1.06);
+        }
+        .c-swara-box .c-swara { font-size: 14.5px; font-weight: 900; }
+        .c-swara-box .c-gamaka { font-size: 9.5px; color: #fde047; margin-top: 1px; }
+        .c-swara-box .c-guitar-pos { font-size: 10px; font-weight: 800; color: #38bdf8; margin-top: 1px; }
+
+        /* 3. 72 MELAKARTA EXPLORER TAB */
+        .mela-card {
+            background: var(--card-bg);
+            border: 2px solid #f59e0b;
+            border-radius: 14px;
+            padding: 20px;
+            margin-bottom: 14px;
+        }
+        .mela-chakras-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 12px;
+            margin-top: 14px;
+        }
+        .mela-chakra-box {
+            background: #060b14;
+            border: 1px solid #334155;
+            border-radius: 10px;
+            padding: 12px;
+        }
+        .mela-chakra-title { font-size: 14px; font-weight: 800; color: #fbbf24; margin-bottom: 8px; border-bottom: 1px solid #1e3a5f; padding-bottom: 4px; }
+        .mela-raga-chip {
+            background: #0f1d36;
+            border: 1px solid #1e3a8a;
+            color: #cbd5e1;
+            padding: 5px 8px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 700;
+            display: inline-block;
+            margin: 3px;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+        .mela-raga-chip:hover { border-color: #f59e0b; color: white; background: #b45309; }
+
+        /* 4. METRONOME STUDIO TAB */
+        .metronome-card {
+            background: var(--card-bg);
+            border: 2px solid #06b6d4;
+            border-radius: 14px;
+            padding: 24px;
+            margin-bottom: 14px;
+            text-align: center;
+        }
+        .metro-bpm-display {
+            font-size: 56px;
+            font-weight: 900;
+            color: #38bdf8;
+            font-family: 'JetBrains Mono', monospace;
+            margin: 10px 0;
+        }
+        .metro-beats-row { display: flex; justify-content: center; gap: 8px; margin: 16px 0; flex-wrap: wrap; }
+        .metro-beat-dot {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: #1e293b;
+            border: 2px solid #475569;
+            transition: all 0.1s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: 800;
+            color: #94a3b8;
+        }
+        .metro-beat-dot.active-beat { background: #38bdf8; border-color: #ffffff; color: #000; box-shadow: 0 0 12px #38bdf8; transform: scale(1.2); }
+        .metro-beat-dot.accent-beat { background: #f59e0b; border-color: #ffffff; color: #000; box-shadow: 0 0 14px #f59e0b; transform: scale(1.3); }
+
+        /* 5. GAMAKA STUDIO TAB */
+        .gamaka-studio-card {
+            background: var(--card-bg);
+            border: 2px solid #a855f7;
+            border-radius: 14px;
+            padding: 20px;
+            margin-bottom: 14px;
+        }
+        .gamaka-types-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 14px;
+            margin-top: 14px;
+        }
+        .gamaka-type-box {
+            background: #060b14;
+            border: 1px solid #4c1d95;
+            border-radius: 10px;
+            padding: 14px;
+        }
+        .gamaka-type-box h4 { font-size: 15px; color: #c084fc; margin-bottom: 6px; }
+        .gamaka-type-box p { font-size: 13px; color: #cbd5e1; line-height: 1.5; }
+
+        /* Timeline Flow */
+        .timeline-container {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 12px 16px;
+            margin-bottom: 14px;
+        }
+        .timeline-header { font-size: 12.5px; color: #94a3b8; font-weight: 700; margin-bottom: 8px; }
+        .timeline-flow {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            padding: 4px 2px 8px 2px;
+            scroll-behavior: smooth;
+        }
+        .timeline-chip {
+            background: #060b14;
+            border: 2px solid #1e3a5f;
+            border-radius: 8px;
+            padding: 7px 12px;
+            font-size: 13px;
+            font-weight: 800;
+            color: #cbd5e1;
+            white-space: nowrap;
+            cursor: pointer;
+            transition: all 0.15s;
+            flex-shrink: 0;
+        }
+        .timeline-chip:hover { border-color: #f59e0b; color: white; }
+        .timeline-chip.active {
+            background: #b45309;
+            color: white;
+            border-color: #fef08a;
+            box-shadow: 0 0 10px rgba(245,158,11,0.8);
+        }
+
+        /* Footer */
+        .carnatic-footer {
+            background: #0a0f1d;
+            border: 1px dashed #f59e0b;
+            border-radius: 10px;
+            padding: 14px 20px;
+            text-align: center;
+            font-size: 13.5px;
+            color: #cbd5e1;
+            line-height: 1.6;
+        }
+    
+        .swara-repeat-pill {
+            position: absolute;
+            top: -9px;
+            right: -9px;
+            background: linear-gradient(135deg, #f43f5e, #be123c);
+            color: #ffffff;
+            font-size: 11px;
+            font-weight: 900;
+            padding: 2px 6px;
+            border-radius: 10px;
+            border: 1.5px solid #ffffff;
+            box-shadow: 0 0 12px rgba(244, 63, 94, 0.95);
+            font-family: 'JetBrains Mono', monospace;
+            animation: hit-pulse 0.35s ease;
+            z-index: 10;
+        }
+
+        @keyframes hit-pulse {
+            0% { transform: scale(1.4); }
+            100% { transform: scale(1.0); }
+        }
+    
+    
+        .kattai-dropdown-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #0f172a;
+            border: 1px solid rgba(245, 158, 11, 0.4);
+            padding: 6px 14px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+        }
+
+        .kattai-dropdown-label {
+            font-size: 13.5px;
+            font-weight: 700;
+            color: var(--accent-gold);
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .kattai-select {
+            background: #090d16;
+            border: 1px solid rgba(245, 158, 11, 0.35);
+            color: #ffffff;
+            font-family: 'Noto Sans Tamil', 'Outfit', sans-serif;
+            font-size: 13.5px;
+            font-weight: 600;
+            padding: 8px 14px;
+            border-radius: 8px;
+            outline: none;
+            cursor: pointer;
+            transition: border-color 0.2s;
+        }
+
+        .kattai-select:focus {
+            border-color: var(--accent-gold);
+            box-shadow: 0 0 0 2px rgba(245, 158, 11, 0.25);
+        }
+
+        .kattai-select optgroup {
+            background: #090d16;
+            color: var(--accent-gold);
+            font-weight: 700;
+        }
+
+        .kattai-select option {
+            background: #0f172a;
+            color: #ffffff;
+            font-weight: 500;
+            padding: 6px;
+        }
+    
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Grand Kutcheri Header -->
+    <div class="main-header">
+        <h1>
+            🪕 Advanced Carnatic Guitar Visual Master Studio
+            <span class="badge-kutcheri">Varnams • Krithis • Gamakas • 72 Melakartas</span>
+        </h1>
+        <p>Yamaha F280 Custom Reverse Fretboard (12 ➔ 1 ➔ Nut) • Live Mic AI Swara Recognition • Acoustic Tambura Drone • Concert Repertoire</p>
+    </div>
+
+    <!-- Mode Navigation Tabs -->
+    <div class="studio-nav-tabs">
+        <button class="nav-tab-btn active" id="tab-lessons" onclick="switchStudioTab('lessons')">
+            🎼 1. Concert Repertoire (Varnams & Krithis)
+        </button>
+        <button class="nav-tab-btn" id="tab-gamaka" onclick="switchStudioTab('gamaka')">
+            🌊 2. Gamaka Master Engine (Bends & Slides)
+        </button>
+        <button class="nav-tab-btn" id="tab-mela" onclick="switchStudioTab('mela')">
+            🌐 3. 72 Melakarta Ragas Explorer
+        </button>
+        <button class="nav-tab-btn" id="tab-metronome" onclick="switchStudioTab('metronome')">
+            🥁 4. Carnatic Tala Metronome (Adi, Rupaka, Chapu)
+        </button>
+        <button class="nav-tab-btn" id="tab-tuner" onclick="switchStudioTab('tuner')">
+            🎯 5. Shruti & Guitar Tuner
+        </button>
+    </div>
+
+    <!-- Control Panel -->
+    <div class="control-panel" id="mainControlPanel">
+        <div class="lesson-select-wrapper" id="selector-wrapper-lessons">
+            <label for="lessonSelect">Select Varnam / Krithi / Raga:</label>
+            <select id="lessonSelect" class="lesson-dropdown" onchange="changeLesson(this.value)">
+                <optgroup label="Module 1: Concert Varnams (Adi & Ata Tala)">
+                    <option value="varnam_mohanam" selected>1. Mohanam Varnam (Ninnukori - Adi Tala - G.N.B / Sivanandam)</option>
+                    <option value="varnam_kalyani">2. Kalyani Varnam (Vanajakshi - Ata Tala - Pallavi Gopala Iyer)</option>
+                    <option value="varnam_hamsadhwani">3. Hamsadhwani Varnam (Jalajaksha - Adi Tala - Manambuchavadi)</option>
+                    <option value="varnam_sankarabharanam">4. Sankarabharanam Varnam (Sami Ninne - Adi Tala)</option>
+                    <option value="varnam_abhogi">5. Abhogi Varnam (Evaribodhisi - Adi Tala - Patnam Subramania Iyer)</option>
+                    <option value="varnam_kaanada">6. Kaanada Varnam (Nera Nammithi - Ata Tala - Poochi Srinivasa Iyengar)</option>
+                    <option value="varnam_begada">7. Begada Varnam (Inta Chala - Adi Tala - Vina Kuppayyar)</option>
+                    <option value="varnam_sahana">8. Sahana Varnam (Karunimpa - Adi Tala - Tiruvottiyur Tyagayyar)</option>
+                    <option value="varnam_kambhoji">9. Kambhoji Varnam (Sarasijanabha - Ata Tala - Vadivelu)</option>
+                    <option value="varnam_natakurinji">10. Natakurinji Varnam (Chalamela - Adi Tala - Rangaswami Nattuvanar)</option>
+                </optgroup>
+                <optgroup label="Module 2: Master Krithis & Kirtanais (With Gamakas & Sahitya)">
+                    <option value="krithi_vatapi">11. Vatapi Ganapatim (Hamsadhwani - Adi Tala - Muthuswami Dikshitar)</option>
+                    <option value="krithi_raghuvamsa">12. Raghuvamsa Sudha (Kathanakuthuhalam - Adi Tala - Patnam Subramania Iyer)</option>
+                    <option value="krithi_maha_ganapathim">13. Maha Ganapathim (Nattai - Adi Tala - Muthuswami Dikshitar)</option>
+                    <option value="krithi_samaja_vara">14. Samaja Vara Gamana (Hindolam - Adi Tala - Tyagaraja)</option>
+                    <option value="krithi_bantureethi">15. Bantureethi Kolu (Hamsanadam - Adi Tala - Tyagaraja)</option>
+                    <option value="krithi_endaro">16. Endaro Mahanubhavulu (Sri Ragam - Pancharatna Krithi - Tyagaraja)</option>
+                    <option value="krithi_jagadananda">17. Jagadananda Karaka (Nattai - Pancharatna Krithi - Tyagaraja)</option>
+                    <option value="krithi_nagumomu">18. Nagumomu Ganaleni (Abheri - Adi Tala - Tyagaraja)</option>
+                    <option value="krithi_bho_shambho">19. Bho Shambho (Revati - Adi Tala - Swami Dayananda Saraswati)</option>
+                    <option value="krithi_alaipayuthey">20. Alaipayuthey Kanna (Kaanada - Adi Tala - Oothukkadu Venkata Kavi)</option>
+                    <option value="krithi_krishna_nee">21. Krishna Nee Begane Baaro (Yamunakalyani - Misra Chapu - Vyasatirtha)</option>
+                    <option value="krithi_brahmam_okate">22. Brahmam Okate (Bowli - Adi Tala - Annamacharya)</option>
+                    <option value="krithi_chinnanchiru">23. Chinnanchiru Kiliye (Ragamalika - Subramania Bharatiyar)</option>
+                    <option value="krithi_kurai_ondrum">24. Kurai Ondrum Illai (Ragamalika - C. Rajagopalachari)</option>
+                    <option value="krithi_manavyala">25. Manavyala Kinchara (Nalinakanthi - Adi Tala - Tyagaraja)</option>
+                    <option value="krithi_brochevare">26. Brochevarevarura (Khamas - Adi Tala - Mysore Vasudevachar)</option>
+                    <option value="krithi_swara_raga">27. Swara Raga Sudha (Sankarabharanam - Adi Tala - Tyagaraja)</option>
+                    <option value="krithi_enna_thavam">28. Enna Thavam Seithanai (Kapi - Adi Tala - Papanasam Sivan)</option>
+                </optgroup>
+                <optgroup label="Module 3: Advanced Gamaka Practice Etudes">
+                    <option value="gamaka_kampitha_drill">29. Kampitha Gamaka Etude (Oscillating Micro-Bends)</option>
+                    <option value="gamaka_jaaru_drill">30. Jaaru / Slide Glissando Flow (Ullaasu & Dhallu)</option>
+                    <option value="gamaka_nokku_drill">31. Nokku & Odukkal Pull-Off Etude</option>
+                    <option value="gamaka_orikkai_drill">32. Orikkai Grace Flick Concert Study</option>
+                </optgroup>
+            </select>
+        </div>
+
+        <div class="btn-group">
+            <button class="action-btn" onclick="prevStep()">⬅ Prev Swara</button>
+            <button class="action-btn" onclick="nextStep()">Next Swara ➔</button>
+            <button id="playBtn" class="play-btn" onclick="togglePlay()">
+                <span id="playIcon">▶</span> <span id="playText">Auto Play</span>
+            </button>
+            <button id="tanpuraBtn" class="tanpura-btn" onclick="toggleTanpura()">
+                <span>🪕</span> <span id="tanpuraText">Tambura Drone: OFF</span>
+            </button>
+            <button id="micBtn" class="mic-btn" onclick="toggleMicListener()">
+                <span id="micIcon">🎤</span> <span id="micText">Live Mic Check</span>
+            </button>
+            <button class="action-btn secondary" onclick="resetLesson()">🔄 Reset</button>
+        </div>
+
+        <div class="btn-group">
+            <span style="font-size:12px; color:#fbbf24; font-weight:800;">Kaalam / Speed:</span>
+            <button class="kaalam-btn active" onclick="setKaalam(1, this)">1st Speed (Vilamba)</button>
+            <button class="kaalam-btn" onclick="setKaalam(2, this)">2nd Speed (Madhyama)</button>
+            <button class="kaalam-btn" onclick="setKaalam(4, this)">3rd Speed (Dhurita)</button>
+        </div>
+
+        <div class="btn-group" style="align-items:center; gap:6px;">
+            <span style="font-size:12px; color:#94a3b8; font-weight:700;">🔊 Vol:</span>
+            <input type="range" min="0" max="1" step="0.05" value="0.75" style="width:75px; accent-color:#f59e0b;" oninput="masterVolume=parseFloat(this.value)">
+            <span style="font-size:11px; color:#fbbf24; background:#060b14; padding:3px 7px; border-radius:4px; border:1px solid #b45309;" title="Space: Play | Arrows: Step | T: Tanpura | M: Mic | R: Reset">⌨️ Shortcuts Active</span>
+        </div>
+    </div>
+
+    <!-- Live Mic AI Pitch Monitor -->
+    <div class="mic-monitor-card" id="micMonitorCard" style="display:none;">
+        <div class="mic-status-text">
+            <span>🎙️ <strong>Carnatic Swara Mic Detector:</strong></span>
+            <span id="micStatusDesc" style="color:#f8fafc;">Pluck the highlighted swara on your Yamaha F280...</span>
+        </div>
+        <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
+            <div class="mic-freq-badge" id="micDetectedBadge">Detected: -- Hz</div>
+            <div class="mic-feedback-pill waiting" id="micFeedbackPill">⏳ Listening for Swara Pitch...</div>
+        </div>
+    </div>
+
+    <!-- Lesson Banner -->
+    <div class="lesson-banner" id="lessonBannerSection">
+        <div class="lesson-title-area">
+            <h2 id="lessonBannerTitle">1. Mohanam Varnam (Ninnukori - Adi Tala)</h2>
+            <p id="lessonBannerDesc">Raga: Mohanam (S R2 G3 P D2 S | S D2 P G3 R2 S) • Tala: Adi (8 Aksharas) • Composer: Sivanandam</p>
+        </div>
+        <div class="lesson-badges">
+            <div class="badge-pill" id="lessonTotalBadge">Total Swaras: 32</div>
+            <div class="badge-pill" style="background:#b45309; border-color:#fef08a;" id="currentStepBadge">Swara 1 / 32</div>
+        </div>
+    </div>
+
+    <!-- 1. 6-STRING GUITAR FRETBOARD CARD (YAMAHA F280 REVERSE VIEW: 12 ➔ 1 ➔ NUT) -->
+    <div class="fretboard-card" id="fretboardCard">
+        <div class="fretboard-direction-bar">
+            <button class="speed-btn" style="background:#451a03; color:#fde047; border-color:#f59e0b;" onclick="scrollToFret(12)">👈 Scroll to Fret 12 (High Body)</button>
+            <span style="font-weight:900; letter-spacing:0.5px;">🎸 YAMAHA F280 NECK: 12 ➔ 1 ➔ NUT (0)</span>
+            <button class="speed-btn" style="background:#451a03; color:#fde047; border-color:#f59e0b;" onclick="scrollToFret(0)">Scroll to Nut (Open 0) 👉</button>
+        </div>
+
+        <div class="fretboard-grid" id="fretboardGrid">
+            <!-- Dynamically populated 6 strings x 12 frets (Reverse order) -->
+        </div>
+    </div>
+
+    <!-- 2. ADVANCED CARNATIC GAMAKA & SWARA VISUALIZER CARD -->
+    <div class="gamaka-card" id="gamakaVisualCard">
+        <div class="gamaka-card-header">
+            <h3>🌊 Carnatic Swara & Gamaka Motion Engine</h3>
+            <div class="gamaka-guide-pill" id="gamakaTypePill">Gamaka: Kampitha (Microtonal Wave)</div>
+        </div>
+        <div class="gamaka-canvas-wrapper">
+            <svg class="gamaka-svg-element" id="gamakaSvg" viewBox="0 0 950 150">
+                <!-- Dynamic SVG Gamaka Curves, Swara Nodes, Tala Markers -->
+            </svg>
+        </div>
+    </div>
+        <div class="fretboard-direction-bar">
+            <button class="speed-btn" style="background:#451a03; color:#fde047; border-color:#f59e0b;" onclick="scrollToFret(12)">👈 Scroll to Fret 12 (High Body)</button>
+            <span style="font-weight:900; letter-spacing:0.5px;">🎸 YAMAHA F280 NECK: 12 ➔ 1 ➔ NUT (0)</span>
+            <button class="speed-btn" style="background:#451a03; color:#fde047; border-color:#f59e0b;" onclick="scrollToFret(0)">Scroll to Nut (Open 0) 👉</button>
+        </div>
+
+        <div class="fretboard-grid" id="fretboardGrid">
+            <!-- Dynamically populated 6 strings x 12 frets (Reverse order) -->
+        </div>
+    </div>
+
+    <!-- Action Details Grid -->
+    <div class="action-details-grid" id="actionDetailsGrid">
+        <div class="action-card-item">
+            <div class="card-label">Carnatic Swara & Stana</div>
+            <div class="card-value" id="cardSwara" style="color:#fbbf24;">G3 (Antara Gandharam)</div>
+        </div>
+        <div class="action-card-item">
+            <div class="card-label">Gamaka Technique</div>
+            <div class="card-value" id="cardGamaka" style="color:#34d399;">Kampitha (Gentle Fret Bend)</div>
+        </div>
+        <div class="action-card-item">
+            <div class="card-label">Guitar String & Fret</div>
+            <div class="card-value" id="cardGuitarPos" style="color:#38bdf8;">1st String (High E), Fret 0 (Open)</div>
+        </div>
+        <div class="action-card-item">
+            <div class="card-label">Left Hand Finger</div>
+            <div class="card-value" id="cardFinger" style="color:#a78bfa;">0 (Open String)</div>
+        </div>
+        <div class="action-card-item">
+            <div class="card-label">Tala Kriya & Beat</div>
+            <div class="card-value" id="cardTala" style="color:#f472b6;">Beat 1 (Samam - Clap)</div>
+        </div>
+        <div class="action-card-item">
+            <div class="card-label">Pitch Frequency (Hz)</div>
+            <div class="card-value" id="cardFreq" style="color:#fde047;">329.63 Hz</div>
+        </div>
+    </div>
+
+    <!-- 3. Dynamic Lesson Swara Flow Card -->
+    <div class="lesson-flow-card" id="lessonFlowSection">
+        <div class="flow-header">
+            <h3>📊 Concert Swara & Tala Flow Structure</h3>
+            <span>Click any swara card to inspect on Fretboard & Gamaka Engine</span>
+        </div>
+        <div class="flow-lines-container" id="flowLinesContainer">
+            <!-- Dynamically injected per lesson -->
+        </div>
+    </div>
+
+    <!-- 4. 72 MELAKARTA RAGAS EXPLORER (Tab 3) -->
+    <div class="mela-card" id="melaSection" style="display:none;">
+        <h2 style="color:#fbbf24; margin-bottom:4px;">🌐 72 Melakarta Ragas Master Chart & Fretboard Visualizer</h2>
+        <p style="color:#cbd5e1; font-size:14px;">Click any Melakarta Raga below to instantly map its complete 16-Swara scale across all 6 strings on your Yamaha F280!</p>
+
+        <div class="mela-chakras-grid" id="melaChakrasGrid">
+            <!-- Dynamically injected 12 Chakras -->
+        </div>
+    </div>
+
+    <!-- 5. GAMAKA MASTER ENGINE STUDIO (Tab 2) -->
+    <div class="gamaka-studio-card" id="gamakaStudioSection" style="display:none;">
+        <h2 style="color:#c084fc; margin-bottom:4px;">🌊 Carnatic Gamaka Physics on Acoustic Guitar</h2>
+        <p style="color:#cbd5e1; font-size:14px;">How to execute authentic Carnatic Gamakas on steel guitar strings:</p>
+
+        <div class="gamaka-types-grid">
+            <div class="gamaka-type-box">
+                <h4>1. Kampitha (Microtonal Oscillation / Bend)</h4>
+                <p>Gentle sideways deflection of the guitar string back-and-forth across the fret wire. Crucial for Gandharam in Kalyani, Sankarabharanam, and Nishadam in Todi.</p>
+            </div>
+            <div class="gamaka-type-box">
+                <h4>2. Jaaru (Meend / Glissando Slide)</h4>
+                <p>Smooth slide from one fret to another without releasing finger pressure. <em>Ullaasu Jaaru</em> (Upward Slide) & <em>Dhallu Jaaru</em> (Downward Slide).</p>
+            </div>
+            <div class="gamaka-type-box">
+                <h4>3. Nokku (Downward Hammer Strike)</h4>
+                <p>Plucking a note and sharply pressing down from a higher grace note (Anuswaram) with subtle microtonal rebound.</p>
+            </div>
+            <div class="gamaka-type-box">
+                <h4>4. Orikkai (Flick / Pull-Off Grace)</h4>
+                <p>Momentary snap of the left-hand finger releasing off the fret to touch the higher swara momentarily.</p>
+            </div>
+            <div class="gamaka-type-box">
+                <h4>5. Odukkal (Gliding Deflection)</h4>
+                <p>Gradual increase of finger tension pulling the string perpendicular to the fretboard to raise the pitch by 1 or 2 microtones.</p>
+            </div>
+            <div class="gamaka-type-box">
+                <h4>6. Khandippu (Staccato Cut)</h4>
+                <p>Sharp, crisp articulation stopping the string vibration abruptly before jumping to the next swara.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 6. CARNATIC METRONOME STUDIO (Tab 4) -->
+    <div class="metronome-card" id="metronomeSection" style="display:none;">
+        <h2 style="color:#38bdf8; margin-bottom:4px;">🥁 Carnatic Tala Metronome Studio</h2>
+        <p style="color:#94a3b8; font-size:14px;">Master your Laya with Laghu, Dhrutam, and Chapu Tala Kriyas</p>
+
+        <div class="metro-bpm-display" id="metroBpmText">72 BPM</div>
+        <div style="color:#fbbf24; font-size:15px; font-weight:800;" id="metroTalaName">Adi Tala (Chatusra Jathi Triputa Tala - 8 Aksharas)</div>
+
+        <div class="metro-beats-row" id="metroBeatsRow">
+            <!-- Injected Tala Kriya dots -->
+        </div>
+
+        <div style="margin: 20px 0; display:flex; justify-content:center; align-items:center; gap:16px; flex-wrap:wrap;">
+            <label style="font-weight:800; color:#93c5fd;">Tala BPM:</label>
+            <input type="range" id="bpmSlider" min="30" max="180" value="72" style="width:280px; accent-color:#f59e0b;" oninput="updateMetronomeBPM(this.value)">
+            <button class="action-btn secondary" onclick="tapTempo()">⏱ Tap Laya</button>
+        </div>
+
+        <div style="margin-bottom:18px; display:flex; justify-content:center; gap:10px; flex-wrap:wrap;">
+            <button class="speed-btn active" onclick="setCarnaticTala('adi', this)">Adi Tala (8)</button>
+            <button class="speed-btn" onclick="setCarnaticTala('rupaka', this)">Rupaka Tala (6)</button>
+            <button class="speed-btn" onclick="setCarnaticTala('misra_chapu', this)">Misra Chapu (7)</button>
+            <button class="speed-btn" onclick="setCarnaticTala('khanda_chapu', this)">Khanda Chapu (5)</button>
+        </div>
+
+        <button id="metroPlayBtn" class="play-btn" style="font-size:16px; padding:12px 28px;" onclick="toggleMetronome()">
+            ▶ Start Tala Metronome
+        </button>
+    </div>
+
+    <!-- 7. SHRUTI & GUITAR TUNER (Tab 5) -->
+    <div class="metronome-card" id="tunerSection" style="display:none; border-color:#10b981;">
+        <h2 style="color:#34d399; margin-bottom:4px;">🎯 Shruti Box & Yamaha F280 Acoustic Tuner</h2>
+        <p style="color:#94a3b8; font-size:14px;">Select Adhara Shadjam (Base Shruti) and Tune standard guitar strings</p>
+
+        <div style="display:flex; justify-content:center; gap:10px; margin: 18px 0; flex-wrap:wrap;">
+            <button class="speed-btn" onclick="setAdharaShadjam('C', 261.63, this)">1 Kattai (C)</button>
+            <button class="speed-btn" onclick="setAdharaShadjam('C#', 277.18, this)">1.5 Kattai (C#)</button>
+            <button class="speed-btn" onclick="setAdharaShadjam('D', 293.66, this)">2 Kattai (D)</button>
+            <button class="speed-btn" onclick="setAdharaShadjam('D#', 311.13, this)">2.5 Kattai (D#)</button>
+            <button class="speed-btn active" onclick="setAdharaShadjam('E', 329.63, this)">3 Kattai (E Standard)</button>
+        </div>
+
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(130px, 1fr)); gap:12px; max-width:900px; margin:18px auto;">
+            <div class="speed-btn" style="padding:14px; text-align:center;" onclick="playTone(82.41)">
+                <div style="font-size:18px; font-weight:900;">6th: Low E (Sa)</div>
+                <div style="color:#34d399; font-size:12px;">82.41 Hz</div>
+            </div>
+            <div class="speed-btn" style="padding:14px; text-align:center;" onclick="playTone(110.00)">
+                <div style="font-size:18px; font-weight:900;">5th: A (Ma)</div>
+                <div style="color:#34d399; font-size:12px;">110.00 Hz</div>
+            </div>
+            <div class="speed-btn" style="padding:14px; text-align:center;" onclick="playTone(146.83)">
+                <div style="font-size:18px; font-weight:900;">4th: D (Ri)</div>
+                <div style="color:#34d399; font-size:12px;">146.83 Hz</div>
+            </div>
+            <div class="speed-btn" style="padding:14px; text-align:center;" onclick="playTone(196.00)">
+                <div style="font-size:18px; font-weight:900;">3rd: G (Pa)</div>
+                <div style="color:#34d399; font-size:12px;">196.00 Hz</div>
+            </div>
+            <div class="speed-btn" style="padding:14px; text-align:center;" onclick="playTone(246.94)">
+                <div style="font-size:18px; font-weight:900;">2nd: B (Ni)</div>
+                <div style="color:#34d399; font-size:12px;">246.94 Hz</div>
+            </div>
+            <div class="speed-btn" style="padding:14px; text-align:center;" onclick="playTone(329.63)">
+                <div style="font-size:18px; font-weight:900;">1st: High E (Sa)</div>
+                <div style="color:#34d399; font-size:12px;">329.63 Hz</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 8. Timeline Sequence -->
+    <div class="timeline-container" id="timelineSection">
+        <div class="timeline-header">⏩ Swara Step Timeline:</div>
+        <div class="timeline-flow" id="timelineFlow">
+            <!-- Dynamically populated -->
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="carnatic-footer">
+        📌 <strong>Advanced Carnatic Guitar Studio (Yamaha F280):</strong>
+        Designed for serious Carnatic guitarists and students mastering Varnams, Krithis, Gamakas, and Tala Layam.
+        Use the Tanpura drone for authentic kutcheri ambiance while practicing with the real-time mic listener!
+    </div>
+</div>
+
+<script>
+    // Audio Context & Plucked String Synthesizer
+    let audioCtx = null;
+    let isAutoMuted = false;
+    let masterVolume = 0.75;
+    let tanpuraOscs = [];
+    let isTanpuraOn = false;
+
+    function initAudio() {
+        if (!audioCtx) {
+            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        if (audioCtx.state === 'suspended') {
+            audioCtx.resume();
+        }
+    }
+
+    function playTone(freq, gamakaType = 'none') {
+        if (isAutoMuted) return;
+        try {
+            initAudio();
+            const now = audioCtx.currentTime;
+            const osc = audioCtx.createOscillator();
+            const osc2 = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+
+            osc.type = 'triangle';
+            osc2.type = 'sine';
+
+            if (gamakaType === 'kampitha') {
+                // Microtonal oscillating wave
+                osc.frequency.setValueAtTime(freq, now);
+                osc.frequency.linearRampToValueAtTime(freq * 1.03, now + 0.1);
+                osc.frequency.linearRampToValueAtTime(freq * 0.98, now + 0.25);
+                osc.frequency.linearRampToValueAtTime(freq, now + 0.4);
+
+                osc2.frequency.setValueAtTime(freq * 2, now);
+            } else if (gamakaType === 'jaaru') {
+                // Slide up
+                osc.frequency.setValueAtTime(freq * 0.92, now);
+                osc.frequency.exponentialRampToValueAtTime(freq, now + 0.18);
+                osc2.frequency.setValueAtTime(freq * 1.84, now);
+                osc2.frequency.exponentialRampToValueAtTime(freq * 2, now + 0.18);
+            } else {
+                osc.frequency.setValueAtTime(freq, now);
+                osc2.frequency.setValueAtTime(freq * 2, now);
+            }
+
+            gain.gain.setValueAtTime(0.0001, now);
+            gain.gain.exponentialRampToValueAtTime(0.35 * masterVolume, now + 0.015);
+            gain.gain.exponentialRampToValueAtTime(0.0001, now + 1.1);
+
+            osc.connect(gain);
+            osc2.connect(gain);
+            gain.connect(audioCtx.destination);
+
+            osc.start(now);
+            osc2.start(now);
+            osc.stop(now + 1.15);
+            osc2.stop(now + 1.15);
+        } catch(e) {
+            console.log("Audio error:", e);
+        }
+    }
+
+    // Acoustic Tambura / Tanpura Drone Engine (Pa - Sa - Sa - Sa)
+    function toggleTanpura() {
+        initAudio();
+        isTanpuraOn = !isTanpuraOn;
+        const btn = document.getElementById('tanpuraBtn');
+        const text = document.getElementById('tanpuraText');
+
+        if (isTanpuraOn) {
+            btn.classList.add('active');
+            text.textContent = 'Tambura Drone: ON';
+            startTanpuraDrone(196.00, 329.63); // Pa (G3) & Sa (E4)
+        } else {
+            btn.classList.remove('active');
+            text.textContent = 'Tambura Drone: OFF';
+            stopTanpuraDrone();
+        }
+    }
+
+    function startTanpuraDrone(paFreq, saFreq) {
+        stopTanpuraDrone();
+        try {
+            const freqs = [paFreq, saFreq, saFreq, saFreq / 2];
+            const delays = [0, 0.8, 1.6, 2.4];
+
+            freqs.forEach((f, idx) => {
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(f, audioCtx.currentTime);
+
+                // Low-pass filter for warm rich acoustic tambura buzz
+                const filter = audioCtx.createBiquadFilter();
+                filter.type = 'lowpass';
+                filter.frequency.setValueAtTime(650, audioCtx.currentTime);
+
+                gain.gain.setValueAtTime(0.04 * masterVolume, audioCtx.currentTime);
+
+                osc.connect(filter);
+                filter.connect(gain);
+                gain.connect(audioCtx.destination);
+
+                osc.start();
+                tanpuraOscs.push(osc);
+            });
+        } catch(e) {}
+    }
+
+    function stopTanpuraDrone() {
+        tanpuraOscs.forEach(o => {
+            try { o.stop(); } catch(e) {}
+        });
+        tanpuraOscs = [];
+    }
+
+    function playChime(success = true) {
+        try {
+            initAudio();
+            const now = audioCtx.currentTime;
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(success ? 880 : 220, now);
+            if (success) osc.frequency.exponentialRampToValueAtTime(1320, now + 0.15);
+
+            gain.gain.setValueAtTime(0.0001, now);
+            gain.gain.exponentialRampToValueAtTime(0.2 * masterVolume, now + 0.01);
+            gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.3);
+
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+
+            osc.start(now);
+            osc.stop(now + 0.35);
+        } catch(e) {}
+    }
+
+    // Complete Carnatic Swara Database on Guitar (Standard E Tuning: Low E2 to High E5)
+    const carnaticSwaraDefs = {
+        'S_low':   { swara: 'Sa (மந்திர ஸ்தாயி)', name: 'Sa', strNum: 6, fretNum: 0, finger: '0 (Open)', freq: 82.41, col: '#ef4444', western: 'E2' },
+        'R1_low':  { swara: 'R1 (சுத்த ரிஷபம்)', name: 'R1', strNum: 6, fretNum: 1, finger: '1 (Index)', freq: 87.31, col: '#f97316', western: 'F2' },
+        'R2_low':  { swara: 'R2 (சதுஸ்ருதி ரி)', name: 'R2', strNum: 6, fretNum: 3, finger: '3 (Ring)', freq: 98.00, col: '#eab308', western: 'G2' },
+        'G3_low':  { swara: 'G3 (அந்தர காந்தாரம்)', name: 'G3', strNum: 5, fretNum: 2, finger: '2 (Middle)', freq: 123.47, col: '#10b981', western: 'B2' },
+        'M1_low':  { swara: 'M1 (சுத்த மத்யமம்)', name: 'M1', strNum: 5, fretNum: 3, finger: '3 (Ring)', freq: 130.81, col: '#06b6d4', western: 'C3' },
+        'M2_low':  { swara: 'M2 (பிரதி மத்யமம்)', name: 'M2', strNum: 4, fretNum: 1, finger: '1 (Index)', freq: 155.56, col: '#3b82f6', western: 'D#3' },
+        'P_mid':   { swara: 'Pa (மத்ய ஸ்தாயி)', name: 'Pa', strNum: 4, fretNum: 2, finger: '2 (Middle)', freq: 164.81, col: '#6366f1', western: 'E3' },
+        'D1_mid':  { swara: 'D1 (சுத்த தைவதம்)', name: 'D1', strNum: 4, fretNum: 3, finger: '3 (Ring)', freq: 174.61, col: '#8b5cf6', western: 'F3' },
+        'D2_mid':  { swara: 'D2 (சதுஸ்ருதி தை)', name: 'D2', strNum: 3, fretNum: 0, finger: '0 (Open)', freq: 196.00, col: '#a855f7', western: 'G3' },
+        'N2_mid':  { swara: 'N2 (கைசிகி நிஷாதம்)', name: 'N2', strNum: 3, fretNum: 3, finger: '3 (Ring)', freq: 233.08, col: '#d946ef', western: 'Bb3' },
+        'N3_mid':  { swara: 'N3 (காகலி நிஷாதம்)', name: 'N3', strNum: 2, fretNum: 0, finger: '0 (Open)', freq: 246.94, col: '#ec4899', western: 'B3' },
+        'S_mid':   { swara: 'Sa (மத்ய ஸ்தாயி)', name: 'Sa', strNum: 2, fretNum: 1, finger: '1 (Index)', freq: 261.63, col: '#ef4444', western: 'C4' },
+        'R1_mid':  { swara: 'R1 (சுத்த ரிஷபம்)', name: 'R1', strNum: 2, fretNum: 2, finger: '2 (Middle)', freq: 277.18, col: '#f97316', western: 'C#4' },
+        'R2_mid':  { swara: 'R2 (சதுஸ்ருதி ரி)', name: 'R2', strNum: 2, fretNum: 3, finger: '3 (Ring)', freq: 293.66, col: '#eab308', western: 'D4' },
+        'G2_mid':  { swara: 'G2 (சாதாரண கா)', name: 'G2', strNum: 2, fretNum: 4, finger: '4 (Pinky)', freq: 311.13, col: '#84cc16', western: 'Eb4' },
+        'G3_high': { swara: 'G3 (அந்தர காந்தாரம்)', name: 'G3', strNum: 1, fretNum: 0, finger: '0 (Open)', freq: 329.63, col: '#10b981', western: 'E4' },
+        'M1_high': { swara: 'M1 (சுத்த மத்யமம்)', name: 'M1', strNum: 1, fretNum: 1, finger: '1 (Index)', freq: 349.23, col: '#06b6d4', western: 'F4' },
+        'M2_high': { swara: 'M2 (பிரதி மத்யமம்)', name: 'M2', strNum: 1, fretNum: 2, finger: '2 (Middle)', freq: 369.99, col: '#3b82f6', western: 'F#4' },
+        'P_high':  { swara: 'Pa (தார ஸ்தாயி)', name: 'Pa', strNum: 1, fretNum: 3, finger: '3 (Ring)', freq: 392.00, col: '#6366f1', western: 'G4' },
+        'D1_high': { swara: 'D1 (சுத்த தைவதம்)', name: 'D1', strNum: 1, fretNum: 4, finger: '4 (Pinky)', freq: 415.30, col: '#8b5cf6', western: 'G#4' },
+        'D2_high': { swara: 'D2 (சதுஸ்ருதி தை)', name: 'D2', strNum: 1, fretNum: 5, finger: '4 (Pinky)', freq: 440.00, col: '#a855f7', western: 'A4' },
+        'N2_high': { swara: 'N2 (கைசிகி நிஷாதம்)', name: 'N2', strNum: 1, fretNum: 6, finger: '2 (Middle)', freq: 466.16, col: '#d946ef', western: 'Bb4' },
+        'N3_high': { swara: 'N3 (காகலி நிஷாதம்)', name: 'N3', strNum: 1, fretNum: 7, finger: '3 (Ring)', freq: 493.88, col: '#ec4899', western: 'B4' },
+        'S_tara':  { swara: 'Ṡa (தார ஸ்தாயி உச்சம்)', name: 'Ṡa', strNum: 1, fretNum: 8, finger: '4 (Pinky)', freq: 523.25, col: '#f43f5e', western: 'C5' },
+        'R2_tara': { swara: 'Ṙ2 (தார ஸ்தாயி ரி)', name: 'Ṙ2', strNum: 1, fretNum: 10, finger: '2 (Middle)', freq: 587.33, col: '#fbbf24', western: 'D5' },
+        'G3_tara': { swara: 'Ġ3 (தார ஸ்தாயி கா)', name: 'Ġ3', strNum: 1, fretNum: 12, finger: '4 (Pinky)', freq: 659.25, col: '#34d399', western: 'E5' }
+    };
+
+    // Advanced Repertoire Dataset (Varnams, Krithis, Gamakas)
+    const carnaticLessonsData = {
+        'varnam_mohanam': {
+            title: '1. Mohanam Varnam (Ninnukori - Adi Tala)',
+            desc: 'Raga: Mohanam (S R2 G3 P D2 Ṡ | Ṡ D2 P G3 R2 S) • Tala: Adi (8 Aksharas) • Sivanandam',
+            lines: [
+                { title: 'Pallavi: Nin-nu-ko-ri Yu-nna-na-ra', measures: [['G3_high','G3_high','R2_mid','R2_mid'], ['S_mid','R2_mid','G3_high','R2_mid'], ['S_mid','R2_mid','G3_high','P_high'], ['D2_high','P_high','D2_high','S_tara']] },
+                { title: 'Anupallavi: Pan-na-ge-ndra Sa-ya-na', measures: [['G3_high','G3_high','P_high','P_high'], ['D2_high','D2_high','S_tara','S_tara'], ['R2_tara','S_tara','D2_high','P_high'], ['G3_high','R2_mid','S_mid','R2_mid']] },
+                { title: 'Muktayi Swaram (Speed 1 & 2)', measures: [['G3_high','R2_mid','G3_high','R2_mid'], ['S_mid','R2_mid','S_mid','D2_mid'], ['S_mid','R2_mid','G3_high','P_high'], ['D2_high','S_tara','R2_tara','G3_tara']] }
+            ]
+        },
+        'varnam_kalyani': {
+            title: '2. Kalyani Varnam (Vanajakshi - Ata Tala)',
+            desc: 'Raga: Mechakalyani (65th Melakarta: S R2 G3 M2 P D2 N3 Ṡ) • Tala: Khanda Jathi Ata Tala (14 Aksharas)',
+            lines: [
+                { title: 'Pallavi Line 1: Va-na-ja-kshi', measures: [['G3_high','G3_high','R2_mid','S_mid'], ['N3_mid','S_mid','R2_mid','G3_high'], ['M2_high','P_high','D2_high','N3_high'], ['S_tara','N3_high','D2_high','P_high']] },
+                { title: 'Pallavi Line 2: Ni-ve-na-ku', measures: [['P_high','M2_high','G3_high','R2_mid'], ['S_mid','R2_mid','G3_high','M2_high'], ['P_high','D2_high','N3_high','S_tara']] }
+            ]
+        },
+        'varnam_hamsadhwani': {
+            title: '3. Hamsadhwani Varnam (Jalajaksha - Adi Tala)',
+            desc: 'Raga: Hamsadhwani (S R2 G3 P N3 Ṡ) • Tala: Adi Tala • Manambuchavadi Venkatasubbayyar',
+            lines: [
+                { title: 'Pallavi: Ja-la-ja-ksha Nin-ne', measures: [['G3_high','G3_high','R2_mid','S_mid'], ['N3_mid','S_mid','R2_mid','G3_high'], ['P_high','G3_high','R2_mid','S_mid'], ['R2_mid','G3_high','P_high','N3_high']] },
+                { title: 'Charanam: Ma-ni-ma-ya Ha-ra', measures: [['N3_high','S_tara','R2_tara','S_tara'], ['N3_high','P_high','G3_high','R2_mid'], ['S_mid','R2_mid','G3_high','P_high']] }
+            ]
+        },
+        'varnam_sankarabharanam': {
+            title: '4. Sankarabharanam Varnam (Sami Ninne - Adi Tala)',
+            desc: 'Raga: Dheerasankarabharanam (29th Melakarta: S R2 G3 M1 P D2 N3 Ṡ) • Tala: Adi Tala',
+            lines: [
+                { title: 'Pallavi: Sa-mi Nin-ne Ko-ri', measures: [['S_tara','N3_high','D2_high','P_high'], ['M1_high','G3_high','R2_mid','S_mid'], ['S_mid','R2_mid','G3_high','M1_high'], ['P_high','D2_high','N3_high','S_tara']] },
+                { title: 'Muktayi Swaram Descent', measures: [['S_tara','N3_high','D2_high','P_high'], ['M1_high','G3_high','R2_mid','S_mid']] }
+            ]
+        },
+        'varnam_abhogi': {
+            title: '5. Abhogi Varnam (Evaribodhisi - Adi Tala)',
+            desc: 'Raga: Abhogi (S R2 G2 M1 D2 Ṡ | Ṡ D2 M1 G2 R2 S) • Tala: Adi • Patnam Subramania Iyer',
+            lines: [
+                { title: 'Pallavi: E-va-ri-bo-dhi-si', measures: [['R2_mid','G2_mid','M1_high','D2_high'], ['S_tara','D2_high','M1_high','G2_mid'], ['R2_mid','S_mid','R2_mid','G2_mid'], ['M1_high','D2_high','S_tara','D2_high']] }
+            ]
+        },
+        'varnam_kaanada': {
+            title: '6. Kaanada Varnam (Nera Nammithi - Ata Tala)',
+            desc: 'Raga: Kaanada (Vakra Gamaka Raga: S R2 G2 M1 D2 N2 Ṡ) • Tala: Khanda Ata Tala',
+            lines: [
+                { title: 'Pallavi: Ne-ra Nam-mi-thi', measures: [['P_high','M1_high','D2_high','N2_high'], ['S_tara','N2_high','P_high','M1_high'], ['G2_mid','M1_high','R2_mid','S_mid']] }
+            ]
+        },
+        'varnam_begada': {
+            title: '7. Begada Varnam (Inta Chala - Adi Tala)',
+            desc: 'Raga: Begada (S G3 R2 G3 M1 P D2 N2 D2 Ṡ) • Vina Kuppayyar',
+            lines: [
+                { title: 'Pallavi Theme', measures: [['G3_high','R2_mid','G3_high','M1_high'], ['P_high','D2_high','N2_high','D2_high'], ['P_high','M1_high','G3_high','R2_mid']] }
+            ]
+        },
+        'varnam_sahana': {
+            title: '8. Sahana Varnam (Karunimpa - Adi Tala)',
+            desc: 'Raga: Sahana (S R2 G3 M1 P M1 D2 N2 Ṡ) • Tiruvottiyur Tyagayyar',
+            lines: [
+                { title: 'Pallavi Phrase', measures: [['R2_mid','G3_high','M1_high','P_high'], ['M1_high','D2_high','N2_high','S_tara'], ['N2_high','D2_high','P_high','M1_high']] }
+            ]
+        },
+        'varnam_kambhoji': {
+            title: '9. Kambhoji Varnam (Sarasijanabha - Ata Tala)',
+            desc: 'Raga: Kambhoji (S R2 G3 M1 P D2 Ṡ | Ṡ N2 D2 P M1 G3 R2 S) • Vadivelu',
+            lines: [
+                { title: 'Pallavi Phrase', measures: [['S_mid','R2_mid','G3_high','M1_high'], ['P_high','D2_high','S_tara','N2_high'], ['D2_high','P_high','M1_high','G3_high']] }
+            ]
+        },
+        'varnam_natakurinji': {
+            title: '10. Natakurinji Varnam (Chalamela - Adi Tala)',
+            desc: 'Raga: Natakurinji (S R2 G3 M1 N2 D2 N2 P D2 N2 Ṡ)',
+            lines: [
+                { title: 'Pallavi Theme', measures: [['S_mid','R2_mid','G3_high','M1_high'], ['N2_high','D2_high','N2_high','S_tara'], ['N2_high','D2_high','P_high','M1_high']] }
+            ]
+        },
+
+        // Module 2: Famous Krithis
+        'krithi_vatapi': {
+            title: '11. Vatapi Ganapatim (Hamsadhwani - Adi Tala)',
+            desc: 'Composer: Muthuswami Dikshitar • Raga: Hamsadhwani (S R2 G3 P N3 Ṡ)',
+            lines: [
+                { title: 'Pallavi: Va-ta-pi Ga-na-pa-tim Bha-je-ham', measures: [['G3_high','G3_high','R2_mid','S_mid'], ['S_mid','R2_mid','G3_high','P_high'], ['P_high','N3_high','S_tara','N3_high'], ['P_high','G3_high','R2_mid','S_mid']] },
+                { title: 'Charanam: Mu-la-dha-ra Cha-kra Sthi-tham', measures: [['P_high','P_high','N3_high','S_tara'], ['R2_tara','S_tara','N3_high','P_high'], ['G3_high','P_high','R2_mid','S_mid']] }
+            ]
+        },
+        'krithi_raghuvamsa': {
+            title: '12. Raghuvamsa Sudha (Kathanakuthuhalam - Adi Tala)',
+            desc: 'Composer: Patnam Subramania Iyer • Fast Virtuoso Kathanakuthuhalam Riff (S R2 M1 D2 N3 G3 P Ṡ)',
+            lines: [
+                { title: 'Pallavi Virtuoso Theme', measures: [['S_mid','R2_mid','M1_high','D2_high'], ['N3_high','G3_high','P_high','S_tara'], ['S_tara','N3_high','D2_high','P_high'], ['M1_high','G3_high','R2_mid','S_mid']] },
+                { title: 'Speed Run Flow', measures: [['R2_mid','M1_high','D2_high','N3_high'], ['G3_high','P_high','S_tara','R2_tara']] }
+            ]
+        },
+        'krithi_maha_ganapathim': {
+            title: '13. Maha Ganapathim (Nattai - Adi Tala)',
+            desc: 'Composer: Muthuswami Dikshitar • Raga: Nattai (S R3 G3 M1 P N3 Ṡ)',
+            lines: [
+                { title: 'Pallavi: Ma-ha Ga-na-pa-thim', measures: [['S_mid','P_mid','P_high','M1_high'], ['P_high','N3_high','S_tara','N3_high'], ['P_high','M1_high','G3_high','M1_high']] }
+            ]
+        },
+        'krithi_samaja_vara': {
+            title: '14. Samaja Vara Gamana (Hindolam - Adi Tala)',
+            desc: 'Composer: Saint Tyagaraja • Raga: Hindolam (S G2 M1 D1 N2 Ṡ)',
+            lines: [
+                { title: 'Pallavi: Sa-ma-ja Va-ra Ga-ma-na', measures: [['M1_high','G2_mid','M1_high','D1_high'], ['N2_high','S_tara','N2_high','D1_high'], ['M1_high','G2_mid','S_mid','M1_high']] }
+            ]
+        },
+        'krithi_bantureethi': {
+            title: '15. Bantureethi Kolu (Hamsanadam - Adi Tala)',
+            desc: 'Composer: Saint Tyagaraja • Raga: Hamsanadam (S R2 M2 P N3 Ṡ)',
+            lines: [
+                { title: 'Pallavi Theme', measures: [['P_high','M2_high','P_high','N3_high'], ['S_tara','N3_high','P_high','M2_high'], ['R2_mid','S_mid','R2_mid','P_high']] }
+            ]
+        },
+        'krithi_endaro': {
+            title: '16. Endaro Mahanubhavulu (Sri Ragam - Pancharatna Krithi)',
+            desc: 'Tyagaraja Pancharatna Masterpiece • Sri Ragam (S R2 M1 P N2 Ṡ | Ṡ N2 P D2 N2 P M1 R2 G2 R2 S)',
+            lines: [
+                { title: 'Pallavi: En-da-ro Ma-ha-nu-bha-vu-lu', measures: [['P_high','P_high','M1_high','R2_mid'], ['G2_mid','R2_mid','S_mid','R2_mid'], ['M1_high','P_high','N2_high','S_tara']] }
+            ]
+        },
+        'krithi_jagadananda': {
+            title: '17. Jagadananda Karaka (Nattai - Pancharatna Krithi)',
+            desc: 'First Pancharatna Krithi of Tyagaraja • Nattai Raga (S R3 G3 M1 P N3 Ṡ)',
+            lines: [
+                { title: 'Pallavi Theme', measures: [['P_high','P_high','M1_high','P_high'], ['N3_high','S_tara','N3_high','P_high'], ['M1_high','G3_high','M1_high','R2_mid']] }
+            ]
+        },
+        'krithi_nagumomu': {
+            title: '18. Nagumomu Ganaleni (Abheri - Adi Tala)',
+            desc: 'Tyagaraja Classic • Raga: Abheri (S G2 M1 P N2 Ṡ | Ṡ N2 D2 P M1 G2 R2 S)',
+            lines: [
+                { title: 'Pallavi: Na-gu-mo-mu Ga-na-le-ni', measures: [['S_mid','G2_mid','M1_high','P_high'], ['N2_high','S_tara','N2_high','D2_high'], ['P_high','M1_high','G2_mid','R2_mid']] }
+            ]
+        },
+        'krithi_bho_shambho': {
+            title: '19. Bho Shambho (Revati - Adi Tala)',
+            desc: 'Composer: Swami Dayananda Saraswati • Raga: Revati (S R1 M1 P N2 Ṡ)',
+            lines: [
+                { title: 'Pallavi: Bho Sham-bho Shi-va Sham-bho', measures: [['S_mid','R1_mid','M1_high','P_high'], ['N2_high','S_tara','N2_high','P_high'], ['M1_high','R1_mid','S_mid','S_mid']] }
+            ]
+        },
+        'krithi_alaipayuthey': {
+            title: '20. Alaipayuthey Kanna (Kaanada - Adi Tala)',
+            desc: 'Oothukkadu Venkata Kavi • Kaanada Raga (S R2 G2 M1 D2 N2 Ṡ)',
+            lines: [
+                { title: 'Pallavi: A-lai-pa-yu-they Kan-na', measures: [['P_high','M1_high','D2_high','N2_high'], ['S_tara','N2_high','P_high','M1_high'], ['G2_mid','M1_high','R2_mid','S_mid']] }
+            ]
+        },
+        'krithi_krishna_nee': {
+            title: '21. Krishna Nee Begane Baaro (Yamunakalyani - Misra Chapu)',
+            desc: 'Vyasatirtha Classic • Yamunakalyani (S R2 G3 P M2 P D2 Ṡ)',
+            lines: [
+                { title: 'Pallavi: Krish-na Nee Be-ga-ne', measures: [['S_mid','R2_mid','G3_high','P_high'], ['M2_high','P_high','D2_high','S_tara']] }
+            ]
+        },
+        'krithi_brahmam_okate': {
+            title: '22. Brahmam Okate (Bowli - Adi Tala)',
+            desc: 'Annamacharya • Raga: Bowli (S R1 G3 P D1 Ṡ)',
+            lines: [
+                { title: 'Pallavi: Brah-mam O-ka-te', measures: [['S_mid','R1_mid','G3_high','P_high'], ['D1_high','S_tara','D1_high','P_high'], ['G3_high','R1_mid','S_mid','S_mid']] }
+            ]
+        },
+        'krithi_chinnanchiru': {
+            title: '23. Chinnanchiru Kiliye (Ragamalika - Bharatiyar)',
+            desc: 'Subramania Bharatiyar • Kapi & Maand Raga Theme',
+            lines: [
+                { title: 'Theme: Chin-nan-chi-ru Ki-li-ye', measures: [['S_mid','R2_mid','G2_mid','M1_high'], ['P_high','D2_high','N2_high','S_tara']] }
+            ]
+        },
+        'krithi_kurai_ondrum': {
+            title: '24. Kurai Ondrum Illai (Ragamalika - Rajaji)',
+            desc: 'Rajaji • Sivaranjani & Kapi Theme',
+            lines: [
+                { title: 'Theme: Ku-rai On-drum Il-lai', measures: [['S_mid','R2_mid','G2_mid','P_high'], ['D2_high','S_tara','D2_high','P_high'], ['G2_mid','R2_mid','S_mid','S_mid']] }
+            ]
+        },
+        'krithi_manavyala': {
+            title: '25. Manavyala Kinchara (Nalinakanthi - Adi Tala)',
+            desc: 'Tyagaraja • Raga: Nalinakanthi (S G3 R2 M1 P N3 Ṡ)',
+            lines: [
+                { title: 'Pallavi Theme', measures: [['S_mid','G3_high','R2_mid','M1_high'], ['P_high','N3_high','S_tara','P_high']] }
+            ]
+        },
+        'krithi_brochevare': {
+            title: '26. Brochevarevarura (Khamas - Adi Tala)',
+            desc: 'Mysore Vasudevachar • Raga: Khamas (S M1 G3 M1 P D2 N2 Ṡ)',
+            lines: [
+                { title: 'Pallavi Theme', measures: [['M1_high','G3_high','M1_high','P_high'], ['D2_high','N2_high','S_tara','N2_high'], ['D2_high','P_high','M1_high','G3_high']] }
+            ]
+        },
+        'krithi_swara_raga': {
+            title: '27. Swara Raga Sudha (Sankarabharanam - Adi Tala)',
+            desc: 'Tyagaraja • Sankarabharanam (S R2 G3 M1 P D2 N3 Ṡ)',
+            lines: [
+                { title: 'Pallavi Theme', measures: [['P_high','M1_high','G3_high','R2_mid'], ['S_mid','R2_mid','G3_high','M1_high'], ['P_high','D2_high','N3_high','S_tara']] }
+            ]
+        },
+        'krithi_enna_thavam': {
+            title: '28. Enna Thavam Seithanai (Kapi - Adi Tala)',
+            desc: 'Papanasam Sivan • Raga: Kapi (S R2 M1 P N3 Ṡ | Ṡ N2 D2 N2 P M1 G2 R2 S)',
+            lines: [
+                { title: 'Pallavi Theme', measures: [['S_mid','R2_mid','M1_high','P_high'], ['N3_high','S_tara','N2_high','D2_high'], ['P_high','M1_high','G2_mid','R2_mid']] }
+            ]
+        },
+
+        // Module 3: Gamaka Drills
+        'gamaka_kampitha_drill': {
+            title: '29. Kampitha Gamaka Etude (Oscillating Micro-Bends)',
+            desc: 'Practicing continuous controlled sideways bend on G3 & N3',
+            lines: [{ title: 'Kampitha Wave Drill', measures: [['G3_high','G3_high','M1_high','G3_high'], ['P_high','N3_high','N3_high','S_tara']] }]
+        },
+        'gamaka_jaaru_drill': {
+            title: '30. Jaaru / Slide Glissando Flow (Ullaasu & Dhallu)',
+            desc: 'Practicing seamless fretboard slides from R2 to G3, P to D2',
+            lines: [{ title: 'Slide Flow Drill', measures: [['R2_mid','G3_high','P_high','D2_high'], ['S_tara','D2_high','P_high','G3_high']] }]
+        },
+        'gamaka_nokku_drill': {
+            title: '31. Nokku & Odukkal Pull-Off Etude',
+            desc: 'Anuswaram strike and deflection on acoustic steel strings',
+            lines: [{ title: 'Nokku Snap Drill', measures: [['M1_high','G3_high','P_high','M1_high'], ['D2_high','P_high','S_tara','D2_high']] }]
+        },
+        'gamaka_orikkai_drill': {
+            title: '32. Orikkai Grace Flick Concert Study',
+            desc: 'Rapid grace-flick execution on high register',
+            lines: [{ title: 'Orikkai Grace Run', measures: [['S_tara','R2_tara','S_tara','N3_high'], ['P_high','M2_high','P_high','G3_high']] }]
+        }
+    };
+
+    // 72 Melakarta Data Matrix
+    const melakartaChakras = [
+        { num: 1, name: '1. Indu Chakra (1-6)', ragas: ['1. Kanakangi', '2. Ratnangi', '3. Ganamurthi', '4. Vanaspati', '5. Manavati', '6. Tanarupi'] },
+        { num: 2, name: '2. Netra Chakra (7-12)', ragas: ['7. Senavati', '8. Hanumatodi', '9. Dhenuka', '10. Natakapriya', '11. Kokilapriya', '12. Rupavati'] },
+        { num: 3, name: '3. Agni Chakra (13-18)', ragas: ['13. Gayakapriya', '14. Vakulabharanam', '15. Mayamalavagowla', '16. Chakravakam', '17. Suryakantam', '18. Hatakambari'] },
+        { num: 4, name: '4. Veda Chakra (19-24)', ragas: ['19. Jhankaradhwani', '20. Natabhairavi', '21. Keeravani', '22. Kharaharapriya', '23. Gaurimanohari', '24. Varunapriya'] },
+        { num: 5, name: '5. Bana Chakra (25-30)', ragas: ['25. Mararanjani', '26. Charukesi', '27. Sarasangi', '28. Harikambhoji', '29. Sankarabharanam', '30. Naganandini'] },
+        { num: 6, name: '6. Rutu Chakra (31-36)', ragas: ['31. Yagapriya', '32. Ragavardhini', '33. Gangeyabhushani', '34. Vagadheeswari', '35. Sulini', '36. Chalanata'] },
+        { num: 7, name: '7. Rishi Chakra (37-42)', ragas: ['37. Salagam', '38. Jalarnavam', '39. Jhalavarali', '40. Navaneetam', '41. Pavani', '42. Raghupriya'] },
+        { num: 8, name: '8. Vasu Chakra (43-48)', ragas: ['43. Gavambhodhi', '44. Bhavapriya', '45. Shubhapantuvarali', '46. Shadvidhamargini', '47. Suvarnangi', '48. Divyamani'] },
+        { num: 9, name: '9. Brahma Chakra (49-54)', ragas: ['49. Dhavalambari', '50. Namanarayani', '51. Kamavardhini (Pantuvarali)', '52. Ramapriya', '53. Gamanashrama', '54. Vishwambhari'] },
+        { num: 10, name: '10. Disi Chakra (55-60)', ragas: ['55. Syamalangi', '56. Shanmukhapriya', '57. Simhendramadhyamam', '58. Hemavati', '59. Dharmavati', '60. Neetimati'] },
+        { num: 11, name: '11. Rudra Chakra (61-66)', ragas: ['61. Kantamani', '62. Rishabhapriya', '63. Latangi', '64. Vachaspati', '65. Mechakalyani', '66. Chitrambari'] },
+        { num: 12, name: '12. Aditya Chakra (67-72)', ragas: ['67. Sucharitra', '68. Jyotisvarupini', '69. Dhatuvardhani', '70. Nasikabhushani', '71. Kosalam', '72. Rasikapriya'] }
+    ];
+
+    // State Variables
+    let currentLessonKey = 'varnam_mohanam';
+    let currentStepIndex = 0;
+    let flatStepSequence = [];
+    let isPlaying = false;
+    let playInterval = null;
+    let speedMultiplier = 1.0;
+    let isMicListening = false;
+    let micStream = null;
+    let micAnalyser = null;
+    let currentTab = 'lessons';
+
+    // Metronome State
+    let metroBpm = 72;
+    let metroTalaType = 'adi';
+    let metroBeatsCount = 8;
+    let metroIsPlaying = false;
+    let metroInterval = null;
+    let currentMetroBeat = 0;
+    let lastTapTime = 0;
+    let tapTimes = [];
+
+    // Initialize Flat Sequence from Lesson
+    function initFlatSequence() {
+        flatStepSequence = [];
+        const lesson = carnaticLessonsData[currentLessonKey];
+        if (!lesson) return;
+
+        lesson.lines.forEach(line => {
+            line.measures.forEach(measure => {
+                measure.forEach(swaraKey => {
+                    flatStepSequence.push({
+                        swaraKey: swaraKey,
+                        gamaka: (currentLessonKey.includes('gamaka')) ? 'kampitha' : 'none'
+                    });
+                });
+            });
+        });
+    }
+
+    // Render SVG Gamaka Motion Curve
+    function renderGamakaSVG() {
+        const svg = document.getElementById('gamakaSvg');
+        svg.innerHTML = '';
+
+        const cur = flatStepSequence[currentStepIndex];
+        const activeSwaraKey = cur ? cur.swaraKey : 'G3_high';
+        const swaraInfo = carnaticSwaraDefs[activeSwaraKey] || carnaticSwaraDefs['G3_high'];
+
+        // Draw Base Reference Lines
+        const yBase = 80;
+        const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+        line.setAttribute('x1', '30');
+        line.setAttribute('y1', yBase.toString());
+        line.setAttribute('x2', '920');
+        line.setAttribute('y2', yBase.toString());
+        line.setAttribute('stroke', '#1e3a5f');
+        line.setAttribute('stroke-width', '2');
+        line.setAttribute('stroke-dasharray', '4');
+        svg.appendChild(line);
+
+        // Draw Gamaka Wave Arc
+        const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        const d = `M 200,80 Q 320,30 475,80 T 750,80`;
+        path.setAttribute('d', d);
+        path.setAttribute('fill', 'none');
+        path.setAttribute('stroke', '#f59e0b');
+        path.setAttribute('stroke-width', '3.5');
+        svg.appendChild(path);
+
+        // Active Swara Node
+        const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+        circle.setAttribute('cx', '475');
+        circle.setAttribute('cy', '80');
+        circle.setAttribute('r', '18');
+        circle.setAttribute('fill', swaraInfo.col || '#d97706');
+        circle.setAttribute('stroke', '#ffffff');
+        circle.setAttribute('stroke-width', '3');
+        circle.setAttribute('box-shadow', '0 0 15px #f59e0b');
+        svg.appendChild(circle);
+
+        // Swara Text
+        const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+        text.setAttribute('x', '475');
+        text.setAttribute('y', '85');
+        text.setAttribute('font-size', '14');
+        text.setAttribute('font-weight', '900');
+        text.setAttribute('fill', '#ffffff');
+        text.setAttribute('text-anchor', 'middle');
+        text.textContent = swaraInfo.name;
+        svg.appendChild(text);
+
+        // Label below
+        const label = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+        label.setAttribute('x', '475');
+        label.setAttribute('y', '125');
+        label.setAttribute('font-size', '14');
+        label.setAttribute('font-weight', '800');
+        label.setAttribute('fill', '#fde047');
+        label.setAttribute('text-anchor', 'middle');
+        label.textContent = `${swaraInfo.swara} (${swaraInfo.western} - ${swaraInfo.freq} Hz)`;
+        svg.appendChild(label);
+    }
+
+    // Dynamic 6-String Guitar Fretboard (Yamaha F280 Reverse View: 12 ➔ 1 ➔ Nut)
+    function renderDynamicFretboard() {
+        const grid = document.getElementById('fretboardGrid');
+        grid.innerHTML = '';
+
+        // Header Row
+        const emptyCorner = document.createElement('div');
+        emptyCorner.className = 'fret-header-cell';
+        emptyCorner.textContent = 'String';
+        grid.appendChild(emptyCorner);
+
+        const yamahaInlays = { 12: '🌟🌟 12 (Octave)', 9: '🔘 9', 7: '⭐ 7', 5: '⭐ 5' };
+
+        for (let f = 12; f >= 1; f--) {
+            const fCell = document.createElement('div');
+            fCell.className = 'fret-header-cell';
+            fCell.id = 'fret-hdr-' + f;
+            fCell.innerHTML = yamahaInlays[f] 
+                ? `<span style="color:#fef08a; font-weight:900;">${yamahaInlays[f]}</span>` 
+                : 'Fret ' + f;
+            grid.appendChild(fCell);
+        }
+
+        const nutHeader = document.createElement('div');
+        nutHeader.className = 'fret-header-cell';
+        nutHeader.id = 'fret-hdr-0';
+        nutHeader.style.color = '#fbbf24';
+        nutHeader.style.background = '#78350f';
+        nutHeader.textContent = 'NUT (0)';
+        grid.appendChild(nutHeader);
+
+        const stringDefs = [
+            { num: 6, name: '6th (Low Sa / E2)', wireH: 4.8 },
+            { num: 5, name: '5th (Ma / A2)', wireH: 4.0 },
+            { num: 4, name: '4th (Ri / D3)', wireH: 3.2 },
+            { num: 3, name: '3rd (Pa / G3)', wireH: 2.5 },
+            { num: 2, name: '2nd (Ni / B3)', wireH: 1.9 },
+            { num: 1, name: '1st (High Sa / E4)', wireH: 1.4 }
+        ];
+
+        stringDefs.forEach(str => {
+            const labelCell = document.createElement('div');
+            labelCell.className = 'string-name-cell active-string';
+            labelCell.textContent = str.name;
+            grid.appendChild(labelCell);
+
+            for (let f = 12; f >= 1; f--) {
+                const slot = document.createElement('div');
+                slot.className = 'fret-slot';
+                slot.id = `slot-${str.num}-${f}`;
+
+                if ((f === 5 || f === 7 || f === 9) && (str.num === 3)) {
+                    const pearl = document.createElement('div');
+                    pearl.className = 'yamaha-pearl-dot';
+                    pearl.title = `Yamaha F280 Fret ${f} Pearl Inlay`;
+                    slot.appendChild(pearl);
+                } else if (f === 12 && (str.num === 3)) {
+                    const pearl1 = document.createElement('div');
+                    pearl1.className = 'yamaha-pearl-dot double-top';
+                    const pearl2 = document.createElement('div');
+                    pearl2.className = 'yamaha-pearl-dot double-bot';
+                    slot.appendChild(pearl1);
+                    slot.appendChild(pearl2);
+                }
+
+                const wire = document.createElement('div');
+                wire.className = 'string-wire-line';
+                wire.style.height = `${str.wireH}px`;
+                wire.style.background = 'linear-gradient(to right, #94a3b8, #f8fafc, #94a3b8)';
+                slot.appendChild(wire);
+
+                grid.appendChild(slot);
+            }
+
+            const nutSlot = document.createElement('div');
+            nutSlot.className = 'fret-slot nut-slot';
+            nutSlot.id = `slot-${str.num}-0`;
+
+            const nutWire = document.createElement('div');
+            nutWire.className = 'string-wire-line';
+            nutWire.style.height = `${str.wireH}px`;
+            nutWire.style.background = '#cbd5e1';
+            nutSlot.appendChild(nutWire);
+
+            grid.appendChild(nutSlot);
+        });
+
+        // Populate Badges
+        const cur = flatStepSequence[currentStepIndex];
+        const activeSwaraKey = cur ? cur.swaraKey : 'G3_high';
+
+        Object.keys(carnaticSwaraDefs).forEach(sk => {
+            const sInfo = carnaticSwaraDefs[sk];
+            if (sInfo) {
+                const slot = document.getElementById(`slot-${sInfo.strNum}-${sInfo.fretNum}`);
+                if (slot) {
+                    const badge = document.createElement('div');
+                    badge.className = 'fret-swara-badge' + (sk === activeSwaraKey ? ' active-playing' : '');
+                    badge.id = `badge-${sk}`;
+                    badge.style.background = sInfo.col;
+                    badge.onclick = () => onFretSwaraClick(sk);
+
+                    const nameSpan = document.createElement('span');
+                    nameSpan.textContent = sInfo.name;
+                    badge.appendChild(nameSpan);
+
+                    const fingerSpan = document.createElement('span');
+                    fingerSpan.className = 'sub-fret-finger';
+                    fingerSpan.textContent = `F${sInfo.fretNum}`;
+                    badge.appendChild(fingerSpan);
+
+                    slot.appendChild(badge);
+                }
+            }
+        });
+    }
+
+    // Dynamic Lesson Flow Card Generator
+    function renderLessonSwaraFlow() {
+        const container = document.getElementById('flowLinesContainer');
+        container.innerHTML = '';
+        const lesson = carnaticLessonsData[currentLessonKey];
+        if (!lesson) return;
+
+        let globalCounter = 0;
+
+        lesson.lines.forEach((line, lineIdx) => {
+            const lineRow = document.createElement('div');
+            lineRow.className = 'flow-line-row';
+
+            const lineTitle = document.createElement('div');
+            lineTitle.className = 'flow-line-title';
+            lineTitle.innerHTML = `<span>${line.title}</span> <span>Section ${lineIdx + 1}</span>`;
+            lineRow.appendChild(lineTitle);
+
+            const grid = document.createElement('div');
+            grid.className = 'flow-measure-grid';
+
+            line.measures.forEach((meas, mIdx) => {
+                const mBox = document.createElement('div');
+                mBox.className = 'flow-measure-box';
+
+                meas.forEach(swaraKey => {
+                    const sInfo = carnaticSwaraDefs[swaraKey];
+                    const thisIdx = globalCounter;
+                    globalCounter++;
+
+                    const box = document.createElement('div');
+                    box.className = 'c-swara-box';
+                    box.id = `c-box-${thisIdx}`;
+                    box.onclick = () => jumpToStep(thisIdx);
+
+                    const swaraEl = document.createElement('div');
+                    swaraEl.className = 'c-swara';
+                    swaraEl.style.color = sInfo ? sInfo.col : '#ffffff';
+                    swaraEl.textContent = sInfo ? sInfo.name : swaraKey;
+                    box.appendChild(swaraEl);
+
+                    const gamakaEl = document.createElement('div');
+                    gamakaEl.className = 'c-gamaka';
+                    gamakaEl.textContent = sInfo ? sInfo.western : '';
+                    box.appendChild(gamakaEl);
+
+                    const guitarEl = document.createElement('div');
+                    guitarEl.className = 'c-guitar-pos';
+                    guitarEl.textContent = sInfo ? `S${sInfo.strNum} F${sInfo.fretNum}` : '';
+                    box.appendChild(guitarEl);
+
+                    mBox.appendChild(box);
+                });
+
+                grid.appendChild(mBox);
+
+                if (mIdx < line.measures.length - 1) {
+                    const div = document.createElement('span');
+                    div.className = 'flow-bar-divider';
+                    div.textContent = '|';
+                    grid.appendChild(div);
+                }
+            });
+
+            lineRow.appendChild(grid);
+            container.appendChild(lineRow);
+        });
+    }
+
+    // Dynamic Timeline Flow
+    function renderTimeline() {
+        const flow = document.getElementById('timelineFlow');
+        flow.innerHTML = '';
+
+        flatStepSequence.forEach((step, idx) => {
+            const sInfo = carnaticSwaraDefs[step.swaraKey];
+            const chip = document.createElement('div');
+            chip.className = 'timeline-chip';
+            chip.id = `timeline-chip-${idx}`;
+            chip.textContent = `${idx + 1}. ${sInfo ? sInfo.name : step.swaraKey} (S${sInfo ? sInfo.strNum : ''} F${sInfo ? sInfo.fretNum : ''})`;
+            chip.onclick = () => jumpToStep(idx);
+            flow.appendChild(chip);
+        });
+    }
+
+    // 72 Melakarta Grid Generator
+    function renderMelakartaExplorer() {
+        const grid = document.getElementById('melaChakrasGrid');
+        grid.innerHTML = '';
+
+        melakartaChakras.forEach(chk => {
+            const box = document.createElement('div');
+            box.className = 'mela-chakra-box';
+
+            const title = document.createElement('div');
+            title.className = 'mela-chakra-title';
+            title.textContent = chk.name;
+            box.appendChild(title);
+
+            chk.ragas.forEach(r => {
+                const chip = document.createElement('span');
+                chip.className = 'mela-raga-chip';
+                chip.textContent = r;
+                chip.onclick = () => {
+                    alert(`Loaded ${r}! Exploring swara stanas across 6 strings.`);
+                };
+                box.appendChild(chip);
+            });
+
+            grid.appendChild(box);
+        });
+    }
+
+    // Update Step UI & Highlighting
+    
+    // Changeable Kattai / Shruti Transposition Handler
+    let currentKattaiRatio = 1.0;
+    function onKattaiChange(valStr) {
+        const [kStr, noteName, freqStr, fitDesc] = valStr.split('|');
+        const newFreq = parseFloat(freqStr);
+        // Base reference is C (130.81 Hz)
+        currentKattaiRatio = newFreq / 130.81;
+
+        // Update all swara frequencies dynamically
+        if (typeof allSwaras !== 'undefined') {
+            for (let k in allSwaras) {
+                if (allSwaras[k].baseFreq) {
+                    allSwaras[k].freq = allSwaras[k].baseFreq * currentKattaiRatio;
+                } else {
+                    allSwaras[k].baseFreq = allSwaras[k].freq;
+                    allSwaras[k].freq = allSwaras[k].baseFreq * currentKattaiRatio;
+                }
+            }
+        }
+
+        const kattaiHeaderBadge = document.getElementById('headerKattaiBadge');
+        if (kattaiHeaderBadge) {
+            kattaiHeaderBadge.textContent = `${kStr} கட்டை (${noteName} - ${newFreq.toFixed(1)} Hz) • ${fitDesc}`;
+        }
+
+        updateStepUI(false);
+    }
+    
+    function updateStepUI(playAudio = true) {
+        if (flatStepSequence.length === 0) return;
+        if (currentStepIndex >= flatStepSequence.length) currentStepIndex = 0;
+        if (currentStepIndex < 0) currentStepIndex = flatStepSequence.length - 1;
+
+        const cur = flatStepSequence[currentStepIndex];
+        const sInfo = carnaticSwaraDefs[cur.swaraKey];
+
+        document.getElementById('currentStepBadge').textContent = `Swara ${currentStepIndex + 1} / ${flatStepSequence.length}`;
+
+        if (sInfo) {
+            document.getElementById('cardSwara').textContent = `${sInfo.swara} (${sInfo.name})`;
+            document.getElementById('cardSwara').style.color = sInfo.col;
+            document.getElementById('cardGamaka').textContent = cur.gamaka !== 'none' ? 'Kampitha (Microtonal Wave)' : 'Plain Swara Stana';
+            document.getElementById('cardGuitarPos').textContent = `${sInfo.strNum}th String, Fret ${sInfo.fretNum}`;
+            document.getElementById('cardFinger').textContent = sInfo.finger;
+            document.getElementById('cardFreq').textContent = `${sInfo.freq} Hz`;
+
+            if (playAudio) {
+                playTone(sInfo.freq, cur.gamaka);
+            }
+        }
+
+        renderGamakaSVG();
+
+        // Highlight Fretboard (Rock solid, NO screen jumping!)
+        document.querySelectorAll('.fret-swara-badge').forEach(b => b.classList.remove('active-playing'));
+        const activeBadge = document.getElementById(`badge-${cur.swaraKey}`);
+        if (activeBadge) {
+            activeBadge.classList.add('active-playing');
+        }
+
+        // Highlight Flow Cards
+        document.querySelectorAll('.c-swara-box').forEach(b => b.classList.remove('active'));
+        const activeBox = document.getElementById(`c-box-${currentStepIndex}`);
+        if (activeBox) {
+            activeBox.classList.add('active');
+        }
+
+        // Highlight Timeline Chips (Smooth internal container scroll only)
+        document.querySelectorAll('.timeline-chip').forEach(c => c.classList.remove('active'));
+        const activeChip = document.getElementById(`timeline-chip-${currentStepIndex}`);
+        if (activeChip) {
+            activeChip.classList.add('active');
+            const flow = document.getElementById('timelineFlow');
+            if (flow) {
+                const targetLeft = activeChip.offsetLeft - (flow.clientWidth / 2) + (activeChip.clientWidth / 2);
+                flow.scrollTo({ left: targetLeft, behavior: 'smooth' });
+            }
+        }
+    }
+
+    function scrollToFret(fretNum) {
+        const card = document.getElementById('fretboardCard');
+        if (!card) return;
+        if (fretNum === 12) {
+            card.scrollTo({ left: 0, behavior: 'smooth' });
+        } else if (fretNum === 0) {
+            card.scrollTo({ left: card.scrollWidth, behavior: 'smooth' });
+        } else {
+            const hdr = document.getElementById(`fret-hdr-${fretNum}`);
+            if (hdr) hdr.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+        }
+    }
+
+    function nextStep() {
+        currentStepIndex = (currentStepIndex + 1) % flatStepSequence.length;
+        updateStepUI(true);
+    }
+
+    function prevStep() {
+        currentStepIndex = (currentStepIndex - 1 + flatStepSequence.length) % flatStepSequence.length;
+        updateStepUI(true);
+    }
+
+    function jumpToStep(idx) {
+        currentStepIndex = idx;
+        updateStepUI(true);
+    }
+
+    function resetLesson() {
+        if (isPlaying) togglePlay();
+        currentStepIndex = 0;
+        updateStepUI(false);
+    }
+
+    function onFretSwaraClick(sk) {
+        const sInfo = carnaticSwaraDefs[sk];
+        if (sInfo) {
+            playTone(sInfo.freq);
+            document.getElementById('cardSwara').textContent = `${sInfo.swara} (${sInfo.name})`;
+            document.getElementById('cardGuitarPos').textContent = `${sInfo.strNum}th String, Fret ${sInfo.fretNum}`;
+            document.getElementById('cardFinger').textContent = sInfo.finger;
+            document.getElementById('cardFreq').textContent = `${sInfo.freq} Hz`;
+
+            renderGamakaSVG();
+            document.querySelectorAll('.fret-swara-badge').forEach(b => b.classList.remove('active-playing'));
+            const b = document.getElementById(`badge-${sk}`);
+            if (b) b.classList.add('active-playing');
+        }
+    }
+
+    function changeLesson(lessonKey) {
+        if (isPlaying) togglePlay();
+        currentLessonKey = lessonKey;
+        const lesson = carnaticLessonsData[lessonKey];
+        if (!lesson) return;
+
+        document.getElementById('lessonBannerTitle').textContent = lesson.title;
+        document.getElementById('lessonBannerDesc').textContent = lesson.desc;
+
+        initFlatSequence();
+        document.getElementById('lessonTotalBadge').textContent = `Total Swaras: ${flatStepSequence.length}`;
+
+        renderDynamicFretboard();
+        renderLessonSwaraFlow();
+        renderTimeline();
+
+        currentStepIndex = 0;
+        updateStepUI(false);
+    }
+
+    function switchStudioTab(tab) {
+        currentTab = tab;
+        document.querySelectorAll('.nav-tab-btn').forEach(b => b.classList.remove('active'));
+        document.getElementById(`tab-${tab}`).classList.add('active');
+
+        const ctrl = document.getElementById('mainControlPanel');
+        const banner = document.getElementById('lessonBannerSection');
+        const gamakaCard = document.getElementById('gamakaVisualCard');
+        const fretCard = document.getElementById('fretboardCard');
+        const actGrid = document.getElementById('actionDetailsGrid');
+        const flowSec = document.getElementById('lessonFlowSection');
+        const gamakaStudioSec = document.getElementById('gamakaStudioSection');
+        const melaSec = document.getElementById('melaSection');
+        const metroSec = document.getElementById('metronomeSection');
+        const tunerSec = document.getElementById('tunerSection');
+        const timeSec = document.getElementById('timelineSection');
+
+        [ctrl, banner, gamakaCard, fretCard, actGrid, flowSec, gamakaStudioSec, melaSec, metroSec, tunerSec, timeSec].forEach(el => {
+            if (el) el.style.display = 'none';
+        });
+
+        if (tab === 'lessons') {
+            ctrl.style.display = 'flex';
+            banner.style.display = 'flex';
+            gamakaCard.style.display = 'block';
+            fretCard.style.display = 'block';
+            actGrid.style.display = 'grid';
+            flowSec.style.display = 'block';
+            timeSec.style.display = 'block';
+        } else if (tab === 'gamaka') {
+            gamakaCard.style.display = 'block';
+            fretCard.style.display = 'block';
+            gamakaStudioSec.style.display = 'block';
+        } else if (tab === 'mela') {
+            fretCard.style.display = 'block';
+            melaSec.style.display = 'block';
+            renderMelakartaExplorer();
+        } else if (tab === 'metronome') {
+            metroSec.style.display = 'block';
+        } else if (tab === 'tuner') {
+            tunerSec.style.display = 'block';
+        }
+    }
+
+    // Auto Play Engine
+    function togglePlay() {
+        isPlaying = !isPlaying;
+        const btn = document.getElementById('playBtn');
+        const icon = document.getElementById('playIcon');
+        const text = document.getElementById('playText');
+
+        if (isPlaying) {
+            btn.classList.add('playing');
+            icon.textContent = '⏹';
+            text.textContent = 'Stop';
+            const intervalMs = 900 / speedMultiplier;
+            playInterval = setInterval(() => {
+                nextStep();
+            }, intervalMs);
+        } else {
+            btn.classList.remove('playing');
+            icon.textContent = '▶';
+            text.textContent = 'Auto Play';
+            if (playInterval) clearInterval(playInterval);
+        }
+    }
+
+    function setKaalam(speed, elem) {
+        speedMultiplier = speed;
+        document.querySelectorAll('.kaalam-btn').forEach(b => b.classList.remove('active'));
+        elem.classList.add('active');
+        if (isPlaying) {
+            togglePlay();
+            togglePlay();
+        }
+    }
+
+    // ==========================================
+    // LIVE MIC CARNATIC SWARA AI RECOGNITION
+    // ==========================================
+    function toggleMicListener() {
+        if (!isMicListening) startMicListening();
+        else stopMicListening();
+    }
+
+    async function startMicListening() {
+        try {
+            initAudio();
+            isAutoMuted = true;
+            const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+            micStream = stream;
+
+            const micSource = audioCtx.createMediaStreamSource(stream);
+            micAnalyser = audioCtx.createAnalyser();
+            micAnalyser.fftSize = 2048;
+
+            micSource.connect(micAnalyser);
+
+            isMicListening = true;
+            const btn = document.getElementById('micBtn');
+            btn.classList.add('listening');
+            document.getElementById('micIcon').textContent = '⏹';
+            document.getElementById('micText').textContent = 'Stop Mic Listening';
+            document.getElementById('micMonitorCard').style.display = 'flex';
+
+            processMicPitch();
+        } catch (err) {
+            alert('Microphone access denied. Please allow microphone permissions.');
+        }
+    }
+
+    function stopMicListening() {
+        isMicListening = false;
+        isAutoMuted = false;
+        if (micStream) {
+            micStream.getTracks().forEach(track => track.stop());
+            micStream = null;
+        }
+        const btn = document.getElementById('micBtn');
+        btn.classList.remove('listening');
+        document.getElementById('micIcon').textContent = '🎤';
+        document.getElementById('micText').textContent = 'Live Mic Check';
+        document.getElementById('micMonitorCard').style.display = 'none';
+    }
+
+    function autoCorrelate(buf, sampleRate) {
+        let SIZE = buf.length;
+        let rms = 0;
+        for (let i = 0; i < SIZE; i++) {
+            const val = buf[i];
+            rms += val * val;
+        }
+        rms = Math.sqrt(rms / SIZE);
+        if (rms < 0.015) return -1;
+
+        let r1 = 0, r2 = SIZE - 1, thres = 0.2;
+        for (let i = 0; i < SIZE / 2; i++) {
+            if (Math.abs(buf[i]) < thres) { r1 = i; break; }
+        }
+        for (let i = 1; i < SIZE / 2; i++) {
+            if (Math.abs(buf[SIZE - i]) < thres) { r2 = SIZE - i; break; }
+        }
+
+        buf = buf.slice(r1, r2);
+        SIZE = buf.length;
+
+        let c = new Array(SIZE).fill(0);
+        for (let i = 0; i < SIZE; i++) {
+            for (let j = 0; j < SIZE - i; j++) {
+                c[i] = c[i] + buf[j] * buf[j + i];
+            }
+        }
+
+        let d = 0;
+        while (c[d] > c[d + 1]) d++;
+        let maxval = -1, maxpos = -1;
+        for (let i = d; i < SIZE; i++) {
+            if (c[i] > maxval) {
+                maxval = c[i];
+                maxpos = i;
+            }
+        }
+        let T0 = maxpos;
+        return sampleRate / T0;
+    }
+
+    let lastDetectedTime = 0;
+
+    function processMicPitch() {
+        if (!isMicListening || !micAnalyser) return;
+
+        const buffer = new Float32Array(micAnalyser.fftSize);
+        micAnalyser.getFloatTimeDomainData(buffer);
+        const pitchHz = autoCorrelate(buffer, audioCtx.sampleRate);
+
+        const badge = document.getElementById('micDetectedBadge');
+        const feedback = document.getElementById('micFeedbackPill');
+
+        if (pitchHz > 60 && pitchHz < 900) {
+            badge.textContent = `Detected: ${pitchHz.toFixed(1)} Hz`;
+
+            const cur = flatStepSequence[currentStepIndex];
+            const targetInfo = cur ? carnaticSwaraDefs[cur.swaraKey] : null;
+
+            if (targetInfo) {
+                const targetFreq = targetInfo.freq;
+                const ratio = pitchHz / targetFreq;
+                const isOctave = (Math.abs(pitchHz / (targetFreq * 2) - 1) < 0.055) || (Math.abs((pitchHz * 2) / targetFreq - 1) < 0.055);
+
+                if (Math.abs(ratio - 1) < 0.055 || isOctave) {
+                    feedback.className = 'mic-feedback-pill match';
+                    feedback.textContent = `✅ Perfect! Matched ${targetInfo.swara} (${pitchHz.toFixed(1)} Hz)`;
+
+                    const now = Date.now();
+                    if (now - lastDetectedTime > 1200) {
+                        lastDetectedTime = now;
+                        playChime(true);
+                        setTimeout(() => {
+                            nextStep();
+                        }, 500);
+                    }
+                } else {
+                    feedback.className = 'mic-feedback-pill error';
+                    feedback.textContent = `⚠️ Played ${pitchHz.toFixed(1)} Hz (Target: ${targetInfo.name} - ${targetFreq} Hz)`;
+                }
+            }
+        } else {
+            feedback.className = 'mic-feedback-pill waiting';
+            feedback.textContent = '⏳ Listening for Swara Pitch...';
+        }
+
+        requestAnimationFrame(processMicPitch);
+    }
+
+    // ==========================================
+    // CARNATIC TALA METRONOME
+    // ==========================================
+    function toggleMetronome() {
+        metroIsPlaying = !metroIsPlaying;
+        const btn = document.getElementById('metroPlayBtn');
+        if (metroIsPlaying) {
+            btn.textContent = '⏹ Stop Tala Metronome';
+            btn.classList.add('playing');
+            currentMetroBeat = 0;
+            runMetronomeBeat();
+        } else {
+            btn.textContent = '▶ Start Tala Metronome';
+            btn.classList.remove('playing');
+            if (metroInterval) clearTimeout(metroInterval);
+        }
+    }
+
+    function updateMetronomeBPM(val) {
+        metroBpm = parseInt(val);
+        document.getElementById('metroBpmText').textContent = `${metroBpm} BPM`;
+    }
+
+    function setCarnaticTala(tala, elem) {
+        metroTalaType = tala;
+        document.querySelectorAll('#metronomeSection .speed-btn').forEach(b => b.classList.remove('active'));
+        elem.classList.add('active');
+
+        if (tala === 'adi') {
+            metroBeatsCount = 8;
+            document.getElementById('metroTalaName').textContent = 'Adi Tala (Chatusra Jathi Triputa Tala - 8 Aksharas: I4 + O + O)';
+        } else if (tala === 'rupaka') {
+            metroBeatsCount = 6;
+            document.getElementById('metroTalaName').textContent = 'Rupaka Tala (Dhruta + Chatusra Laghu - 6 Aksharas: O + I4)';
+        } else if (tala === 'misra_chapu') {
+            metroBeatsCount = 7;
+            document.getElementById('metroTalaName').textContent = 'Misra Chapu Tala (3 + 2 + 2 = 7 Aksharas)';
+        } else if (tala === 'khanda_chapu') {
+            metroBeatsCount = 5;
+            document.getElementById('metroTalaName').textContent = 'Khanda Chapu Tala (2 + 1 + 2 = 5 Aksharas)';
+        }
+        renderMetroBeatDots();
+    }
+
+    function renderMetroBeatDots() {
+        const row = document.getElementById('metroBeatsRow');
+        row.innerHTML = '';
+        for (let i = 0; i < metroBeatsCount; i++) {
+            const dot = document.createElement('div');
+            dot.className = 'metro-beat-dot';
+            dot.id = `metro-dot-${i}`;
+            dot.textContent = i + 1;
+            row.appendChild(dot);
+        }
+    }
+
+    function runMetronomeBeat() {
+        if (!metroIsPlaying) return;
+
+        document.querySelectorAll('.metro-beat-dot').forEach((d, idx) => {
+            d.className = 'metro-beat-dot';
+            if (idx === currentMetroBeat) {
+                d.classList.add(currentMetroBeat === 0 ? 'accent-beat' : 'active-beat');
+            }
+        });
+
+        playMetroTick(currentMetroBeat === 0);
+
+        currentMetroBeat = (currentMetroBeat + 1) % metroBeatsCount;
+        const intervalMs = (60 / metroBpm) * 1000;
+        metroInterval = setTimeout(runMetronomeBeat, intervalMs);
+    }
+
+    function playMetroTick(isAccent) {
+        try {
+            initAudio();
+            const now = audioCtx.currentTime;
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(isAccent ? 960 : 640, now);
+
+            gain.gain.setValueAtTime(0.0001, now);
+            gain.gain.exponentialRampToValueAtTime((isAccent ? 0.35 : 0.18) * masterVolume, now + 0.002);
+            gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.04);
+
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+
+            osc.start(now);
+            osc.stop(now + 0.05);
+        } catch(e) {}
+    }
+
+    function tapTempo() {
+        const now = Date.now();
+        if (lastTapTime && (now - lastTapTime < 2500)) {
+            const diff = now - lastTapTime;
+            tapTimes.push(diff);
+            if (tapTimes.length > 4) tapTimes.shift();
+
+            const avgDiff = tapTimes.reduce((a, b) => a + b, 0) / tapTimes.length;
+            const bpm = Math.round(60000 / avgDiff);
+            if (bpm >= 30 && bpm <= 180) {
+                document.getElementById('bpmSlider').value = bpm;
+                updateMetronomeBPM(bpm);
+            }
+        } else {
+            tapTimes = [];
+        }
+        lastTapTime = now;
+    }
+
+    function setAdharaShadjam(noteName, freq, elem) {
+        document.querySelectorAll('#tunerSection .speed-btn').forEach(b => b.classList.remove('active'));
+        elem.classList.add('active');
+        playTone(freq);
+    }
+
+    // Global Keyboard Shortcuts
+    window.addEventListener('keydown', (e) => {
+        if (['Space', 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'].includes(e.code) && e.target.tagName !== 'INPUT') {
+            e.preventDefault();
+        }
+
+        if (e.code === 'Space') {
+            togglePlay();
+        } else if (e.code === 'ArrowRight' || e.code === 'ArrowDown') {
+            nextStep();
+        } else if (e.code === 'ArrowLeft' || e.code === 'ArrowUp') {
+            prevStep();
+        } else if (e.key === 't' || e.key === 'T') {
+            toggleTanpura();
+        } else if (e.key === 'm' || e.key === 'M') {
+            toggleMicListener();
+        } else if (e.key === 'r' || e.key === 'R') {
+            resetLesson();
+        } else if (e.key === '1') {
+            switchStudioTab('lessons');
+        } else if (e.key === '2') {
+            switchStudioTab('gamaka');
+        } else if (e.key === '3') {
+            switchStudioTab('mela');
+        } else if (e.key === '4') {
+            switchStudioTab('metronome');
+        } else if (e.key === '5') {
+            switchStudioTab('tuner');
+        }
+    });
+
+    // Window Load Initialization
+    window.addEventListener('DOMContentLoaded', () => {
+        renderMetroBeatDots();
+        changeLesson('varnam_mohanam');
+    });
+</script>
+
+</body>
+</html>
