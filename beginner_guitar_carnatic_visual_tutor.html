@@ -566,57 +566,15 @@
             color: #cbd5e1;
         }
     
-        .kattai-dropdown-group {
+        .guitar-tuning-card {
             display: flex;
             align-items: center;
-            gap: 10px;
-            background: #0f172a;
-            border: 1px solid rgba(245, 158, 11, 0.4);
-            padding: 6px 14px;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
-        }
-
-        .kattai-dropdown-label {
-            font-size: 13.5px;
-            font-weight: 700;
-            color: var(--accent-gold);
-            white-space: nowrap;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .kattai-select {
-            background: #090d16;
-            border: 1px solid rgba(245, 158, 11, 0.35);
-            color: #ffffff;
-            font-family: 'Noto Sans Tamil', 'Outfit', sans-serif;
-            font-size: 13.5px;
-            font-weight: 600;
-            padding: 8px 14px;
-            border-radius: 8px;
-            outline: none;
-            cursor: pointer;
-            transition: border-color 0.2s;
-        }
-
-        .kattai-select:focus {
-            border-color: var(--accent-gold);
-            box-shadow: 0 0 0 2px rgba(245, 158, 11, 0.25);
-        }
-
-        .kattai-select optgroup {
-            background: #090d16;
-            color: var(--accent-gold);
-            font-weight: 700;
-        }
-
-        .kattai-select option {
-            background: #0f172a;
-            color: #ffffff;
-            font-weight: 500;
-            padding: 6px;
+            gap: 12px;
+            background: linear-gradient(135deg, #0b1324, #131f37);
+            border: 1.5px solid #f59e0b;
+            padding: 8px 16px;
+            border-radius: 10px;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
         }
     
     </style>
@@ -635,7 +593,7 @@
             <button class="nav-tab-btn" id="tab-ragas" onclick="switchStudioTab('ragas')">🌈 ராக ஸ்வர வரைபடம் (Ragas)</button>
             <button class="nav-tab-btn" id="tab-tabview" onclick="switchStudioTab('tabview')">📝 TAB நோட்ஸ் (Guitar TAB)</button>
             <button class="nav-tab-btn" id="tab-tuner" onclick="switchStudioTab('tuner')">🎸 சுதி ட்யூனர் (Guitar Tuner)</button>
-            <button class="nav-tab-btn" id="tab-metronome" onclick="switchStudioTab('metronome')">🥁 மெட்ரோனோம் பயிற்சி (Metronome Studio)</button>📄 TAB நோட்ஸ் (Guitar TAB)</button>
+            <button class="nav-tab-btn" id="tab-metronome" onclick="switchStudioTab('metronome')">🥁 மெட்ரோனோம் பயிற்சி (Metronome Studio)</button>
         </div>
     </div>
 
@@ -643,65 +601,17 @@
     <div class="control-panel-card">
         <div class="selector-row">
             
-            <!-- 1. Kattai / Shruti Combobox -->
-            <div class="select-group" style="flex: 0 0 auto; min-width: 200px;">
-                <label for="guitarMelodyVoiceSelect" style="color: #f43f5e;">🎙️ ஸ்வரக் குரல் (Voice):</label>
-                <select id="guitarMelodyVoiceSelect" class="lesson-select" style="border-color: #f43f5e; color: #fecdd3;" onchange="setMelodyVoice(this.value)">
-                    <option value="guitar" selected>🎸 1. அக்யூஸ்டிக் கிட்டார் (Acoustic Guitar)</option>
-                    <option value="piano">🎹 2. கிராண்ட் பியானோ (Grand Piano)</option>
-                    <option value="veena">🎻 3. சரஸ்வதி வீணை (Saraswati Veena)</option>
-                    <option value="vocal">🎙️ 4. மனிதக் குரல் (Carnatic Vocal)</option>
-                    <option value="flute">🪈 5. புல்லாங்குழல் (Bamboo Flute / Venu)</option>
-                    <option value="jalatharangam">🔔 6. ஜலதரங்கம் மணி (Bell Chime)</option>
-                    <option value="pure_sine">🔊 7. சுத்த சைன் அலை (Pure Sine)</option>
-                </select>
-            </div>
-
-            <div class="select-group" style="flex: 0 0 auto; min-width: 200px;">
-                <label for="kattaiSelect" style="color: #fbbf24;">🪕 கட்டை (Kattai):</label>
-                <select id="kattaiSelect" class="lesson-select" style="border-color: #f59e0b;" onchange="onKattaiChange(this.value)">
-                    <optgroup label="── 👨 ஆண்கள் & கிட்டார் (MALE / GUITAR) ──">
-                        <option value="1|C|130.81" selected>1 கட்டை (C - 130.8 Hz) • 👨 Bass</option>
-                        <option value="1.5|C#|138.59">1½ கட்டை (C# - 138.6 Hz) • 👨 Standard ⭐</option>
-                        <option value="2|D|146.83">2 கட்டை (D - 146.8 Hz) • 👨 Tenor</option>
-                        <option value="2.5|D#|155.56">2½ கட்டை (D# - 155.6 Hz) • 👨 High</option>
-                    </optgroup>
-                    <optgroup label="── 👩 பெண்கள் சுருதி (FEMALE RANGE) ──">
-                        <option value="4|F|174.61">4 கட்டை (F - 174.6 Hz) • 👩 Alto</option>
-                        <option value="4.5|F#|185.00">4½ கட்டை (F# - 185.0 Hz) • 👩 Mezzo</option>
-                        <option value="5|G|196.00">5 கட்டை (G - 196.0 Hz) • 👩 Standard ⭐</option>
-                        <option value="5.5|G#|207.65">5½ கட்டை (G# - 207.6 Hz) • 👩 High</option>
-                    </optgroup>
-                    <optgroup label="── 👦👧 சிறுவர்கள் & குழந்தைகள் (KIDS) ──">
-                        <option value="3|E|164.81">3 கட்டை (E - 164.8 Hz) • 👦 சிறுவர்கள்</option>
-                        <option value="6|A|220.00">6 கட்டை (A - 220.0 Hz) • 👧 குழந்தைகள்</option>
-                    </optgroup>
-                </select>
-            </div>
-
-            <!-- 2. Drone Instrument Combobox -->
-            <div class="select-group" style="flex: 0 0 auto; min-width: 200px;">
-                <label for="guitarDroneSelect" style="color: #38bdf8;">🎵 ஸ்ருதி கருவி:</label>
-                <select id="guitarDroneSelect" class="lesson-select" style="border-color: #38bdf8;" onchange="onGuitarDroneChange(this.value)">
-                    <option value="off">🔇 சுருதி அணைப்பு (OFF / Mute)</option>
-                    <option value="tanpura_pa" selected>🪕 1. இயல்பான பஞ்சம தம்புரா (Normal Tanpura Pa-Sa-Sa)</option>
-                    <option value="tanpura_tanjore">🪕 2. தஞ்சாவூர் தம்புரா (Tanjore Classical)</option>
-                    <option value="tanpura_ma">🪕 3. மத்யம தம்புரா (Ma-Sa-Sa-Sa)</option>
-                    <option value="tanpura_ni">🪕 4. நிஷாத தம்புரா (Ni-Sa-Sa-Sa)</option>
-                    <option value="tanpura_dha">🪕 5. தைவத தம்புரா (Dha-Sa-Sa-Sa)</option>
-                    <option value="harmonium">🎹 6. ஹார்மோனியம் சுருதி (Surpeti)</option>
-                    <option value="flute">🪈 7. புல்லாங்குழல் வேணு (Flute Drone)</option>
-                    <option value="veena">🎻 8. சரஸ்வதி வீணை (Veena Drone)</option>
-                    <option value="chitra_veena">🪕 9. சித்ரவீணை / கோட்டு (Chitra Veena)</option>
-                    <option value="jalatharangam">🔔 10. ஜலதரங்கம் கோயில் மணி (Bell)</option>
-                    <option value="guitar">🎸 11. அக்யூஸ்டிக் கிட்டார் (Guitar)</option>
-                    <option value="om_drone">🧘 12. ஓம் பிரணவ நாதம் (108Hz OM)</option>
-                    <option value="pure_sine">🔊 13. சுத்த ஸ்டுடியோ சைன் (Sine)</option>
-                </select>
+            <!-- Guitar Tuning Reference Card -->
+            <div class="guitar-tuning-card">
+                <span style="font-size: 24px;">🎸</span>
+                <div>
+                    <div style="font-size: 13px; font-weight: 800; color: #fbbf24;">கிட்டார் சுருதி (Guitar Pitch): 1 கட்டை (C / Middle C4)</div>
+                    <div style="font-size: 11.5px; color: #94a3b8; font-weight: 700;">Yamaha F280 Standard Tuning (E-A-D-G-B-E) • ஆரம்ப ஸ்வரம் ஸ = 3-ம் கம்பி (G) 5-ம் கட்டை</div>
+                </div>
             </div>
     
-            <div class="select-group" id="selector-wrapper-lessons">
-                <label for="lessonSelect">📖 பாடம் தேர்வு செய்க (Select Lesson):</label>
+            <div class="select-group" id="selector-wrapper-lessons" style="flex: 2; min-width: 320px;">
+                <label for="lessonSelect" style="color: #38bdf8; font-weight: 800; font-size: 14px;">📖 பாடம் தேர்வு செய்க (Select Lesson):</label>
                 <select id="lessonSelect" class="lesson-select" onchange="changeLesson(this.value)">
                     <optgroup label="14 சரளி வரிசைகள் (Sarali Varisais 1 to 14)">
                         <option value="s1">1. சரளி வரிசை 1 (SRGM PDNṠ - முழு வரிசை)</option>
@@ -820,7 +730,7 @@
                 <button class="btn btn-primary" id="playBtn" onclick="togglePlay()">▶ வாசி (Play)</button>
                 <button class="btn" onclick="prevStep()">⏮ முந்தையது</button>
                 <button class="btn" onclick="nextStep()">⏭ அடுத்தது</button>
-                <button id="guitarToneBtn" type="button" class="btn" onclick="toggleGuitarTone()" style="background:#1e293b; border:1.5px solid #38bdf8; color:#38bdf8; font-weight:800; padding:8px 14px; border-radius:8px; cursor:pointer;" title="கிட்டார் ஸ்வர ஒலி / தம்புரா மட்டும் மாற்ற">
+                <button id="guitarToneBtn" type="button" class="btn" onclick="toggleGuitarTone()" style="background:#1e293b; border:1.5px solid #38bdf8; color:#38bdf8; font-weight:800; padding:8px 14px; border-radius:8px; cursor:pointer;" title="கிட்டார் ஸ்வர ஒலி ஆன்/ஆஃப்">
                     🎵 கிட்டார் ஒலி: ON
                 </button>
                 <button id="guitarSustainBtn" type="button" class="btn" onclick="toggleGuitarSustain()" style="background:#581c87; border:1.5px solid #c084fc; color:#ffffff; font-weight:800; padding:8px 14px; border-radius:8px; cursor:pointer;" title="சஸ்டைன் ஆன் / ஆஃப் மாற்ற">
@@ -857,7 +767,6 @@
                 </div>
             </div>
         </div>
-    </div>
     </div>
 
     <!-- 🎸 12-FRET REAL WOODEN GUITAR FRETBOARD -->
@@ -983,9 +892,6 @@
             <div class="card-label">🔁 ஸ்வர எண்ணிக்கை (Repeat Count)</div>
             <div class="card-value" id="cardRepeatCount" style="color:#fbbf24; font-weight:900;">1 / 1</div>
         </div>
-    </div>
-    <!-- Action Details Grid -->
-    <div class="action-details-grid">
         <div class="action-card-item">
             <div class="card-label">தற்போதைய ஸ்வரம் (Swara)</div>
             <div class="card-value" id="cardSwara" style="color:#60a5fa;">ஸ (Sa)</div>
@@ -1171,9 +1077,7 @@
     let currentMelodyVoice = 'guitar'; // Default: Acoustic Guitar
 
     function setMelodyVoice(voice) {
-        currentMelodyVoice = voice;
-        const sel = document.getElementById('guitarMelodyVoiceSelect');
-        if (sel) sel.value = voice;
+        currentMelodyVoice = 'guitar';
     }
     let isGuitarSustainOn = true;
     let guitarSustainSec = 1.4;
@@ -1264,160 +1168,22 @@
     }
 
     // ==========================================
-    // 🎹 9 MULTI-INSTRUMENT ACOUSTIC GUITAR/MELODY ENGINES
+    // 🎸 REALISTIC ACOUSTIC GUITAR AUDIO SYNTHESIZER
     // ==========================================
-    function synthVocalTone(audioCtx, freq, effectiveSustain, masterOut, now) {
-        const osc1 = audioCtx.createOscillator();
-        const osc2 = audioCtx.createOscillator();
-        osc1.type = 'sine';
-        osc1.frequency.setValueAtTime(freq, now);
-        osc2.type = 'triangle';
-        osc2.frequency.setValueAtTime(freq * 2.0, now);
-
-        const g1 = audioCtx.createGain();
-        const g2 = audioCtx.createGain();
-        g1.gain.setValueAtTime(0.70, now);
-        g2.gain.setValueAtTime(0.30, now);
-        osc1.connect(g1);
-        osc2.connect(g2);
-
-        const filter = audioCtx.createBiquadFilter();
-        filter.type = 'lowpass';
-        filter.frequency.setValueAtTime(2800, now);
-        g1.connect(filter);
-        g2.connect(filter);
-
-        const noteGain = audioCtx.createGain();
-        const peakG = 0.45;
-        noteGain.gain.setValueAtTime(0.0001, now);
-        noteGain.gain.linearRampToValueAtTime(peakG, now + 0.025);
-        noteGain.gain.linearRampToValueAtTime(0.0001, now + effectiveSustain);
-
-        filter.connect(noteGain);
-        if (masterOut) noteGain.connect(masterOut);
-        else noteGain.connect(audioCtx.destination);
-
-        const oscs = [osc1, osc2];
-        oscs.forEach(o => { o.start(now); o.stop(now + effectiveSustain + 0.05); });
-        return { gain: noteGain, oscs: oscs };
-    }
-
-    function synthPianoTone(audioCtx, freq, effectiveSustain, masterOut, now) {
-        const hammerOsc = audioCtx.createOscillator();
-        const hammerGain = audioCtx.createGain();
-        hammerOsc.type = 'triangle';
-        hammerOsc.frequency.setValueAtTime(freq * 3.5, now);
-        hammerGain.gain.setValueAtTime(0.35, now);
-        hammerGain.gain.exponentialRampToValueAtTime(0.0001, now + 0.04);
-        hammerOsc.connect(hammerGain);
-        hammerOsc.start(now);
-        hammerOsc.stop(now + 0.05);
-
-        const osc1 = audioCtx.createOscillator();
-        const osc2 = audioCtx.createOscillator();
-        osc1.type = 'triangle';
-        osc1.frequency.setValueAtTime(freq, now);
-        osc2.type = 'sine';
-        osc2.frequency.setValueAtTime(freq * 2.0, now);
-
-        const g1 = audioCtx.createGain();
-        const g2 = audioCtx.createGain();
-        g1.gain.setValueAtTime(0.75, now);
-        g2.gain.setValueAtTime(0.25, now);
-        osc1.connect(g1);
-        osc2.connect(g2);
-
-        const filter = audioCtx.createBiquadFilter();
-        filter.type = 'lowpass';
-        filter.frequency.setValueAtTime(3800, now);
-        filter.frequency.exponentialRampToValueAtTime(1400, now + Math.min(effectiveSustain, 0.8));
-        g1.connect(filter);
-        g2.connect(filter);
-        hammerGain.connect(filter);
-
-        const noteGain = audioCtx.createGain();
-        const peakG = 0.50;
-        noteGain.gain.setValueAtTime(0.0001, now);
-        noteGain.gain.linearRampToValueAtTime(peakG, now + 0.006);
-        noteGain.gain.exponentialRampToValueAtTime(peakG * 0.45, now + 0.15);
-        noteGain.gain.linearRampToValueAtTime(peakG * 0.20, now + (effectiveSustain * 0.70));
-        noteGain.gain.linearRampToValueAtTime(0.0001, now + effectiveSustain);
-
-        filter.connect(noteGain);
-        if (masterOut) noteGain.connect(masterOut);
-        else noteGain.connect(audioCtx.destination);
-
-        const oscs = [hammerOsc, osc1, osc2];
-        [osc1, osc2].forEach(o => { o.start(now); o.stop(now + effectiveSustain + 0.05); });
-        return { gain: noteGain, oscs: oscs };
-    }
-
-    function synthVeenaTone(audioCtx, freq, effectiveSustain, masterOut, now) {
-        const osc = audioCtx.createOscillator();
-        const oscSub = audioCtx.createOscillator();
-        osc.type = 'sawtooth';
-        osc.frequency.setValueAtTime(freq, now);
-        oscSub.type = 'triangle';
-        oscSub.frequency.setValueAtTime(freq * 2.0, now);
-
-        const g1 = audioCtx.createGain();
-        const g2 = audioCtx.createGain();
-        g1.gain.setValueAtTime(0.60, now);
-        g2.gain.setValueAtTime(0.40, now);
-        osc.connect(g1);
-        oscSub.connect(g2);
-
-        const bodyFilter = audioCtx.createBiquadFilter();
-        bodyFilter.type = 'bandpass';
-        bodyFilter.frequency.setValueAtTime(1100, now);
-        bodyFilter.Q.setValueAtTime(1.8, now);
-
-        g1.connect(bodyFilter);
-        g2.connect(bodyFilter);
-
-        const noteGain = audioCtx.createGain();
-        const peakG = 0.48;
-        noteGain.gain.setValueAtTime(0.0001, now);
-        noteGain.gain.linearRampToValueAtTime(peakG, now + 0.008);
-        noteGain.gain.exponentialRampToValueAtTime(peakG * 0.60, now + 0.12);
-        noteGain.gain.linearRampToValueAtTime(0.0001, now + effectiveSustain);
-
-        bodyFilter.connect(noteGain);
-        if (masterOut) noteGain.connect(masterOut);
-        else noteGain.connect(audioCtx.destination);
-
-        const oscs = [osc, oscSub];
-        oscs.forEach(o => { o.start(now); o.stop(now + effectiveSustain + 0.05); });
-        return { gain: noteGain, oscs: oscs };
-    }
-
-    function synthFluteTone(audioCtx, freq, effectiveSustain, masterOut, now) {
-        const osc = audioCtx.createOscillator();
-        osc.type = 'sine';
-        osc.frequency.setValueAtTime(freq, now);
-
-        const bambooFilter = audioCtx.createBiquadFilter();
-        bambooFilter.type = 'lowpass';
-        bambooFilter.frequency.setValueAtTime(2400, now);
-        osc.connect(bambooFilter);
-
-        const noteGain = audioCtx.createGain();
-        const peakG = 0.42;
-        noteGain.gain.setValueAtTime(0.0001, now);
-        noteGain.gain.linearRampToValueAtTime(peakG, now + 0.040);
-        noteGain.gain.linearRampToValueAtTime(peakG * 0.90, now + (effectiveSustain * 0.60));
-        noteGain.gain.linearRampToValueAtTime(0.0001, now + effectiveSustain);
-
-        bambooFilter.connect(noteGain);
-        if (masterOut) noteGain.connect(masterOut);
-        else noteGain.connect(audioCtx.destination);
-
-        osc.start(now);
-        osc.stop(now + effectiveSustain + 0.05);
-        return { gain: noteGain, oscs: [osc] };
-    }
 
     function synthGuitarTone(audioCtx, freq, effectiveSustain, masterOut, now) {
+        // 1. Plectrum pick pluck attack transient
+        const pickOsc = audioCtx.createOscillator();
+        const pickGain = audioCtx.createGain();
+        pickOsc.type = 'triangle';
+        pickOsc.frequency.setValueAtTime(freq * 3.8, now);
+        pickGain.gain.setValueAtTime(0.25, now);
+        pickGain.gain.exponentialRampToValueAtTime(0.0001, now + 0.025);
+        pickOsc.connect(pickGain);
+        pickOsc.start(now);
+        pickOsc.stop(now + 0.03);
+
+        // 2. Fundamental & Overtones of steel string
         const osc1 = audioCtx.createOscillator();
         const osc2 = audioCtx.createOscillator();
         osc1.type = 'triangle';
@@ -1432,20 +1198,24 @@
         osc1.connect(g1);
         osc2.connect(g2);
 
+        // 3. Acoustic Rosewood/Spruce Body Resonance Filter
         const bodyFilter = audioCtx.createBiquadFilter();
         bodyFilter.type = 'lowpass';
-        bodyFilter.frequency.setValueAtTime(2200, now);
-        bodyFilter.Q.setValueAtTime(1.0, now);
+        bodyFilter.frequency.setValueAtTime(2600, now);
+        bodyFilter.frequency.exponentialRampToValueAtTime(1100, now + Math.min(effectiveSustain, 0.7));
+        bodyFilter.Q.setValueAtTime(1.1, now);
         g1.connect(bodyFilter);
         g2.connect(bodyFilter);
+        pickGain.connect(bodyFilter);
 
+        // 4. Acoustic Guitar Pluck Envelope
         const noteGain = audioCtx.createGain();
-        const peakG = 0.45;
+        const peakG = 0.50;
         noteGain.gain.setValueAtTime(0.0001, now);
-        noteGain.gain.linearRampToValueAtTime(peakG, now + 0.008);
+        noteGain.gain.linearRampToValueAtTime(peakG, now + 0.006);
         if (effectiveSustain > 0.4) {
-            noteGain.gain.linearRampToValueAtTime(peakG * 0.70, now + (effectiveSustain * 0.35));
-            noteGain.gain.linearRampToValueAtTime(peakG * 0.35, now + (effectiveSustain * 0.75));
+            noteGain.gain.exponentialRampToValueAtTime(peakG * 0.55, now + 0.12);
+            noteGain.gain.linearRampToValueAtTime(peakG * 0.22, now + (effectiveSustain * 0.65));
             noteGain.gain.linearRampToValueAtTime(0.0001, now + effectiveSustain);
         } else {
             noteGain.gain.linearRampToValueAtTime(0.0001, now + effectiveSustain);
@@ -1455,62 +1225,9 @@
         if (masterOut) noteGain.connect(masterOut);
         else noteGain.connect(audioCtx.destination);
 
-        const oscs = [osc1, osc2];
-        oscs.forEach(o => { o.start(now); o.stop(now + effectiveSustain + 0.05); });
+        const oscs = [pickOsc, osc1, osc2];
+        [osc1, osc2].forEach(o => { o.start(now); o.stop(now + effectiveSustain + 0.05); });
         return { gain: noteGain, oscs: oscs };
-    }
-
-    function synthJalatharangamTone(audioCtx, freq, effectiveSustain, masterOut, now) {
-        const osc = audioCtx.createOscillator();
-        const chime = audioCtx.createOscillator();
-        osc.type = 'sine';
-        osc.frequency.setValueAtTime(freq, now);
-        chime.type = 'sine';
-        chime.frequency.setValueAtTime(freq * 2.756, now);
-
-        const g1 = audioCtx.createGain();
-        const g2 = audioCtx.createGain();
-        g1.gain.setValueAtTime(0.85, now);
-        g2.gain.setValueAtTime(0.35, now);
-        g2.gain.exponentialRampToValueAtTime(0.0001, now + 0.3);
-
-        osc.connect(g1);
-        chime.connect(g2);
-
-        const noteGain = audioCtx.createGain();
-        const peakG = 0.48;
-        noteGain.gain.setValueAtTime(0.0001, now);
-        noteGain.gain.linearRampToValueAtTime(peakG, now + 0.004);
-        noteGain.gain.exponentialRampToValueAtTime(0.0001, now + effectiveSustain);
-
-        g1.connect(noteGain);
-        g2.connect(noteGain);
-        if (masterOut) noteGain.connect(masterOut);
-        else noteGain.connect(audioCtx.destination);
-
-        const oscs = [osc, chime];
-        oscs.forEach(o => { o.start(now); o.stop(now + effectiveSustain + 0.05); });
-        return { gain: noteGain, oscs: oscs };
-    }
-
-    function synthPureSineTone(audioCtx, freq, effectiveSustain, masterOut, now) {
-        const osc = audioCtx.createOscillator();
-        osc.type = 'sine';
-        osc.frequency.setValueAtTime(freq, now);
-
-        const noteGain = audioCtx.createGain();
-        const peakG = 0.40;
-        noteGain.gain.setValueAtTime(0.0001, now);
-        noteGain.gain.linearRampToValueAtTime(peakG, now + 0.020);
-        noteGain.gain.linearRampToValueAtTime(0.0001, now + effectiveSustain);
-
-        osc.connect(noteGain);
-        if (masterOut) noteGain.connect(masterOut);
-        else noteGain.connect(audioCtx.destination);
-
-        osc.start(now);
-        osc.stop(now + effectiveSustain + 0.05);
-        return { gain: noteGain, oscs: [osc] };
     }
 
     function playTone(freq) {
@@ -1546,23 +1263,8 @@
 
             const effectiveSustain = isGuitarSustainOn ? Math.max(0.2, guitarSustainSec) : 0.35;
 
-            let voiceRec = null;
-            if (currentMelodyVoice === 'piano') {
-                voiceRec = synthPianoTone(audioCtx, freq, effectiveSustain, masterOut, now);
-            } else if (currentMelodyVoice === 'veena') {
-                voiceRec = synthVeenaTone(audioCtx, freq, effectiveSustain, masterOut, now);
-            } else if (currentMelodyVoice === 'flute') {
-                voiceRec = synthFluteTone(audioCtx, freq, effectiveSustain, masterOut, now);
-            } else if (currentMelodyVoice === 'jalatharangam') {
-                voiceRec = synthJalatharangamTone(audioCtx, freq, effectiveSustain, masterOut, now);
-            } else if (currentMelodyVoice === 'vocal') {
-                voiceRec = synthVocalTone(audioCtx, freq, effectiveSustain, masterOut, now);
-            } else if (currentMelodyVoice === 'pure_sine') {
-                voiceRec = synthPureSineTone(audioCtx, freq, effectiveSustain, masterOut, now);
-            } else {
-                // Default: Acoustic Guitar
-                voiceRec = synthGuitarTone(audioCtx, freq, effectiveSustain, masterOut, now);
-            }
+            // Play pure acoustic guitar pluck tone
+            const voiceRec = synthGuitarTone(audioCtx, freq, effectiveSustain, masterOut, now);
 
             if (voiceRec) {
                 activeGuitarVoices.push(voiceRec);
@@ -1590,7 +1292,7 @@
         'D2':  { ta: 'த₂ (Dha2)', west: 'A4', westShort: 'A4', str: 'High E (1-ம் கம்பி)', strNum: 1, fretNum: 5, finger: 'நடு விரல் 2 (Middle)', freq: 440.00, col: '#4f46e5' },
         'N2':  { ta: 'நி₂ (Ni2)', west: 'A#4 / B♭4', westShort: 'A#4', str: 'High E (1-ம் கம்பி)', strNum: 1, fretNum: 6, finger: 'மோதிர விரல் 3 (Ring)', freq: 466.16, col: '#7c3aed' },
         'N3':  { ta: 'நி₃ (Ni3)', west: 'B4', westShort: 'B4', str: 'High E (1-ம் கம்பி)', strNum: 1, fretNum: 7, finger: 'மோதிர விரல் 3 (Ring)', freq: 493.88, col: '#c026d3' },
-                'R3':  { ta: 'ரி₃ (Ri3 / Shatsruti Ri)', west: 'D#4 / E♭4', westShort: 'D#4', str: 'B கம்பி (2-ம் கம்பி)', strNum: 2, fretNum: 4, finger: 'ஆள்காட்டி விரல் 1 (Index)', freq: 311.13, col: '#0d9488' },
+        'R3':  { ta: 'ரி₃ (Ri3 / Shatsruti Ri)', west: 'D#4 / E♭4', westShort: 'D#4', str: 'B கம்பி (2-ம் கம்பி)', strNum: 2, fretNum: 4, finger: 'ஆள்காட்டி விரல் 1 (Index)', freq: 311.13, col: '#0d9488' },
         'D3':  { ta: 'த₃ (Dha3 / Shatsruti Dha)', west: 'A#4 / B♭4', westShort: 'A#4', str: 'High E (1-ம் கம்பி)', strNum: 1, fretNum: 6, finger: 'மோதிர விரல் 3 (Ring)', freq: 466.16, col: '#7c3aed' },
         'S5':  { ta: 'ஸ் (Tara Sa)', west: 'C5 (High C)', westShort: 'C5', str: 'High E (1-ம் கம்பி)', strNum: 1, fretNum: 8, finger: 'சுண்டு விரல் 4 (Pinky)', freq: 523.25, col: '#9333ea' }
     };
@@ -2442,10 +2144,10 @@
 
     function initFlatSequence() {
         flatStepSequence = [];
-        const lesson = lessonsData[currentLessonKey];
-        if (!lesson) return;
+        const item = lessonsData[currentLessonKey];
+        if (!item) return;
 
-        lesson.lines.forEach((line, lIdx) => {
+        item.lines.forEach((line, lIdx) => {
             line.sections.forEach((sec, sIdx) => {
                 sec.forEach((swKey, nIdx) => {
                     const isEven = (flatStepSequence.length % 2 === 0);
@@ -2454,7 +2156,8 @@
                         lineIdx: lIdx,
                         secIdx: sIdx,
                         noteIdx: nIdx,
-                        stroke: isEven ? '⬇ கீழ்நோக்கி (Downstroke)' : '⬆ மேல்நோக்கி (Upstroke)'
+                        stroke: isEven ? '⬇ கீழ்நோக்கி (Downstroke)' : '⬆ மேல்நோக்கி (Upstroke)',
+                        lineTitle: line.title
                     });
                 });
             });
@@ -2506,9 +2209,15 @@
         const container = document.getElementById('fretboardInner');
         container.innerHTML = '';
 
-        const activeRagaKey = (currentMode === 'lesson') ? lessonsData[currentLessonKey].raga : currentRagaKey;
-        const ragaObj = ragasMasterData[activeRagaKey] || ragasMasterData['maya'];
-        const boardSwaraKeys = ragaObj.swaras;
+        let boardSwaraKeys = [];
+        if (currentMode === 'lesson') {
+            const activeRagaKey = lessonsData[currentLessonKey] ? lessonsData[currentLessonKey].raga : 'maya';
+            const ragaObj = ragasMasterData[activeRagaKey] || ragasMasterData['maya'];
+            boardSwaraKeys = ragaObj.swaras;
+        } else {
+            const ragaObj = ragasMasterData[currentRagaKey] || ragasMasterData['maya'];
+            boardSwaraKeys = ragaObj.swaras;
+        }
 
         // 1. Header Row (Fret Numbers Row)
         const headerRow = document.createElement('div');
@@ -2662,11 +2371,16 @@
     function renderLessonVisualDiagram() {
         const container = document.getElementById('diagramLinesContainer');
         container.innerHTML = '';
-        const lesson = lessonsData[currentLessonKey];
-        if (!lesson) return;
+        const item = lessonsData[currentLessonKey];
+        if (!item) return;
+
+        const diagTitle = document.querySelector('#lessonDiagramSection .diagram-header h3');
+        if (diagTitle) {
+            diagTitle.textContent = '📊 இந்த பாடத்திற்கான பிரத்யேக ஸ்வர வரைபடம் (Lesson Visual Flow Diagram)';
+        }
 
         let globalNoteCounter = 0;
-        lesson.lines.forEach((line, lIdx) => {
+        item.lines.forEach((line, lIdx) => {
             const lineRow = document.createElement('div');
             lineRow.className = 'diagram-line-row';
 
@@ -2704,7 +2418,7 @@
 
                     const sPos = document.createElement('div');
                     sPos.className = 'd-pos';
-                    sPos.textContent = sw ? `Str${sw.strNum}-F${sw.fretNum}` : '';
+                    sPos.textContent = sw ? (sw.strNum === 0 ? 'Hold' : `Str${sw.strNum}-F${sw.fretNum}`) : '';
                     noteBox.appendChild(sPos);
 
                     secBox.appendChild(noteBox);
@@ -2728,8 +2442,13 @@
     function renderGuitarTabSheet() {
         const table = document.getElementById('guitarTabTable');
         table.innerHTML = '';
-        const lesson = lessonsData[currentLessonKey];
-        if (!lesson) return;
+        const item = lessonsData[currentLessonKey];
+        if (!item) return;
+
+        const tabTitle = document.querySelector('#guitarTabSection .tab-sheet-title');
+        if (tabTitle) {
+            tabTitle.textContent = '🎼 கிட்டார் Tablature வரைபடம் (Guitar TAB Sheet)';
+        }
 
         const stringLabels = [
             { num: 1, label: '1 (E high)' },
@@ -3351,15 +3070,6 @@
         activeGuitarVoices = [];
     }
 
-    // ==========================================
-    // 🎵 ACOUSTIC DRONE / TANPURA ENGINE (SOOTHING & GENTLE)
-    // ==========================================
-    let guitarDroneOscs = [];
-    let guitarDroneGain = null;
-    let guitarDroneFilter = null;
-    let currentGuitarDroneInst = 'tanpura_pa';
-    let isGuitarDroneActive = false; // Default OFF
-
     
     // isGuitarToneEnabled declared above
     
@@ -3394,148 +3104,12 @@
                 btn.style.color = '#38bdf8';
                 btn.innerHTML = '🎵 கிட்டார் ஒலி: ON';
             } else {
-                btn.style.background = '#d97706';
-                btn.style.borderColor = '#fbbf24';
-                btn.style.color = '#ffffff';
-                btn.innerHTML = '🪕 தம்புரா மட்டும் (Note Muted)';
+                btn.style.background = '#78350f';
+                btn.style.borderColor = '#f59e0b';
+                btn.style.color = '#fbbf24';
+                btn.innerHTML = '🔇 கிட்டார் ஒலி: OFF';
             }
         }
-    }
-    
-    function onGuitarDroneChange(inst) {
-        currentGuitarDroneInst = inst;
-        if (inst === 'off') {
-            isGuitarDroneActive = false;
-            stopGuitarDrone();
-        } else {
-            // User selected an instrument from dropdown
-            isGuitarDroneActive = true;
-            startGuitarDrone();
-        }
-    }
-
-    function startGuitarDrone() {
-        if (!isGuitarDroneActive || currentGuitarDroneInst === 'off') return;
-        try {
-            if (!audioCtx) {
-                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-            }
-            if (audioCtx.state === 'suspended') {
-                audioCtx.resume();
-            }
-            stopGuitarDrone();
-
-            const now = audioCtx.currentTime;
-            guitarDroneGain = audioCtx.createGain();
-            guitarDroneGain.gain.setValueAtTime(0.0001, now);
-            guitarDroneGain.gain.exponentialRampToValueAtTime(0.06, now + 1.2);
-            guitarDroneGain.connect(getMasterOutput() || audioCtx.destination);
-
-            guitarDroneFilter = audioCtx.createBiquadFilter();
-            guitarDroneFilter.type = 'lowpass';
-            guitarDroneFilter.frequency.setValueAtTime(450, now);
-            guitarDroneFilter.Q.value = 1.2;
-            guitarDroneFilter.connect(guitarDroneGain);
-
-            const baseSa = 130.81 * (typeof currentKattaiRatio !== 'undefined' ? currentKattaiRatio : 1.0);
-
-            if (currentGuitarDroneInst === 'tanpura_pa' || currentGuitarDroneInst === 'tanpura_ma') {
-                const ratio = (currentGuitarDroneInst === 'tanpura_ma') ? 0.66742 : 0.74915;
-                const freqs = [baseSa * ratio, baseSa * 1.0, baseSa * 1.002, baseSa * 0.5];
-                freqs.forEach((f, idx) => {
-                    const osc = audioCtx.createOscillator();
-                    const g = audioCtx.createGain();
-                    osc.type = (idx % 2 === 0) ? 'triangle' : 'sine';
-                    osc.frequency.setValueAtTime(f, now);
-                    g.gain.setValueAtTime(0.25, now);
-                    osc.connect(g);
-                    g.connect(guitarDroneFilter);
-                    osc.start(now);
-                    guitarDroneOscs.push(osc);
-                });
-            } else if (currentGuitarDroneInst === 'harmonium') {
-                guitarDroneFilter.frequency.setValueAtTime(550, now);
-                [baseSa * 0.5, baseSa * 0.75, baseSa * 1.0].forEach(f => {
-                    const osc = audioCtx.createOscillator();
-                    const g = audioCtx.createGain();
-                    osc.type = 'triangle';
-                    osc.frequency.setValueAtTime(f, now);
-                    g.gain.setValueAtTime(0.18, now);
-                    osc.connect(g);
-                    g.connect(guitarDroneFilter);
-                    osc.start(now);
-                    guitarDroneOscs.push(osc);
-                });
-            } else if (currentGuitarDroneInst === 'flute') {
-                guitarDroneFilter.frequency.setValueAtTime(650, now);
-                [baseSa, baseSa * 1.4983].forEach(f => {
-                    const osc = audioCtx.createOscillator();
-                    const g = audioCtx.createGain();
-                    osc.type = 'sine';
-                    osc.frequency.setValueAtTime(f, now);
-                    g.gain.setValueAtTime(0.20, now);
-                    osc.connect(g);
-                    g.connect(guitarDroneFilter);
-                    osc.start(now);
-                    guitarDroneOscs.push(osc);
-                });
-            } else if (currentGuitarDroneInst === 'veena') {
-                guitarDroneFilter.frequency.setValueAtTime(500, now);
-                [baseSa * 0.5, baseSa * 0.75, baseSa * 1.0].forEach(f => {
-                    const osc = audioCtx.createOscillator();
-                    const g = audioCtx.createGain();
-                    osc.type = 'triangle';
-                    osc.frequency.setValueAtTime(f, now);
-                    g.gain.setValueAtTime(0.20, now);
-                    osc.connect(g);
-                    g.connect(guitarDroneFilter);
-                    osc.start(now);
-                    guitarDroneOscs.push(osc);
-                });
-            }
-        } catch(e) {}
-    }
-
-    function stopGuitarDrone() {
-        if (guitarDroneGain && audioCtx) {
-            try {
-                const now = audioCtx.currentTime;
-                guitarDroneGain.gain.setValueAtTime(guitarDroneGain.gain.value, now);
-                guitarDroneGain.gain.exponentialRampToValueAtTime(0.00001, now + 0.3);
-            } catch(e) {}
-        }
-        setTimeout(() => {
-            guitarDroneOscs.forEach(o => {
-                try { o.stop(); } catch(e) {}
-            });
-            guitarDroneOscs = [];
-        }, 350);
-    }
-
-    function onKattaiChange(valStr) {
-        const [kStr, noteName, freqStr, fitDesc] = valStr.split('|');
-        const newFreq = parseFloat(freqStr);
-        // Base reference is C (130.81 Hz)
-        currentKattaiRatio = newFreq / 130.81;
-
-        // Update all swara frequencies dynamically
-        if (typeof allSwaras !== 'undefined') {
-            for (let k in allSwaras) {
-                if (allSwaras[k].baseFreq) {
-                    allSwaras[k].freq = allSwaras[k].baseFreq * currentKattaiRatio;
-                } else {
-                    allSwaras[k].baseFreq = allSwaras[k].freq;
-                    allSwaras[k].freq = allSwaras[k].baseFreq * currentKattaiRatio;
-                }
-            }
-        }
-
-        const kattaiHeaderBadge = document.getElementById('headerKattaiBadge');
-        if (kattaiHeaderBadge) {
-            kattaiHeaderBadge.textContent = `${kStr} கட்டை (${noteName} - ${newFreq.toFixed(1)} Hz) • ${fitDesc}`;
-        }
-
-        updateStepUI(false);
     }
     
     function updateStepUI(playAudio = true) {
@@ -3579,7 +3153,7 @@
             if (elStr) elStr.textContent = sw.str;
 
             const elFret = document.getElementById('cardFret');
-            if (elFret) elFret.textContent = `${sw.fretNum}-ம் கட்டை (Fret ${sw.fretNum})`;
+            if (elFret) elFret.textContent = (sw.fretNum === 0 && sw.strNum === 0) ? 'கார்வை (Hold)' : (sw.fretNum === 0 ? 'திறந்த கம்பி (Open 0)' : `${sw.fretNum}-ம் கட்டை (Fret ${sw.fretNum})`);
 
             const elFinger = document.getElementById('cardFinger');
             if (elFinger) elFinger.textContent = sw.finger;
@@ -3597,7 +3171,7 @@
                 }
             }
 
-            if (playAudio) {
+            if (playAudio && sw.freq > 0) {
                 playTone(sw.freq);
             }
         }
@@ -3715,47 +3289,74 @@
 
     function switchStudioTab(tab) {
         const tunerSec = document.getElementById('tunerSection');
-        if (tunerSec) tunerSec.style.display = (tab === 'tuner') ? 'block' : 'none';
+        const metroSec = document.getElementById('metronomeSection');
         const fretCard = document.querySelector('.fretboard-card');
-        if (fretCard) fretCard.style.display = (tab === 'tuner') ? 'none' : 'block';
         const micCard = document.getElementById('micListenerCard');
-        if (micCard) micCard.style.display = (tab === 'tuner') ? 'none' : 'block';
         const talaBar = document.getElementById('talaMetronomeBar');
-        if (talaBar) talaBar.style.display = (tab === 'tuner') ? 'none' : 'flex';
-
-        document.querySelectorAll('.nav-tab-btn').forEach(b => b.classList.remove('active'));
-        document.getElementById(`tab-${tab}`).classList.add('active');
-
         const selLessons = document.getElementById('selector-wrapper-lessons');
         const selRagas = document.getElementById('selector-wrapper-ragas');
         const diagSec = document.getElementById('lessonDiagramSection');
         const tabSec = document.getElementById('guitarTabSection');
         const timeSec = document.getElementById('timelineSection');
+        const actionGrid = document.querySelector('.action-details-grid');
+
+        // Toggle special sections
+        if (tunerSec) tunerSec.style.display = (tab === 'tuner') ? 'block' : 'none';
+        if (metroSec) metroSec.style.display = (tab === 'metronome') ? 'block' : 'none';
+
+        const isStandardTab = (tab === 'lessons' || tab === 'ragas' || tab === 'tabview');
+        if (fretCard) fretCard.style.display = isStandardTab ? 'block' : 'none';
+        if (micCard) micCard.style.display = isStandardTab ? 'block' : 'none';
+        if (talaBar) talaBar.style.display = isStandardTab ? 'flex' : 'none';
+        if (actionGrid) actionGrid.style.display = isStandardTab ? 'grid' : 'none';
+
+        document.querySelectorAll('.nav-tab-btn').forEach(b => b.classList.remove('active'));
+        const activeBtn = document.getElementById(`tab-${tab}`);
+        if (activeBtn) activeBtn.classList.add('active');
 
         if (tab === 'lessons') {
             currentMode = 'lesson';
-            selLessons.style.display = 'flex';
-            selRagas.style.display = 'none';
-            diagSec.style.display = 'block';
-            tabSec.style.display = 'none';
-            timeSec.style.display = 'block';
+            if (selLessons) selLessons.style.display = 'flex';
+            if (selRagas) selRagas.style.display = 'none';
+            if (diagSec) diagSec.style.display = 'block';
+            if (tabSec) tabSec.style.display = 'none';
+            if (timeSec) timeSec.style.display = 'block';
+            currentStepIndex = 0;
+            initFlatSequence();
             renderDynamicFretboard();
+            renderLessonVisualDiagram();
+            renderGuitarTabSheet();
+            renderTimeline();
+            updateStepUI(false);
         } else if (tab === 'ragas') {
             currentMode = 'raga';
-            selLessons.style.display = 'none';
-            selRagas.style.display = 'flex';
-            diagSec.style.display = 'none';
-            tabSec.style.display = 'none';
-            timeSec.style.display = 'none';
+            if (selLessons) selLessons.style.display = 'none';
+            if (selRagas) selRagas.style.display = 'flex';
+            if (diagSec) diagSec.style.display = 'none';
+            if (tabSec) tabSec.style.display = 'none';
+            if (timeSec) timeSec.style.display = 'none';
             renderDynamicFretboard();
         } else if (tab === 'tabview') {
-            currentMode = 'lesson';
-            selLessons.style.display = 'flex';
-            selRagas.style.display = 'none';
-            diagSec.style.display = 'block';
-            tabSec.style.display = 'block';
-            timeSec.style.display = 'block';
+            if (selLessons) selLessons.style.display = 'flex';
+            if (selRagas) selRagas.style.display = 'none';
+            if (diagSec) diagSec.style.display = 'block';
+            if (tabSec) tabSec.style.display = 'block';
+            if (timeSec) timeSec.style.display = 'block';
             renderDynamicFretboard();
+            renderGuitarTabSheet();
+        } else if (tab === 'metronome') {
+            if (selLessons) selLessons.style.display = 'none';
+            if (selRagas) selRagas.style.display = 'none';
+            renderMetroBeats();
+            if (diagSec) diagSec.style.display = 'none';
+            if (tabSec) tabSec.style.display = 'none';
+            if (timeSec) timeSec.style.display = 'none';
+        } else if (tab === 'tuner') {
+            if (selLessons) selLessons.style.display = 'none';
+            if (selRagas) selRagas.style.display = 'none';
+            if (diagSec) diagSec.style.display = 'none';
+            if (tabSec) tabSec.style.display = 'none';
+            if (timeSec) timeSec.style.display = 'none';
         }
     }
 
