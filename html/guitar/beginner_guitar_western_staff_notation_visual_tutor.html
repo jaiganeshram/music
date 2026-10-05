@@ -1,0 +1,2845 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Noto+Sans+Tamil:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yamaha F280 Western Guitar Interactive Staff Notation Tutor</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Noto+Sans+Tamil:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700;800&display=swap');
+        :root {
+            --bg-main: #090d16;
+            --bg-card: rgba(16, 24, 40, 0.85);
+            --bg-card-hover: rgba(23, 33, 56, 0.95);
+            --border-card: rgba(56, 189, 248, 0.18);
+            --border-highlight: #38bdf8;
+            --accent-cyan: #38bdf8;
+            --accent-gold: #fbbf24;
+            --accent-emerald: #34d399;
+            --accent-rose: #f43f5e;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --fret-board-wood: #1e130c;
+            --fret-wire: #cbd5e1;
+            --pearl-inlay: radial-gradient(circle, #ffffff 20%, #cbd5e1 70%, #94a3b8 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Outfit', 'Noto Sans Tamil', 'Nirmala UI', 'Latha', 'Vijaya', 'Tamil Sangam MN', 'Segoe UI', 'Segoe UI Emoji', 'Segoe UI Symbol', -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;
+            background-color: var(--bg-main);
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(56, 189, 248, 0.12) 0px, transparent 50%),
+                radial-gradient(at 100% 0%, rgba(251, 191, 36, 0.08) 0px, transparent 50%),
+                radial-gradient(at 50% 100%, rgba(52, 211, 153, 0.08) 0px, transparent 50%);
+            background-attachment: fixed;
+            color: var(--text-main);
+            min-height: 100vh;
+            padding: 24px;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1440px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        /* Top Header */
+        header {
+            background: var(--bg-card);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--border-card);
+            border-radius: 20px;
+            padding: 24px 32px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5);
+        }
+
+        .header-title-group {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .header-icon {
+            width: 54px;
+            height: 54px;
+            background: linear-gradient(135deg, #0284c7, #0369a1);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            box-shadow: 0 0 20px rgba(56, 189, 248, 0.4);
+        }
+
+        h1 {
+            font-size: 26px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #ffffff 30%, #38bdf8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.5px;
+        }
+
+        .subtitle {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-top: 2px;
+            font-weight: 400;
+        }
+
+        .header-stats {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .stat-pill {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 8px 16px;
+            border-radius: 12px;
+            font-size: 13px;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .stat-pill strong {
+            color: var(--accent-cyan);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* Studio Navigation Tabs */
+        .studio-nav-bar {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(15, 23, 42, 0.7);
+            padding: 6px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            overflow-x: auto;
+        }
+
+        .studio-tab-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-family: 'Outfit', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            padding: 10px 18px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .studio-tab-btn:hover {
+            color: var(--text-main);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .studio-tab-btn.active {
+            background: linear-gradient(135deg, #0284c7, #0369a1);
+            color: #ffffff;
+            box-shadow: 0 4px 12px rgba(2, 132, 199, 0.3);
+        }
+
+        /* Lesson Selection Bar */
+        .lesson-selection-bar {
+            background: var(--bg-card);
+            border: 1px solid var(--border-card);
+            border-radius: 18px;
+            padding: 18px 24px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+        }
+
+        .lesson-dropdown-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex: 1;
+            min-width: 280px;
+        }
+
+        .lesson-dropdown-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--accent-gold);
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .lesson-select {
+            flex: 1;
+            background: #0f172a;
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            color: #ffffff;
+            font-family: 'Outfit', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            padding: 10px 16px;
+            border-radius: 10px;
+            outline: none;
+            cursor: pointer;
+            transition: border-color 0.2s;
+        }
+
+        .lesson-select:focus {
+            border-color: var(--accent-cyan);
+            box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.2);
+        }
+
+        .lesson-select optgroup {
+            background: #090d16;
+            color: var(--accent-gold);
+            font-weight: 700;
+        }
+
+        .lesson-select option {
+            background: #0f172a;
+            color: #ffffff;
+            font-weight: 500;
+        }
+
+        .transport-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-ctrl {
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: var(--text-main);
+            font-family: 'Outfit', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            padding: 10px 18px;
+            border-radius: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+
+        .btn-ctrl:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.25);
+            transform: translateY(-1px);
+        }
+
+        .btn-ctrl.btn-primary {
+            background: linear-gradient(135deg, #10b981, #059669);
+            border: none;
+            color: white;
+            box-shadow: 0 4px 14px rgba(16, 185, 129, 0.35);
+        }
+
+        .btn-ctrl.btn-primary:hover {
+            background: linear-gradient(135deg, #34d399, #10b981);
+            transform: translateY(-1px);
+        }
+
+        .btn-ctrl.btn-primary.playing {
+            background: linear-gradient(135deg, #f43f5e, #e11d48);
+            box-shadow: 0 4px 14px rgba(244, 63, 94, 0.35);
+        }
+
+        .btn-ctrl.btn-mic {
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid rgba(244, 63, 94, 0.4);
+            color: #fda4af;
+        }
+
+        .btn-ctrl.btn-mic.listening {
+            background: linear-gradient(135deg, #e11d48, #be123c);
+            color: white;
+            animation: pulse-border 1.5s infinite;
+        }
+
+        @keyframes pulse-border {
+            0% { box-shadow: 0 0 0 0 rgba(244, 63, 94, 0.6); }
+            70% { box-shadow: 0 0 0 8px rgba(244, 63, 94, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(244, 63, 94, 0); }
+        }
+
+        .speed-pill-group {
+            display: flex;
+            align-items: center;
+            background: #0f172a;
+            border-radius: 10px;
+            padding: 3px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .speed-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-size: 12px;
+            font-weight: 600;
+            padding: 6px 12px;
+            border-radius: 7px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .speed-btn.active {
+            background: var(--accent-cyan);
+            color: #090d16;
+            font-weight: 700;
+        }
+
+        /* Top String Reference Box (Hal Leonard Method Style) */
+        .string-intro-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border-card);
+            border-radius: 20px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .string-intro-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .string-intro-title {
+            font-size: 18px;
+            font-weight: 800;
+            color: var(--accent-cyan);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            letter-spacing: 0.5px;
+        }
+
+        .technique-tips-bar {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .tip-badge {
+            background: rgba(56, 189, 248, 0.1);
+            border: 1px solid rgba(56, 189, 248, 0.25);
+            padding: 4px 12px;
+            border-radius: 8px;
+            color: #7dd3fc;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .string-cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 16px;
+        }
+
+        .string-note-card {
+            background: rgba(15, 23, 42, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 18px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            transition: all 0.25s ease;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .string-note-card:hover {
+            border-color: var(--accent-cyan);
+            background: rgba(15, 23, 42, 0.95);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -5px rgba(56, 189, 248, 0.15);
+        }
+
+        .string-note-card.active-target {
+            border-color: var(--accent-gold);
+            background: rgba(251, 191, 36, 0.08);
+            box-shadow: 0 0 20px rgba(251, 191, 36, 0.2);
+        }
+
+        .note-card-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .note-big-name {
+            font-size: 32px;
+            font-weight: 900;
+            color: #ffffff;
+            line-height: 1;
+        }
+
+        .note-fret-finger-pill {
+            background: rgba(56, 189, 248, 0.15);
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            color: var(--accent-cyan);
+            font-size: 12px;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 8px;
+        }
+
+        .note-card-body {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            background: rgba(0, 0, 0, 0.25);
+            padding: 12px;
+            border-radius: 12px;
+        }
+
+        .mini-fret-svg {
+            width: 100px;
+            height: 80px;
+        }
+
+        .mini-staff-svg {
+            width: 120px;
+            height: 80px;
+        }
+
+        .note-card-footer {
+            font-size: 12px;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .card-play-btn {
+            background: rgba(56, 189, 248, 0.15);
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            color: var(--accent-cyan);
+            border-radius: 6px;
+            padding: 4px 8px;
+            font-size: 11px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .card-play-btn:hover {
+            background: var(--accent-cyan);
+            color: #090d16;
+        }
+
+        /* Master Sheet Music Score Card */
+        .score-visual-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-card);
+            border-radius: 20px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            box-shadow: 0 15px 35px -10px rgba(0, 0, 0, 0.4);
+        }
+
+        .score-card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            padding-bottom: 14px;
+        }
+
+        .score-title-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .score-title {
+            font-size: 20px;
+            font-weight: 800;
+            color: #ffffff;
+            letter-spacing: -0.3px;
+        }
+
+        .score-badge {
+            background: rgba(251, 191, 36, 0.15);
+            border: 1px solid rgba(251, 191, 36, 0.35);
+            color: var(--accent-gold);
+            font-size: 12px;
+            font-weight: 700;
+            padding: 4px 12px;
+            border-radius: 8px;
+        }
+
+        .score-engraving-container {
+            background: #0a0f1d;
+            border: 1px solid rgba(56, 189, 248, 0.15);
+            border-radius: 16px;
+            padding: 20px;
+            overflow-x: auto;
+            position: relative;
+        }
+
+        #masterScoreSvg {
+            width: 100%;
+            min-width: 860px;
+            display: block;
+        }
+
+        /* SVG Interactive Note Styling */
+        .score-note-group {
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .score-note-group:hover .note-head {
+            fill: var(--accent-cyan) !important;
+            filter: drop-shadow(0 0 6px rgba(56, 189, 248, 0.8));
+        }
+
+        .score-note-group.active-note .note-head {
+            fill: var(--accent-gold) !important;
+            filter: drop-shadow(0 0 10px rgba(251, 191, 36, 1));
+        }
+
+        .score-note-group.active-note .note-stem {
+            stroke: var(--accent-gold) !important;
+            stroke-width: 2.5 !important;
+        }
+
+        .score-note-group.active-note .beat-count-text {
+            fill: var(--accent-gold) !important;
+            font-weight: 900 !important;
+            font-size: 15px !important;
+        }
+
+        /* Yamaha F280 Reverse Fretboard */
+        .fretboard-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-card);
+            border-radius: 20px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .fretboard-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .fretboard-title-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .fretboard-title {
+            font-size: 18px;
+            font-weight: 800;
+            color: #ffffff;
+        }
+
+        .yamaha-badge {
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #f8fafc;
+            font-size: 12px;
+            font-weight: 700;
+            padding: 4px 12px;
+            border-radius: 8px;
+            letter-spacing: 0.5px;
+        }
+
+        .fretboard-wrapper {
+            background: #0f172a;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 16px;
+            padding: 16px;
+            overflow-x: auto;
+        }
+
+        .fretboard-wood {
+            display: flex;
+            flex-direction: column;
+            background: linear-gradient(180deg, #1e130c 0%, #2b1810 50%, #170d08 100%);
+            border-radius: 10px;
+            position: relative;
+            box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.8), 0 8px 20px rgba(0, 0, 0, 0.4);
+            border: 2px solid #3d2417;
+            min-width: 980px;
+        }
+
+        .fretboard-numbers-row {
+            display: flex;
+            height: 28px;
+            background: rgba(0, 0, 0, 0.4);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .fret-num-cell {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--text-muted);
+            border-left: 1px dashed rgba(255, 255, 255, 0.08);
+        }
+
+        .fret-num-cell.nut-col {
+            flex: 0 0 60px;
+            border-left: 3px solid #f8fafc;
+            color: var(--accent-gold);
+            background: rgba(251, 191, 36, 0.1);
+        }
+
+        .guitar-string-row {
+            display: flex;
+            height: 44px;
+            position: relative;
+            align-items: center;
+        }
+
+        .string-wire-line {
+            position: absolute;
+            left: 0;
+            right: 60px;
+            height: 2px;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .string-s1 { height: 1.5px; background: linear-gradient(90deg, #94a3b8, #e2e8f0, #94a3b8); }
+        .string-s2 { height: 2px; background: linear-gradient(90deg, #94a3b8, #cbd5e1, #94a3b8); }
+        .string-s3 { height: 2.5px; background: linear-gradient(90deg, #d97706, #fde68a, #d97706); }
+        .string-s4 { height: 3px; background: linear-gradient(90deg, #b45309, #fbbf24, #b45309); }
+        .string-s5 { height: 3.5px; background: linear-gradient(90deg, #92400e, #f59e0b, #92400e); }
+        .string-s6 { height: 4px; background: linear-gradient(90deg, #78350f, #d97706, #78350f); }
+
+        .fret-slot {
+            flex: 1;
+            height: 100%;
+            border-left: 2px solid var(--fret-wire);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2;
+        }
+
+        .fret-slot.nut-slot {
+            flex: 0 0 60px;
+            border-left: 4px solid #f8fafc;
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .fret-pearl-dot {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--pearl-inlay);
+            box-shadow: 0 0 6px rgba(255, 255, 255, 0.8);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .note-fret-target {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            background: rgba(15, 23, 42, 0.9);
+            border: 2px solid var(--accent-cyan);
+            color: #ffffff;
+            font-size: 13px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+            z-index: 5;
+        }
+
+        .note-fret-target:hover {
+            transform: scale(1.15);
+            background: var(--accent-cyan);
+            color: #090d16;
+            box-shadow: 0 0 15px var(--accent-cyan);
+        }
+
+        .note-fret-target.active-pulsar {
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            border-color: #ffffff;
+            color: #090d16;
+            transform: scale(1.22);
+            box-shadow: 0 0 25px rgba(251, 191, 36, 0.9);
+            animation: bounce-pulse 0.8s infinite alternate;
+        }
+
+        @keyframes bounce-pulse {
+            0% { transform: scale(1.15); box-shadow: 0 0 15px rgba(251, 191, 36, 0.8); }
+            100% { transform: scale(1.28); box-shadow: 0 0 25px rgba(251, 191, 36, 1); }
+        }
+
+        /* Action Details & Status Bar */
+        .action-details-bar {
+            background: var(--bg-card);
+            border: 1px solid var(--border-card);
+            border-radius: 18px;
+            padding: 18px 24px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+        }
+
+        .detail-card {
+            background: rgba(15, 23, 42, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 14px;
+            padding: 14px 18px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .detail-label {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .detail-value {
+            font-size: 18px;
+            font-weight: 800;
+            color: #ffffff;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .detail-value.highlight {
+            color: var(--accent-gold);
+        }
+
+        /* Guitar TAB Sheet Section */
+        .tab-sheet-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border-card);
+            border-radius: 20px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .tab-table-wrapper {
+            background: #0f172a;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 14px;
+            padding: 16px;
+            overflow-x: auto;
+        }
+
+        .tab-grid-table {
+            border-collapse: collapse;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            width: 100%;
+            min-width: 750px;
+        }
+
+        .tab-grid-table td {
+            padding: 6px 12px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            color: var(--text-muted);
+        }
+
+        .tab-grid-table td.tab-string-label {
+            font-weight: 700;
+            color: var(--accent-cyan);
+            border-right: 2px solid var(--accent-cyan);
+            text-align: left;
+            width: 80px;
+        }
+
+        .tab-grid-table td.tab-active-cell {
+            background: rgba(251, 191, 36, 0.2);
+            color: var(--accent-gold);
+            font-weight: 800;
+            border-radius: 6px;
+            box-shadow: 0 0 10px rgba(251, 191, 36, 0.4);
+        }
+
+        /* Metronome Section */
+        .metronome-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border-card);
+            border-radius: 20px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .metro-controls-row {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .bpm-display-group {
+            display: flex;
+            align-items: baseline;
+            gap: 10px;
+        }
+
+        .bpm-val {
+            font-size: 48px;
+            font-weight: 900;
+            color: var(--accent-cyan);
+            font-family: 'JetBrains Mono', monospace;
+            line-height: 1;
+        }
+
+        .bpm-label {
+            font-size: 14px;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .metro-slider {
+            flex: 1;
+            min-width: 200px;
+            accent-color: var(--accent-cyan);
+        }
+
+        .metro-pendulum-track {
+            height: 8px;
+            background: rgba(15, 23, 42, 0.8);
+            border-radius: 4px;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .metro-pendulum-bob {
+            position: absolute;
+            top: -4px;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: var(--accent-gold);
+            box-shadow: 0 0 12px var(--accent-gold);
+            transition: left 0.1s linear;
+        }
+
+        .metro-beats-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .metro-beat-dot {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.1s;
+        }
+
+        .metro-beat-dot.accent-flash {
+            background: var(--accent-rose);
+            box-shadow: 0 0 15px var(--accent-rose);
+            transform: scale(1.25);
+        }
+
+        .metro-beat-dot.normal-flash {
+            background: var(--accent-cyan);
+            box-shadow: 0 0 12px var(--accent-cyan);
+            transform: scale(1.2);
+        }
+
+        /* Tuner Section */
+        .tuner-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border-card);
+            border-radius: 20px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .tuner-strings-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 14px;
+        }
+
+        .tuner-btn {
+            background: rgba(15, 23, 42, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 16px;
+            border-radius: 14px;
+            color: var(--text-main);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .tuner-btn:hover {
+            border-color: var(--accent-cyan);
+            background: rgba(56, 189, 248, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .tuner-btn.playing-pitch {
+            border-color: var(--accent-gold);
+            background: rgba(251, 191, 36, 0.15);
+            box-shadow: 0 0 15px rgba(251, 191, 36, 0.3);
+        }
+
+        .tuner-str-name {
+            font-size: 24px;
+            font-weight: 800;
+            color: #ffffff;
+        }
+
+        .tuner-str-freq {
+            font-size: 12px;
+            color: var(--text-muted);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* Theory Guide Section */
+        .theory-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border-card);
+            border-radius: 20px;
+            padding: 28px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .theory-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .theory-card {
+            background: rgba(15, 23, 42, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .theory-card-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--accent-cyan);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .theory-card-body {
+            font-size: 14px;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        .theory-card-body strong {
+            color: #ffffff;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .lesson-selection-bar {
+                flex-direction: column;
+                align-items: stretch;
+            }
+        }
+    
+        .hit-counter-badge {
+            position: absolute;
+            top: -9px;
+            right: -9px;
+            background: linear-gradient(135deg, #f43f5e, #be123c);
+            color: #ffffff;
+            font-size: 11px;
+            font-weight: 900;
+            padding: 2px 6px;
+            border-radius: 10px;
+            border: 1.5px solid #ffffff;
+            box-shadow: 0 0 12px rgba(244, 63, 94, 0.95);
+            font-family: 'JetBrains Mono', monospace;
+            animation: hit-pulse 0.35s ease;
+            z-index: 10;
+        }
+
+        @keyframes hit-pulse {
+            0% { transform: scale(1.4); }
+            100% { transform: scale(1.0); }
+        }
+    
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <div class="header-title-group">
+                <div class="header-icon">🎸</div>
+                <div>
+                    <h1>Yamaha F280 Western Guitar Interactive Staff Notation Tutor</h1>
+                    <div class="subtitle">Hal Leonard & Mel Bay Method Series • Step-by-Step Multi-Measure Sheet Music • Reverse Fretboard Guidance</div>
+                </div>
+            </div>
+            <div class="header-stats">
+                <div class="stat-pill">Unit: <strong id="headerUnitBadge">1st String (E, F, G)</strong></div>
+                <div class="stat-pill">Tempo: <strong id="headerTempoBadge">80 BPM</strong></div>
+                <div class="stat-pill">Pitch Mode: <strong id="headerMicBadge">Pluck Ready</strong></div>
+            </div>
+        </header>
+
+        <!-- Studio Navigation Bar -->
+        <nav class="studio-nav-bar">
+            <button class="studio-tab-btn active" onclick="switchStudioTab('sheet', this)">🎼 Sheet Music & Fretboard</button>
+            <button class="studio-tab-btn" onclick="switchStudioTab('tab', this)">🎸 Guitar TAB Sheet</button>
+            <button class="studio-tab-btn" onclick="switchStudioTab('metronome', this)">⏱ Metronome Studio</button>
+            <button class="studio-tab-btn" onclick="switchStudioTab('tuner', this)">🎸 Chromatic Tuner (E-A-D-G-B-E)</button>
+            <button class="studio-tab-btn" onclick="switchStudioTab('quiz', this)">🎯 Staff & Fret Quiz</button>
+            <button class="studio-tab-btn" onclick="switchStudioTab('theory', this)">📖 Staff Notation Guide</button>
+        </nav>
+
+        <!-- Lesson Selection & Transport Bar -->
+        <div class="lesson-selection-bar">
+            <div class="lesson-dropdown-group">
+                <span class="lesson-dropdown-label">📚 Lesson:</span>
+                <select id="lessonSelect" class="lesson-select" onchange="changeLesson(this.value)">
+                    <optgroup label="── UNIT 1: NOTES ON THE 1ST STRING (E, F, G) ──">
+                        <option value="unit1_ex1" selected>Ex 1: 1st String Whole Notes & Downstroke Pick (⊓) - E, F, G</option>
+                        <option value="unit1_ex2">Ex 2: 1st String Half Notes (Count 1-2, 3-4) - E, F, G</option>
+                        <option value="unit1_ex3">Ex 3: 1st String Quarter Notes (Count 1, 2, 3, 4) - E, F, G</option>
+                    </optgroup>
+                    <optgroup label="── UNIT 2: NOTES ON THE 2ND STRING (B, C, D) ──">
+                        <option value="unit2_ex1">Ex 1: 2nd String Whole Notes (Count 1-2-3-4) - B, C, D</option>
+                        <option value="unit2_ex2">Ex 2: 2nd String Half Notes (Count 1-2, 3-4) - B, C, D</option>
+                        <option value="unit2_ex3">Ex 3: 2nd String Quarter Notes - B, C, D</option>
+                    </optgroup>
+                    <optgroup label="── UNIT 3: COMBINING STRINGS 1 & 2 + FIRST SONGS ──">
+                        <option value="unit3_ex4">Ex 4: Combining 1st & 2nd Strings (B, C, D, E, F, G, F, E...)</option>
+                        <option value="unit3_ex5">Ex 5: Finger Dexterity - Touch Only Tips of Fingers</option>
+                        <option value="unit3_ex6">Ex 6: Arch Technique - Left Hand Fingers Arched Over Strings</option>
+                        <option value="unit3_ex7">Ex 7: Two-Line Melody with Chords (C and G7 Chords)</option>
+                        <option value="unit3_spanish">Ex 8: SPANISH THEME (Complete 2-Line Classical Masterpiece)</option>
+                        <option value="unit3_ode_to_joy">Ex 9: Ode to Joy (Beethoven - First 2 Strings Melodic Theme)</option>
+                        <option value="unit3_jingle_bells">Ex 10: Jingle Bells (Melodic Staff Reading)</option>
+                    </optgroup>
+                    <optgroup label="── UNIT 4: NOTES ON THE 3RD STRING (G, A) ──">
+                        <option value="unit4_ex1">Ex 11: 3rd String Fundamentals - Open G & 2nd Fret A</option>
+                        <option value="unit4_aura_lea">Ex 12: Aura Lea (Love Me Tender Melody across 3 Strings)</option>
+                        <option value="unit4_merrily">Ex 13: Merrily We Roll Along</option>
+                    </optgroup>
+                    <optgroup label="── UNIT 5: NOTES ON THE 4TH STRING (D, E, F) ──">
+                        <option value="unit5_ex1">Ex 14: 4th String Fundamentals - Open D, 2nd Fret E, 3rd Fret F</option>
+                        <option value="unit5_yankee">Ex 15: Yankee Doodle</option>
+                        <option value="unit5_saints">Ex 16: When the Saints Go Marching In</option>
+                    </optgroup>
+                    <optgroup label="── UNIT 6: NOTES ON THE 5TH STRING (A, B, C) ──">
+                        <option value="unit6_ex1">Ex 17: 5th String Fundamentals - Open A, 2nd Fret B, 3rd Fret C</option>
+                        <option value="unit6_c_scale">Ex 18: C Major Scale (1 Octave - Ledger Lines Practice)</option>
+                        <option value="unit6_scarborough">Ex 19: Scarborough Fair (Traditional Ballad)</option>
+                    </optgroup>
+                    <optgroup label="── UNIT 7: NOTES ON THE 6TH STRING (LOW E, F, G) ──">
+                        <option value="unit7_ex1">Ex 20: 6th String Fundamentals - Low E, Low F, Low G</option>
+                        <option value="unit7_full_scale">Ex 21: Full 2-Octave C Major Scale (Low C to High C)</option>
+                        <option value="unit7_greensleeves">Ex 22: Greensleeves (Complete Traditional Melody)</option>
+                        <option value="unit7_bach_minuet">Ex 23: Minuet in G (J.S. Bach)</option>
+                    </optgroup>
+                </select>
+            </div>
+
+            <!-- Transport Controls -->
+            <div class="transport-controls">
+                <button id="playBtn" class="btn-ctrl btn-primary" onclick="togglePlay()">
+                    <span id="playIcon">▶</span> <span id="playText">Play</span>
+                </button>
+                <button class="btn-ctrl" onclick="prevStep()">⏮ Prev</button>
+                <button class="btn-ctrl" onclick="nextStep()">Next ⏭</button>
+                <button class="btn-ctrl" onclick="resetLesson()">↺ Reset</button>
+                <button id="micBtn" class="btn-ctrl btn-mic" onclick="toggleMicListener()">🎙 Mic Pitch AI</button>
+                
+                <div class="speed-pill-group">
+                    <button class="speed-btn" onclick="setSpeed(0.5, this)">0.5x</button>
+                    <button class="speed-btn active" onclick="setSpeed(1.0, this)">1.0x</button>
+                    <button class="speed-btn" onclick="setSpeed(1.5, this)">1.5x</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Top String Reference Box (Hal Leonard Method Style from User Images) -->
+        <div id="stringIntroSection" class="string-intro-section">
+            <div class="string-intro-header">
+                <div class="string-intro-title">
+                    <span>📖 STRING REFERENCE:</span>
+                    <span id="stringIntroName">NOTES ON THE FIRST STRING</span>
+                </div>
+                <div class="technique-tips-bar">
+                    <div class="tip-badge">⊓ Downstroke Pick</div>
+                    <div class="tip-badge">👌 Touch Finger Tips Only</div>
+                    <div class="tip-badge">🎯 Keep Fingers Arched</div>
+                </div>
+            </div>
+            <!-- 3 Dynamic Note Cards -->
+            <div id="stringCardsGrid" class="string-cards-grid">
+                <!-- Injected by JS -->
+            </div>
+        </div>
+
+        <!-- Main Studio: Master Interactive Sheet Music Score -->
+        <div id="sheetMusicCard" class="score-visual-card">
+            <div class="score-card-header">
+                <div class="score-title-group">
+                    <span class="score-title" id="scoreLessonTitle">Ex 1: 1st String Whole Notes & Downstroke Pick (⊓) - E, F, G</span>
+                    <span class="score-badge" id="scoreTimeSigBadge">Time: 4/4</span>
+                </div>
+                <div class="technique-tips-bar">
+                    <span style="font-size: 13px; color: var(--text-muted);">💡 Click any note to jump • Follow active golden bouncing cursor (▼)</span>
+                </div>
+            </div>
+
+            <div class="score-engraving-container">
+                <svg id="masterScoreSvg" viewBox="0 0 1000 360">
+                    <!-- Engraved dynamically by JS -->
+                </svg>
+            </div>
+        </div>
+
+        <!-- Yamaha F280 Reverse Fretboard Card -->
+        <div id="fretboardCard" class="fretboard-card">
+            <div class="fretboard-header">
+                <div class="fretboard-title-group">
+                    <span class="fretboard-title">🎸 Yamaha F280 Acoustic Fretboard Guidance (Reverse Playing View)</span>
+                    <span class="yamaha-badge">Yamaha F280 Dreadnought Natural</span>
+                </div>
+                <div style="font-size: 13px; color: var(--text-muted);">
+                    Left = 12th Fret ⟵ Fret 1 ⟵ Nut & Open Strings (Right)
+                </div>
+            </div>
+
+            <div class="fretboard-wrapper">
+                <div class="fretboard-wood" id="fretboardWood">
+                    <!-- Fret numbers header -->
+                    <div class="fretboard-numbers-row" id="fretNumHeader">
+                        <!-- Injected by JS: 12 down to 1 + Nut -->
+                    </div>
+                    <!-- 6 Strings Rows: 1 (High E) to 6 (Low E) -->
+                    <div id="stringsContainer">
+                        <!-- Injected by JS -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Action Details & Real-Time Status -->
+        <div id="actionDetailsBar" class="action-details-bar">
+            <div class="detail-card">
+                <span class="detail-label">Current Note</span>
+                <span class="detail-value highlight" id="activeNoteName">E (Open)</span>
+            </div>
+            <div class="detail-card">
+                <span class="detail-label">String & Fret</span>
+                <span class="detail-value" id="activeFretInfo">String 1 (High E) • Fret 0</span>
+            </div>
+            <div class="detail-card">
+                <span class="detail-label">Finger & Technique</span>
+                <span class="detail-value" id="activeFingerInfo">Open String • ⊓ Downstroke</span>
+            </div>
+            <div class="detail-card">
+                <span class="detail-label">Beat Count</span>
+                <span class="detail-value" id="activeBeatInfo">Count: 1 - 2 - 3 - 4</span>
+            </div>
+            <div class="detail-card">
+                <span class="detail-label">Mic AI Detected</span>
+                <span class="detail-value" id="activeMicInfo">Listening...</span>
+            </div>
+        </div>
+
+        <!-- Guitar TAB Sheet Section (Tab 2) -->
+        <div id="tabSheetSection" class="tab-sheet-section" style="display: none;">
+            <div class="score-card-header">
+                <span class="score-title">🎸 Guitar TAB (Standard 6-Line Tablature)</span>
+                <span class="score-badge">Synchronized with Sheet Music</span>
+            </div>
+            <div class="tab-table-wrapper">
+                <table class="tab-grid-table" id="guitarTabTable">
+                    <!-- Injected by JS -->
+                </table>
+            </div>
+        </div>
+
+        <!-- Metronome Studio Section (Tab 3) -->
+        <div id="metronomeSection" class="metronome-section" style="display: none;">
+            <div class="score-card-header">
+                <span class="score-title">⏱ Professional Metronome Studio</span>
+                <span class="score-badge" id="metroTimeSigBadge">4/4 Standard</span>
+            </div>
+            <div class="metro-controls-row">
+                <div class="bpm-display-group">
+                    <span class="bpm-val" id="metroBpmVal">80</span>
+                    <span class="bpm-label">BPM</span>
+                </div>
+                <input type="range" min="40" max="220" value="80" class="metro-slider" id="metroBpmSlider" oninput="updateMetronomeBPM(this.value)">
+                <button id="metroPlayBtn" class="btn-ctrl btn-primary" onclick="toggleMetronome()">▶ Start Metronome</button>
+            </div>
+            <div class="metro-pendulum-track">
+                <div class="metro-pendulum-bob" id="metroBob" style="left: 0%;"></div>
+            </div>
+            <div class="metro-beats-row" id="metroBeatsRow">
+                <!-- Beat dots injected by JS -->
+            </div>
+        </div>
+
+        <!-- Tuner Section (Tab 4) -->
+        <div id="tunerSection" class="tuner-section" style="display: none;">
+            <div class="score-card-header">
+                <span class="score-title">🎸 Yamaha F280 Acoustic Chromatic Tuner</span>
+                <span class="score-badge">Standard Tuning (E A D G B E)</span>
+            </div>
+            <div class="tuner-strings-grid">
+                <button class="tuner-btn" onclick="playTunerString('E4', 329.63, this)">
+                    <span class="tuner-str-name">1st - E</span>
+                    <span class="tuner-str-freq">329.63 Hz</span>
+                </button>
+                <button class="tuner-btn" onclick="playTunerString('B3', 246.94, this)">
+                    <span class="tuner-str-name">2nd - B</span>
+                    <span class="tuner-str-freq">246.94 Hz</span>
+                </button>
+                <button class="tuner-btn" onclick="playTunerString('G3', 196.00, this)">
+                    <span class="tuner-str-name">3rd - G</span>
+                    <span class="tuner-str-freq">196.00 Hz</span>
+                </button>
+                <button class="tuner-btn" onclick="playTunerString('D3', 146.83, this)">
+                    <span class="tuner-str-name">4th - D</span>
+                    <span class="tuner-str-freq">146.83 Hz</span>
+                </button>
+                <button class="tuner-btn" onclick="playTunerString('A2', 110.00, this)">
+                    <span class="tuner-str-name">5th - A</span>
+                    <span class="tuner-str-freq">110.00 Hz</span>
+                </button>
+                <button class="tuner-btn" onclick="playTunerString('E2', 82.41, this)">
+                    <span class="tuner-str-name">6th - Low E</span>
+                    <span class="tuner-str-freq">82.41 Hz</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Quiz Section (Tab 5) -->
+        <div id="quizSection" class="tab-sheet-section" style="display: none;">
+            <div class="score-card-header">
+                <span class="score-title">🎯 Staff & Fret Recognition Quiz</span>
+                <span class="score-badge" id="quizScoreBadge">Score: 0 / 0</span>
+            </div>
+            <div style="display: flex; flex-direction: column; align-items: center; gap: 20px; padding: 20px;">
+                <div style="font-size: 20px; font-weight: 700; color: var(--accent-gold);" id="quizQuestionText">
+                    Identify the note on Staff Line 5 (Top line of staff):
+                </div>
+                <div style="display: grid; grid-template-columns: repeat(2, 180px); gap: 16px;" id="quizOptionsGrid">
+                    <!-- Injected by JS -->
+                </div>
+                <div id="quizFeedbackText" style="font-size: 16px; font-weight: 700;"></div>
+            </div>
+        </div>
+
+        <!-- Theory Guide Section (Tab 6) -->
+        <div id="theorySection" class="theory-section" style="display: none;">
+            <div class="score-card-header">
+                <span class="score-title">📖 Staff Notation Fundamentals for Guitar</span>
+                <span class="score-badge">Hal Leonard & Mel Bay Concepts</span>
+            </div>
+            <div class="theory-grid">
+                <div class="theory-card">
+                    <div class="theory-card-title">🎼 1. The 5-Line Staff & Treble Clef</div>
+                    <div class="theory-card-body">
+                        Music is written on 5 horizontal lines and 4 spaces between them. Guitar music uses the <strong>Treble Clef (𝄞)</strong>, also called the G-Clef because its loop wraps around Line 2 (G4).
+                        <br><br>
+                        <strong>Lines from Bottom to Top:</strong> E4, G4, B4, D5, F5 (Mnemonic: <em>Every Good Boy Does Fine</em>).
+                        <br>
+                        <strong>Spaces from Bottom to Top:</strong> F4, A4, C5, E5 (Spells <em>F-A-C-E</em>).
+                    </div>
+                </div>
+                <div class="theory-card">
+                    <div class="theory-card-title">⏱ 2. Note Values & Durations</div>
+                    <div class="theory-card-body">
+                        <strong>Whole Note (𝅝):</strong> Hollow circle with no stem = <strong>4 Beats</strong> (Count 1-2-3-4).
+                        <br><br>
+                        <strong>Half Note (𝅗𝅥):</strong> Hollow circle with vertical stem = <strong>2 Beats</strong> (Count 1-2 or 3-4).
+                        <br><br>
+                        <strong>Quarter Note (𝅘𝅥):</strong> Solid filled circle with stem = <strong>1 Beat</strong> (Count 1, 2, 3, 4).
+                    </div>
+                </div>
+                <div class="theory-card">
+                    <div class="theory-card-title">🎸 3. Pick Strokes & Technique Signs</div>
+                    <div class="theory-card-body">
+                        <strong>Downstroke Sign (⊓):</strong> Strike the guitar string with a downward motion of your plectrum/pick.
+                        <br><br>
+                        <strong>Finger Arching:</strong> Keep the left-hand fingers arched perpendicular to the fretboard so fingertips do not mute adjacent strings.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    // ==========================================
+    // Master Western Note & Guitar Database
+    // ==========================================
+    const westernNoteDefs = {
+        // String 1 (High E)
+        'E4': { name: 'E', octave: 4, freq: 329.63, strNum: 1, fretNum: 0, finger: 0, fingerName: 'Open String', staffStep: 11, lineType: 'Space 4 (Top space)', noteNameWithOctave: 'E4' },
+        'F4': { name: 'F', octave: 4, freq: 349.23, strNum: 1, fretNum: 1, finger: 1, fingerName: '1st Finger (Index)', staffStep: 12, lineType: 'Line 5 (Top line)', noteNameWithOctave: 'F4' },
+        'G4_1': { name: 'G', octave: 4, freq: 392.00, strNum: 1, fretNum: 3, finger: 3, fingerName: '3rd Finger (Ring)', staffStep: 13, lineType: 'Space above Line 5', noteNameWithOctave: 'G4' },
+        'A4_1': { name: 'A', octave: 4, freq: 440.00, strNum: 1, fretNum: 5, finger: 4, fingerName: '4th Finger (Pinky)', staffStep: 14, lineType: 'Ledger Line 1 above', noteNameWithOctave: 'A4' },
+
+        // String 2 (B)
+        'B3': { name: 'B', octave: 3, freq: 246.94, strNum: 2, fretNum: 0, finger: 0, fingerName: 'Open String', staffStep: 8, lineType: 'Line 3 (Middle line)', noteNameWithOctave: 'B3' },
+        'C4': { name: 'C', octave: 4, freq: 261.63, strNum: 2, fretNum: 1, finger: 1, fingerName: '1st Finger (Index)', staffStep: 9, lineType: 'Space 3', noteNameWithOctave: 'C4' },
+        'D4': { name: 'D', octave: 4, freq: 293.66, strNum: 2, fretNum: 3, finger: 3, fingerName: '3rd Finger (Ring)', staffStep: 10, lineType: 'Line 4', noteNameWithOctave: 'D4' },
+
+        // String 3 (G)
+        'G3': { name: 'G', octave: 3, freq: 196.00, strNum: 3, fretNum: 0, finger: 0, fingerName: 'Open String', staffStep: 6, lineType: 'Line 2', noteNameWithOctave: 'G3' },
+        'A3': { name: 'A', octave: 3, freq: 220.00, strNum: 3, fretNum: 2, finger: 2, fingerName: '2nd Finger (Middle)', staffStep: 7, lineType: 'Space 2', noteNameWithOctave: 'A3' },
+
+        // String 4 (D)
+        'D3': { name: 'D', octave: 3, freq: 146.83, strNum: 4, fretNum: 0, finger: 0, fingerName: 'Open String', staffStep: 3, lineType: 'Space below Line 1', noteNameWithOctave: 'D3' },
+        'E3': { name: 'E', octave: 3, freq: 164.81, strNum: 4, fretNum: 2, finger: 2, fingerName: '2nd Finger (Middle)', staffStep: 4, lineType: 'Line 1 (Bottom line)', noteNameWithOctave: 'E3' },
+        'F3': { name: 'F', octave: 3, freq: 174.61, strNum: 4, fretNum: 3, finger: 3, fingerName: '3rd Finger (Ring)', staffStep: 5, lineType: 'Space 1', noteNameWithOctave: 'F3' },
+
+        // String 5 (A)
+        'A2': { name: 'A', octave: 2, freq: 110.00, strNum: 5, fretNum: 0, finger: 0, fingerName: 'Open String', staffStep: 0, lineType: 'Ledger Line 2 below', noteNameWithOctave: 'A2' },
+        'B2': { name: 'B', octave: 2, freq: 123.47, strNum: 5, fretNum: 2, finger: 2, fingerName: '2nd Finger (Middle)', staffStep: 1, lineType: 'Space below Ledger 1', noteNameWithOctave: 'B2' },
+        'C3': { name: 'C', octave: 3, freq: 130.81, strNum: 5, fretNum: 3, finger: 3, fingerName: '3rd Finger (Ring)', staffStep: 2, lineType: 'Ledger Line 1 below (Middle C)', noteNameWithOctave: 'C3' },
+
+        // String 6 (Low E)
+        'E2': { name: 'E', octave: 2, freq: 82.41, strNum: 6, fretNum: 0, finger: 0, fingerName: 'Open String', staffStep: -3, lineType: 'Ledger Line 3 below', noteNameWithOctave: 'E2' },
+        'F2': { name: 'F', octave: 2, freq: 87.31, strNum: 6, fretNum: 1, finger: 1, fingerName: '1st Finger (Index)', staffStep: -2, lineType: 'Space below Ledger 3', noteNameWithOctave: 'F2' },
+        'G2': { name: 'G', octave: 2, freq: 98.00, strNum: 6, fretNum: 3, finger: 3, fingerName: '3rd Finger (Ring)', staffStep: -1, lineType: 'Space below Ledger 2', noteNameWithOctave: 'G2' }
+    };
+
+    // ==========================================
+    // Authentic Hal Leonard Method Lesson Database
+    // ==========================================
+    const westernLessonsData = {
+        'unit1_ex1': {
+            unit: 'Unit 1: 1st String (E, F, G)',
+            title: 'Ex 1: 1st String Whole Notes & Downstroke Pick (⊓) - E, F, G',
+            timeSig: '4/4',
+            tempo: 75,
+            introNotes: ['E4', 'F4', 'G4_1'],
+            stringName: 'NOTES ON THE FIRST STRING',
+            tip: 'This sign (⊓) tells you to strike the string with a downward motion of the pick.',
+            measures: [
+                { measureNum: 1, chord: null, notes: [{ noteKey: 'E4', duration: 'whole', pick: 'down', count: '1 - 2 - 3 - 4' }] },
+                { measureNum: 2, chord: null, notes: [{ noteKey: 'F4', duration: 'whole', pick: 'down', count: '1 - 2 - 3 - 4' }] },
+                { measureNum: 3, chord: null, notes: [{ noteKey: 'G4_1', duration: 'whole', pick: 'down', count: '1 - 2 - 3 - 4' }] },
+                { measureNum: 4, chord: null, notes: [{ noteKey: 'F4', duration: 'whole', pick: 'down', count: '1 - 2 - 3 - 4' }] },
+                { measureNum: 5, chord: null, notes: [{ noteKey: 'E4', duration: 'whole', pick: 'down', count: '1 - 2 - 3 - 4' }] }
+            ]
+        },
+        'unit1_ex2': {
+            unit: 'Unit 1: 1st String (E, F, G)',
+            title: 'Ex 2: 1st String Half Notes (Count 1-2, 3-4) - E, F, G',
+            timeSig: '4/4',
+            tempo: 80,
+            introNotes: ['E4', 'F4', 'G4_1'],
+            stringName: 'NOTES ON THE FIRST STRING',
+            tip: 'Half notes receive 2 beats each. Two half notes equal one whole measure.',
+            measures: [
+                { measureNum: 1, chord: null, notes: [{ noteKey: 'E4', duration: 'half', pick: 'down', count: '1 - 2' }, { noteKey: 'E4', duration: 'half', pick: 'down', count: '3 - 4' }] },
+                { measureNum: 2, chord: null, notes: [{ noteKey: 'F4', duration: 'half', pick: 'down', count: '1 - 2' }, { noteKey: 'F4', duration: 'half', pick: 'down', count: '3 - 4' }] },
+                { measureNum: 3, chord: null, notes: [{ noteKey: 'G4_1', duration: 'half', pick: 'down', count: '1 - 2' }, { noteKey: 'G4_1', duration: 'half', pick: 'down', count: '3 - 4' }] },
+                { measureNum: 4, chord: null, notes: [{ noteKey: 'F4', duration: 'half', pick: 'down', count: '1 - 2' }, { noteKey: 'F4', duration: 'half', pick: 'down', count: '3 - 4' }] },
+                { measureNum: 5, chord: null, notes: [{ noteKey: 'E4', duration: 'whole', pick: 'down', count: '1 - 2 - 3 - 4' }] }
+            ]
+        },
+        'unit1_ex3': {
+            unit: 'Unit 1: 1st String (E, F, G)',
+            title: 'Ex 3: 1st String Quarter Notes (Count 1, 2, 3, 4) - E, F, G',
+            timeSig: '4/4',
+            tempo: 85,
+            introNotes: ['E4', 'F4', 'G4_1'],
+            stringName: 'NOTES ON THE FIRST STRING',
+            tip: 'Quarter notes receive 1 beat each. Count 1, 2, 3, 4 steadily.',
+            measures: [
+                { measureNum: 1, chord: null, notes: [{ noteKey: 'E4', duration: 'quarter', pick: 'down', count: '1' }, { noteKey: 'E4', duration: 'quarter', pick: 'down', count: '2' }, { noteKey: 'E4', duration: 'quarter', pick: 'down', count: '3' }, { noteKey: 'E4', duration: 'quarter', pick: 'down', count: '4' }] },
+                { measureNum: 2, chord: null, notes: [{ noteKey: 'F4', duration: 'quarter', pick: 'down', count: '1' }, { noteKey: 'F4', duration: 'quarter', pick: 'down', count: '2' }, { noteKey: 'F4', duration: 'quarter', pick: 'down', count: '3' }, { noteKey: 'F4', duration: 'quarter', pick: 'down', count: '4' }] },
+                { measureNum: 3, chord: null, notes: [{ noteKey: 'G4_1', duration: 'quarter', pick: 'down', count: '1' }, { noteKey: 'G4_1', duration: 'quarter', pick: 'down', count: '2' }, { noteKey: 'G4_1', duration: 'quarter', pick: 'down', count: '3' }, { noteKey: 'G4_1', duration: 'quarter', pick: 'down', count: '4' }] },
+                { measureNum: 4, chord: null, notes: [{ noteKey: 'F4', duration: 'quarter', pick: 'down', count: '1' }, { noteKey: 'F4', duration: 'quarter', pick: 'down', count: '2' }, { noteKey: 'E4', duration: 'half', pick: 'down', count: '3 - 4' }] }
+            ]
+        },
+        'unit2_ex1': {
+            unit: 'Unit 2: 2nd String (B, C, D)',
+            title: 'Ex 1: 2nd String Whole Notes (Count 1-2-3-4) - B, C, D',
+            timeSig: '4/4',
+            tempo: 75,
+            introNotes: ['B3', 'C4', 'D4'],
+            stringName: 'NOTES ON THE SECOND STRING',
+            tip: 'Hold down the 1st finger firmly on 1st fret (C) while reaching 3rd finger to 3rd fret (D).',
+            measures: [
+                { measureNum: 1, chord: null, notes: [{ noteKey: 'B3', duration: 'whole', pick: 'down', count: '1 - 2 - 3 - 4' }] },
+                { measureNum: 2, chord: null, notes: [{ noteKey: 'C4', duration: 'whole', pick: 'down', count: '1 - 2 - 3 - 4' }] },
+                { measureNum: 3, chord: null, notes: [{ noteKey: 'D4', duration: 'whole', pick: 'down', count: '1 - 2 - 3 - 4' }] },
+                { measureNum: 4, chord: null, notes: [{ noteKey: 'C4', duration: 'whole', pick: 'down', count: '1 - 2 - 3 - 4' }] },
+                { measureNum: 5, chord: null, notes: [{ noteKey: 'B3', duration: 'whole', pick: 'down', count: '1 - 2 - 3 - 4' }] }
+            ]
+        },
+        'unit2_ex2': {
+            unit: 'Unit 2: 2nd String (B, C, D)',
+            title: 'Ex 2: 2nd String Half Notes (Count 1-2, 3-4) - B, C, D',
+            timeSig: '4/4',
+            tempo: 80,
+            introNotes: ['B3', 'C4', 'D4'],
+            stringName: 'NOTES ON THE SECOND STRING',
+            tip: 'Smoothly transition between Open B, 1st finger C, and 3rd finger D.',
+            measures: [
+                { measureNum: 1, chord: null, notes: [{ noteKey: 'B3', duration: 'half', pick: 'down', count: '1 - 2' }, { noteKey: 'B3', duration: 'half', pick: 'down', count: '3 - 4' }] },
+                { measureNum: 2, chord: null, notes: [{ noteKey: 'C4', duration: 'half', pick: 'down', count: '1 - 2' }, { noteKey: 'C4', duration: 'half', pick: 'down', count: '3 - 4' }] },
+                { measureNum: 3, chord: null, notes: [{ noteKey: 'D4', duration: 'half', pick: 'down', count: '1 - 2' }, { noteKey: 'D4', duration: 'half', pick: 'down', count: '3 - 4' }] },
+                { measureNum: 4, chord: null, notes: [{ noteKey: 'C4', duration: 'half', pick: 'down', count: '1 - 2' }, { noteKey: 'C4', duration: 'half', pick: 'down', count: '3 - 4' }] },
+                { measureNum: 5, chord: null, notes: [{ noteKey: 'B3', duration: 'whole', pick: 'down', count: '1 - 2 - 3 - 4' }] }
+            ]
+        },
+        'unit2_ex3': {
+            unit: 'Unit 2: 2nd String (B, C, D)',
+            title: 'Ex 3: 2nd String Quarter Notes - B, C, D',
+            timeSig: '4/4',
+            tempo: 85,
+            introNotes: ['B3', 'C4', 'D4'],
+            stringName: 'NOTES ON THE SECOND STRING',
+            tip: 'Practice playing four quarter notes steadily per measure.',
+            measures: [
+                { measureNum: 1, chord: null, notes: [{ noteKey: 'B3', duration: 'quarter', pick: 'down', count: '1' }, { noteKey: 'B3', duration: 'quarter', pick: 'down', count: '2' }, { noteKey: 'B3', duration: 'quarter', pick: 'down', count: '3' }, { noteKey: 'B3', duration: 'quarter', pick: 'down', count: '4' }] },
+                { measureNum: 2, chord: null, notes: [{ noteKey: 'C4', duration: 'quarter', pick: 'down', count: '1' }, { noteKey: 'C4', duration: 'quarter', pick: 'down', count: '2' }, { noteKey: 'C4', duration: 'quarter', pick: 'down', count: '3' }, { noteKey: 'C4', duration: 'quarter', pick: 'down', count: '4' }] },
+                { measureNum: 3, chord: null, notes: [{ noteKey: 'D4', duration: 'quarter', pick: 'down', count: '1' }, { noteKey: 'D4', duration: 'quarter', pick: 'down', count: '2' }, { noteKey: 'D4', duration: 'quarter', pick: 'down', count: '3' }, { noteKey: 'D4', duration: 'quarter', pick: 'down', count: '4' }] },
+                { measureNum: 4, chord: null, notes: [{ noteKey: 'C4', duration: 'quarter', pick: 'down', count: '1' }, { noteKey: 'C4', duration: 'quarter', pick: 'down', count: '2' }, { noteKey: 'B3', duration: 'half', pick: 'down', count: '3 - 4' }] }
+            ]
+        },
+        'unit3_ex4': {
+            unit: 'Unit 3: Strings 1 & 2 Combos & Songs',
+            title: 'Ex 4: Combining 1st & 2nd Strings (B, C, D, E, F, G, F, E...)',
+            timeSig: '4/4',
+            tempo: 80,
+            introNotes: ['B3', 'C4', 'D4', 'E4', 'F4', 'G4_1'],
+            stringName: 'COMBINING STRINGS 1 & 2',
+            tip: 'At first practice the exercises slowly and steadily. Increase tempo when confident.',
+            measures: [
+                { measureNum: 1, chord: null, notes: [{ noteKey: 'B3', duration: 'quarter', pick: 'down', count: '1' }, { noteKey: 'C4', duration: 'quarter', pick: 'down', count: '2' }, { noteKey: 'D4', duration: 'quarter', pick: 'down', count: '3' }, { noteKey: 'E4', duration: 'quarter', pick: 'down', count: '4' }] },
+                { measureNum: 2, chord: null, notes: [{ noteKey: 'F4', duration: 'quarter', pick: 'down', count: '1' }, { noteKey: 'G4_1', duration: 'quarter', pick: 'down', count: '2' }, { noteKey: 'F4', duration: 'quarter', pick: 'down', count: '3' }, { noteKey: 'E4', duration: 'quarter', pick: 'down', count: '4' }] },
+                { measureNum: 3, chord: null, notes: [{ noteKey: 'D4', duration: 'quarter', pick: 'down', count: '1' }, { noteKey: 'C4', duration: 'quarter', pick: 'down', count: '2' }, { noteKey: 'B3', duration: 'half', pick: 'down', count: '3 - 4' }] }
+            ]
+        },
+        'unit3_ex5': {
+            unit: 'Unit 3: Strings 1 & 2 Combos & Songs',
+            title: 'Ex 5: Finger Dexterity - Touch Only Tips of Fingers',
+            timeSig: '4/4',
+            tempo: 80,
+            introNotes: ['B3', 'C4', 'D4', 'E4', 'F4', 'G4_1'],
+            stringName: 'COMBINING STRINGS 1 & 2',
+            tip: 'Touch only the tips of the fingers on the strings.',
+            measures: [
+                { measureNum: 1, chord: null, notes: [{ noteKey: 'E4', duration: 'quarter', pick: 'down', count: '1' }, { noteKey: 'D4', duration: 'quarter', pick: 'down', count: '2' }, { noteKey: 'C4', duration: 'quarter', pick: 'down', count: '3' }, { noteKey: 'B3', duration: 'quarter', pick: 'down', count: '4' }] },
+                { measureNum: 2, chord: null, notes: [{ noteKey: 'C4', duration: 'quarter', pick: 'down', count: '1' }, { noteKey: 'D4', duration: 'quarter', pick: 'down', count: '2' }, { noteKey: 'E4', duration: 'quarter', pick: 'down', count: '3' }, { noteKey: 'F4', duration: 'quarter', pick: 'down', count: '4' }] },
+                { measureNum: 3, chord: null, notes: [{ noteKey: 'G4_1', duration: 'quarter', pick: 'down', count: '1' }, { noteKey: 'F4', duration: 'quarter', pick: 'down', count: '2' }, { noteKey: 'E4', duration: 'half', pick: 'down', count: '3 - 4' }] }
+            ]
+        },
+        'unit3_ex6': {
+            unit: 'Unit 3: Strings 1 & 2 Combos & Songs',
+            title: 'Ex 6: Arch Technique - Left Hand Fingers Arched Over Strings',
+            timeSig: '4/4',
+            tempo: 80,
+            introNotes: ['B3', 'C4', 'D4', 'E4', 'F4', 'G4_1'],
+            stringName: 'COMBINING STRINGS 1 & 2',
+            tip: 'Keep the left hand fingers arched over the strings.',
+            measures: [
+                { measureNum: 1, chord: null, notes: [{ noteKey: 'B3', duration: 'quarter', pick: 'down', count: '1' }, { noteKey: 'D4', duration: 'quarter', pick: 'down', count: '2' }, { noteKey: 'C4', duration: 'quarter', pick: 'down', count: '3' }, { noteKey: 'E4', duration: 'quarter', pick: 'down', count: '4' }] },
+                { measureNum: 2, chord: null, notes: [{ noteKey: 'D4', duration: 'quarter', pick: 'down', count: '1' }, { noteKey: 'F4', duration: 'quarter', pick: 'down', count: '2' }, { noteKey: 'E4', duration: 'quarter', pick: 'down', count: '3' }, { noteKey: 'G4_1', duration: 'quarter', pick: 'down', count: '4' }] },
+                { measureNum: 3, chord: null, notes: [{ noteKey: 'F4', duration: 'quarter', pick: 'down', count: '1' }, { noteKey: 'D4', duration: 'quarter', pick: 'down', count: '2' }, { noteKey: 'C4', duration: 'quarter', pick: 'down', count: '3' }, { noteKey: 'B3', duration: 'quarter', pick: 'down', count: '4' }] }
+            ]
+        },
+        'unit3_ex7': {
+            unit: 'Unit 3: Strings 1 & 2 Combos & Songs',
+            title: 'Ex 7: Two-Line Melody with Chords (C and G7 Chords)',
+            timeSig: '4/4',
+            tempo: 82,
+            introNotes: ['B3', 'C4', 'D4', 'E4', 'F4', 'G4_1'],
+            stringName: 'TWO-LINE SONG WITH CHORD SYMBOLS',
+            tip: 'When you reach the end of the first line, continue to the second line without stopping. Gray letters above indicate chords.',
+            measures: [
+                // Line 1
+                { measureNum: 1, chord: 'C', notes: [{ noteKey: 'C4', duration: 'quarter', pick: 'down', count: '1' }, { noteKey: 'C4', duration: 'quarter', pick: 'down', count: '2' }, { noteKey: 'D4', duration: 'quarter', pick: 'down', count: '3' }, { noteKey: 'E4', duration: 'quarter', pick: 'down', count: '4' }] },
+                { measureNum: 2, chord: null, notes: [{ noteKey: 'E4', duration: 'quarter', pick: 'down', count: '1' }, { noteKey: 'D4', duration: 'quarter', pick: 'down', count: '2' }, { noteKey: 'C4', duration: 'half', pick: 'down', count: '3 - 4' }] },
+                { measureNum: 3, chord: 'G7', notes: [{ noteKey: 'D4', duration: 'quarter', pick: 'down', count: '1' }, { noteKey: 'D4', duration: 'quarter', pick: 'down', count: '2' }, { noteKey: 'E4', duration: 'quarter', pick: 'down', count: '3' }, { noteKey: 'F4', duration: 'quarter', pick: 'down', count: '4' }] },
+                { measureNum: 4, chord: null, notes: [{ noteKey: 'E4', duration: 'whole', pick: 'down', count: '1 - 2 - 3 - 4' }] },
+                // Line 2
+                { measureNum: 5, chord: 'C', notes: [{ noteKey: 'E4', duration: 'quarter', pick: 'down', count: '1' }, { noteKey: 'F4', duration: 'quarter', pick: 'down', count: '2' }, { noteKey: 'G4_1', duration: 'quarter', pick: 'down', count: '3' }, { noteKey: 'F4', duration: 'quarter', pick: 'down', count: '4' }] },
+                { measureNum: 6, chord: null, notes: [{ noteKey: 'E4', duration: 'quarter', pick: 'down', count: '1' }, { noteKey: 'D4', duration: 'quarter', pick: 'down', count: '2' }, { noteKey: 'C4', duration: 'half', pick: 'down', count: '3 - 4' }] },
+                { measureNum: 7, chord: 'G7', notes: [{ noteKey: 'D4', duration: 'quarter', pick: 'down', count: '1' }, { noteKey: 'E4', duration: 'quarter', pick: 'down', count: '2' }, { noteKey: 'D4', duration: 'quarter', pick: 'down', count: '3' }, { noteKey: 'B3', duration: 'quarter', pick: 'down', count: '4' }] },
+                { measureNum: 8, chord: 'C', notes: [{ noteKey: 'C4', duration: 'whole', pick: 'down', count: '1 - 2 - 3 - 4' }] }
+            ]
+        },
+        'unit3_spanish': {
+            unit: 'Unit 3: Strings 1 & 2 Combos & Songs',
+            title: 'Ex 8: SPANISH THEME (Complete 2-Line Classical Masterpiece)',
+            timeSig: '4/4',
+            tempo: 80,
+            introNotes: ['B3', 'C4', 'D4', 'E4', 'F4', 'G4_1'],
+            stringName: 'SPANISH THEME (From Method Book Image 3)',
+            tip: 'Play this authentic Spanish melody with crisp rhythmic timing and expressive tone.',
+            measures: [
+                // Line 1
+                { measureNum: 1, chord: 'Am', notes: [{ noteKey: 'E4', duration: 'half', pick: 'down', count: '1 - 2' }, { noteKey: 'E4', duration: 'half', pick: 'down', count: '3 - 4' }] },
+                { measureNum: 2, chord: null, notes: [{ noteKey: 'F4', duration: 'quarter', pick: 'down', count: '1' }, { noteKey: 'G4_1', duration: 'quarter', pick: 'down', count: '2' }, { noteKey: 'F4', duration: 'quarter', pick: 'down', count: '3' }, { noteKey: 'E4', duration: 'quarter', pick: 'down', count: '4' }] },
+                { measureNum: 3, chord: 'E7', notes: [{ noteKey: 'D4', duration: 'half', pick: 'down', count: '1 - 2' }, { noteKey: 'D4', duration: 'quarter', pick: 'down', count: '3' }, { noteKey: 'E4', duration: 'quarter', pick: 'down', count: '4' }] },
+                { measureNum: 4, chord: null, notes: [{ noteKey: 'F4', duration: 'quarter', pick: 'down', count: '1' }, { noteKey: 'E4', duration: 'quarter', pick: 'down', count: '2' }, { noteKey: 'D4', duration: 'half', pick: 'down', count: '3 - 4' }] },
+                // Line 2
+                { measureNum: 5, chord: 'Am', notes: [{ noteKey: 'C4', duration: 'quarter', pick: 'down', count: '1' }, { noteKey: 'D4', duration: 'quarter', pick: 'down', count: '2' }, { noteKey: 'E4', duration: 'quarter', pick: 'down', count: '3' }, { noteKey: 'F4', duration: 'quarter', pick: 'down', count: '4' }] },
+                { measureNum: 6, chord: null, notes: [{ noteKey: 'E4', duration: 'quarter', pick: 'down', count: '1' }, { noteKey: 'D4', duration: 'quarter', pick: 'down', count: '2' }, { noteKey: 'C4', duration: 'quarter', pick: 'down', count: '3' }, { noteKey: 'B3', duration: 'quarter', pick: 'down', count: '4' }] },
+                { measureNum: 7, chord: 'E7', notes: [{ noteKey: 'C4', duration: 'quarter', pick: 'down', count: '1' }, { noteKey: 'D4', duration: 'quarter', pick: 'down', count: '2' }, { noteKey: 'B3', duration: 'half', pick: 'down', count: '3 - 4' }] },
+                { measureNum: 8, chord: 'Am', notes: [{ noteKey: 'C4', duration: 'whole', pick: 'down', count: '1 - 2 - 3 - 4' }] }
+            ]
+        },
+        'unit3_ode_to_joy': {
+            unit: 'Unit 3: Strings 1 & 2 Combos & Songs',
+            title: 'Ex 9: Ode to Joy (Beethoven - First 2 Strings Melodic Theme)',
+            timeSig: '4/4',
+            tempo: 90,
+            introNotes: ['B3', 'C4', 'D4', 'E4', 'F4', 'G4_1'],
+            stringName: 'BEETHOVEN ODE TO JOY',
+            tip: 'Beethoven\'s famous 9th symphony theme played cleanly across 1st & 2nd strings.',
+            measures: [
+                { measureNum: 1, chord: 'C', notes: [{ noteKey: 'E4', duration: 'quarter', pick: 'down', count: '1' }, { noteKey: 'E4', duration: 'quarter', pick: 'down', count: '2' }, { noteKey: 'F4', duration: 'quarter', pick: 'down', count: '3' }, { noteKey: 'G4_1', duration: 'quarter', pick: 'down', count: '4' }] },
+                { measureNum: 2, chord: 'G', notes: [{ noteKey: 'G4_1', duration: 'quarter', pick: 'down', count: '1' }, { noteKey: 'F4', duration: 'quarter', pick: 'down', count: '2' }, { noteKey: 'E4', duration: 'quarter', pick: 'down', count: '3' }, { noteKey: 'D4', duration: 'quarter', pick: 'down', count: '4' }] },
+                { measureNum: 3, chord: 'C', notes: [{ noteKey: 'C4', duration: 'quarter', pick: 'down', count: '1' }, { noteKey: 'C4', duration: 'quarter', pick: 'down', count: '2' }, { noteKey: 'D4', duration: 'quarter', pick: 'down', count: '3' }, { noteKey: 'E4', duration: 'quarter', pick: 'down', count: '4' }] },
+                { measureNum: 4, chord: 'G', notes: [{ noteKey: 'E4', duration: 'half', pick: 'down', count: '1 - 2' }, { noteKey: 'D4', duration: 'half', pick: 'down', count: '3 - 4' }] }
+            ]
+        },
+        'unit3_jingle_bells': {
+            unit: 'Unit 3: Strings 1 & 2 Combos & Songs',
+            title: 'Ex 10: Jingle Bells (Melodic Staff Reading)',
+            timeSig: '4/4',
+            tempo: 100,
+            introNotes: ['B3', 'C4', 'D4', 'E4', 'F4', 'G4_1'],
+            stringName: 'JINGLE BELLS',
+            tip: 'Keep the rhythm lively with crisp pick strokes.',
+            measures: [
+                { measureNum: 1, chord: 'C', notes: [{ noteKey: 'E4', duration: 'quarter', pick: 'down', count: '1' }, { noteKey: 'E4', duration: 'quarter', pick: 'down', count: '2' }, { noteKey: 'E4', duration: 'half', pick: 'down', count: '3 - 4' }] },
+                { measureNum: 2, chord: null, notes: [{ noteKey: 'E4', duration: 'quarter', pick: 'down', count: '1' }, { noteKey: 'E4', duration: 'quarter', pick: 'down', count: '2' }, { noteKey: 'E4', duration: 'half', pick: 'down', count: '3 - 4' }] },
+                { measureNum: 3, chord: null, notes: [{ noteKey: 'E4', duration: 'quarter', pick: 'down', count: '1' }, { noteKey: 'G4_1', duration: 'quarter', pick: 'down', count: '2' }, { noteKey: 'C4', duration: 'quarter', pick: 'down', count: '3' }, { noteKey: 'D4', duration: 'quarter', pick: 'down', count: '4' }] },
+                { measureNum: 4, chord: null, notes: [{ noteKey: 'E4', duration: 'whole', pick: 'down', count: '1 - 2 - 3 - 4' }] }
+            ]
+        },
+        'unit4_aura_lea': {
+            unit: 'Unit 4: 3rd String (G, A)',
+            title: 'Ex 12: Aura Lea (Love Me Tender Melody across 3 Strings)',
+            timeSig: '4/4',
+            tempo: 80,
+            introNotes: ['G3', 'A3', 'B3', 'C4', 'D4', 'E4'],
+            stringName: 'NOTES ON THE THIRD STRING (G, A)',
+            tip: 'Open 3rd string is G. 2nd fret on 3rd string is A with 2nd finger.',
+            measures: [
+                { measureNum: 1, chord: 'C', notes: [{ noteKey: 'G3', duration: 'quarter', pick: 'down', count: '1' }, { noteKey: 'C4', duration: 'quarter', pick: 'down', count: '2' }, { noteKey: 'B3', duration: 'quarter', pick: 'down', count: '3' }, { noteKey: 'C4', duration: 'quarter', pick: 'down', count: '4' }] },
+                { measureNum: 2, chord: null, notes: [{ noteKey: 'D4', duration: 'half', pick: 'down', count: '1 - 2' }, { noteKey: 'A3', duration: 'half', pick: 'down', count: '3 - 4' }] },
+                { measureNum: 3, chord: 'G7', notes: [{ noteKey: 'D4', duration: 'quarter', pick: 'down', count: '1' }, { noteKey: 'C4', duration: 'quarter', pick: 'down', count: '2' }, { noteKey: 'B3', duration: 'quarter', pick: 'down', count: '3' }, { noteKey: 'A3', duration: 'quarter', pick: 'down', count: '4' }] },
+                { measureNum: 4, chord: 'C', notes: [{ noteKey: 'G3', duration: 'whole', pick: 'down', count: '1 - 2 - 3 - 4' }] }
+            ]
+        },
+        'unit5_saints': {
+            unit: 'Unit 5: 4th String (D, E, F)',
+            title: 'Ex 16: When the Saints Go Marching In',
+            timeSig: '4/4',
+            tempo: 95,
+            introNotes: ['D3', 'E3', 'F3', 'G3', 'C4'],
+            stringName: 'NOTES ON THE FOURTH STRING (D, E, F)',
+            tip: '4th string open is D. 2nd fret is E (2nd finger). 3rd fret is F (3rd finger).',
+            measures: [
+                { measureNum: 1, chord: 'C', notes: [{ noteKey: 'C4', duration: 'quarter', pick: 'down', count: '1' }, { noteKey: 'E4', duration: 'quarter', pick: 'down', count: '2' }, { noteKey: 'F4', duration: 'quarter', pick: 'down', count: '3' }, { noteKey: 'G4_1', duration: 'quarter', pick: 'down', count: '4' }] },
+                { measureNum: 2, chord: null, notes: [{ noteKey: 'C4', duration: 'quarter', pick: 'down', count: '1' }, { noteKey: 'E4', duration: 'quarter', pick: 'down', count: '2' }, { noteKey: 'F4', duration: 'quarter', pick: 'down', count: '3' }, { noteKey: 'G4_1', duration: 'quarter', pick: 'down', count: '4' }] },
+                { measureNum: 3, chord: null, notes: [{ noteKey: 'C4', duration: 'quarter', pick: 'down', count: '1' }, { noteKey: 'E4', duration: 'quarter', pick: 'down', count: '2' }, { noteKey: 'F4', duration: 'quarter', pick: 'down', count: '3' }, { noteKey: 'E4', duration: 'quarter', pick: 'down', count: '4' }] },
+                { measureNum: 4, chord: 'G7', notes: [{ noteKey: 'C4', duration: 'half', pick: 'down', count: '1 - 2' }, { noteKey: 'D4', duration: 'half', pick: 'down', count: '3 - 4' }] }
+            ]
+        },
+        'unit6_c_scale': {
+            unit: 'Unit 6: 5th String (A, B, C)',
+            title: 'Ex 18: C Major Scale (1 Octave - Ledger Lines Practice)',
+            timeSig: '4/4',
+            tempo: 75,
+            introNotes: ['A2', 'B2', 'C3', 'D3', 'E3', 'F3', 'G3'],
+            stringName: 'NOTES ON THE FIFTH STRING (A, B, C)',
+            tip: 'Middle C is on 5th string 3rd fret, written on the 1st ledger line below the staff.',
+            measures: [
+                { measureNum: 1, chord: 'C', notes: [{ noteKey: 'C3', duration: 'quarter', pick: 'down', count: '1' }, { noteKey: 'D3', duration: 'quarter', pick: 'down', count: '2' }, { noteKey: 'E3', duration: 'quarter', pick: 'down', count: '3' }, { noteKey: 'F3', duration: 'quarter', pick: 'down', count: '4' }] },
+                { measureNum: 2, chord: null, notes: [{ noteKey: 'G3', duration: 'quarter', pick: 'down', count: '1' }, { noteKey: 'A3', duration: 'quarter', pick: 'down', count: '2' }, { noteKey: 'B3', duration: 'quarter', pick: 'down', count: '3' }, { noteKey: 'C4', duration: 'quarter', pick: 'down', count: '4' }] },
+                { measureNum: 3, chord: null, notes: [{ noteKey: 'B3', duration: 'quarter', pick: 'down', count: '1' }, { noteKey: 'A3', duration: 'quarter', pick: 'down', count: '2' }, { noteKey: 'G3', duration: 'quarter', pick: 'down', count: '3' }, { noteKey: 'F3', duration: 'quarter', pick: 'down', count: '4' }] },
+                { measureNum: 4, chord: 'C', notes: [{ noteKey: 'E3', duration: 'quarter', pick: 'down', count: '1' }, { noteKey: 'D3', duration: 'quarter', pick: 'down', count: '2' }, { noteKey: 'C3', duration: 'half', pick: 'down', count: '3 - 4' }] }
+            ]
+        },
+        'unit7_greensleeves': {
+            unit: 'Unit 7: 6th String (Low E, F, G)',
+            title: 'Ex 22: Greensleeves (Complete Traditional Melody)',
+            timeSig: '3/4',
+            tempo: 75,
+            introNotes: ['E2', 'F2', 'G2', 'A2', 'C3', 'D3', 'E3'],
+            stringName: 'NOTES ON THE SIXTH STRING (LOW E, F, G)',
+            tip: '3/4 Time Signature has 3 beats per measure. Count 1, 2, 3 steadily.',
+            measures: [
+                { measureNum: 1, chord: 'Am', notes: [{ noteKey: 'A3', duration: 'quarter', pick: 'down', count: '1' }, { noteKey: 'C4', duration: 'quarter', pick: 'down', count: '2' }, { noteKey: 'D4', duration: 'quarter', pick: 'down', count: '3' }] },
+                { measureNum: 2, chord: null, notes: [{ noteKey: 'E4', duration: 'half', pick: 'down', count: '1 - 2' }, { noteKey: 'F4', duration: 'quarter', pick: 'down', count: '3' }] },
+                { measureNum: 3, chord: 'G', notes: [{ noteKey: 'E4', duration: 'quarter', pick: 'down', count: '1' }, { noteKey: 'D4', duration: 'quarter', pick: 'down', count: '2' }, { noteKey: 'B3', duration: 'quarter', pick: 'down', count: '3' }] },
+                { measureNum: 4, chord: null, notes: [{ noteKey: 'G3', duration: 'half', pick: 'down', count: '1 - 2' }, { noteKey: 'A3', duration: 'quarter', pick: 'down', count: '3' }] },
+                { measureNum: 5, chord: 'Am', notes: [{ noteKey: 'B3', duration: 'quarter', pick: 'down', count: '1' }, { noteKey: 'C4', duration: 'quarter', pick: 'down', count: '2' }, { noteKey: 'A3', duration: 'quarter', pick: 'down', count: '3' }] },
+                { measureNum: 6, chord: 'E7', notes: [{ noteKey: 'A3', duration: 'half', pick: 'down', count: '1 - 2' }, { noteKey: 'G3', duration: 'quarter', pick: 'down', count: '3' }] },
+                { measureNum: 7, chord: 'Am', notes: [{ noteKey: 'A3', duration: 'half', pick: 'down', count: '1 - 2' }] }
+            ]
+        }
+    ,
+
+        'unit4_ex1': {
+            unit: 'Unit 4: 3rd String (G, A)',
+            title: 'Ex 11: 3rd String Fundamentals - Open G & 2nd Fret A',
+            timeSig: '4/4',
+            tempo: 80,
+            introNotes: ['G3', 'A3'],
+            stringName: 'NOTES ON THE THIRD STRING (G, A)',
+            tip: 'Open 3rd string is G. 2nd fret on 3rd string is A with 2nd finger.',
+            measures: [
+                { measureNum: 1, chord: 'G', notes: [{ noteKey: 'G3', duration: 'quarter', pick: 'down', count: '1' }, { noteKey: 'G3', duration: 'quarter', pick: 'down', count: '2' }, { noteKey: 'A3', duration: 'quarter', pick: 'down', count: '3' }, { noteKey: 'A3', duration: 'quarter', pick: 'down', count: '4' }] },
+                { measureNum: 2, chord: null, notes: [{ noteKey: 'G3', duration: 'half', pick: 'down', count: '1 - 2' }, { noteKey: 'A3', duration: 'half', pick: 'down', count: '3 - 4' }] },
+                { measureNum: 3, chord: 'G', notes: [{ noteKey: 'G3', duration: 'whole', pick: 'down', count: '1 - 2 - 3 - 4' }] }
+            ]
+        },
+        'unit4_merrily': {
+            unit: 'Unit 4: 3rd String (G, A)',
+            title: 'Ex 13: Merrily We Roll Along',
+            timeSig: '4/4',
+            tempo: 85,
+            introNotes: ['G3', 'A3', 'B3', 'C4', 'D4', 'E4'],
+            stringName: 'MERRILY WE ROLL ALONG',
+            tip: 'Play steadily across strings 1, 2, and 3.',
+            measures: [
+                { measureNum: 1, chord: 'C', notes: [{ noteKey: 'E4', duration: 'quarter', pick: 'down', count: '1' }, { noteKey: 'D4', duration: 'quarter', pick: 'down', count: '2' }, { noteKey: 'C4', duration: 'quarter', pick: 'down', count: '3' }, { noteKey: 'D4', duration: 'quarter', pick: 'down', count: '4' }] },
+                { measureNum: 2, chord: null, notes: [{ noteKey: 'E4', duration: 'quarter', pick: 'down', count: '1' }, { noteKey: 'E4', duration: 'quarter', pick: 'down', count: '2' }, { noteKey: 'E4', duration: 'half', pick: 'down', count: '3 - 4' }] },
+                { measureNum: 3, chord: 'G7', notes: [{ noteKey: 'D4', duration: 'quarter', pick: 'down', count: '1' }, { noteKey: 'D4', duration: 'quarter', pick: 'down', count: '2' }, { noteKey: 'D4', duration: 'half', pick: 'down', count: '3 - 4' }] },
+                { measureNum: 4, chord: 'C', notes: [{ noteKey: 'E4', duration: 'quarter', pick: 'down', count: '1' }, { noteKey: 'G4_1', duration: 'quarter', pick: 'down', count: '2' }, { noteKey: 'G4_1', duration: 'half', pick: 'down', count: '3 - 4' }] }
+            ]
+        },
+        'unit5_ex1': {
+            unit: 'Unit 5: 4th String (D, E, F)',
+            title: 'Ex 14: 4th String Fundamentals - Open D, 2nd Fret E, 3rd Fret F',
+            timeSig: '4/4',
+            tempo: 80,
+            introNotes: ['D3', 'E3', 'F3'],
+            stringName: 'NOTES ON THE FOURTH STRING (D, E, F)',
+            tip: '4th string open is D. 2nd fret is E (2nd finger). 3rd fret is F (3rd finger).',
+            measures: [
+                { measureNum: 1, chord: null, notes: [{ noteKey: 'D3', duration: 'quarter', pick: 'down', count: '1' }, { noteKey: 'D3', duration: 'quarter', pick: 'down', count: '2' }, { noteKey: 'E3', duration: 'quarter', pick: 'down', count: '3' }, { noteKey: 'E3', duration: 'quarter', pick: 'down', count: '4' }] },
+                { measureNum: 2, chord: null, notes: [{ noteKey: 'F3', duration: 'quarter', pick: 'down', count: '1' }, { noteKey: 'F3', duration: 'quarter', pick: 'down', count: '2' }, { noteKey: 'E3', duration: 'quarter', pick: 'down', count: '3' }, { noteKey: 'D3', duration: 'quarter', pick: 'down', count: '4' }] },
+                { measureNum: 3, chord: 'D', notes: [{ noteKey: 'D3', duration: 'whole', pick: 'down', count: '1 - 2 - 3 - 4' }] }
+            ]
+        },
+        'unit5_yankee': {
+            unit: 'Unit 5: 4th String (D, E, F)',
+            title: 'Ex 15: Yankee Doodle',
+            timeSig: '4/4',
+            tempo: 90,
+            introNotes: ['D3', 'E3', 'F3', 'G3', 'A3', 'B3', 'C4'],
+            stringName: 'YANKEE DOODLE',
+            tip: 'Lively traditional melody across 4th, 3rd, and 2nd strings.',
+            measures: [
+                { measureNum: 1, chord: 'C', notes: [{ noteKey: 'C4', duration: 'quarter', pick: 'down', count: '1' }, { noteKey: 'C4', duration: 'quarter', pick: 'down', count: '2' }, { noteKey: 'D4', duration: 'quarter', pick: 'down', count: '3' }, { noteKey: 'E4', duration: 'quarter', pick: 'down', count: '4' }] },
+                { measureNum: 2, chord: null, notes: [{ noteKey: 'C4', duration: 'quarter', pick: 'down', count: '1' }, { noteKey: 'E4', duration: 'quarter', pick: 'down', count: '2' }, { noteKey: 'D4', duration: 'half', pick: 'down', count: '3 - 4' }] },
+                { measureNum: 3, chord: 'G7', notes: [{ noteKey: 'C4', duration: 'quarter', pick: 'down', count: '1' }, { noteKey: 'C4', duration: 'quarter', pick: 'down', count: '2' }, { noteKey: 'D4', duration: 'quarter', pick: 'down', count: '3' }, { noteKey: 'E4', duration: 'quarter', pick: 'down', count: '4' }] },
+                { measureNum: 4, chord: 'C', notes: [{ noteKey: 'C4', duration: 'half', pick: 'down', count: '1 - 2' }, { noteKey: 'B3', duration: 'half', pick: 'down', count: '3 - 4' }] }
+            ]
+        },
+        'unit6_ex1': {
+            unit: 'Unit 6: 5th String (A, B, C)',
+            title: 'Ex 17: 5th String Fundamentals - Open A, 2nd Fret B, 3rd Fret C',
+            timeSig: '4/4',
+            tempo: 75,
+            introNotes: ['A2', 'B2', 'C3'],
+            stringName: 'NOTES ON THE FIFTH STRING (A, B, C)',
+            tip: 'Open 5th string is A. 2nd fret is B (2nd finger). 3rd fret is C (3rd finger).',
+            measures: [
+                { measureNum: 1, chord: null, notes: [{ noteKey: 'A2', duration: 'quarter', pick: 'down', count: '1' }, { noteKey: 'A2', duration: 'quarter', pick: 'down', count: '2' }, { noteKey: 'B2', duration: 'quarter', pick: 'down', count: '3' }, { noteKey: 'B2', duration: 'quarter', pick: 'down', count: '4' }] },
+                { measureNum: 2, chord: null, notes: [{ noteKey: 'C3', duration: 'quarter', pick: 'down', count: '1' }, { noteKey: 'C3', duration: 'quarter', pick: 'down', count: '2' }, { noteKey: 'B2', duration: 'quarter', pick: 'down', count: '3' }, { noteKey: 'A2', duration: 'quarter', pick: 'down', count: '4' }] },
+                { measureNum: 3, chord: 'Am', notes: [{ noteKey: 'A2', duration: 'whole', pick: 'down', count: '1 - 2 - 3 - 4' }] }
+            ]
+        },
+        'unit6_scarborough': {
+            unit: 'Unit 6: 5th String (A, B, C)',
+            title: 'Ex 19: Scarborough Fair (Traditional Ballad)',
+            timeSig: '3/4',
+            tempo: 80,
+            introNotes: ['A2', 'B2', 'C3', 'D3', 'E3', 'G3', 'A3'],
+            stringName: 'SCARBOROUGH FAIR',
+            tip: 'English traditional folk ballad in 3/4 time signature.',
+            measures: [
+                { measureNum: 1, chord: 'Am', notes: [{ noteKey: 'A3', duration: 'quarter', pick: 'down', count: '1' }, { noteKey: 'A3', duration: 'quarter', pick: 'down', count: '2' }, { noteKey: 'E4', duration: 'quarter', pick: 'down', count: '3' }] },
+                { measureNum: 2, chord: null, notes: [{ noteKey: 'E4', duration: 'quarter', pick: 'down', count: '1' }, { noteKey: 'E4', duration: 'quarter', pick: 'down', count: '2' }, { noteKey: 'B3', duration: 'quarter', pick: 'down', count: '3' }] },
+                { measureNum: 3, chord: 'C', notes: [{ noteKey: 'C4', duration: 'quarter', pick: 'down', count: '1' }, { noteKey: 'D4', duration: 'quarter', pick: 'down', count: '2' }, { noteKey: 'B3', duration: 'quarter', pick: 'down', count: '3' }] },
+                { measureNum: 4, chord: 'Am', notes: [{ noteKey: 'A3', duration: 'half', pick: 'down', count: '1 - 2' }] }
+            ]
+        },
+        'unit7_ex1': {
+            unit: 'Unit 7: 6th String (Low E, F, G)',
+            title: 'Ex 20: 6th String Fundamentals - Low E, Low F, Low G',
+            timeSig: '4/4',
+            tempo: 75,
+            introNotes: ['E2', 'F2', 'G2'],
+            stringName: 'NOTES ON THE SIXTH STRING (LOW E, F, G)',
+            tip: 'Open 6th string is Low E. 1st fret is Low F (1st finger). 3rd fret is Low G (3rd finger).',
+            measures: [
+                { measureNum: 1, chord: 'Em', notes: [{ noteKey: 'E2', duration: 'quarter', pick: 'down', count: '1' }, { noteKey: 'E2', duration: 'quarter', pick: 'down', count: '2' }, { noteKey: 'F2', duration: 'quarter', pick: 'down', count: '3' }, { noteKey: 'F2', duration: 'quarter', pick: 'down', count: '4' }] },
+                { measureNum: 2, chord: null, notes: [{ noteKey: 'G2', duration: 'quarter', pick: 'down', count: '1' }, { noteKey: 'G2', duration: 'quarter', pick: 'down', count: '2' }, { noteKey: 'F2', duration: 'quarter', pick: 'down', count: '3' }, { noteKey: 'E2', duration: 'quarter', pick: 'down', count: '4' }] },
+                { measureNum: 3, chord: 'Em', notes: [{ noteKey: 'E2', duration: 'whole', pick: 'down', count: '1 - 2 - 3 - 4' }] }
+            ]
+        },
+        'unit7_full_scale': {
+            unit: 'Unit 7: 6th String (Low E, F, G)',
+            title: 'Ex 21: Full 2-Octave C Major Scale (Low C to High C)',
+            timeSig: '4/4',
+            tempo: 75,
+            introNotes: ['C3', 'D3', 'E3', 'F3', 'G3', 'A3', 'B3', 'C4'],
+            stringName: 'FULL 2-OCTAVE C MAJOR SCALE',
+            tip: 'Complete 2-octave major scale spanning from 5th string 3rd fret to 1st string 8th fret.',
+            measures: [
+                { measureNum: 1, chord: 'C', notes: [{ noteKey: 'C3', duration: 'quarter', pick: 'down', count: '1' }, { noteKey: 'D3', duration: 'quarter', pick: 'down', count: '2' }, { noteKey: 'E3', duration: 'quarter', pick: 'down', count: '3' }, { noteKey: 'F3', duration: 'quarter', pick: 'down', count: '4' }] },
+                { measureNum: 2, chord: null, notes: [{ noteKey: 'G3', duration: 'quarter', pick: 'down', count: '1' }, { noteKey: 'A3', duration: 'quarter', pick: 'down', count: '2' }, { noteKey: 'B3', duration: 'quarter', pick: 'down', count: '3' }, { noteKey: 'C4', duration: 'quarter', pick: 'down', count: '4' }] },
+                { measureNum: 3, chord: null, notes: [{ noteKey: 'D4', duration: 'quarter', pick: 'down', count: '1' }, { noteKey: 'E4', duration: 'quarter', pick: 'down', count: '2' }, { noteKey: 'F4', duration: 'quarter', pick: 'down', count: '3' }, { noteKey: 'G4_1', duration: 'quarter', pick: 'down', count: '4' }] },
+                { measureNum: 4, chord: 'C', notes: [{ noteKey: 'G4_1', duration: 'quarter', pick: 'down', count: '1' }, { noteKey: 'E4', duration: 'quarter', pick: 'down', count: '2' }, { noteKey: 'C4', duration: 'half', pick: 'down', count: '3 - 4' }] }
+            ]
+        },
+        'unit7_bach_minuet': {
+            unit: 'Unit 7: 6th String (Low E, F, G)',
+            title: 'Ex 23: Minuet in G (J.S. Bach - Classical Theme)',
+            timeSig: '3/4',
+            tempo: 85,
+            introNotes: ['G3', 'A3', 'B3', 'C4', 'D4', 'E4', 'G4_1'],
+            stringName: 'MINUET IN G (J.S. BACH)',
+            tip: 'Famous baroque minuet theme from the Anna Magdalena Bach Notebook.',
+            measures: [
+                { measureNum: 1, chord: 'G', notes: [{ noteKey: 'D4', duration: 'quarter', pick: 'down', count: '1' }, { noteKey: 'G3', duration: 'quarter', pick: 'down', count: '2' }, { noteKey: 'A3', duration: 'quarter', pick: 'down', count: '3' }] },
+                { measureNum: 2, chord: null, notes: [{ noteKey: 'B3', duration: 'quarter', pick: 'down', count: '1' }, { noteKey: 'C4', duration: 'quarter', pick: 'down', count: '2' }, { noteKey: 'D4', duration: 'quarter', pick: 'down', count: '3' }] },
+                { measureNum: 3, chord: 'C', notes: [{ noteKey: 'E4', duration: 'quarter', pick: 'down', count: '1' }, { noteKey: 'C4', duration: 'quarter', pick: 'down', count: '2' }, { noteKey: 'D4', duration: 'quarter', pick: 'down', count: '3' }] },
+                { measureNum: 4, chord: 'G', notes: [{ noteKey: 'B3', duration: 'half', pick: 'down', count: '1 - 2' }, { noteKey: 'G3', duration: 'quarter', pick: 'down', count: '3' }] }
+            ]
+        }
+    };
+
+    // Global State
+    let currentLessonKey = 'unit1_ex1';
+    let currentStepIndex = 0;
+    let flatStepSequence = [];
+    let isPlaying = false;
+    let playTimer = null;
+    let speedMultiplier = 1.0;
+    let audioCtx = null;
+    let isAutoMuted = false;
+    let masterVolume = 0.75;
+
+    // Mic AI Pitch state
+    let isMicListening = false;
+    let micStream = null;
+    let micAnalyser = null;
+    let micInterval = null;
+    let lastDetectedPitch = 0;
+
+    // Metronome state
+    let isMetroRunning = false;
+    let metroTimer = null;
+    let metroBpm = 80;
+    let metroBeatIndex = 0;
+    let metroBeatsPerBar = 4;
+
+    // Quiz state
+    let quizScore = 0;
+    let quizTotal = 0;
+    let currentQuizAnswer = null;
+
+    // Audio Synthesizer
+    function initAudio() {
+        if (!audioCtx) {
+            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        if (audioCtx.state === 'suspended') {
+            audioCtx.resume();
+        }
+    }
+
+    function playGuitarTone(freq) {
+        if (isAutoMuted) return;
+        try {
+            initAudio();
+            const now = audioCtx.currentTime;
+            const osc = audioCtx.createOscillator();
+            const oscHarmonic = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+
+            osc.type = 'triangle';
+            osc.frequency.setValueAtTime(freq, now);
+
+            oscHarmonic.type = 'sine';
+            oscHarmonic.frequency.setValueAtTime(freq * 2, now);
+
+            gain.gain.setValueAtTime(0.0001, now);
+            gain.gain.exponentialRampToValueAtTime(0.38 * masterVolume, now + 0.015);
+            gain.gain.exponentialRampToValueAtTime(0.0001, now + 1.2);
+
+            osc.connect(gain);
+            oscHarmonic.connect(gain);
+            gain.connect(audioCtx.destination);
+
+            osc.start(now);
+            oscHarmonic.start(now);
+            osc.stop(now + 1.25);
+            oscHarmonic.stop(now + 1.25);
+        } catch(e) {}
+    }
+
+    // Build Flat Step Sequence for currently selected lesson
+    function buildFlatStepSequence() {
+        flatStepSequence = [];
+        const lesson = westernLessonsData[currentLessonKey];
+        if (!lesson) return;
+
+        lesson.measures.forEach((measure, mIdx) => {
+            measure.notes.forEach((n, nIdx) => {
+                flatStepSequence.push({
+                    globalIndex: flatStepSequence.length,
+                    measureNum: measure.measureNum,
+                    measureIdx: mIdx,
+                    noteIdxInMeasure: nIdx,
+                    chord: (nIdx === 0) ? measure.chord : null,
+                    noteKey: n.noteKey,
+                    duration: n.duration,
+                    pick: n.pick,
+                    count: n.count
+                });
+            });
+        });
+    }
+
+    // Render String Reference Cards at Top (From Hal Leonard Images)
+    function renderStringIntroCards() {
+        const lesson = westernLessonsData[currentLessonKey];
+        const grid = document.getElementById('stringCardsGrid');
+        const titleEl = document.getElementById('stringIntroName');
+        grid.innerHTML = '';
+
+        titleEl.textContent = lesson.stringName || 'STRING REFERENCE';
+
+        const introNotes = lesson.introNotes || ['E4', 'F4', 'G4_1'];
+        introNotes.slice(0, 4).forEach(noteKey => {
+            const nInfo = westernNoteDefs[noteKey];
+            if (!nInfo) return;
+
+            const card = document.createElement('div');
+            card.className = 'string-note-card';
+            card.id = `intro-card-${noteKey}`;
+            card.onclick = () => {
+                playGuitarTone(nInfo.freq);
+                highlightFretboardNote(noteKey);
+            };
+
+            // Mini Fret SVG
+            const miniFretSvg = createMiniFretSvg(nInfo.strNum, nInfo.fretNum, nInfo.finger);
+            // Mini Staff SVG
+            const miniStaffSvg = createMiniStaffSvg(nInfo.staffStep, nInfo.name);
+
+            card.innerHTML = `
+                <div class="note-card-top">
+                    <div class="note-big-name">${nInfo.name}</div>
+                    <div class="note-fret-finger-pill">${nInfo.fingerName}</div>
+                </div>
+                <div class="note-card-body">
+                    <div>${miniFretSvg}</div>
+                    <div>${miniStaffSvg}</div>
+                </div>
+                <div class="note-card-footer">
+                    <span>${nInfo.lineType}</span>
+                    <button class="card-play-btn" onclick="event.stopPropagation(); playGuitarTone(${nInfo.freq})">🔊 Listen</button>
+                </div>
+            `;
+            grid.appendChild(card);
+        });
+    }
+
+    // Generate Mini Fret SVG for Reference Card
+    function createMiniFretSvg(strNum, fretNum, finger) {
+        let dot = '';
+        if (fretNum === 0) {
+            const x = 70;
+            const y = 14 + (strNum - 1) * 10;
+            dot = `<circle cx="${x}" cy="${y}" r="4" fill="none" stroke="#38bdf8" stroke-width="2"/>
+                   <text x="${x + 6}" y="${y + 3}" font-size="8" fill="#38bdf8" font-weight="bold">OPEN</text>`;
+        } else {
+            const fretX = fretNum === 1 ? 55 : fretNum === 2 ? 38 : 20;
+            const y = 14 + (strNum - 1) * 10;
+            dot = `<circle cx="${fretX}" cy="${y}" r="6" fill="#fbbf24" stroke="#ffffff" stroke-width="1.5"/>
+                   <text x="${fretX}" y="${y + 3}" font-size="8" fill="#090d16" font-weight="900" text-anchor="middle">${finger}</text>`;
+        }
+
+        return `
+            <svg class="mini-fret-svg" viewBox="0 0 100 70">
+                <!-- Frets -->
+                <line x1="15" y1="12" x2="15" y2="64" stroke="#64748b" stroke-width="2"/>
+                <line x1="32" y1="12" x2="32" y2="64" stroke="#64748b" stroke-width="2"/>
+                <line x1="50" y1="12" x2="50" y2="64" stroke="#64748b" stroke-width="2"/>
+                <line x1="68" y1="12" x2="68" y2="64" stroke="#f8fafc" stroke-width="3"/>
+                <!-- 6 Strings -->
+                ${[0,1,2,3,4,5].map(i => `<line x1="10" y1="${14 + i*10}" x2="70" y2="${14 + i*10}" stroke="#94a3b8" stroke-width="1.5"/>`).join('')}
+                ${dot}
+            </svg>
+        `;
+    }
+
+    // Generate Mini Staff SVG for Reference Card
+    function createMiniStaffSvg(staffStep, noteName) {
+        const line5Y = 16;
+        const lineSpacing = 8;
+        const noteY = 48 - ((staffStep - 4) * 4);
+        
+        let ledger = '';
+        if (noteY > 48) {
+            ledger = `<line x1="45" y1="56" x2="75" y2="56" stroke="#ffffff" stroke-width="1.5"/>`;
+        } else if (noteY < 16) {
+            ledger = `<line x1="45" y1="8" x2="75" y2="8" stroke="#ffffff" stroke-width="1.5"/>`;
+        }
+
+        return `
+            <svg class="mini-staff-svg" viewBox="0 0 110 70">
+                <!-- 5 Lines -->
+                ${[0,1,2,3,4].map(i => `<line x1="10" y1="${line5Y + i*lineSpacing}" x2="100" y2="${line5Y + i*lineSpacing}" stroke="#64748b" stroke-width="1.5"/>`).join('')}
+                <!-- Clef -->
+                <text x="12" y="44" font-size="34" fill="#38bdf8" font-family="serif">𝄞</text>
+                ${ledger}
+                <!-- Note -->
+                <ellipse cx="60" cy="${noteY}" rx="6.5" ry="4.5" fill="#38bdf8" stroke="#ffffff" stroke-width="1.5" transform="rotate(-15 60 ${noteY})"/>
+                <line x1="65" y1="${noteY}" x2="65" y2="${noteY - 20}" stroke="#38bdf8" stroke-width="1.5"/>
+            </svg>
+        `;
+    }
+
+    // Render Master Multi-Measure Sheet Music Score (SVG Engraver)
+    function renderInteractiveStaffScore() {
+        const svg = document.getElementById('masterScoreSvg');
+        const lesson = westernLessonsData[currentLessonKey];
+        if (!svg || !lesson) return;
+
+        svg.innerHTML = '';
+
+        const measures = lesson.measures;
+        const totalMeasures = measures.length;
+        const measuresPerLine = (totalMeasures > 4) ? 4 : totalMeasures;
+        const totalLines = Math.ceil(totalMeasures / measuresPerLine);
+
+        const svgWidth = 1000;
+        const lineStaffHeight = 135;
+        const totalSvgHeight = Math.max(220, totalLines * lineStaffHeight + 50);
+        svg.setAttribute('viewBox', `0 0 ${svgWidth} ${totalSvgHeight}`);
+
+        const leftMargin = 40;
+        const rightMargin = 960;
+        const contentWidth = rightMargin - leftMargin;
+
+        let globalNoteCounter = 0;
+
+        for (let lineIdx = 0; lineIdx < totalLines; lineIdx++) {
+            const lineY = 60 + (lineIdx * lineStaffHeight);
+            const lineStartMeasure = lineIdx * measuresPerLine;
+            const lineEndMeasure = Math.min(totalMeasures, lineStartMeasure + measuresPerLine);
+            const lineMeasureCount = lineEndMeasure - lineStartMeasure;
+            const measureWidth = (contentWidth - 80) / lineMeasureCount;
+
+            // Draw 5 Staff Lines
+            for (let s = 0; s < 5; s++) {
+                const y = lineY + (s * 12);
+                const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                line.setAttribute('x1', leftMargin.toString());
+                line.setAttribute('y1', y.toString());
+                line.setAttribute('x2', rightMargin.toString());
+                line.setAttribute('y2', y.toString());
+                line.setAttribute('stroke', '#475569');
+                line.setAttribute('stroke-width', '1.5');
+                svg.appendChild(line);
+            }
+
+            // Treble Clef 𝄞
+            const clef = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+            clef.setAttribute('x', (leftMargin + 5).toString());
+            clef.setAttribute('y', (lineY + 44).toString());
+            clef.setAttribute('font-size', '56');
+            clef.setAttribute('fill', '#38bdf8');
+            clef.setAttribute('font-family', 'serif');
+            clef.textContent = '𝄞';
+            svg.appendChild(clef);
+
+            // Time Signature on Line 1
+            if (lineIdx === 0) {
+                const timeSigStr = lesson.timeSig || '4/4';
+                const [topNum, botNum] = timeSigStr.split('/');
+                
+                const tTop = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                tTop.setAttribute('x', (leftMargin + 52).toString());
+                tTop.setAttribute('y', (lineY + 20).toString());
+                tTop.setAttribute('font-size', '20');
+                tTop.setAttribute('font-weight', '900');
+                tTop.setAttribute('fill', '#f8fafc');
+                tTop.textContent = topNum;
+                svg.appendChild(tTop);
+
+                const tBot = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                tBot.setAttribute('x', (leftMargin + 52).toString());
+                tBot.setAttribute('y', (lineY + 44).toString());
+                tBot.setAttribute('font-size', '20');
+                tBot.setAttribute('font-weight', '900');
+                tBot.setAttribute('fill', '#f8fafc');
+                tBot.textContent = botNum;
+                svg.appendChild(tBot);
+            }
+
+            // Start Bar Line
+            const startBar = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+            startBar.setAttribute('x1', leftMargin.toString());
+            startBar.setAttribute('y1', lineY.toString());
+            startBar.setAttribute('x2', leftMargin.toString());
+            startBar.setAttribute('y2', (lineY + 48).toString());
+            startBar.setAttribute('stroke', '#64748b');
+            startBar.setAttribute('stroke-width', '2');
+            svg.appendChild(startBar);
+
+            // Render Measures for this line
+            for (let m = 0; m < lineMeasureCount; m++) {
+                const currentMIndex = lineStartMeasure + m;
+                const measureData = measures[currentMIndex];
+                const measureStartX = leftMargin + 80 + (m * measureWidth);
+                const measureEndX = measureStartX + measureWidth;
+
+                // Measure Bar Line
+                const barLine = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                barLine.setAttribute('x1', measureEndX.toString());
+                barLine.setAttribute('y1', lineY.toString());
+                barLine.setAttribute('x2', measureEndX.toString());
+                barLine.setAttribute('y2', (lineY + 48).toString());
+                barLine.setAttribute('stroke', (currentMIndex === totalMeasures - 1) ? '#ffffff' : '#64748b');
+                barLine.setAttribute('stroke-width', (currentMIndex === totalMeasures - 1) ? '3' : '1.5');
+                svg.appendChild(barLine);
+
+                // Double bar end line on final measure
+                if (currentMIndex === totalMeasures - 1) {
+                    const dBar = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                    dBar.setAttribute('x1', (measureEndX - 5).toString());
+                    dBar.setAttribute('y1', lineY.toString());
+                    dBar.setAttribute('x2', (measureEndX - 5).toString());
+                    dBar.setAttribute('y2', (lineY + 48).toString());
+                    dBar.setAttribute('stroke', '#ffffff');
+                    dBar.setAttribute('stroke-width', '1.5');
+                    svg.appendChild(dBar);
+                }
+
+                // Measure Number
+                const mNumText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                mNumText.setAttribute('x', (measureStartX + 4).toString());
+                mNumText.setAttribute('y', (lineY - 8).toString());
+                mNumText.setAttribute('font-size', '11');
+                mNumText.setAttribute('font-weight', '700');
+                mNumText.setAttribute('fill', '#94a3b8');
+                mNumText.textContent = measureData.measureNum.toString();
+                svg.appendChild(mNumText);
+
+                // Chord Symbol above Measure
+                if (measureData.chord) {
+                    const chordText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                    chordText.setAttribute('x', (measureStartX + 18).toString());
+                    chordText.setAttribute('y', (lineY - 14).toString());
+                    chordText.setAttribute('font-size', '15');
+                    chordText.setAttribute('font-weight', '900');
+                    chordText.setAttribute('fill', '#fbbf24');
+                    chordText.textContent = measureData.chord;
+                    svg.appendChild(chordText);
+                }
+
+                // Render Notes within Measure
+                const noteCount = measureData.notes.length;
+                const noteSpacing = measureWidth / (noteCount + 1);
+
+                measureData.notes.forEach((noteItem, nIdx) => {
+                    const stepIdx = globalNoteCounter++;
+                    const noteX = measureStartX + ((nIdx + 1) * noteSpacing);
+                    const nInfo = westernNoteDefs[noteItem.noteKey];
+                    if (!nInfo) return;
+
+                    // Compute Note Y Coordinate (Line 5 Y = lineY, Line 1 Y = lineY + 48)
+                    // Step 4 (E3 / Line 1) = lineY + 48
+                    // Step 12 (F4 / Line 5) = lineY
+                    const noteY = (lineY + 48) - ((nInfo.staffStep - 4) * 6);
+
+                    const noteGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+                    noteGroup.setAttribute('class', 'score-note-group');
+                    noteGroup.setAttribute('id', `score-note-${stepIdx}`);
+                    noteGroup.setAttribute('data-step-idx', stepIdx.toString());
+                    noteGroup.onclick = () => jumpToStep(stepIdx);
+
+                    // Downstroke Pick Sign (⊓)
+                    if (noteItem.pick === 'down') {
+                        const pickX = noteX - 5;
+                        const pickY = lineY - 8;
+                        const pickSign = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                        pickSign.setAttribute('d', `M ${pickX} ${pickY + 6} L ${pickX} ${pickY} L ${pickX + 10} ${pickY} L ${pickX + 10} ${pickY + 6}`);
+                        pickSign.setAttribute('stroke', '#38bdf8');
+                        pickSign.setAttribute('stroke-width', '1.8');
+                        pickSign.setAttribute('fill', 'none');
+                        noteGroup.appendChild(pickSign);
+                    }
+
+                    // Ledger Lines (if below or above staff)
+                    if (noteY >= lineY + 60) {
+                        for (let ly = lineY + 60; ly <= noteY + 3; ly += 12) {
+                            const lLine = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                            lLine.setAttribute('x1', (noteX - 12).toString());
+                            lLine.setAttribute('y1', ly.toString());
+                            lLine.setAttribute('x2', (noteX + 12).toString());
+                            lLine.setAttribute('y2', ly.toString());
+                            lLine.setAttribute('stroke', '#cbd5e1');
+                            lLine.setAttribute('stroke-width', '1.5');
+                            noteGroup.appendChild(lLine);
+                        }
+                    } else if (noteY <= lineY - 12) {
+                        for (let ly = lineY - 12; ly >= noteY - 3; ly -= 12) {
+                            const lLine = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                            lLine.setAttribute('x1', (noteX - 12).toString());
+                            lLine.setAttribute('y1', ly.toString());
+                            lLine.setAttribute('x2', (noteX + 12).toString());
+                            lLine.setAttribute('y2', ly.toString());
+                            lLine.setAttribute('stroke', '#cbd5e1');
+                            lLine.setAttribute('stroke-width', '1.5');
+                            noteGroup.appendChild(lLine);
+                        }
+                    }
+
+                    // Note Head
+                    const isWhole = (noteItem.duration === 'whole');
+                    const isHalf = (noteItem.duration === 'half');
+                    const isHollow = isWhole || isHalf;
+
+                    const noteHead = document.createElementNS('http://www.w3.org/2000/svg', 'ellipse');
+                    noteHead.setAttribute('class', 'note-head');
+                    noteHead.setAttribute('cx', noteX.toString());
+                    noteHead.setAttribute('cy', noteY.toString());
+                    noteHead.setAttribute('rx', '7');
+                    noteHead.setAttribute('ry', '4.8');
+                    noteHead.setAttribute('fill', isHollow ? '#0a0f1d' : '#ffffff');
+                    noteHead.setAttribute('stroke', '#ffffff');
+                    noteHead.setAttribute('stroke-width', isHollow ? '2.5' : '1');
+                    noteHead.setAttribute('transform', `rotate(-18 ${noteX} ${noteY})`);
+                    noteGroup.appendChild(noteHead);
+
+                    // Note Stem (Half, Quarter, Eighth)
+                    if (!isWhole) {
+                        const stemUp = (nInfo.staffStep < 8);
+                        const stemX = stemUp ? (noteX + 6.5) : (noteX - 6.5);
+                        const stemEndY = stemUp ? (noteY - 28) : (noteY + 28);
+
+                        const stem = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                        stem.setAttribute('class', 'note-stem');
+                        stem.setAttribute('x1', stemX.toString());
+                        stem.setAttribute('y1', noteY.toString());
+                        stem.setAttribute('x2', stemX.toString());
+                        stem.setAttribute('y2', stemEndY.toString());
+                        stem.setAttribute('stroke', '#ffffff');
+                        stem.setAttribute('stroke-width', '1.8');
+                        noteGroup.appendChild(stem);
+                    }
+
+                    // Active Note Arrow Cursor Indicator (▼)
+                    const cursorArrow = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                    cursorArrow.setAttribute('class', 'cursor-arrow');
+                    cursorArrow.setAttribute('x', noteX.toString());
+                    cursorArrow.setAttribute('y', (lineY - 18).toString());
+                    cursorArrow.setAttribute('font-size', '16');
+                    cursorArrow.setAttribute('fill', '#fbbf24');
+                    cursorArrow.setAttribute('text-anchor', 'middle');
+                    cursorArrow.setAttribute('display', 'none');
+                    cursorArrow.textContent = '▼';
+                    noteGroup.appendChild(cursorArrow);
+
+                    // Beat Count Label underneath Note
+                    const countLabel = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                    countLabel.setAttribute('class', 'beat-count-text');
+                    countLabel.setAttribute('x', noteX.toString());
+                    countLabel.setAttribute('y', (lineY + 70).toString());
+                    countLabel.setAttribute('font-size', '12');
+                    countLabel.setAttribute('font-family', 'JetBrains Mono, monospace');
+                    countLabel.setAttribute('font-weight', '600');
+                    countLabel.setAttribute('fill', '#94a3b8');
+                    countLabel.setAttribute('text-anchor', 'middle');
+                    countLabel.textContent = noteItem.count;
+                    noteGroup.appendChild(countLabel);
+
+                    svg.appendChild(noteGroup);
+                });
+            }
+        }
+    }
+
+    // Build Yamaha F280 Reverse Fretboard (12 -> 1 -> Nut 0)
+    function renderYamahaFretboard() {
+        const headerRow = document.getElementById('fretNumHeader');
+        const container = document.getElementById('stringsContainer');
+        headerRow.innerHTML = '';
+        container.innerHTML = '';
+
+        // Frets 12 down to 1 + Nut
+        for (let f = 12; f >= 1; f--) {
+            const cell = document.createElement('div');
+            cell.className = 'fret-num-cell';
+            cell.textContent = f.toString();
+            headerRow.appendChild(cell);
+        }
+        const nutCell = document.createElement('div');
+        nutCell.className = 'fret-num-cell nut-col';
+        nutCell.textContent = 'NUT (0)';
+        headerRow.appendChild(nutCell);
+
+        // 6 Strings (String 1 High E at top, String 6 Low E at bottom)
+        for (let s = 1; s <= 6; s++) {
+            const row = document.createElement('div');
+            row.className = 'guitar-string-row';
+            row.id = `string-row-${s}`;
+
+            // Wire Line
+            const wire = document.createElement('div');
+            wire.className = `string-wire-line string-s${s}`;
+            row.appendChild(wire);
+
+            // Frets 12 down to 1
+            for (let f = 12; f >= 1; f--) {
+                const slot = document.createElement('div');
+                slot.className = 'fret-slot';
+                slot.id = `slot-${s}-${f}`;
+
+                // Inlays on 3, 5, 7, 9, 12
+                if (s === 3) {
+                    if ([3, 5, 7, 9].includes(f)) {
+                        const pearl = document.createElement('div');
+                        pearl.className = 'fret-pearl-dot';
+                        slot.appendChild(pearl);
+                    } else if (f === 12) {
+                        const p1 = document.createElement('div');
+                        p1.className = 'fret-pearl-dot';
+                        p1.style.top = '6px';
+                        const p2 = document.createElement('div');
+                        p2.className = 'fret-pearl-dot';
+                        p2.style.bottom = '6px';
+                        slot.appendChild(p1);
+                        slot.appendChild(p2);
+                    }
+                }
+                row.appendChild(slot);
+            }
+
+            // Nut (Open Fret 0)
+            const nutSlot = document.createElement('div');
+            nutSlot.className = 'fret-slot nut-slot';
+            nutSlot.id = `slot-${s}-0`;
+            row.appendChild(nutSlot);
+
+            container.appendChild(row);
+        }
+    }
+
+    // Highlight Note on Yamaha Fretboard
+    function highlightFretboardNote(noteKey, currentHit = 1, totalHits = 1) {
+        // Clear existing targets
+        document.querySelectorAll('.note-fret-target').forEach(el => el.remove());
+
+        const nInfo = westernNoteDefs[noteKey];
+        if (!nInfo) return;
+
+        const slot = document.getElementById(`slot-${nInfo.strNum}-${nInfo.fretNum}`);
+        if (slot) {
+            const target = document.createElement('div');
+            target.className = 'note-fret-target active-pulsar';
+            target.style.position = 'relative';
+
+            let badgeHtml = '';
+            if (totalHits > 1) {
+                badgeHtml = `<span class="hit-counter-badge">${currentHit}/${totalHits}</span>`;
+            }
+
+            target.innerHTML = `<span>${nInfo.name}</span>${badgeHtml}`;
+            target.title = `${nInfo.name} (${nInfo.fingerName}) - Hit ${currentHit} of ${totalHits}`;
+            target.onclick = (e) => {
+                e.stopPropagation();
+                playGuitarTone(nInfo.freq);
+            };
+            slot.appendChild(target);
+        }
+    }
+
+    // Render Guitar TAB Sheet
+    function renderGuitarTabSheet() {
+        const table = document.getElementById('guitarTabTable');
+        const lesson = westernLessonsData[currentLessonKey];
+        if (!table || !lesson) return;
+        table.innerHTML = '';
+
+        const stringNames = [
+            { num: 1, name: 'e (1st)' },
+            { num: 2, name: 'B (2nd)' },
+            { num: 3, name: 'G (3rd)' },
+            { num: 4, name: 'D (4th)' },
+            { num: 5, name: 'A (5th)' },
+            { num: 6, name: 'E (6th)' }
+        ];
+
+        stringNames.forEach(str => {
+            const tr = document.createElement('tr');
+            const th = document.createElement('td');
+            th.className = 'tab-string-label';
+            th.textContent = str.name;
+            tr.appendChild(th);
+
+            flatStepSequence.forEach(step => {
+                const td = document.createElement('td');
+                td.id = `tab-cell-${str.num}-${step.globalIndex}`;
+                const nInfo = westernNoteDefs[step.noteKey];
+                if (nInfo && nInfo.strNum === str.num) {
+                    td.textContent = nInfo.fretNum.toString();
+                    td.style.fontWeight = 'bold';
+                    td.style.color = '#38bdf8';
+                } else {
+                    td.textContent = '─';
+                }
+                tr.appendChild(td);
+            });
+
+            table.appendChild(tr);
+        });
+    }
+
+    // Step UI Update (Synchronizes Score, Fretboard, TAB, & Details)
+    function updateStepUI(playAudio = true) {
+        if (!flatStepSequence || flatStepSequence.length === 0) return;
+        if (currentStepIndex >= flatStepSequence.length) currentStepIndex = 0;
+
+        const cur = flatStepSequence[currentStepIndex];
+        const nInfo = westernNoteDefs[cur.noteKey];
+        if (!nInfo) return;
+
+        // Play Audio Tone
+        if (playAudio) {
+            playGuitarTone(nInfo.freq);
+        }
+
+        // Highlight Active Score Note
+        document.querySelectorAll('.score-note-group').forEach(el => {
+            el.classList.remove('active-note');
+            const arrow = el.querySelector('.cursor-arrow');
+            if (arrow) arrow.style.display = 'none';
+        });
+
+        const activeNoteGroup = document.getElementById(`score-note-${currentStepIndex}`);
+        if (activeNoteGroup) {
+            activeNoteGroup.classList.add('active-note');
+            const arrow = activeNoteGroup.querySelector('.cursor-arrow');
+            if (arrow) arrow.style.display = 'block';
+        }
+
+        // Highlight Reference Intro Card
+        document.querySelectorAll('.string-note-card').forEach(el => el.classList.remove('active-target'));
+        const activeIntroCard = document.getElementById(`intro-card-${cur.noteKey}`);
+        if (activeIntroCard) activeIntroCard.classList.add('active-target');
+
+        // Calculate consecutive repeat / hit streak (e.g. 2 times in half notes, 4 times in quarter notes)
+        let streakStart = currentStepIndex;
+        while (streakStart > 0 && flatStepSequence[streakStart - 1].noteKey === cur.noteKey) {
+            streakStart--;
+        }
+        let streakEnd = currentStepIndex;
+        while (streakEnd < flatStepSequence.length - 1 && flatStepSequence[streakEnd + 1].noteKey === cur.noteKey) {
+            streakEnd++;
+        }
+        const currentHit = currentStepIndex - streakStart + 1;
+        const totalHits = streakEnd - streakStart + 1;
+
+        // Highlight Yamaha Fretboard with Hit Numbering Badge
+        highlightFretboardNote(cur.noteKey, currentHit, totalHits);
+
+        // Update Action Details
+        document.getElementById('activeNoteName').textContent = `${nInfo.name} (${nInfo.lineType})`;
+        document.getElementById('activeFretInfo').textContent = `String ${nInfo.strNum} • Fret ${nInfo.fretNum}`;
+        document.getElementById('activeFingerInfo').textContent = `${nInfo.fingerName} • ⊓ Downstroke`;
+        document.getElementById('activeBeatInfo').textContent = `Measure ${cur.measureNum} • ${cur.count}` + (totalHits > 1 ? ` • Hit ${currentHit}/${totalHits}` : '');
+
+        // Highlight TAB Cell
+        document.querySelectorAll('.tab-active-cell').forEach(el => el.classList.remove('tab-active-cell'));
+        const activeTabCell = document.getElementById(`tab-cell-${nInfo.strNum}-${currentStepIndex}`);
+        if (activeTabCell) activeTabCell.classList.add('tab-active-cell');
+    }
+
+    // Transport Navigation
+    function nextStep() {
+        if (currentStepIndex < flatStepSequence.length - 1) {
+            currentStepIndex++;
+        } else {
+            currentStepIndex = 0;
+        }
+        updateStepUI(true);
+    }
+
+    function prevStep() {
+        if (currentStepIndex > 0) {
+            currentStepIndex--;
+        } else {
+            currentStepIndex = flatStepSequence.length - 1;
+        }
+        updateStepUI(true);
+    }
+
+    function jumpToStep(idx) {
+        currentStepIndex = idx;
+        updateStepUI(true);
+    }
+
+    function resetLesson() {
+        if (isPlaying) togglePlay();
+        currentStepIndex = 0;
+        updateStepUI(false);
+    }
+
+    // Auto Playback
+    function togglePlay() {
+        const btn = document.getElementById('playBtn');
+        const icon = document.getElementById('playIcon');
+        const text = document.getElementById('playText');
+
+        if (isPlaying) {
+            isPlaying = false;
+            clearInterval(playTimer);
+            btn.classList.remove('playing');
+            icon.textContent = '▶';
+            text.textContent = 'Play';
+        } else {
+            isPlaying = true;
+            btn.classList.add('playing');
+            icon.textContent = '⏸';
+            text.textContent = 'Pause';
+
+            const lesson = westernLessonsData[currentLessonKey];
+            const baseBpm = lesson.tempo || 80;
+            const msPerQuarter = (60 / baseBpm) * 1000 / speedMultiplier;
+
+            updateStepUI(true);
+
+            playTimer = setInterval(() => {
+                if (currentStepIndex < flatStepSequence.length - 1) {
+                    currentStepIndex++;
+                    updateStepUI(true);
+                } else {
+                    currentStepIndex = 0;
+                    updateStepUI(true);
+                }
+            }, msPerQuarter);
+        }
+    }
+
+    function setSpeed(multiplier, elem) {
+        speedMultiplier = multiplier;
+        document.querySelectorAll('.speed-btn').forEach(b => b.classList.remove('active'));
+        elem.classList.add('active');
+        if (isPlaying) {
+            togglePlay();
+            togglePlay();
+        }
+    }
+
+    // Lesson Switcher
+        function changeLesson(lessonKey) {
+        if (isPlaying) {
+            clearInterval(playTimer);
+            isPlaying = false;
+            const btn = document.getElementById('playBtn');
+            if (btn) {
+                btn.classList.remove('playing');
+                const icon = document.getElementById('playIcon');
+                const text = document.getElementById('playText');
+                if (icon) icon.textContent = '▶';
+                if (text) text.textContent = 'Play';
+            }
+        }
+        currentLessonKey = lessonKey;
+        currentStepIndex = 0;
+
+        const lesson = westernLessonsData[lessonKey];
+        if (!lesson) {
+            console.error('Western lesson not found:', lessonKey);
+            return;
+        }
+
+        document.getElementById('headerUnitBadge').textContent = lesson.unit;
+        document.getElementById('headerTempoBadge').textContent = `${lesson.tempo || 80} BPM`;
+        document.getElementById('scoreLessonTitle').textContent = lesson.title;
+        document.getElementById('scoreTimeSigBadge').textContent = `Time: ${lesson.timeSig || '4/4'}`;
+
+        buildFlatStepSequence();
+        renderStringIntroCards();
+        renderInteractiveStaffScore();
+        renderGuitarTabSheet();
+        updateStepUI(false);
+    }
+
+    // Switch Studio Tab
+    function switchStudioTab(tab, button) {
+        document.querySelectorAll('.studio-tab-btn').forEach(btn => btn.classList.remove('active'));
+        if (button) button.classList.add('active');
+
+        document.getElementById('sheetMusicCard').style.display = (tab === 'sheet') ? 'flex' : 'none';
+        document.getElementById('stringIntroSection').style.display = (tab === 'sheet') ? 'flex' : 'none';
+        document.getElementById('fretboardCard').style.display = (tab === 'sheet' || tab === 'tab') ? 'flex' : 'none';
+        document.getElementById('actionDetailsBar').style.display = (tab === 'sheet' || tab === 'tab') ? 'grid' : 'none';
+        document.getElementById('tabSheetSection').style.display = (tab === 'tab') ? 'flex' : 'none';
+        document.getElementById('metronomeSection').style.display = (tab === 'metronome') ? 'flex' : 'none';
+        document.getElementById('tunerSection').style.display = (tab === 'tuner') ? 'flex' : 'none';
+        document.getElementById('quizSection').style.display = (tab === 'quiz') ? 'flex' : 'none';
+        document.getElementById('theorySection').style.display = (tab === 'theory') ? 'flex' : 'none';
+
+        if (tab === 'quiz') generateQuizQuestion();
+    }
+
+    // Chromatic Tuner Play Pitch
+    function playTunerString(noteKey, freq, elem) {
+        playGuitarTone(freq);
+        document.querySelectorAll('.tuner-btn').forEach(b => b.classList.remove('playing-pitch'));
+        elem.classList.add('playing-pitch');
+        setTimeout(() => elem.classList.remove('playing-pitch'), 1200);
+    }
+
+    // Metronome Studio
+    function toggleMetronome() {
+        const btn = document.getElementById('metroPlayBtn');
+        if (isMetroRunning) {
+            isMetroRunning = false;
+            clearInterval(metroTimer);
+            btn.textContent = '▶ Start Metronome';
+            btn.classList.remove('playing');
+        } else {
+            isMetroRunning = true;
+            btn.textContent = '⏸ Stop Metronome';
+            btn.classList.add('playing');
+            metroBeatIndex = 0;
+            renderMetroBeats();
+
+            const intervalMs = (60 / metroBpm) * 1000;
+            metroTimer = setInterval(() => {
+                runMetroBeat();
+            }, intervalMs);
+        }
+    }
+
+    function updateMetronomeBPM(val) {
+        metroBpm = parseInt(val);
+        document.getElementById('metroBpmVal').textContent = metroBpm;
+        if (isMetroRunning) {
+            toggleMetronome();
+            toggleMetronome();
+        }
+    }
+
+    function renderMetroBeats() {
+        const row = document.getElementById('metroBeatsRow');
+        row.innerHTML = '';
+        for (let b = 0; b < metroBeatsPerBar; b++) {
+            const dot = document.createElement('div');
+            dot.className = 'metro-beat-dot';
+            dot.id = `metro-dot-${b}`;
+            row.appendChild(dot);
+        }
+    }
+
+    function runMetroBeat() {
+        const isAccent = (metroBeatIndex === 0);
+        playMetroTick(isAccent);
+
+        const bob = document.getElementById('metroBob');
+        bob.style.left = (metroBeatIndex % 2 === 0) ? '0%' : '94%';
+
+        document.querySelectorAll('.metro-beat-dot').forEach((d, idx) => {
+            d.classList.remove('accent-flash', 'normal-flash');
+            if (idx === metroBeatIndex) {
+                d.classList.add(isAccent ? 'accent-flash' : 'normal-flash');
+            }
+        });
+
+        metroBeatIndex = (metroBeatIndex + 1) % metroBeatsPerBar;
+    }
+
+    function playMetroTick(isAccent) {
+        try {
+            initAudio();
+            const now = audioCtx.currentTime;
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(isAccent ? 1200 : 800, now);
+            gain.gain.setValueAtTime(0.0001, now);
+            gain.gain.exponentialRampToValueAtTime(0.3 * masterVolume, now + 0.005);
+            gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.06);
+
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.start(now);
+            osc.stop(now + 0.07);
+        } catch(e) {}
+    }
+
+    // Mic AI Pitch Detection
+    function toggleMicListener() {
+        const btn = document.getElementById('micBtn');
+        if (isMicListening) {
+            stopMicListening();
+        } else {
+            startMicListening();
+        }
+    }
+
+    async function startMicListening() {
+        try {
+            initAudio();
+            const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+            micStream = stream;
+            const micSource = audioCtx.createMediaStreamSource(stream);
+            micAnalyser = audioCtx.createAnalyser();
+            micAnalyser.fftSize = 2048;
+            micSource.connect(micAnalyser);
+
+            isMicListening = true;
+            const btn = document.getElementById('micBtn');
+            btn.classList.add('listening');
+            btn.textContent = '🎙 Mic Active';
+            document.getElementById('headerMicBadge').textContent = 'Listening Active';
+
+            micInterval = setInterval(processMicPitch, 80);
+        } catch(e) {
+            alert('Microphone access denied or not available.');
+        }
+    }
+
+    function stopMicListening() {
+        isMicListening = false;
+        if (micInterval) clearInterval(micInterval);
+        if (micStream) micStream.getTracks().forEach(t => t.stop());
+
+        const btn = document.getElementById('micBtn');
+        btn.classList.remove('listening');
+        btn.textContent = '🎙 Mic Pitch AI';
+        document.getElementById('headerMicBadge').textContent = 'Pluck Ready';
+        document.getElementById('activeMicInfo').textContent = 'Listening...';
+    }
+
+    function autoCorrelate(buf, sampleRate) {
+        let SIZE = buf.length;
+        let rms = 0;
+        for (let i = 0; i < SIZE; i++) {
+            const val = buf[i];
+            rms += val * val;
+        }
+        rms = Math.sqrt(rms / SIZE);
+        if (rms < 0.015) return -1;
+
+        let r1 = 0, r2 = SIZE - 1, thres = 0.2;
+        for (let i = 0; i < SIZE / 2; i++) {
+            if (Math.abs(buf[i]) < thres) { r1 = i; break; }
+        }
+        for (let i = 1; i < SIZE / 2; i++) {
+            if (Math.abs(buf[SIZE - i]) < thres) { r2 = SIZE - i; break; }
+        }
+
+        buf = buf.slice(r1, r2);
+        SIZE = buf.length;
+
+        let c = new Array(SIZE).fill(0);
+        for (let i = 0; i < SIZE; i++) {
+            for (let j = 0; j < SIZE - i; j++) {
+                c[i] = c[i] + buf[j] * buf[j + i];
+            }
+        }
+
+        let d = 0;
+        while (c[d] > c[d + 1]) d++;
+        let maxval = -1, maxpos = -1;
+        for (let i = d; i < SIZE; i++) {
+            if (c[i] > maxval) { maxval = c[i]; maxpos = i; }
+        }
+
+        let T0 = maxpos;
+        return sampleRate / T0;
+    }
+
+    function processMicPitch() {
+        if (!micAnalyser) return;
+        const buffer = new Float32Array(micAnalyser.fftSize);
+        micAnalyser.getFloatTimeDomainData(buffer);
+        const pitchHz = autoCorrelate(buffer, audioCtx.sampleRate);
+
+        if (pitchHz !== -1) {
+            const cur = flatStepSequence[currentStepIndex];
+            const targetInfo = cur ? westernNoteDefs[cur.noteKey] : null;
+            if (targetInfo) {
+                const targetFreq = targetInfo.freq;
+                const ratio = pitchHz / targetFreq;
+                const isMatch = Math.abs(ratio - 1) < 0.06;
+
+                document.getElementById('activeMicInfo').textContent = `${pitchHz.toFixed(1)} Hz (${isMatch ? '🎯 MATCH!' : 'Pluck target note'})`;
+                if (isMatch && (Date.now() - lastDetectedPitch > 900)) {
+                    lastDetectedPitch = Date.now();
+                    nextStep();
+                }
+            }
+        }
+    }
+
+    // Quiz Mode
+    function generateQuizQuestion() {
+        const keys = Object.keys(westernNoteDefs);
+        currentQuizAnswer = keys[Math.floor(Math.random() * keys.length)];
+        const target = westernNoteDefs[currentQuizAnswer];
+
+        document.getElementById('quizQuestionText').textContent = `Identify Note: Staff Position "${target.lineType}" (String ${target.strNum}, Fret ${target.fretNum})`;
+        const options = [currentQuizAnswer];
+        while (options.length < 4) {
+            const randK = keys[Math.floor(Math.random() * keys.length)];
+            if (!options.includes(randK)) options.push(randK);
+        }
+        options.sort(() => Math.random() - 0.5);
+
+        const grid = document.getElementById('quizOptionsGrid');
+        grid.innerHTML = '';
+        options.forEach(opt => {
+            const optInfo = westernNoteDefs[opt];
+            const btn = document.createElement('button');
+            btn.className = 'btn-ctrl';
+            btn.style.padding = '14px';
+            btn.style.fontSize = '16px';
+            btn.textContent = `${optInfo.name} (${optInfo.fingerName})`;
+            btn.onclick = () => checkQuiz(opt, btn);
+            grid.appendChild(btn);
+        });
+        document.getElementById('quizFeedbackText').textContent = '';
+    }
+
+    function checkQuiz(selectedKey, btn) {
+        quizTotal++;
+        const feedback = document.getElementById('quizFeedbackText');
+        if (selectedKey === currentQuizAnswer) {
+            quizScore++;
+            btn.style.background = '#10b981';
+            feedback.textContent = '🎉 Correct! Well done!';
+            feedback.style.color = '#34d399';
+        } else {
+            btn.style.background = '#f43f5e';
+            const target = westernNoteDefs[currentQuizAnswer];
+            feedback.textContent = `❌ Incorrect. Correct was: ${target.name} (${target.fingerName})`;
+            feedback.style.color = '#fb7185';
+        }
+        document.getElementById('quizScoreBadge').textContent = `Score: ${quizScore} / ${quizTotal}`;
+        setTimeout(generateQuizQuestion, 1500);
+    }
+
+    // Initialization
+    window.addEventListener('DOMContentLoaded', () => {
+        buildFlatStepSequence();
+        renderYamahaFretboard();
+        renderStringIntroCards();
+        renderInteractiveStaffScore();
+        renderGuitarTabSheet();
+        renderMetroBeats();
+        updateStepUI(false);
+    });
+    </script>
+</body>
+</html>

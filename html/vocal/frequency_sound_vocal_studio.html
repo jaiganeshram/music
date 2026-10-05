@@ -1,0 +1,3327 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audio Frequency Lab & Multi-Voice Tone Studio | அதிர்வெண் & புனித தியான ஆய்வகம்</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;800&family=Noto+Sans+Tamil:wght@400;600;700;900&family=Outfit:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #07090e;
+            --bg-secondary: #0d121f;
+            --bg-card: rgba(17, 24, 39, 0.85);
+            --border-color: rgba(244, 63, 94, 0.3);
+            --accent-pink: #f43f5e;
+            --accent-rose: #fda4af;
+            --accent-gold: #f59e0b;
+            --accent-cyan: #06b6d4;
+            --accent-green: #10b981;
+            --accent-purple: #a855f7;
+            --text-main: #f8fafc;
+            --text-sub: #94a3b8;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Outfit', 'Noto Sans Tamil', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(244, 63, 94, 0.12) 0px, transparent 50%),
+                radial-gradient(at 100% 0%, rgba(6, 182, 212, 0.12) 0px, transparent 50%),
+                radial-gradient(at 50% 100%, rgba(168, 85, 247, 0.12) 0px, transparent 50%);
+            color: var(--text-main);
+            min-height: 100vh;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        /* Header */
+        header {
+            background: rgba(13, 18, 31, 0.9);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 16px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 16px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+        }
+
+        .header-title-group {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .header-icon {
+            font-size: 34px;
+            background: linear-gradient(135deg, #f43f5e, #be123c);
+            width: 56px;
+            height: 56px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 14px;
+            box-shadow: 0 0 20px rgba(244, 63, 94, 0.4);
+        }
+
+        h1 {
+            font-size: 20px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            background: linear-gradient(to right, #fff, #fda4af, #f59e0b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            font-size: 12.5px;
+            color: var(--text-sub);
+            font-weight: 500;
+        }
+
+        .header-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .btn-nav {
+            background: #1e293b;
+            color: #cbd5e1;
+            border: 1px solid #334155;
+            padding: 8px 14px;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s;
+        }
+
+        .btn-nav:hover {
+            background: #334155;
+            color: #fff;
+            border-color: var(--accent-cyan);
+        }
+
+        /* ===================================================
+           🎧 ADVANCED AUTOMATED FREQUENCY DEMO TOUR SUITE
+           =================================================== */
+        .demo-suite-card {
+            background: radial-gradient(circle at top left, #1e1b4b 0%, #0d121f 100%);
+            border: 2px solid #a855f7;
+            border-radius: 18px;
+            padding: 20px 24px;
+            box-shadow: 0 8px 32px rgba(168, 85, 247, 0.25);
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .demo-suite-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; height: 3px;
+            background: linear-gradient(90deg, #f43f5e, #f59e0b, #10b981, #06b6d4, #a855f7);
+        }
+
+        .demo-suite-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .demo-suite-title-group {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .demo-suite-icon {
+            font-size: 30px;
+            background: rgba(168, 85, 247, 0.25);
+            border: 1px solid rgba(168, 85, 247, 0.5);
+            width: 52px;
+            height: 52px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 14px;
+            box-shadow: 0 0 20px rgba(168, 85, 247, 0.4);
+            flex-shrink: 0;
+        }
+
+        .demo-suite-title {
+            font-size: 18px;
+            font-weight: 800;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .demo-suite-sub {
+            font-size: 12.5px;
+            color: #cbd5e1;
+            margin-top: 3px;
+        }
+
+        .demo-buttons-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+            gap: 12px;
+        }
+
+        .btn-demo-tour {
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.95));
+            border: 1.5px solid rgba(255, 255, 255, 0.12);
+            padding: 14px 16px;
+            border-radius: 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            text-align: left;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-demo-tour:hover {
+            transform: translateY(-2px);
+            border-color: var(--demo-color, #38bdf8);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5), 0 0 15px var(--demo-glow, rgba(56, 189, 248, 0.3));
+        }
+
+        .btn-demo-tour.active-demo-running {
+            border-color: #f43f5e !important;
+            background: linear-gradient(135deg, rgba(244, 63, 94, 0.25), rgba(15, 23, 42, 0.95)) !important;
+            box-shadow: 0 0 25px rgba(244, 63, 94, 0.5) !important;
+            animation: pulse-demo-border 1.5s infinite;
+        }
+
+        @keyframes pulse-demo-border {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(244, 63, 94, 0.6); }
+            50% { box-shadow: 0 0 15px 4px rgba(244, 63, 94, 0.3); }
+        }
+
+        .btn-demo-tour .demo-btn-icon {
+            font-size: 26px;
+            flex-shrink: 0;
+        }
+
+        .btn-demo-tour .demo-btn-title {
+            font-size: 13.5px;
+            font-weight: 800;
+            color: #f8fafc;
+        }
+
+        .btn-demo-tour .demo-btn-sub {
+            font-size: 11px;
+            color: #94a3b8;
+            margin-top: 2px;
+        }
+
+        /* Active Demo Running HUD */
+        .demo-running-hud {
+            display: none;
+            background: #020617;
+            border: 2px solid #f43f5e;
+            border-radius: 14px;
+            padding: 16px 20px;
+            flex-direction: column;
+            gap: 12px;
+            box-shadow: 0 0 30px rgba(244, 63, 94, 0.25);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .demo-running-hud.hud-visible {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hud-top-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .hud-status-badge {
+            background: rgba(244, 63, 94, 0.2);
+            color: #fda4af;
+            border: 1px solid rgba(244, 63, 94, 0.4);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 800;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .hud-current-title {
+            font-size: 15px;
+            font-weight: 800;
+            color: #38bdf8;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .hud-transcript-box {
+            background: rgba(255, 255, 255, 0.04);
+            border-left: 3px solid #38bdf8;
+            padding: 10px 14px;
+            border-radius: 6px;
+            font-size: 13px;
+            color: #e2e8f0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .hud-progress-track {
+            height: 6px;
+            background: #1e293b;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .hud-progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #f43f5e, #f59e0b, #10b981, #38bdf8);
+            border-radius: 3px;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .hud-controls-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        /* Main Studio Grid */
+        .studio-grid {
+            display: grid;
+            grid-template-columns: 1.1fr 1fr;
+            gap: 16px;
+        }
+
+        @media (max-width: 1024px) {
+            .studio-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Cards */
+        .studio-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            padding-bottom: 12px;
+        }
+
+        .card-title {
+            font-size: 16px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #f1f5f9;
+        }
+
+        .card-badge {
+            background: rgba(244, 63, 94, 0.15);
+            color: #fda4af;
+            border: 1px solid rgba(244, 63, 94, 0.3);
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        /* Frequency Main Display */
+        .freq-display-box {
+            background: radial-gradient(circle at center, #111827 0%, #030712 100%);
+            border: 2px solid var(--accent-pink);
+            border-radius: 16px;
+            padding: 24px;
+            text-align: center;
+            box-shadow: 0 0 35px rgba(244, 63, 94, 0.25), inset 0 0 25px rgba(0,0,0,0.8);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            position: relative;
+        }
+
+        .freq-number-main {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 52px;
+            font-weight: 900;
+            color: #38bdf8;
+            text-shadow: 0 0 25px rgba(56, 189, 248, 0.6);
+            letter-spacing: -1px;
+            line-height: 1;
+        }
+
+        .freq-unit {
+            font-size: 20px;
+            color: #94a3b8;
+            font-weight: 600;
+            margin-left: 6px;
+        }
+
+        .freq-note-badge-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 6px;
+        }
+
+        .note-tag {
+            background: #1e1b4b;
+            color: #c7d2fe;
+            border: 1px solid #4338ca;
+            padding: 6px 14px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 800;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .kattai-tag {
+            background: #2e1065;
+            color: #e9d5ff;
+            border: 1px solid #7e22ce;
+            padding: 6px 14px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 800;
+        }
+
+        .swara-tag {
+            background: #1e293b;
+            color: #fde047;
+            border: 1px solid #ca8a04;
+            padding: 6px 14px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 800;
+        }
+
+        /* Dual Action Play & Speak Button Bar */
+        .action-btns-hero {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 10px;
+        }
+
+        .btn-hero {
+            padding: 14px 18px;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 800;
+            cursor: pointer;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+        }
+
+        .btn-play-tone {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: #ffffff;
+        }
+
+        .btn-play-tone:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+        }
+
+        .btn-play-tone.active-playing {
+            background: linear-gradient(135deg, #ef4444, #b91c1c);
+            animation: pulse-border 1.2s infinite;
+        }
+
+        .btn-speak-voice {
+            background: linear-gradient(135deg, #f43f5e, #be123c);
+            color: #ffffff;
+        }
+
+        .btn-speak-voice:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(244, 63, 94, 0.4);
+        }
+
+        @keyframes pulse-border {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
+            50% { box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); }
+        }
+
+        /* Controls & Selectors */
+        .control-row {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .control-label {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--accent-gold);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .select-input {
+            background: #0b1120;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #ffffff;
+            font-size: 14px;
+            font-weight: 600;
+            padding: 10px 14px;
+            border-radius: 10px;
+            outline: none;
+            cursor: pointer;
+            transition: border-color 0.2s;
+            width: 100%;
+        }
+
+        .select-input:focus {
+            border-color: var(--accent-pink);
+            box-shadow: 0 0 0 2px rgba(244, 63, 94, 0.25);
+        }
+
+        /* Sliders */
+        .slider-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .custom-slider {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 8px;
+            border-radius: 4px;
+            background: #1e293b;
+            outline: none;
+            cursor: pointer;
+        }
+
+        .custom-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #f43f5e, #be123c);
+            cursor: pointer;
+            border: 2px solid #fff;
+            box-shadow: 0 0 10px rgba(244, 63, 94, 0.6);
+            transition: transform 0.1s;
+        }
+
+        .custom-slider::-webkit-slider-thumb:hover {
+            transform: scale(1.15);
+        }
+
+        /* Steppers */
+        .stepper-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 6px;
+        }
+
+        .btn-step {
+            background: #1e293b;
+            color: #e2e8f0;
+            border: 1px solid #334155;
+            padding: 8px 4px;
+            border-radius: 8px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.15s;
+            text-align: center;
+        }
+
+        .btn-step:hover {
+            background: #334155;
+            color: #38bdf8;
+            border-color: #38bdf8;
+        }
+
+        /* Oscilloscope Canvas */
+        .canvas-container {
+            background: #020617;
+            border: 1px solid rgba(56, 189, 248, 0.25);
+            border-radius: 12px;
+            overflow: hidden;
+            height: 130px;
+            position: relative;
+        }
+
+        canvas {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        /* Kattai Quick Grid */
+        .kattai-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+        }
+
+        @media (max-width: 640px) {
+            .kattai-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .kattai-card-btn {
+            background: #0f172a;
+            border: 1px solid #1e293b;
+            padding: 10px 8px;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 3px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .kattai-card-btn:hover {
+            border-color: var(--accent-gold);
+            background: #1e293b;
+            transform: translateY(-2px);
+        }
+
+        .kattai-card-btn.active-kattai {
+            border-color: var(--accent-gold);
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.2), rgba(15, 23, 42, 0.9));
+            box-shadow: 0 0 15px rgba(245, 158, 11, 0.3);
+        }
+
+        .kattai-name {
+            font-size: 13px;
+            font-weight: 800;
+            color: #f8fafc;
+        }
+
+        .kattai-note {
+            font-size: 11px;
+            color: var(--accent-gold);
+            font-weight: 700;
+        }
+
+        .kattai-freq {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            color: #38bdf8;
+            font-weight: 600;
+        }
+
+        /* Swarasthanas Matrix */
+        .swara-table-wrapper {
+            max-height: 250px;
+            overflow-y: auto;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 10px;
+        }
+
+        .swara-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12.5px;
+        }
+
+        .swara-table th {
+            background: #0b1120;
+            color: var(--accent-gold);
+            font-weight: 800;
+            padding: 8px 12px;
+            text-align: left;
+            position: sticky;
+            top: 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .swara-table td {
+            padding: 8px 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            color: #cbd5e1;
+        }
+
+        .swara-table tr:hover {
+            background: rgba(244, 63, 94, 0.1);
+            cursor: pointer;
+        }
+
+        .swara-table tr.active-row {
+            background: rgba(56, 189, 248, 0.15);
+            border-left: 3px solid #38bdf8;
+        }
+
+        .btn-table-play {
+            background: #1e293b;
+            color: #38bdf8;
+            border: 1px solid #0284c7;
+            padding: 3px 8px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .btn-table-play:hover {
+            background: #0284c7;
+            color: #fff;
+        }
+
+        /* ===================================================
+           🎯 MICROPHONE DUAL-PANEL PITCH DETERMINATION SUITE
+           =================================================== */
+        .mic-dual-panel-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        @media (max-width: 768px) {
+            .mic-dual-panel-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .mic-sensor-card {
+            background: #090d16;
+            border: 1px dashed rgba(56, 189, 248, 0.4);
+            border-radius: 14px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .mic-result-card {
+            background: radial-gradient(circle at top right, #1e1b4b 0%, #090514 100%);
+            border: 2px solid #10b981;
+            border-radius: 14px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            box-shadow: 0 0 25px rgba(16, 185, 129, 0.25);
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .mic-result-card.locked-result-glow {
+            border-color: #38bdf8;
+            box-shadow: 0 0 35px rgba(56, 189, 248, 0.4);
+        }
+
+        .sensor-header, .result-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 12px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .sensor-header { color: #38bdf8; }
+        .result-header { color: #10b981; }
+
+        .sensor-badge {
+            background: rgba(56, 189, 248, 0.15);
+            color: #38bdf8;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 10px;
+        }
+
+        .result-lock-badge {
+            background: rgba(16, 185, 129, 0.2);
+            color: #34d399;
+            border: 1px solid rgba(16, 185, 129, 0.4);
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 800;
+        }
+
+        .live-hz-box {
+            display: flex;
+            align-items: baseline;
+            justify-content: center;
+            gap: 4px;
+            background: rgba(0,0,0,0.4);
+            padding: 8px;
+            border-radius: 10px;
+        }
+
+        .live-hz-text {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 34px;
+            font-weight: 900;
+            color: #64748b;
+            transition: color 0.1s;
+        }
+
+        .live-hz-text.active-stream {
+            color: #38bdf8;
+        }
+
+        .live-hz-unit {
+            font-size: 14px;
+            color: #64748b;
+            font-weight: 700;
+        }
+
+        .live-note-text {
+            font-size: 13px;
+            font-weight: 800;
+            color: #38bdf8;
+            text-align: center;
+            background: rgba(15, 23, 42, 0.6);
+            padding: 6px 10px;
+            border-radius: 8px;
+            border: 1px solid rgba(56, 189, 248, 0.2);
+        }
+
+        /* Sensitivity Mode Selector */
+        .mic-sens-bar {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 4px;
+            background: #020617;
+            padding: 3px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .btn-mic-sens {
+            background: transparent;
+            color: #94a3b8;
+            border: none;
+            padding: 5px 6px;
+            border-radius: 6px;
+            font-size: 10.5px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: center;
+        }
+
+        .btn-mic-sens.active-sens {
+            background: #1e293b;
+            color: #38bdf8;
+            border: 1px solid #38bdf8;
+            box-shadow: 0 0 10px rgba(56, 189, 248, 0.3);
+        }
+
+        /* Real-Time Pitch Needle / Cent Gauge */
+        .live-cents-gauge {
+            background: #020617;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 8px;
+            padding: 8px 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .cents-scale-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 9.5px;
+            font-weight: 800;
+            color: #64748b;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .cents-track-wrap {
+            position: relative;
+            height: 14px;
+            background: #0f172a;
+            border-radius: 7px;
+            overflow: hidden;
+            border: 1px solid #1e293b;
+        }
+
+        .cents-center-zone {
+            position: absolute;
+            left: 44%;
+            width: 12%;
+            height: 100%;
+            background: rgba(52, 211, 153, 0.25);
+            border-left: 1px dashed rgba(52, 211, 153, 0.6);
+            border-right: 1px dashed rgba(52, 211, 153, 0.6);
+        }
+
+        .cents-needle-pointer {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 4px;
+            height: 100%;
+            background: #38bdf8;
+            box-shadow: 0 0 8px #38bdf8;
+            transform: translateX(-50%);
+            transition: left 0.06s linear, background 0.1s;
+            border-radius: 2px;
+        }
+
+        .cents-needle-pointer.in-tune {
+            background: #34d399;
+            box-shadow: 0 0 14px #34d399;
+            width: 6px;
+        }
+
+        /* Meter Bars */
+        .meter-bar-container {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .meter-bar-label {
+            font-size: 11px;
+            color: #94a3b8;
+            font-weight: 700;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .meter-bar-track {
+            height: 6px;
+            background: #1e293b;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .meter-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #10b981, #facc15, #ef4444);
+            border-radius: 3px;
+            transition: width 0.06s ease;
+        }
+
+        .meter-bar-fill.stability-fill {
+            background: linear-gradient(90deg, #38bdf8, #818cf8, #c084fc);
+        }
+
+        /* Determined Result Display (Right Panel) */
+        .result-freq-display {
+            text-align: center;
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: 12px;
+            padding: 12px;
+            display: flex;
+            align-items: baseline;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .result-hz-main {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 46px;
+            font-weight: 900;
+            color: #34d399;
+            text-shadow: 0 0 20px rgba(52, 211, 153, 0.6);
+            letter-spacing: -1px;
+        }
+
+        .result-hz-sub {
+            font-size: 18px;
+            color: #94a3b8;
+            font-weight: 700;
+        }
+
+        .result-badges-row {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .det-badge {
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .det-badge-note {
+            background: #1e1b4b;
+            color: #c7d2fe;
+            border: 1px solid #4338ca;
+        }
+
+        .det-badge-kattai {
+            background: #2e1065;
+            color: #f3e8ff;
+            border: 1px solid #7e22ce;
+        }
+
+        .det-badge-swara {
+            background: #311025;
+            color: #fecdd3;
+            border: 1px solid #f43f5e;
+        }
+
+        .det-accuracy-box {
+            background: #020617;
+            border-radius: 8px;
+            padding: 8px 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .result-actions-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-top: 4px;
+        }
+
+        /* Multi-Strike Real-Time Tracker & Visual Flash */
+        .strike-flash-badge {
+            background: rgba(16, 185, 129, 0.2);
+            color: #34d399;
+            border: 1px solid #10b981;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 10px;
+            font-weight: 800;
+            transition: all 0.12s ease-out;
+            opacity: 0.7;
+        }
+
+        .strike-flash-badge.flash-active {
+            background: #10b981;
+            color: #020617;
+            box-shadow: 0 0 16px #10b981;
+            transform: scale(1.1);
+            opacity: 1;
+        }
+
+        .recent-strikes-container {
+            background: #020617;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 10px;
+            padding: 10px 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            grid-column: 1 / -1;
+        }
+
+        .recent-strikes-header {
+            display: flex;
+            justify-content: space-between;
+            font-size: 11px;
+            color: #94a3b8;
+            font-weight: 700;
+        }
+
+        .recent-strikes-chips {
+            display: flex;
+            gap: 6px;
+            overflow-x: auto;
+            padding-bottom: 2px;
+        }
+
+        .strike-chip {
+            background: #0f172a;
+            border: 1px solid #334155;
+            padding: 5px 9px;
+            border-radius: 6px;
+            font-size: 11.5px;
+            font-weight: 700;
+            color: #e2e8f0;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            animation: strikeChipPop 0.2s ease-out;
+        }
+
+        .strike-chip.newest-chip {
+            border-color: #38bdf8;
+            background: rgba(56, 189, 248, 0.15);
+            color: #38bdf8;
+            box-shadow: 0 0 8px rgba(56, 189, 248, 0.3);
+        }
+
+        @keyframes strikeChipPop {
+            0% { transform: scale(0.85); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        /* ===================================================
+           🧘 SACRED & SOLFEGGIO MEDITATION DEMO STUDIO
+           =================================================== */
+        .sacred-showcase-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .sacred-cards-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        @media (max-width: 640px) {
+            .sacred-cards-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .sacred-demo-card {
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.9), rgba(10, 8, 28, 0.95));
+            border-radius: 14px;
+            border: 1.5px solid var(--chakra-color, #a855f7);
+            padding: 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+        }
+
+        .sacred-demo-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(var(--chakra-rgb, 168, 85, 247), 0.35);
+        }
+
+        .sacred-demo-card.playing-sacred-pulse {
+            animation: sacred-pulse 1.8s infinite ease-in-out;
+            background: linear-gradient(135deg, rgba(var(--chakra-rgb, 168, 85, 247), 0.25), rgba(10, 8, 28, 0.95));
+        }
+
+        @keyframes sacred-pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(var(--chakra-rgb, 168, 85, 247), 0.6); }
+            50% { box-shadow: 0 0 25px 4px rgba(var(--chakra-rgb, 168, 85, 247), 0.4); }
+        }
+
+        .sacred-card-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .sacred-chakra-badge {
+            font-size: 11.5px;
+            font-weight: 800;
+            padding: 3px 8px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.08);
+            color: var(--chakra-color, #a855f7);
+            border: 1px solid var(--chakra-color, #a855f7);
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .sacred-hz-badge {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 18px;
+            font-weight: 900;
+            color: #ffffff;
+            text-shadow: 0 0 10px var(--chakra-color, #a855f7);
+        }
+
+        .sacred-title {
+            font-size: 14px;
+            font-weight: 800;
+            color: #f8fafc;
+        }
+
+        .sacred-desc {
+            font-size: 11.5px;
+            color: #cbd5e1;
+            line-height: 1.4;
+            min-height: 32px;
+        }
+
+        .sacred-actions-row {
+            display: grid;
+            grid-template-columns: 1.3fr 1fr;
+            gap: 6px;
+            margin-top: 2px;
+        }
+
+        .btn-sacred-play {
+            background: linear-gradient(135deg, var(--chakra-color, #a855f7), #4c1d95);
+            color: #ffffff;
+            border: none;
+            padding: 8px 10px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 800;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            transition: all 0.15s;
+        }
+
+        .btn-sacred-play:hover {
+            opacity: 0.9;
+            transform: scale(1.02);
+        }
+
+        .btn-sacred-speak {
+            background: rgba(255, 255, 255, 0.08);
+            color: #f1f5f9;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 8px 10px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            transition: all 0.15s;
+        }
+
+        .btn-sacred-speak:hover {
+            background: rgba(255, 255, 255, 0.15);
+            color: #fff;
+        }
+
+        /* Toast */
+        #studioToast {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: linear-gradient(135deg, #1e1b4b, #311042);
+            color: #fecdd3;
+            border: 1px solid #f43f5e;
+            padding: 12px 20px;
+            border-radius: 12px;
+            font-weight: bold;
+            font-size: 14px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+            z-index: 9999;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header>
+        <div class="header-title-group">
+            <div class="header-icon">🎛️</div>
+            <div>
+                <h1>Audio Frequency Lab & Multi-Voice Tone Studio</h1>
+                <div class="subtitle">துல்லியமான அதிர்வெண், மனிதக் குரல் உச்சரிப்பு, புனித தியான அதிர்வலைகள் • Sacred Solfeggio Tuner</div>
+            </div>
+        </div>
+        <div class="header-controls">
+            <a href="../../index.html" class="btn-nav">🏠 Master Academy</a>
+            <a href="carnatic_vocal_beginner_visual_tutor.html" class="btn-nav">🎙️ Vocal Studio</a>
+            <a href="../guitar/beginner_guitar_carnatic_visual_tutor.html" class="btn-nav">🎸 Guitar Tutor</a>
+        </div>
+    </header>
+
+    <!-- 🎧 AUTOMATED FREQUENCY DEMO TOUR & SHOWCASE SUITE -->
+    <div class="demo-suite-card">
+        <div class="demo-suite-header">
+            <div class="demo-suite-title-group">
+                <div class="demo-suite-icon">🎧</div>
+                <div>
+                    <div class="demo-suite-title">
+                        <span>அதிர்வெண் தானியங்கி நேரலை டெமோ கூடம் (Frequency Audio Demo Suite)</span>
+                        <span class="card-badge" style="background: rgba(168, 85, 247, 0.25); color: #f5d0fe; border-color: #c084fc;">1-Click Audio Tours</span>
+                    </div>
+                    <div class="demo-suite-sub">கீழே உள்ள ஏதேனும் ஒரு டெமோவை கிளிக் செய்து, அனைத்து அதிர்வெண்கள், குரல் உச்சரிப்பு மற்றும் வாத்திய ஒலிகளை தானாகக் கேட்டு மகிழுங்கள்.</div>
+                </div>
+            </div>
+            <div style="display: flex; gap: 8px; align-items: center;">
+                <button type="button" class="btn-hero" id="btnMasterDemoPlay" onclick="startMasterFrequencyTour()" style="background: linear-gradient(135deg, #f43f5e, #be123c); color: #fff; padding: 10px 18px; font-size: 13.5px; border-radius: 10px;">
+                    <span>▶️</span>
+                    <span>முழு ஆடியோ டெமோ (Play All Demo)</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- 5 Interactive Demo Selection Cards -->
+        <div class="demo-buttons-grid">
+            <div class="btn-demo-tour" id="btnDemoMaster" onclick="startMasterFrequencyTour()" style="--demo-color: #f43f5e; --demo-glow: rgba(244, 63, 94, 0.4);">
+                <div class="demo-btn-icon">🌟</div>
+                <div>
+                    <div class="demo-btn-title">1. முழு அதிர்வெண் டெமோ</div>
+                    <div class="demo-btn-sub">108Hz, Sa, Ma, Pa, 432Hz, 528Hz, 852Hz, 963Hz</div>
+                </div>
+            </div>
+
+            <div class="btn-demo-tour" id="btnDemoSweep" onclick="startFrequencySweepDemo()" style="--demo-color: #06b6d4; --demo-glow: rgba(6, 182, 212, 0.4);">
+                <div class="demo-btn-icon">🌊</div>
+                <div>
+                    <div class="demo-btn-title">2. அலைவரிசை ஸ்வீப் டெமோ</div>
+                    <div class="demo-btn-sub">20 Hz முதல் 2,000 Hz தொடர் ஏற்ற அலை</div>
+                </div>
+            </div>
+
+            <div class="btn-demo-tour" id="btnDemoKattai" onclick="startKattaisAudioTour()" style="--demo-color: #f59e0b; --demo-glow: rgba(245, 158, 11, 0.4);">
+                <div class="demo-btn-icon">🪕</div>
+                <div>
+                    <div class="demo-btn-title">3. 12 கட்டைகள் ஆடியோ டூர்</div>
+                    <div class="demo-btn-sub">1 கட்டை முதல் 7 கட்டை வரை நேரலை குரல்</div>
+                </div>
+            </div>
+
+            <div class="btn-demo-tour" id="btnDemoSacred" onclick="startSacredSolfeggioTour()" style="--demo-color: #a855f7; --demo-glow: rgba(168, 85, 247, 0.4);">
+                <div class="demo-btn-icon">🧘</div>
+                <div>
+                    <div class="demo-btn-title">4. 11 தியான அலைகள் டெமோ</div>
+                    <div class="demo-btn-sub">11 புனித Solfeggio & OM தியான நாதங்கள்</div>
+                </div>
+            </div>
+
+            <div class="btn-demo-tour" id="btnDemoInstruments" onclick="startInstrumentsTimbreDemo()" style="--demo-color: #10b981; --demo-glow: rgba(16, 185, 129, 0.4);">
+                <div class="demo-btn-icon">🎻</div>
+                <div>
+                    <div class="demo-btn-title">5. 13 வாத்தியங்கள் ஒலி டெமோ</div>
+                    <div class="demo-btn-sub">குரல், பியானோ, வீணை, புல்லாங்குழல், தம்புரா</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Real-Time Active Running HUD -->
+        <div class="demo-running-hud" id="demoRunningHud">
+            <div class="hud-top-row">
+                <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+                    <span class="hud-status-badge" id="hudStatusBadge">
+                        <span>🔴</span>
+                        <span>டெமோ இயங்குகிறது (LIVE DEMO)</span>
+                    </span>
+                    <span class="hud-current-title" id="hudDemoTitle">108 Hz • வேத ஓம் பிரணவ நாதம்</span>
+                </div>
+                <div class="card-badge" id="hudStepBadge" style="background: rgba(56, 189, 248, 0.2); color: #7dd3fc; border-color: #38bdf8;">படி 1 / 10</div>
+            </div>
+
+            <div class="hud-transcript-box">
+                <span style="font-size: 18px;">🗣️</span>
+                <span id="hudTranscriptText">குரல் அறிவிப்பு: "108 ஹெர்ட்ஸ். பிரணவ நாதம். ஆழ்ந்த அமைதி மற்றும் பிரபஞ்ச இசை."</span>
+            </div>
+
+            <div class="hud-progress-track">
+                <div class="hud-progress-fill" id="hudProgressBar"></div>
+            </div>
+
+            <div class="hud-controls-row">
+                <div style="display: flex; gap: 8px;">
+                    <button type="button" class="btn-step" onclick="prevDemoTourStep()">⏮️ முந்தைய படி (Prev)</button>
+                    <button type="button" class="btn-step" onclick="nextDemoTourStep()">⏭️ அடுத்த படி (Next)</button>
+                </div>
+                <div style="display: flex; gap: 8px;">
+                    <button type="button" class="btn-hero" onclick="stopDemoTour()" style="background: #ef4444; color: #fff; padding: 8px 16px; font-size: 12.5px; border-radius: 8px;">
+                        <span>⏹️</span>
+                        <span>டெமோவை நிறுத்து (Stop Demo)</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Studio Grid -->
+    <div class="studio-grid">
+
+        <!-- Left Column: Frequency Engine & Voice Generator -->
+        <div class="studio-card">
+            <div class="card-header">
+                <div class="card-title">🔊 அதிர்வெண் ஜெனரேட்டர் (Precision Tone Generator)</div>
+                <div class="card-badge" id="liveToneStatusBadge">ஒலி: தயார் (Ready)</div>
+            </div>
+
+            <!-- Master Frequency Hero Display -->
+            <div class="freq-display-box">
+                <div style="font-size: 12px; font-weight: 700; color: #94a3b8; text-transform: uppercase;">தற்போதைய அதிர்வெண் (Target Frequency)</div>
+                <div>
+                    <span class="freq-number-main" id="displayFreqVal">138.59</span>
+                    <span class="freq-unit">Hz</span>
+                </div>
+                <div class="freq-note-badge-row">
+                    <span class="note-tag" id="displayNoteTag">🎵 C#3 (C-Sharp)</span>
+                    <span class="kattai-tag" id="displayKattaiTag">🪕 1½ கட்டை</span>
+                    <span class="swara-tag" id="displaySwaraTag">ஸ (Shadjam)</span>
+                </div>
+            </div>
+
+            <!-- Dual Action Buttons: Play Tone + Speak Frequency in Human Voice -->
+            <div class="action-btns-hero">
+                <button type="button" class="btn-hero btn-play-tone" id="btnToggleTone" onclick="toggleTonePlayback()">
+                    <span id="playToneIcon">▶️</span>
+                    <span id="playToneText">ஒலியை இயக்கு (Play Tone)</span>
+                </button>
+                <button type="button" class="btn-hero btn-speak-voice" onclick="speakCurrentFrequency()">
+                    <span>🗣️</span>
+                    <span>குரலில் சொல் (Speak Hz)</span>
+                </button>
+            </div>
+
+            <!-- Sound Voice & Speech Controls -->
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                <div class="control-row">
+                    <label class="control-label">🎵 ஒலி வாத்தியம் (Sound Voice):</label>
+                    <select id="toneVoiceSelect" class="select-input" onchange="setToneVoice(this.value)">
+                        <option value="vocal" selected>🎙️ 1. மனிதக் குரல் (Human Vocal Voice - Saa/Ree)</option>
+                        <option value="piano">🎹 2. கிராண்ட் பியானோ (Grand Piano)</option>
+                        <option value="veena">🎻 3. சரஸ்வதி வீணை (Saraswati Veena)</option>
+                        <option value="flute">🪈 4. புல்லாங்குழல் (Bamboo Flute / Venu)</option>
+                        <option value="harmonium">🎹 5. ஹார்மோனியம் (Carnatic Harmonium)</option>
+                        <option value="tanpura">🪕 6. தஞ்சாவூர் தம்புரா (Tanpura Drone)</option>
+                        <option value="guitar">🎸 7. அக்யூஸ்டிக் கிட்டார் (Acoustic Guitar)</option>
+                        <option value="violin">🎻 8. கர்நாடக வயலின் (Violin)</option>
+                        <option value="jalatharangam">🔔 9. ஜலதரங்கம் கோயில் மணி (Bell Chime)</option>
+                        <option value="sine">🔊 10. சுத்த சைன் அலை (Pure Sine 0% THD)</option>
+                        <option value="triangle">🔺 11. முக்கோண அலை (Triangle Wave)</option>
+                        <option value="sawtooth">🪚 12. சாடூத் அலை (Sawtooth Wave)</option>
+                        <option value="square">🔲 13. சதுர அலை (Square 8-Bit Wave)</option>
+                    </select>
+                </div>
+
+                <div class="control-row">
+                    <label class="control-label">🗣️ குரல் மொழி (Speech Language):</label>
+                    <select id="speechLangSelect" class="select-input" onchange="setSpeechLanguage(this.value)">
+                        <option value="ta" selected>🇮🇳 தமிழ் (Tamil Voice)</option>
+                        <option value="en">🌐 English (Indian / Universal)</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Precision Frequency Slider -->
+            <div class="slider-wrapper">
+                <div class="control-label">
+                    <span>அதிர்வெண் ஸ்லைடர் (Slider 20 Hz - 20,000 Hz):</span>
+                    <span id="sliderValLabel" style="color: #38bdf8; font-family: monospace;">138.6 Hz</span>
+                </div>
+                <input type="range" id="freqSlider" class="custom-slider" min="20" max="2000" step="0.1" value="138.59" oninput="onSliderFreqChange(this.value)">
+            </div>
+
+            <!-- Fine-Tuning Steppers -->
+            <div class="control-row">
+                <label class="control-label">துல்லிய படிநிலைகள் (Fine Stepping Controls):</label>
+                <div class="stepper-grid">
+                    <button type="button" class="btn-step" onclick="adjustFrequency(-10)">-10 Hz</button>
+                    <button type="button" class="btn-step" onclick="adjustFrequency(-1)">-1 Hz</button>
+                    <button type="button" class="btn-step" onclick="adjustFrequency(-0.1)">-0.1 Hz</button>
+                    <button type="button" class="btn-step" onclick="adjustFrequency(0.1)">+0.1 Hz</button>
+                    <button type="button" class="btn-step" onclick="adjustFrequency(1)">+1 Hz</button>
+                    <button type="button" class="btn-step" onclick="adjustFrequency(10)">+10 Hz</button>
+                </div>
+                <div class="stepper-grid" style="margin-top: 6px;">
+                    <button type="button" class="btn-step" onclick="adjustOctave(-1)">-1 Octave</button>
+                    <button type="button" class="btn-step" onclick="adjustSemitone(-1)">-1 Semitone</button>
+                    <button type="button" class="btn-step" onclick="adjustCent(-5)">-5 Cents</button>
+                    <button type="button" class="btn-step" onclick="adjustCent(5)">+5 Cents</button>
+                    <button type="button" class="btn-step" onclick="adjustSemitone(1)">+1 Semitone</button>
+                    <button type="button" class="btn-step" onclick="adjustOctave(1)">+1 Octave</button>
+                </div>
+            </div>
+
+            <!-- Live Oscilloscope & Audio Spectrum Waveform -->
+            <div class="control-row">
+                <label class="control-label">📊 நிகழ்நேர ஒலி அலைவடிவம் (Real-Time Oscilloscope):</label>
+                <div class="canvas-container">
+                    <canvas id="oscilloscopeCanvas"></canvas>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Right Column: 12 Kattais, Swarasthanas Matrix, Dual-Panel Mic & Sacred Demo Studio -->
+        <div style="display: flex; flex-direction: column; gap: 16px;">
+
+            <!-- 1. Microphone Live Pitch Detector & Stabilized Result Suite -->
+            <div class="studio-card">
+                <div class="card-header">
+                    <div class="card-title">🎤 மைக்ரோஃபோன் பிட்ச் டிடெக்டர் (Universal Pitch Tuner & Lock)</div>
+                    <div class="card-badge" id="micStatusTag">மைக்: ஆஃப்</div>
+                </div>
+
+                <!-- DUAL-PANEL PITCH DETERMINATION SUITE -->
+                <div class="mic-dual-panel-grid">
+
+                    <!-- Left Panel: Live Sensor (உணரி) -->
+                    <div class="mic-sensor-card">
+                        <div class="sensor-header">
+                            <span>📡 நேரலை உணரி</span>
+                            <div style="display: flex; gap: 4px; align-items: center;">
+                                <span id="strikeFlashBadge" class="strike-flash-badge">⚡ அடி உணரி</span>
+                                <span id="micLiveStreamBadge" class="sensor-badge">காத்திருக்கிறது...</span>
+                            </div>
+                        </div>
+
+                        <!-- Sensitivity Mode Bar -->
+                        <div class="mic-sens-bar">
+                            <button type="button" class="btn-mic-sens" id="sensHighBtn" onclick="setMicSensitivity('high')">🪕 அதி-உணர்திறன்</button>
+                            <button type="button" class="btn-mic-sens active-sens" id="sensNormBtn" onclick="setMicSensitivity('normal')">🎙️ இயல்பான நிலை</button>
+                            <button type="button" class="btn-mic-sens" id="sensLowBtn" onclick="setMicSensitivity('low')">🛡️ இரைச்சல் வடிகட்டி</button>
+                        </div>
+
+                        <!-- Real-time Live Hz Box -->
+                        <div class="live-hz-box">
+                            <span id="micLiveHz" class="live-hz-text">--.-</span>
+                            <span class="live-hz-unit">Hz</span>
+                        </div>
+
+                        <div id="micLiveNote" class="live-note-text">எந்தவொரு கருவியையும் வாசிக்கவும் அல்லது பாடவும்</div>
+
+                        <!-- Real-Time Pitch Needle / Cent Tuning Gauge -->
+                        <div class="live-cents-gauge">
+                            <div class="cents-scale-labels">
+                                <span>-50c (Flat ♭)</span>
+                                <span style="color: #34d399;">🎯 சுருதி சுத்தம் (0c)</span>
+                                <span>+50c (Sharp ♯)</span>
+                            </div>
+                            <div class="cents-track-wrap">
+                                <div class="cents-center-zone"></div>
+                                <div id="micLiveNeedle" class="cents-needle-pointer" style="left: 50%;"></div>
+                            </div>
+                        </div>
+
+                        <!-- Live Volume VU Meter -->
+                        <div class="meter-bar-container">
+                            <div class="meter-bar-label">
+                                <span>ஆடியோ அளவு (Volume VU):</span>
+                                <span id="micSignalPercent" style="font-family: monospace;">0%</span>
+                            </div>
+                            <div class="meter-bar-track">
+                                <div id="micSignalFill" class="meter-bar-fill" style="width: 0%;"></div>
+                            </div>
+                        </div>
+
+                        <!-- Live Resonance Clarity Meter -->
+                        <div class="meter-bar-container">
+                            <div class="meter-bar-label">
+                                <span>நாதத் தெளிவு (Clarity):</span>
+                                <span id="micStabilityPercent" style="font-family: monospace;">0%</span>
+                            </div>
+                            <div class="meter-bar-track">
+                                <div id="micStabilityFill" class="meter-bar-fill stability-fill" style="width: 0%;"></div>
+                            </div>
+                        </div>
+
+                        <!-- Mic Controls -->
+                        <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-top: 6px;">
+                            <button type="button" class="btn-hero" id="btnToggleMic" onclick="toggleMicrophone()" style="background: #10b981; color: #fff; padding: 10px 14px; font-size: 13px; flex: 1;">🎤 மைக் தொடங்கு</button>
+                            <button type="button" class="btn-step" onclick="resetPitchDetermination()" style="padding: 10px 12px;">🔄 ரீசெட்</button>
+                        </div>
+                    </div>
+
+                    <!-- Right Panel: Determined Stable Result (பக்கத்தில் முடிவான முடிவு) -->
+                    <div class="mic-result-card" id="micDeterminedResultCard">
+                        <div class="result-header">
+                            <span>🎯 முடிவான பிட்ச் & நோட்</span>
+                            <span id="micLockStatusBadge" class="result-lock-badge">🔒 காத்திருக்கிறது</span>
+                        </div>
+
+                        <div class="result-freq-display">
+                            <span id="detResultHz" class="result-hz-main">--.-</span>
+                            <span class="result-hz-sub">Hz</span>
+                        </div>
+
+                        <div class="result-badges-row">
+                            <div class="det-badge det-badge-note" id="detResultNote">
+                                <span>🎵 மேற்கத்திய நோட்:</span>
+                                <span style="color: #60a5fa;" id="detResultNoteVal">--</span>
+                            </div>
+                            <div class="det-badge det-badge-kattai" id="detResultKattai">
+                                <span>🪕 கர்நாடக கட்டை:</span>
+                                <span style="color: #f472b6;" id="detResultKattaiVal">--</span>
+                            </div>
+                            <div class="det-badge det-badge-swara" id="detResultSwara">
+                                <span>🎼 கர்நாடக ஸ்வரம்:</span>
+                                <span style="color: #fde047;" id="detResultSwaraVal">--</span>
+                            </div>
+                        </div>
+
+                        <div class="det-accuracy-box">
+                            <div style="font-size: 11.5px; color: #94a3b8; font-weight: 700;">சுருதி விலகல் (Accuracy):</div>
+                            <div id="detResultCent" style="font-family: monospace; font-weight: 800; color: #38bdf8; font-size: 13px;">-- Cents</div>
+                        </div>
+
+                        <div class="result-actions-grid">
+                            <button type="button" class="btn-hero btn-play-tone" style="padding: 10px 14px; font-size: 13px;" onclick="playDeterminedResult()">
+                                <span>🔊 பிட்சை இயக்கு (Play Tone)</span>
+                            </button>
+                            <button type="button" class="btn-hero btn-speak-voice" style="padding: 10px 14px; font-size: 13px;" onclick="speakDeterminedResult()">
+                                <span>🗣️ முடிவைக் கேள் (Speak)</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Rolling Strike History Log -->
+                    <div class="recent-strikes-container">
+                        <div class="recent-strikes-header">
+                            <span>📜 தொடர் வாசிப்புப் பதிவுகள் (Continuous Strike Log):</span>
+                            <span id="strikeCountBadge" style="color: #38bdf8; font-family: monospace;">0 அடிகளானது</span>
+                        </div>
+                        <div class="recent-strikes-chips" id="recentStrikesChips">
+                            <span style="font-size: 11px; color: #64748b; font-style: italic;">இசைக்கருவியை வாசிக்கும் போது ஒவ்வொரு அடியும் (C5, G4, E4...) உடனுக்குடன் இங்கே தொடராகப் பதிவாகும்...</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- 2. 🧘 SACRED & SOLFEGGIO MEDITATION DEMO STUDIO (11 SACRED FREQUENCIES) -->
+            <div class="studio-card" id="sacredShowcaseSection">
+                <div class="card-header">
+                    <div class="card-title">🧘 புனித அதிர்வெண்கள் & தியான டெமோ (Sacred & Solfeggio Demo Studio)</div>
+                    <div class="card-badge" style="background: rgba(168, 85, 247, 0.2); color: #e9d5ff; border-color: #a855f7;">11 புனித அதிர்வலைகள்</div>
+                </div>
+
+                <div class="sacred-cards-grid" id="sacredDemoCardsGrid">
+                    <!-- Populated by JS: 11 Gorgeous Interactive Demo Cards -->
+                </div>
+            </div>
+
+            <!-- 3. Carnatic 12 Kattai Quick Selector -->
+            <div class="studio-card">
+                <div class="card-header">
+                    <div class="card-title">🪕 கர்நாடக 12 கட்டைகள் (12 Carnatic Kattais)</div>
+                    <div class="card-badge">கிளிக் செய்து கேட்கவும்</div>
+                </div>
+                <div class="kattai-grid" id="kattaiGridContainer">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+
+            <!-- 4. Dynamic 16 Swarasthanas Frequency Table -->
+            <div class="studio-card">
+                <div class="card-header">
+                    <div class="card-title">🎼 16 ஸ்வரஸ்தானங்கள் அதிர்வெண் பட்டியல்</div>
+                    <div class="card-badge" id="activeSwaraTableKattaiLabel">1½ கட்டை (C#)</div>
+                </div>
+                <div class="swara-table-wrapper">
+                    <table class="swara-table">
+                        <thead>
+                            <tr>
+                                <th>ஸ்வரம்</th>
+                                <th>பெயர் (Swara)</th>
+                                <th>விகிதம் (Ratio)</th>
+                                <th>அதிர்வெண் (Hz)</th>
+                                <th>இயக்கு</th>
+                            </tr>
+                        </thead>
+                        <tbody id="swaraTableBody">
+                            <!-- Populated by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="studioToast"></div>
+
+    <script>
+    // ==========================================
+    // 🎧 WEB AUDIO & TONE GENERATOR SYSTEM
+    // ==========================================
+    let audioCtx = null;
+    let masterGain = null;
+    let activeOscillators = [];
+    let analyserNode = null;
+    let isTonePlaying = false;
+    let currentFrequency = 138.59;
+    let currentToneVoice = 'vocal';
+    let currentSpeechLang = 'ta';
+
+    // 11 Sacred & Solfeggio Frequencies Database with Full Meta
+    const SACRED_FREQUENCIES_DATA = [
+        {
+            freq: 108.0,
+            icon: '🧘',
+            nameTa: '108 Hz • வேத ஓம் பிரணவ நாதம்',
+            nameEn: '108 Hz • Vedic OM Cosmic Tone',
+            chakra: 'பிரணவ நாதம் (Cosmic OM)',
+            color: '#f59e0b',
+            rgb: '245, 158, 11',
+            desc: '108 புனித மணிகள் நாதம் • மன அமைதி, ஆழ்ந்த தியானம் மற்றும் பிரபஞ்ச ஒற்றுமை.',
+            descEn: 'Vedic OM Resonance • Deep meditative state, inner peace and cosmic unity.'
+        },
+        {
+            freq: 432.0,
+            icon: '✨',
+            nameTa: '432 Hz • இயற்கை பிரபஞ்ச சுருதி',
+            nameEn: '432 Hz • Verdi Universal Pitch',
+            chakra: 'பிரபஞ்ச இசை (Universal Harmony)',
+            color: '#06b6d4',
+            rgb: '6, 182, 212',
+            desc: 'இயற்கையோடு இணைந்த தூய சுருதி (A=432Hz) • மன அழுத்தம் நீங்குதல் மற்றும் இதயம் அமைதியடைதல்.',
+            descEn: 'Natural Universal Frequency • Deep emotional healing and mathematical harmony.'
+        },
+        {
+            freq: 528.0,
+            icon: '💖',
+            nameTa: '528 Hz • அதிசய அலை & DNA மாற்றம்',
+            nameEn: '528 Hz • Transformation & Miracles',
+            chakra: 'மணிபூரகம் (Solar Plexus)',
+            color: '#eab308',
+            rgb: '234, 179, 8',
+            desc: 'அதிசய அதிர்வலை • செல் புதுப்பித்தல், நேர்மறை ஆற்றல் மற்றும் அமைதி.',
+            descEn: 'Miracle Frequency • DNA repair, positive transformation and clarity.'
+        },
+        {
+            freq: 396.0,
+            icon: '🕊️',
+            nameTa: '396 Hz • மூல சுருதி (பயம் நீக்குதல்)',
+            nameEn: '396 Hz • Liberating Guilt & Fear',
+            chakra: 'மூலாதாரம் (Root Chakra)',
+            color: '#ef4444',
+            rgb: '239, 68, 68',
+            desc: 'மூலாதார சக்கரம் • ஆழ்மன பயம், கவலை மற்றும் குற்ற உணர்வை நீக்கி புத்துணர்ச்சி அளிக்கும்.',
+            descEn: 'Root Chakra • Releases unconscious guilt and dissolves fear.'
+        },
+        {
+            freq: 417.0,
+            icon: '🌊',
+            nameTa: '417 Hz • மாற்றத்தின் ஆற்றல்',
+            nameEn: '417 Hz • Facilitating Change',
+            chakra: 'சுவாதிஷ்டானம் (Sacral Chakra)',
+            color: '#f97316',
+            rgb: '249, 115, 22',
+            desc: 'சுவாதிஷ்டான சக்கரம் • தேவையற்ற எதிர்மறை தாக்கங்களை நீக்கி புதிய மாற்றத்தை உருவாக்கும்.',
+            descEn: 'Sacral Chakra • Undoes difficult situations and facilitates dynamic change.'
+        },
+        {
+            freq: 639.0,
+            icon: '🤝',
+            nameTa: '639 Hz • இதய பிணைப்பு & அன்பு',
+            nameEn: '639 Hz • Harmonizing Relationships',
+            chakra: 'அனாகதம் (Heart Chakra)',
+            color: '#10b981',
+            rgb: '16, 185, 129',
+            desc: 'அனாகத சக்கரம் • உறவுகளில் நல்லிணக்கம், அன்பு மற்றும் குடும்ப ஒற்றுமை வளர்க்கும்.',
+            descEn: 'Heart Chakra • Promotes deep interpersonal connection, harmony and empathy.'
+        },
+        {
+            freq: 741.0,
+            icon: '🗣️',
+            nameTa: '741 Hz • தொண்டை விழிப்புணர்வு & உண்மை',
+            nameEn: '741 Hz • Awakening Intuition & Expression',
+            chakra: 'விசுத்தி (Throat Chakra)',
+            color: '#38bdf8',
+            rgb: '56, 189, 248',
+            desc: 'விசுத்தி சக்கரம் • தெளிவான பேச்சு, உண்மை வெளிப்பாடு மற்றும் நச்சுத்தன்மை நீக்கம்.',
+            descEn: 'Throat Chakra • Fosters self-expression, solving problems and detox.'
+        },
+        {
+            freq: 852.0,
+            icon: '👁️',
+            nameTa: '852 Hz • மூன்றாம் கண் ஞான விழிப்பு',
+            nameEn: '852 Hz • Returning to Spiritual Order',
+            chakra: 'ஆக்ஞா (Third Eye Chakra)',
+            color: '#6366f1',
+            rgb: '99, 102, 241',
+            desc: 'ஆக்ஞா சக்கரம் • உள்ளுணர்வு பெருகுதல், ஆன்மீக விழிப்புணர்வு மற்றும் மன அமைதி.',
+            descEn: 'Third Eye Chakra • Awakens spiritual intuition and raises cell awareness.'
+        },
+        {
+            freq: 963.0,
+            icon: '👑',
+            nameTa: '963 Hz • சகஸ்ரார பிரபஞ்ச இணைப்பு',
+            nameEn: '963 Hz • Pure Divine Consciousness',
+            chakra: 'சகஸ்ராரம் (Crown Chakra)',
+            color: '#a855f7',
+            rgb: '168, 85, 247',
+            desc: 'சகஸ்ரார சக்கரம் • பிரபஞ்ச பேரறிவு, தெய்வீக இணைப்பு மற்றும் உயர்ந்த அமைதி.',
+            descEn: 'Crown Chakra • Pineal gland activation and cosmic interconnectedness.'
+        },
+        {
+            freq: 174.0,
+            icon: '⚡',
+            nameTa: '174 Hz • இயற்கை வலி நிவாரண ஒலி',
+            nameEn: '174 Hz • Natural Relief & Grounding',
+            chakra: 'உடல் பாதுகாப்பு (Grounding Foundation)',
+            color: '#ec4899',
+            rgb: '236, 72, 153',
+            desc: 'உடல் தளர்வு • இயற்கையான மன அமைதி மற்றும் உடல் வலிமைக்கான அடித்தள ஒலி.',
+            descEn: 'Foundation • Gives organs sense of security, natural stress reduction.'
+        },
+        {
+            freq: 285.0,
+            icon: '🛡️',
+            nameTa: '285 Hz • உடல் திசு புதுப்பித்தல்',
+            nameEn: '285 Hz • Cellular Rejuvenation',
+            chakra: 'ஆற்றல் களம் (Quantum Energy Field)',
+            color: '#14b8a6',
+            rgb: '20, 184, 166',
+            desc: 'ஆற்றல் களம் • உடலின் நோய் எதிர்ப்பு சக்தி மற்றும் ஆரோக்கியத்தை மீட்டமைக்கும் ஒலி.',
+            descEn: 'Restructuring • Promotes cellular restoration and healthy tissue balance.'
+        }
+    ];
+
+    // 12 Carnatic Kattais Data
+    const KATTAI_PRESETS = [
+        { kattai: 1, note: 'C', freq: 130.81, desc: '👨 ஆண் அடிக்குரல் (Bass)' },
+        { kattai: 1.5, note: 'C#', freq: 138.59, desc: '👨 ஆண் நிலையான சுருதி (Standard Baritone)' },
+        { kattai: 2, note: 'D', freq: 146.83, desc: '👨 ஆண் உயர் குரல் (Tenor)' },
+        { kattai: 2.5, note: 'D#', freq: 155.56, desc: '👨 ஆண் உச்ச ஸ்தாயி (High Pitch)' },
+        { kattai: 3, note: 'E', freq: 164.81, desc: '👦 வளர் இளம் சிறுவர்கள் (Teen Boys)' },
+        { kattai: 4, note: 'F', freq: 174.61, desc: '👩 பெண் அடிக்குரல் (Alto)' },
+        { kattai: 4.5, note: 'F#', freq: 185.00, desc: '👩 பெண் நடுத்தர சுருதி (Mezzo)' },
+        { kattai: 5, note: 'G', freq: 196.00, desc: '👩 பெண் நிலையான சுருதி (Standard Soprano)' },
+        { kattai: 5.5, note: 'G#', freq: 207.65, desc: '👩 பெண் உயர் சுருதி (High Soprano)' },
+        { kattai: 6, note: 'A', freq: 220.00, desc: '👧 சிறுமியர் & குழந்தைகள் (Children)' },
+        { kattai: 6.5, note: 'A#', freq: 233.08, desc: '👶 மழலைகள் (Kids)' },
+        { kattai: 7, note: 'B', freq: 246.94, desc: '👶 மிக உயர் சுருதி (Very High)' }
+    ];
+
+    // 16 Swarasthanas Ratios
+    const SWARASTHANA_DEFS = [
+        { sw: 'ஸ', name: 'ஆதார ஷட்ஜம் (Base Sa)', ratio: 1.0, west: 'Sa (Root)' },
+        { sw: 'ரி₁', name: 'சுத்த ரிஷபம் (Suddha Ri)', ratio: 1.0595, west: 'Minor 2nd' },
+        { sw: 'ரி₂', name: 'சதுஸ்ருதி ரிஷபம் (Chatusruti Ri)', ratio: 1.1225, west: 'Major 2nd' },
+        { sw: 'ரி₃', name: 'ஷட்ச்ருதி ரிஷபம் (Shatsruti Ri)', ratio: 1.1892, west: 'Minor 3rd' },
+        { sw: 'க₁', name: 'சுத்த காந்தாரம் (Suddha Ga)', ratio: 1.1225, west: 'Major 2nd' },
+        { sw: 'க₂', name: 'சாதாரண காந்தாரம் (Sadharana Ga)', ratio: 1.1892, west: 'Minor 3rd' },
+        { sw: 'க₃', name: 'அந்தர காந்தாரம் (Antara Ga)', ratio: 1.2599, west: 'Major 3rd' },
+        { sw: 'ம₁', name: 'சுத்த மத்யமம் (Suddha Ma)', ratio: 1.3348, west: 'Perfect 4th' },
+        { sw: 'ம₂', name: 'ப்ரதி மத்யமம் (Prati Ma)', ratio: 1.4142, west: 'Augmented 4th' },
+        { sw: 'ப', name: 'பஞ்சமம் (Panchamam)', ratio: 1.4983, west: 'Perfect 5th' },
+        { sw: 'த₁', name: 'சுத்த தைவதம் (Suddha Dha)', ratio: 1.5874, west: 'Minor 6th' },
+        { sw: 'த₂', name: 'சதுஸ்ருதி தைவதம் (Chatusruti Dha)', ratio: 1.6818, west: 'Major 6th' },
+        { sw: 'த₃', name: 'ஷட்ச்ருதி தைவதம் (Shatsruti Dha)', ratio: 1.7818, west: 'Minor 7th' },
+        { sw: 'நி₁', name: 'சுத்த நிஷாதம் (Suddha Ni)', ratio: 1.6818, west: 'Major 6th' },
+        { sw: 'நி₂', name: 'கைசிகி நிஷாதம் (Kaisiki Ni)', ratio: 1.7818, west: 'Minor 7th' },
+        { sw: 'நி₃', name: 'காகலி நிஷாதம் (Kakali Ni)', ratio: 1.8877, west: 'Major 7th' },
+        { sw: 'ஸ்', name: 'தாரா ஸ்தாயி ஷட்ஜம் (Tara Sa)', ratio: 2.0, west: 'Octave' }
+    ];
+
+    function initAudioContext() {
+        if (!audioCtx) {
+            const AudioCtxClass = window.AudioContext || window.webkitAudioContext;
+            audioCtx = new AudioCtxClass();
+
+            masterGain = audioCtx.createGain();
+            masterGain.gain.setValueAtTime(0.5, audioCtx.currentTime);
+
+            analyserNode = audioCtx.createAnalyser();
+            analyserNode.fftSize = 2048;
+
+            masterGain.connect(analyserNode);
+            analyserNode.connect(audioCtx.destination);
+
+            drawOscilloscope();
+        }
+        if (audioCtx.state === 'suspended') {
+            audioCtx.resume();
+        }
+    }
+
+    // ==========================================
+    // 🗣️ MULTI-LINGUAL HUMAN VOICE SPEECH ENGINE
+    // ==========================================
+    let speechSynthVoices = [];
+    window._activeUtterances = [];
+
+    function initSpeechEngine() {
+        if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+            const loadV = () => {
+                speechSynthVoices = window.speechSynthesis.getVoices() || [];
+            };
+            loadV();
+            if (window.speechSynthesis.onvoiceschanged !== undefined) {
+                window.speechSynthesis.onvoiceschanged = loadV;
+            }
+        }
+    }
+    initSpeechEngine();
+
+    function speakText(textTa, textEn, pitch = 1.0) {
+        if (typeof window === 'undefined' || !('speechSynthesis' in window)) {
+            showToast(textTa || textEn);
+            return;
+        }
+
+        try {
+            if (window.speechSynthesis.paused) window.speechSynthesis.resume();
+            if (window.speechSynthesis.speaking || window.speechSynthesis.pending) {
+                window.speechSynthesis.cancel();
+            }
+
+            if (!speechSynthVoices || speechSynthVoices.length === 0) {
+                speechSynthVoices = window.speechSynthesis.getVoices() || [];
+            }
+
+            const tamilVoice = speechSynthVoices.find(v => v.lang && (v.lang.toLowerCase().includes('ta') || (v.name && v.name.toLowerCase().includes('tamil'))));
+            const indianVoice = speechSynthVoices.find(v => v.lang && (v.lang.toLowerCase().includes('in') || v.lang.toLowerCase().includes('hi') || (v.name && v.name.toLowerCase().includes('india'))));
+            const defaultVoice = speechSynthVoices[0] || null;
+
+            let voiceToUse = null;
+            let finalPhrase = '';
+
+            if (currentSpeechLang === 'ta') {
+                if (tamilVoice) {
+                    voiceToUse = tamilVoice;
+                    finalPhrase = textTa;
+                } else {
+                    voiceToUse = indianVoice || defaultVoice;
+                    finalPhrase = textEn;
+                }
+            } else {
+                voiceToUse = indianVoice || defaultVoice;
+                finalPhrase = textEn;
+            }
+
+            const utter = new SpeechSynthesisUtterance(finalPhrase);
+            if (voiceToUse) {
+                utter.voice = voiceToUse;
+                if (voiceToUse.lang) utter.lang = voiceToUse.lang;
+            }
+
+            utter.pitch = Math.min(2.0, Math.max(0.5, pitch));
+            utter.rate = 1.0;
+            utter.volume = 1.0;
+
+            window._activeUtterances.push(utter);
+            if (window._activeUtterances.length > 10) window._activeUtterances.shift();
+
+            utter.onend = () => {
+                const idx = window._activeUtterances.indexOf(utter);
+                if (idx !== -1) window._activeUtterances.splice(idx, 1);
+            };
+
+            window.speechSynthesis.speak(utter);
+            showToast(`🗣️ ${finalPhrase}`);
+
+        } catch(e) {
+            console.warn("Speech error:", e);
+        }
+    }
+
+    function speakCurrentFrequency() {
+        const freqFormatted = currentFrequency.toFixed(1);
+        const noteInfo = getNoteAndKattaiFromFreq(currentFrequency);
+
+        const textTa = `${freqFormatted} ஹெர்ட்ஸ். ${noteInfo.kattaiName}. ${noteInfo.swaraName}.`;
+        const textEn = `${freqFormatted} Hertz. ${noteInfo.noteName}. ${noteInfo.kattaiNameEn}. ${noteInfo.swaraNameEn}.`;
+
+        const pitchRatio = currentFrequency / 261.63;
+        speakText(textTa, textEn, pitchRatio);
+    }
+
+    // Convert frequency to Western Note, Carnatic Kattai & Swara
+    function getNoteAndKattaiFromFreq(freq) {
+        if (!freq || freq <= 0) return { noteName: '--', kattaiName: '--', swaraName: '--', swaraSymbol: '--', cents: 0, sthayi: '--' };
+        
+        const A4 = 440;
+        const exactSemitone = 12 * Math.log2(freq / A4);
+        const semitonesFromA4 = Math.round(exactSemitone);
+        const noteNames = ['A', 'A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#'];
+        const noteIndex = (semitonesFromA4 % 12 + 12) % 12;
+        const noteName = noteNames[noteIndex];
+        const octave = 4 + Math.floor((semitonesFromA4 + 9) / 12);
+
+        const centsDeviation = Math.round((exactSemitone - semitonesFromA4) * 100);
+
+        // Find closest base Kattai (modulo octave folding)
+        let closestKattai = KATTAI_PRESETS[0];
+        let minDiff = 999;
+        KATTAI_PRESETS.forEach(k => {
+            let f = freq;
+            while (f > 300) f /= 2.0;
+            while (f < 120) f *= 2.0;
+            const diff = Math.abs(k.freq - f);
+            if (diff < minDiff) {
+                minDiff = diff;
+                closestKattai = k;
+            }
+        });
+
+        // Determine Sthayi and ratio
+        let rawRatio = freq / closestKattai.freq;
+        let sthayiName = 'மத்தியம ஸ்தாயி (Mid Octave)';
+        let normRatio = rawRatio;
+
+        if (normRatio >= 1.95) {
+            sthayiName = 'தாரா ஸ்தாயி (High Octave)';
+            while (normRatio >= 1.95) normRatio /= 2.0;
+        } else if (normRatio < 0.95) {
+            sthayiName = 'மந்திர ஸ்தாயி (Low Octave)';
+            while (normRatio < 0.95) normRatio *= 2.0;
+        }
+
+        let closestSwara = SWARASTHANA_DEFS[0];
+        let minSwDiff = 999;
+        SWARASTHANA_DEFS.forEach(s => {
+            const diff = Math.abs(s.ratio - normRatio);
+            if (diff < minSwDiff) {
+                minSwDiff = diff;
+                closestSwara = s;
+            }
+        });
+
+        let swNameFull = closestSwara.sw;
+        if (octave >= 5) {
+            swNameFull = `${closestSwara.sw}̇ (${closestSwara.name.split('(')[0].trim()} - தாரா ஸ்தாயி)`;
+        } else if (octave <= 3) {
+            swNameFull = `${closestSwara.sw}̣ (${closestSwara.name.split('(')[0].trim()} - மந்திர ஸ்தாயி)`;
+        } else {
+            swNameFull = `${closestSwara.sw} (${closestSwara.name.split('(')[0].trim()})`;
+        }
+
+        return {
+            noteName: `${noteName}${octave}`,
+            noteOnly: noteName,
+            octave: octave,
+            kattaiName: `${closestKattai.kattai} கட்டை (${closestKattai.note})`,
+            kattaiNum: closestKattai.kattai,
+            kattaiNameEn: `${closestKattai.kattai} Kattai ${closestKattai.note}`,
+            swaraName: swNameFull,
+            swaraSymbol: closestSwara.sw,
+            swaraNameEn: closestSwara.west,
+            sthayi: sthayiName,
+            cents: centsDeviation
+        };
+    }
+
+    // ==========================================
+    // 🎹 TONE SYNTHESIS ENGINE
+    // ==========================================
+    function stopAllTones() {
+        activeOscillators.forEach(o => {
+            try { o.stop(); o.disconnect(); } catch(e) {}
+        });
+        activeOscillators = [];
+        isTonePlaying = false;
+        const btn = document.getElementById('btnToggleTone');
+        if (btn) {
+            btn.classList.remove('active-playing');
+            document.getElementById('playToneIcon').textContent = '▶️';
+            document.getElementById('playToneText').textContent = 'ஒலியை இயக்கு (Play Tone)';
+        }
+        document.getElementById('liveToneStatusBadge').textContent = 'ஒலி: நின்றது (Stopped)';
+
+        // Remove active pulse from sacred cards
+        document.querySelectorAll('.sacred-demo-card').forEach(c => c.classList.remove('playing-sacred-pulse'));
+    }
+
+    function toggleTonePlayback() {
+        initAudioContext();
+        if (isTonePlaying) {
+            stopAllTones();
+        } else {
+            playCurrentToneContinuous();
+        }
+    }
+
+    function playCurrentToneContinuous() {
+        initAudioContext();
+        stopAllTones();
+
+        const now = audioCtx.currentTime;
+        const freq = currentFrequency;
+        isTonePlaying = true;
+
+        const btn = document.getElementById('btnToggleTone');
+        if (btn) {
+            btn.classList.add('active-playing');
+            document.getElementById('playToneIcon').textContent = '⏸️';
+            document.getElementById('playToneText').textContent = 'நிறுத்து (Stop Tone)';
+        }
+        document.getElementById('liveToneStatusBadge').textContent = '🔊 ஒலி இயங்குகிறது (Playing)';
+
+        // Multi-Instrument Voice Dispatcher
+        if (currentToneVoice === 'vocal') {
+            const osc = audioCtx.createOscillator();
+            osc.type = 'sawtooth';
+            osc.frequency.setValueAtTime(freq, now);
+
+            const vib = audioCtx.createOscillator();
+            const vibG = audioCtx.createGain();
+            vib.frequency.setValueAtTime(5.5, now);
+            vibG.gain.setValueAtTime(freq * 0.009, now);
+            vib.connect(vibG);
+            vibG.connect(osc.frequency);
+            vib.start(now);
+
+            const f1 = audioCtx.createBiquadFilter(); f1.type = 'bandpass'; f1.frequency.setValueAtTime(800, now); f1.Q.setValueAtTime(4.5, now);
+            const f2 = audioCtx.createBiquadFilter(); f2.type = 'bandpass'; f2.frequency.setValueAtTime(1250, now); f2.Q.setValueAtTime(5.0, now);
+            const f3 = audioCtx.createBiquadFilter(); f3.type = 'bandpass'; f3.frequency.setValueAtTime(2600, now); f3.Q.setValueAtTime(6.0, now);
+
+            const g1 = audioCtx.createGain(); g1.gain.setValueAtTime(0.85, now);
+            const g2 = audioCtx.createGain(); g2.gain.setValueAtTime(0.40, now);
+            const g3 = audioCtx.createGain(); g3.gain.setValueAtTime(0.20, now);
+
+            osc.connect(f1); osc.connect(f2); osc.connect(f3);
+            f1.connect(g1); f2.connect(g2); f3.connect(g3);
+
+            g1.connect(masterGain); g2.connect(masterGain); g3.connect(masterGain);
+            osc.start(now);
+            activeOscillators.push(osc, vib);
+
+        } else if (currentToneVoice === 'piano') {
+            const osc1 = audioCtx.createOscillator(); osc1.type = 'triangle'; osc1.frequency.setValueAtTime(freq, now);
+            const osc2 = audioCtx.createOscillator(); osc2.type = 'sine'; osc2.frequency.setValueAtTime(freq * 2, now);
+            const g = audioCtx.createGain(); g.gain.setValueAtTime(0.6, now);
+            osc1.connect(g); osc2.connect(g); g.connect(masterGain);
+            osc1.start(now); osc2.start(now);
+            activeOscillators.push(osc1, osc2);
+
+        } else if (currentToneVoice === 'veena') {
+            const osc = audioCtx.createOscillator(); osc.type = 'sawtooth'; osc.frequency.setValueAtTime(freq, now);
+            const filter = audioCtx.createBiquadFilter(); filter.type = 'lowpass'; filter.frequency.setValueAtTime(1600, now);
+            osc.connect(filter); filter.connect(masterGain);
+            osc.start(now);
+            activeOscillators.push(osc);
+
+        } else if (currentToneVoice === 'flute') {
+            const osc = audioCtx.createOscillator(); osc.type = 'sine'; osc.frequency.setValueAtTime(freq, now);
+            const vib = audioCtx.createOscillator(); const vibG = audioCtx.createGain();
+            vib.frequency.setValueAtTime(5.2, now); vibG.gain.setValueAtTime(freq * 0.007, now);
+            vib.connect(vibG); vibG.connect(osc.frequency);
+            vib.start(now);
+            osc.connect(masterGain); osc.start(now);
+            activeOscillators.push(osc, vib);
+
+        } else if (currentToneVoice === 'tanpura') {
+            [freq * 0.75, freq, freq * 1.002, freq * 0.5].forEach(f => {
+                const osc = audioCtx.createOscillator(); osc.type = 'sawtooth'; osc.frequency.setValueAtTime(f, now);
+                const filter = audioCtx.createBiquadFilter(); filter.type = 'lowpass'; filter.frequency.setValueAtTime(650, now);
+                const g = audioCtx.createGain(); g.gain.setValueAtTime(0.35, now);
+                osc.connect(filter); filter.connect(g); g.connect(masterGain);
+                osc.start(now);
+                activeOscillators.push(osc);
+            });
+
+        } else if (currentToneVoice === 'harmonium') {
+            const osc = audioCtx.createOscillator(); osc.type = 'sawtooth'; osc.frequency.setValueAtTime(freq, now);
+            const filter = audioCtx.createBiquadFilter(); filter.type = 'bandpass'; filter.frequency.setValueAtTime(freq * 2, now); filter.Q.setValueAtTime(2.0, now);
+            osc.connect(filter); filter.connect(masterGain);
+            osc.start(now);
+            activeOscillators.push(osc);
+
+        } else {
+            const osc = audioCtx.createOscillator();
+            osc.type = (currentToneVoice === 'triangle' || currentToneVoice === 'sawtooth' || currentToneVoice === 'square') ? currentToneVoice : 'sine';
+            osc.frequency.setValueAtTime(freq, now);
+            osc.connect(masterGain);
+            osc.start(now);
+            activeOscillators.push(osc);
+        }
+    }
+
+    // ==========================================
+    // 🧘 SACRED MEDITATION DEMO PLAYER ENGINE
+    // ==========================================
+    function playSacredMeditationDemo(freq, cardId) {
+        initAudioContext();
+        stopAllTones();
+
+        updateFrequencyUI(freq);
+        isTonePlaying = true;
+
+        const now = audioCtx.currentTime;
+
+        // Highlight card with pulsing glow
+        document.querySelectorAll('.sacred-demo-card').forEach(c => c.classList.remove('playing-sacred-pulse'));
+        const activeCard = document.getElementById(cardId);
+        if (activeCard) activeCard.classList.add('playing-sacred-pulse');
+
+        const btn = document.getElementById('btnToggleTone');
+        if (btn) {
+            btn.classList.add('active-playing');
+            document.getElementById('playToneIcon').textContent = '⏸️';
+            document.getElementById('playToneText').textContent = 'நிறுத்து (Stop)';
+        }
+        document.getElementById('liveToneStatusBadge').textContent = `🧘 புனித தியான அலை: ${freq} Hz`;
+
+        // Sacred Multi-Harmonic Singing Bowl & Drone Generator
+        // 1. Fundamental Pure Sine
+        const osc1 = audioCtx.createOscillator();
+        osc1.type = 'sine';
+        osc1.frequency.setValueAtTime(freq, now);
+
+        // 2. Harmonic Overtone (Fifth ~ 1.5x)
+        const osc2 = audioCtx.createOscillator();
+        osc2.type = 'sine';
+        osc2.frequency.setValueAtTime(freq * 1.4983, now);
+
+        // 3. Octave Shimmer (2.0x) with subtle binaural detune
+        const osc3 = audioCtx.createOscillator();
+        osc3.type = 'sine';
+        osc3.frequency.setValueAtTime(freq * 2.0, now);
+        osc3.detune.setValueAtTime(2.5, now);
+
+        // 4. Sub-Foundation (0.5x)
+        const oscSub = audioCtx.createOscillator();
+        oscSub.type = 'sine';
+        oscSub.frequency.setValueAtTime(freq * 0.5, now);
+
+        // 5. Breathing LFO (0.12 Hz slow deep meditation swell)
+        const lfo = audioCtx.createOscillator();
+        const lfoGain = audioCtx.createGain();
+        lfo.frequency.setValueAtTime(0.12, now);
+        lfoGain.gain.setValueAtTime(0.08, now);
+        lfo.connect(lfoGain.gain);
+
+        const g1 = audioCtx.createGain(); g1.gain.setValueAtTime(0.55, now);
+        const g2 = audioCtx.createGain(); g2.gain.setValueAtTime(0.25, now);
+        const g3 = audioCtx.createGain(); g3.gain.setValueAtTime(0.15, now);
+        const gSub = audioCtx.createGain(); gSub.gain.setValueAtTime(0.35, now);
+
+        osc1.connect(g1);
+        osc2.connect(g2);
+        osc3.connect(g3);
+        oscSub.connect(gSub);
+
+        g1.connect(masterGain);
+        g2.connect(masterGain);
+        g3.connect(masterGain);
+        gSub.connect(masterGain);
+
+        osc1.start(now);
+        osc2.start(now);
+        osc3.start(now);
+        oscSub.start(now);
+        lfo.start(now);
+
+        activeOscillators.push(osc1, osc2, osc3, oscSub, lfo);
+
+        const data = SACRED_FREQUENCIES_DATA.find(d => Math.abs(d.freq - freq) < 0.1);
+        if (data) {
+            showToast(`🧘 ${data.nameTa} தியான அலை ஒலிக்கிறது!`);
+        }
+    }
+
+    function speakSacredFrequency(freq) {
+        const data = SACRED_FREQUENCIES_DATA.find(d => Math.abs(d.freq - freq) < 0.1);
+        if (!data) return;
+
+        const textTa = `${data.freq} ஹெர்ட்ஸ். ${data.nameTa}. ${data.desc}`;
+        const textEn = `${data.freq} Hertz. ${data.nameEn}. ${data.descEn}`;
+
+        speakText(textTa, textEn, freq / 261.63);
+    }
+
+    function renderSacredDemoCards() {
+        const container = document.getElementById('sacredDemoCardsGrid');
+        if (!container) return;
+        container.innerHTML = '';
+
+        SACRED_FREQUENCIES_DATA.forEach((s, idx) => {
+            const cardId = `sacred-card-${idx}`;
+            const card = document.createElement('div');
+            card.className = 'sacred-demo-card';
+            card.id = cardId;
+            card.style.setProperty('--chakra-color', s.color);
+            card.style.setProperty('--chakra-rgb', s.rgb);
+
+            card.innerHTML = `
+                <div class="sacred-card-top">
+                    <span class="sacred-chakra-badge">
+                        <span>${s.icon}</span>
+                        <span>${s.chakra}</span>
+                    </span>
+                    <span class="sacred-hz-badge">${s.freq} Hz</span>
+                </div>
+                <div class="sacred-title">${s.nameTa}</div>
+                <div class="sacred-desc">${s.desc}</div>
+                <div class="sacred-actions-row">
+                    <button type="button" class="btn-sacred-play" onclick="playSacredMeditationDemo(${s.freq}, '${cardId}')">
+                        <span>▶️</span>
+                        <span>தியான டெமோ</span>
+                    </button>
+                    <button type="button" class="btn-sacred-speak" onclick="speakSacredFrequency(${s.freq})">
+                        <span>🗣️ சொல்</span>
+                    </button>
+                </div>
+            `;
+            container.appendChild(card);
+        });
+    }
+
+    // ==========================================
+    // 🎛️ UI INTERACTION & FREQUENCY CONTROLS
+    // ==========================================
+    function updateFrequencyUI(freq) {
+        currentFrequency = Math.max(20, Math.min(20000, freq));
+
+        document.getElementById('displayFreqVal').textContent = currentFrequency.toFixed(2);
+        document.getElementById('sliderValLabel').textContent = currentFrequency.toFixed(1) + ' Hz';
+        document.getElementById('freqSlider').value = currentFrequency;
+
+        const info = getNoteAndKattaiFromFreq(currentFrequency);
+        document.getElementById('displayNoteTag').textContent = `🎵 ${info.noteName}`;
+        document.getElementById('displayKattaiTag').textContent = `🪕 ${info.kattaiName}`;
+        document.getElementById('displaySwaraTag').textContent = `${info.swaraName.split(' ')[0]}`;
+
+        renderSwaraTable();
+
+        if (isTonePlaying) {
+            playCurrentToneContinuous();
+        }
+    }
+
+    function onSliderFreqChange(val) {
+        updateFrequencyUI(parseFloat(val));
+    }
+
+    function adjustFrequency(delta) {
+        updateFrequencyUI(currentFrequency + delta);
+    }
+
+    function adjustSemitone(semitones) {
+        const newFreq = currentFrequency * Math.pow(2, semitones / 12);
+        updateFrequencyUI(newFreq);
+    }
+
+    function adjustOctave(octaves) {
+        const newFreq = currentFrequency * Math.pow(2, octaves);
+        updateFrequencyUI(newFreq);
+    }
+
+    function adjustCent(cents) {
+        const newFreq = currentFrequency * Math.pow(2, cents / 1200);
+        updateFrequencyUI(newFreq);
+    }
+
+    function setExactFrequency(freq, noteTag, kattaiTag, swaraTag) {
+        updateFrequencyUI(freq);
+        speakCurrentFrequency();
+    }
+
+    function setToneVoice(v) {
+        currentToneVoice = v;
+        if (isTonePlaying) playCurrentToneContinuous();
+        showToast(`ஒலி வாத்தியம்: ${v.toUpperCase()}`);
+    }
+
+    function setSpeechLanguage(l) {
+        currentSpeechLang = l;
+        showToast(`குரல் மொழி: ${l === 'ta' ? 'தமிழ் (Tamil)' : 'English'}`);
+    }
+
+    // Populate 12 Kattai Grid
+    function renderKattaiGrid() {
+        const container = document.getElementById('kattaiGridContainer');
+        container.innerHTML = '';
+
+        KATTAI_PRESETS.forEach(k => {
+            const btn = document.createElement('div');
+            btn.className = 'kattai-card-btn';
+            btn.id = `kattai-btn-${k.kattai}`;
+            btn.onclick = () => {
+                document.querySelectorAll('.kattai-card-btn').forEach(b => b.classList.remove('active-kattai'));
+                btn.classList.add('active-kattai');
+                setExactFrequency(k.freq, `${k.note} (${k.kattai} கட்டை)`, `${k.kattai} கட்டை`, 'ஆதார ஷட்ஜம்');
+            };
+
+            btn.innerHTML = `
+                <div class="kattai-name">${k.kattai} கட்டை</div>
+                <div class="kattai-note">${k.note}</div>
+                <div class="kattai-freq">${k.freq.toFixed(1)} Hz</div>
+            `;
+            container.appendChild(btn);
+        });
+    }
+
+    // Populate 16 Swarasthanas Table
+    function renderSwaraTable() {
+        const tbody = document.getElementById('swaraTableBody');
+        tbody.innerHTML = '';
+
+        let closestKattai = KATTAI_PRESETS[0];
+        let minDiff = 999;
+        KATTAI_PRESETS.forEach(k => {
+            const diff = Math.abs(k.freq - currentFrequency);
+            if (diff < minDiff) {
+                minDiff = diff;
+                closestKattai = k;
+            }
+        });
+
+        document.getElementById('activeSwaraTableKattaiLabel').textContent = `${closestKattai.kattai} கட்டை (${closestKattai.note} - ${closestKattai.freq.toFixed(1)} Hz)`;
+
+        SWARASTHANA_DEFS.forEach((swDef, idx) => {
+            const tr = document.createElement('tr');
+            const swFreq = closestKattai.freq * swDef.ratio;
+            const isCurrent = Math.abs(currentFrequency - swFreq) < 0.5;
+
+            if (isCurrent) tr.className = 'active-row';
+
+            tr.onclick = () => {
+                setExactFrequency(swFreq, `${closestKattai.note} + ${swDef.west}`, `${closestKattai.kattai} கட்டை`, swDef.sw);
+            };
+
+            tr.innerHTML = `
+                <td style="font-weight: 900; color: #facc15; font-size: 14px;">${swDef.sw}</td>
+                <td style="font-weight: 600;">${swDef.name}</td>
+                <td style="font-family: monospace; color: #94a3b8;">${swDef.ratio.toFixed(4)}x</td>
+                <td style="font-family: monospace; color: #38bdf8; font-weight: 800;">${swFreq.toFixed(1)} Hz</td>
+                <td><button type="button" class="btn-table-play">▶ கேளு</button></td>
+            `;
+            tbody.appendChild(tr);
+        });
+    }
+
+    // ==========================================
+    // 📊 LIVE OSCILLOSCOPE DRAWING
+    // ==========================================
+    function drawOscilloscope() {
+        const canvas = document.getElementById('oscilloscopeCanvas');
+        if (!canvas || !analyserNode) return;
+
+        const ctx = canvas.getContext('2d');
+        const bufferLength = analyserNode.frequencyBinCount;
+        const dataArray = new Uint8Array(bufferLength);
+
+        function render() {
+            requestAnimationFrame(render);
+            canvas.width = canvas.parentElement.clientWidth;
+            canvas.height = canvas.parentElement.clientHeight;
+
+            analyserNode.getByteTimeDomainData(dataArray);
+
+            ctx.fillStyle = '#020617';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.05)';
+            ctx.lineWidth = 1;
+            for (let x = 0; x < canvas.width; x += 40) {
+                ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, canvas.height); ctx.stroke();
+            }
+            for (let y = 0; y < canvas.height; y += 30) {
+                ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(canvas.width, y); ctx.stroke();
+            }
+
+            ctx.lineWidth = 2.5;
+            ctx.strokeStyle = '#38bdf8';
+            ctx.shadowColor = '#0284c7';
+            ctx.shadowBlur = 10;
+            ctx.beginPath();
+
+            const sliceWidth = canvas.width / bufferLength;
+            let x = 0;
+
+            for (let i = 0; i < bufferLength; i++) {
+                const v = dataArray[i] / 128.0;
+                const y = (v * canvas.height) / 2;
+
+                if (i === 0) ctx.moveTo(x, y);
+                else ctx.lineTo(x, y);
+
+                x += sliceWidth;
+            }
+
+            ctx.lineTo(canvas.width, canvas.height / 2);
+            ctx.stroke();
+            ctx.shadowBlur = 0;
+        }
+        render();
+    }
+
+    // ===================================================
+    // 🎤 HIGH-PRECISION UNIVERSAL INSTRUMENT & VOCAL PITCH ENGINE
+    // ===================================================
+    let isMicActive = false;
+    let micStream = null;
+    let micAnalyser = null;
+    let micSensitivityMode = 'normal'; // 'high', 'normal', 'low'
+    let rmsThreshold = 0.0018;
+    let micRawHistory = [];
+    let stableHoldHistory = [];
+    let determinedPitch = 0;
+    let lastDeterminedNoteKey = '';
+    let isLockedDetermined = false;
+    let prevRMS = 0;
+    let lastLockedTime = 0;
+    let recentFreqBuffer = [];
+
+    function setMicSensitivity(mode) {
+        micSensitivityMode = mode;
+        if (mode === 'high') {
+            rmsThreshold = 0.0007; // ultra sensitive for acoustic instruments, soft plucks, flutes
+        } else if (mode === 'low') {
+            rmsThreshold = 0.0050; // noise gate for loud/noisy environment
+        } else {
+            rmsThreshold = 0.0018; // standard balanced mode
+        }
+        document.querySelectorAll('.btn-mic-sens').forEach(b => b.classList.remove('active-sens'));
+        if (mode === 'high') document.getElementById('sensHighBtn')?.classList.add('active-sens');
+        else if (mode === 'low') document.getElementById('sensLowBtn')?.classList.add('active-sens');
+        else document.getElementById('sensNormBtn')?.classList.add('active-sens');
+        showToast(`🎚️ மைக்ரோஃபோன் உணர்திறன்: ${mode === 'high' ? 'அதி-உணர்திறன் (High / Acoustic)' : (mode === 'low' ? 'இரைச்சல் வடிகட்டி (Noise Filter)' : 'இயல்பான நிலை (Normal)')}`);
+    }
+
+    async function toggleMicrophone() {
+        initAudioContext();
+        if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+            window.speechSynthesis.cancel();
+        }
+        const btn = document.getElementById('btnToggleMic');
+        const statusTag = document.getElementById('micStatusTag');
+        const liveBadge = document.getElementById('micLiveStreamBadge');
+
+        if (isMicActive) {
+            isMicActive = false;
+            if (micStream) {
+                micStream.getTracks().forEach(t => t.stop());
+                micStream = null;
+            }
+            btn.textContent = '🎤 மைக் தொடங்கு';
+            btn.style.background = '#10b981';
+            statusTag.textContent = 'மைக்: ஆஃப்';
+            if (liveBadge) liveBadge.textContent = 'காத்திருக்கிறது...';
+            document.getElementById('micLiveHz').textContent = '--.-';
+            document.getElementById('micLiveHz').classList.remove('active-stream');
+            document.getElementById('micSignalFill').style.width = '0%';
+            document.getElementById('micStabilityFill').style.width = '0%';
+            const needle = document.getElementById('micLiveNeedle');
+            if (needle) {
+                needle.style.left = '50%';
+                needle.classList.remove('in-tune');
+            }
+        } else {
+            try {
+                // Studio uncompressed audio constraints - disables browser voice noise-suppression/AEC so instruments retain full harmonics
+                let stream = null;
+                try {
+                    stream = await navigator.mediaDevices.getUserMedia({
+                        audio: {
+                            echoCancellation: false,
+                            noiseSuppression: false,
+                            autoGainControl: false,
+                            channelCount: 1
+                        }
+                    });
+                } catch(e) {
+                    stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                }
+
+                micStream = stream;
+                isMicActive = true;
+                btn.textContent = '⏹️ மைக் நிறுத்து';
+                btn.style.background = '#ef4444';
+                statusTag.textContent = '🎙️ மைக் கேட்கிறது';
+                if (liveBadge) liveBadge.textContent = 'ஒலி கேட்கிறது (Active)';
+
+                const micSource = audioCtx.createMediaStreamSource(micStream);
+                micAnalyser = audioCtx.createAnalyser();
+                micAnalyser.fftSize = 4096; // High resolution analysis down to 25 Hz
+                micAnalyser.smoothingTimeConstant = 0.0;
+                micSource.connect(micAnalyser);
+
+                micRawHistory = [];
+                stableHoldHistory = [];
+                recentFreqBuffer = [];
+                prevRMS = 0;
+                lastLockedTime = 0;
+                detectMicPitchLoop();
+                showToast('🎤 மைக்ரோஃபோன் இயங்குகிறது! எந்தவொரு கருவியையும் வாசிக்கவும் அல்லது பாடவும்.');
+            } catch(e) {
+                alert('மைக்ரோஃபோன் அனுமதி பிழை: ' + e.message);
+            }
+        }
+    }
+
+    function resetPitchDetermination() {
+        micRawHistory = [];
+        stableHoldHistory = [];
+        recentFreqBuffer = [];
+        strikeHistory = [];
+        totalStrikeCount = 0;
+        strikeState = 'IDLE';
+        strikeSettlingBuffer = [];
+        activeStrikeFreq = 0;
+        activeStrikeNoteKey = '';
+        determinedPitch = 0;
+        lastDeterminedNoteKey = '';
+        isLockedDetermined = false;
+
+        document.getElementById('detResultHz').textContent = '--.-';
+        document.getElementById('detResultNoteVal').textContent = '--';
+        document.getElementById('detResultKattaiVal').textContent = '--';
+        document.getElementById('detResultSwaraVal').textContent = '--';
+        document.getElementById('detResultCent').textContent = '-- Cents';
+        document.getElementById('micLockStatusBadge').textContent = '🔒 காத்திருக்கிறது';
+        document.getElementById('micDeterminedResultCard').classList.remove('locked-result-glow');
+        const countBadge = document.getElementById('strikeCountBadge');
+        if (countBadge) countBadge.textContent = '0 அடிகளானது';
+        const container = document.getElementById('recentStrikesChips');
+        if (container) container.innerHTML = '<span style="font-size: 11px; color: #64748b; font-style: italic;">இசைக்கருவியை வாசிக்கும் போது ஒவ்வொரு அடியும் (C5, G4, E4...) உடனுக்குடன் இங்கே தொடராகப் பதிவாகும்...</span>';
+
+        const needle = document.getElementById('micLiveNeedle');
+        if (needle) {
+            needle.style.left = '50%';
+            needle.classList.remove('in-tune');
+        }
+
+        showToast('🔄 பிட்ச் முடிவு ரீசெட் செய்யப்பட்டது.');
+    }
+
+    // ===================================================
+    // 🎤 GOLD-STANDARD YIN PITCH DETECTION ENGINE
+    // (de Cheveigné & Kawahara - World-Standard Anti-Harmonic-Error Engine)
+    // ===================================================
+    function detectPitchYIN(buffer, sampleRate, rms) {
+        if (rms < rmsThreshold) return { freq: -1, clarity: 0 };
+
+        const SIZE = buffer.length;
+        const W = Math.floor(SIZE / 2);
+        // Detect full instrumental range: 25 Hz (Low Contra-Bass) up to 4200 Hz (High C8)
+        const tauMin = Math.max(4, Math.floor(sampleRate / 4200));
+        const tauMax = Math.min(W - 1, Math.floor(sampleRate / 25));
+
+        const d = new Float32Array(tauMax + 1);
+
+        // Step 1: Difference Function
+        for (let tau = 1; tau <= tauMax; tau++) {
+            let sum = 0;
+            for (let j = 0; j < W; j++) {
+                const diff = buffer[j] - buffer[j + tau];
+                sum += diff * diff;
+            }
+            d[tau] = sum;
+        }
+
+        // Step 2: Cumulative Mean Normalized Difference Function (CMNDF)
+        const dPrime = new Float32Array(tauMax + 1);
+        dPrime[0] = 1.0;
+        let runningSum = 0;
+        for (let tau = 1; tau <= tauMax; tau++) {
+            runningSum += d[tau];
+            dPrime[tau] = runningSum > 0 ? (d[tau] * tau) / runningSum : 1.0;
+        }
+
+        // Step 3: Absolute Thresholding (Find first dip below 0.15 threshold)
+        // This completely eliminates Octave Doubling, 5th harmonic error & wrong note jumping
+        const threshold = 0.15;
+        let chosenTau = -1;
+
+        for (let tau = tauMin; tau < tauMax; tau++) {
+            if (dPrime[tau] < threshold) {
+                while (tau + 1 < tauMax && dPrime[tau + 1] < dPrime[tau]) {
+                    tau++;
+                }
+                chosenTau = tau;
+                break;
+            }
+        }
+
+        // If no dip below threshold (e.g. noisy room or soft acoustic instrument), pick global minimum
+        if (chosenTau === -1) {
+            let minVal = 999;
+            let minTau = -1;
+            for (let tau = tauMin; tau < tauMax; tau++) {
+                if (dPrime[tau] < minVal) {
+                    minVal = dPrime[tau];
+                    minTau = tau;
+                }
+            }
+            if (minVal > 0.60) return { freq: -1, clarity: 0 };
+            chosenTau = minTau;
+        }
+
+        if (chosenTau <= 0 || chosenTau >= tauMax) return { freq: -1, clarity: 0 };
+
+        // Step 4: 3-Point Parabolic Interpolation for exact fractional pitch
+        const tau = chosenTau;
+        let betterTau = tau;
+        if (tau > 0 && tau < tauMax) {
+            const s0 = dPrime[tau - 1];
+            const s1 = dPrime[tau];
+            const s2 = dPrime[tau + 1];
+            const denom = 2 * (s0 - 2 * s1 + s2);
+            if (Math.abs(denom) > 0.000001) {
+                const delta = (s0 - s2) / denom;
+                betterTau = tau + delta;
+            }
+        }
+
+        const trueFreq = sampleRate / betterTau;
+        const clarity = Math.max(0, Math.min(1.0, 1.0 - dPrime[chosenTau]));
+
+        return { freq: trueFreq, clarity: clarity };
+    }
+
+    let strikeHistory = [];
+    let totalStrikeCount = 0;
+    let strikeState = 'IDLE'; // 'IDLE', 'SETTLING', 'SUSTAIN'
+    let strikeSettlingBuffer = [];
+    let lastStrikeEmitTime = 0;
+    let activeStrikeFreq = 0;
+    let activeStrikeNoteKey = '';
+    let flashTimeout = null;
+
+    function flashStrikeIndicator() {
+        const badge = document.getElementById('strikeFlashBadge');
+        if (!badge) return;
+        badge.classList.add('flash-active');
+        badge.textContent = '⚡ அடி பிடித்தது!';
+        if (flashTimeout) clearTimeout(flashTimeout);
+        flashTimeout = setTimeout(() => {
+            badge.classList.remove('flash-active');
+            badge.textContent = '⚡ அடி உணரி';
+        }, 220);
+    }
+
+    function recordStrikeHit(freq, info) {
+        totalStrikeCount++;
+        const countBadge = document.getElementById('strikeCountBadge');
+        if (countBadge) countBadge.textContent = `${totalStrikeCount} அடிகளானது`;
+
+        const hitItem = {
+            id: totalStrikeCount,
+            hz: freq.toFixed(1),
+            note: info.noteName,
+            kattai: info.kattaiName,
+            swara: info.swaraSymbol,
+            cents: info.cents
+        };
+
+        strikeHistory.unshift(hitItem);
+        if (strikeHistory.length > 7) strikeHistory.pop();
+
+        const container = document.getElementById('recentStrikesChips');
+        if (container) {
+            container.innerHTML = strikeHistory.map((h, idx) => `
+                <div class="strike-chip ${idx === 0 ? 'newest-chip' : ''}">
+                    <span>#${h.id}</span>
+                    <strong style="color: #60a5fa;">${h.note}</strong>
+                    <span style="color: #cbd5e1; font-family: monospace;">${h.hz}Hz</span>
+                    <span style="color: #f472b6; font-size: 10px;">${h.kattai}</span>
+                    <span style="color: #fde047; font-size: 10px;">${h.swara}</span>
+                </div>
+            `).join('');
+        }
+    }
+
+    function detectMicPitchLoop() {
+        if (!isMicActive || !micAnalyser) return;
+        const buffer = new Float32Array(micAnalyser.fftSize);
+        micAnalyser.getFloatTimeDomainData(buffer);
+
+        let rms = 0;
+        for (let i = 0; i < buffer.length; i++) {
+            rms += buffer[i] * buffer[i];
+        }
+        rms = Math.sqrt(rms / buffer.length);
+
+        // Responsive VU volume meter scale
+        const signalPercent = Math.min(100, Math.round(rms * 600));
+        document.getElementById('micSignalPercent').textContent = signalPercent + '%';
+        document.getElementById('micSignalFill').style.width = signalPercent + '%';
+
+        const dRMS = rms - prevRMS;
+        prevRMS = rms;
+
+        const pitchResult = detectPitchYIN(buffer, audioCtx.sampleRate, rms);
+        const clarityPercent = Math.round(pitchResult.clarity * 100);
+        document.getElementById('micStabilityPercent').textContent = clarityPercent + '%';
+        document.getElementById('micStabilityFill').style.width = clarityPercent + '%';
+
+        const nowMs = Date.now();
+        const needleEl = document.getElementById('micLiveNeedle');
+
+        if (pitchResult.freq >= 25 && pitchResult.freq <= 4200 && pitchResult.clarity >= 0.40) {
+            let freq = pitchResult.freq;
+
+            // Running median filter of 3 samples for rock-solid live display
+            recentFreqBuffer.push(freq);
+            if (recentFreqBuffer.length > 3) recentFreqBuffer.shift();
+            const sortedBuf = [...recentFreqBuffer].sort((a,b) => a - b);
+            const smoothedFreq = sortedBuf[Math.floor(sortedBuf.length / 2)];
+
+            const liveHzEl = document.getElementById('micLiveHz');
+            liveHzEl.textContent = smoothedFreq.toFixed(1);
+            liveHzEl.classList.add('active-stream');
+
+            const liveNoteInfo = getNoteAndKattaiFromFreq(smoothedFreq);
+            document.getElementById('micLiveNote').textContent = `${liveNoteInfo.noteName} • ${liveNoteInfo.kattaiName} • ${liveNoteInfo.swaraSymbol}`;
+
+            // Update real-time cents needle (-50 to +50 cents mapped to 5% to 95%)
+            if (needleEl) {
+                const clampedCent = Math.max(-50, Math.min(50, liveNoteInfo.cents));
+                const needlePosPercent = 50 + (clampedCent / 50) * 45;
+                needleEl.style.left = `${needlePosPercent}%`;
+                if (Math.abs(liveNoteInfo.cents) <= 6) {
+                    needleEl.classList.add('in-tune');
+                } else {
+                    needleEl.classList.remove('in-tune');
+                }
+            }
+
+            // =================================================================
+            // 🎯 ROCK-SOLID 1-HIT = 1-NOTE STRIKE STATE MACHINE
+            // (Prevents ringing decay from triggering 10 multiple duplicate notes!)
+            // =================================================================
+            const isAttackTransient = (dRMS > 0.005 && rms > 0.008);
+            const isNewDistinctNote = (activeStrikeFreq > 0 && Math.abs(smoothedFreq - activeStrikeFreq) / activeStrikeFreq > 0.04 && (nowMs - lastStrikeEmitTime > 80));
+
+            // Start settling for a new strike
+            if (isAttackTransient || isNewDistinctNote || strikeState === 'IDLE') {
+                if (nowMs - lastStrikeEmitTime > 70) {
+                    strikeState = 'SETTLING';
+                    strikeSettlingBuffer = [];
+                    lastStrikeEmitTime = nowMs;
+                }
+            }
+
+            // Collect 3 stable frames (40-60ms after strike) to capture pure resonant fundamental
+            if (strikeState === 'SETTLING') {
+                strikeSettlingBuffer.push(smoothedFreq);
+                if (strikeSettlingBuffer.length >= 3) {
+                    const sortedSettled = [...strikeSettlingBuffer].sort((a,b) => a - b);
+                    const finalStrikeHz = sortedSettled[Math.floor(sortedSettled.length / 2)];
+                    const finalInfo = getNoteAndKattaiFromFreq(finalStrikeHz);
+
+                    activeStrikeFreq = finalStrikeHz;
+                    activeStrikeNoteKey = finalInfo.noteName;
+                    strikeState = 'SUSTAIN'; // Hold this note firmly, do NOT re-trigger while ringing!
+
+                    flashStrikeIndicator();
+                    lockDeterminedPitch(finalStrikeHz);
+                    recordStrikeHit(finalStrikeHz, finalInfo);
+                }
+            }
+        } else {
+            if (rms < rmsThreshold) {
+                document.getElementById('micLiveHz').classList.remove('active-stream');
+                document.getElementById('micStabilityPercent').textContent = '0%';
+                document.getElementById('micStabilityFill').style.width = '0%';
+                if (needleEl) {
+                    needleEl.style.left = '50%';
+                    needleEl.classList.remove('in-tune');
+                }
+                // Return to IDLE when sound fades to silence
+                if (strikeState === 'SUSTAIN' && (nowMs - lastStrikeEmitTime > 300)) {
+                    strikeState = 'IDLE';
+                    activeStrikeFreq = 0;
+                }
+            }
+        }
+
+        requestAnimationFrame(detectMicPitchLoop);
+    }
+
+    function lockDeterminedPitch(stableHz) {
+        determinedPitch = stableHz;
+        isLockedDetermined = true;
+
+        const info = getNoteAndKattaiFromFreq(stableHz);
+
+        document.getElementById('detResultHz').textContent = stableHz.toFixed(1);
+        document.getElementById('detResultNoteVal').textContent = `${info.noteName} (${info.sthayi.split(' ')[0]})`;
+        document.getElementById('detResultKattaiVal').textContent = info.kattaiName;
+        document.getElementById('detResultSwaraVal').textContent = info.swaraName;
+
+        const centStr = (info.cents >= 0 ? `+${info.cents}` : `${info.cents}`) + ' Cents';
+        const centBadge = document.getElementById('detResultCent');
+        centBadge.textContent = `${centStr} (${Math.abs(info.cents) <= 6 ? 'துல்லியமான சுருதி ⭐' : 'சிறிது விலகல்'})`;
+        centBadge.style.color = Math.abs(info.cents) <= 6 ? '#34d399' : (Math.abs(info.cents) <= 18 ? '#facc15' : '#f87171');
+
+        document.getElementById('micLockStatusBadge').textContent = '🔒 உறுதி செய்யப்பட்டது (Locked)';
+        document.getElementById('micDeterminedResultCard').classList.add('locked-result-glow');
+    }
+
+    function speakDeterminedResult() {
+        if (determinedPitch <= 0) {
+            showToast('⚠️ முதலில் மைக் மூலம் பாடி சுருதியை உறுதிப்படுத்தவும்.');
+            return;
+        }
+
+        const info = getNoteAndKattaiFromFreq(determinedPitch);
+        const freqFormatted = determinedPitch.toFixed(1);
+
+        const textTa = `கண்டறியப்பட்ட சுருதி: ${info.noteName}. ${freqFormatted} ஹெர்ட்ஸ். ${info.kattaiName}. ${info.swaraName}.`;
+        const textEn = `Determined Pitch: ${info.noteName}. ${freqFormatted} Hertz. ${info.kattaiNameEn}. ${info.swaraNameEn}.`;
+
+        const pitchRatio = determinedPitch / 261.63;
+        speakText(textTa, textEn, pitchRatio);
+    }
+
+    function playDeterminedResult() {
+        if (determinedPitch <= 0) {
+            showToast('⚠️ முதலில் மைக் மூலம் பாடி சுருதியை உறுதிப்படுத்தவும்.');
+            return;
+        }
+        updateFrequencyUI(determinedPitch);
+        playCurrentToneContinuous();
+    }
+
+    function showToast(msg) {
+        let toast = document.getElementById('studioToast');
+        if (toast) {
+            toast.innerHTML = msg;
+            toast.style.opacity = '1';
+            setTimeout(() => { toast.style.opacity = '0'; }, 2500);
+        }
+    }
+
+    // ===================================================
+    // 🎧 AUTOMATED FREQUENCY DEMO & TOUR ENGINE
+    // ===================================================
+    let isDemoTourRunning = false;
+    let currentDemoTourType = null;
+    let currentDemoTourSteps = [];
+    let currentDemoStepIndex = 0;
+    let demoStepTimer = null;
+    let demoSweepInterval = null;
+
+    const MASTER_DEMO_TOUR_STEPS = [
+        { 
+            freq: 108.0, 
+            voice: 'sine', 
+            isSacred: true,
+            cardId: 'sacred-card-0',
+            titleTa: '108 Hz • வேத ஓம் பிரணவ நாதம்', 
+            titleEn: '108 Hz • Vedic OM Cosmic Tone', 
+            descTa: '108 ஹெர்ட்ஸ் வேத பிரணவ நாதம். ஆழ்ந்த தியானம் மற்றும் பிரபஞ்ச அமைதி.', 
+            descEn: '108 Hertz Vedic OM cosmic tone for deep meditation.',
+            dur: 6000 
+        },
+        { 
+            freq: 130.81, 
+            voice: 'vocal', 
+            titleTa: '130.81 Hz • 1 கட்டை (C3 Sa - ஆண் குரல்)', 
+            titleEn: '130.81 Hz • 1 Kattai C3 Base Sa', 
+            descTa: '1 கட்டை ஆண் அடிக்குரல் ஆதார ஷட்ஜம் ஸ.', 
+            descEn: '1 Kattai C3 Base Sa for male bass singing.',
+            dur: 5500 
+        },
+        { 
+            freq: 138.59, 
+            voice: 'vocal', 
+            titleTa: '138.59 Hz • 1½ கட்டை (C#3 Sa - நிலையான சுருதி)', 
+            titleEn: '138.59 Hz • 1.5 Kattai C#3 Standard Sa', 
+            descTa: '1½ கட்டை கர்நாடக இசை நிலையான ஆதார ஷட்ஜம் ஸ.', 
+            descEn: '1.5 Kattai C-sharp 3 standard Carnatic base pitch Sa.',
+            dur: 5500 
+        },
+        { 
+            freq: 174.61, 
+            voice: 'flute', 
+            titleTa: '174.61 Hz • 4 கட்டை (F3 Ma / புல்லாங்குழல்)', 
+            titleEn: '174.61 Hz • 4 Kattai F3 Bamboo Flute Ma', 
+            descTa: '4 கட்டை சுத்த மத்யமம் மற்றும் புல்லாங்குழல் வேணு நாதம்.', 
+            descEn: '4 Kattai F3 Suddha Madhyamam and bamboo flute tone.',
+            dur: 5500 
+        },
+        { 
+            freq: 196.00, 
+            voice: 'veena', 
+            titleTa: '196.00 Hz • 5 கட்டை (G3 Pa / சரஸ்வதி வீணை)', 
+            titleEn: '196.00 Hz • 5 Kattai G3 Veena Panchamam', 
+            descTa: '5 கட்டை பஞ்சமம் மற்றும் சரஸ்வதி வீணை நாதம்.', 
+            descEn: '5 Kattai G3 Panchamam and Saraswati Veena acoustic resonance.',
+            dur: 5500 
+        },
+        { 
+            freq: 220.00, 
+            voice: 'tanpura', 
+            titleTa: '220.00 Hz • 6 கட்டை (A3 / தம்புரா)', 
+            titleEn: '220.00 Hz • 6 Kattai A3 Tanpura Drone', 
+            descTa: '6 கட்டை தம்புரா நாதம் மற்றும் சிறுமியர் சுருதி.', 
+            descEn: '6 Kattai A3 Classical Tanpura Drone resonance.',
+            dur: 5500 
+        },
+        { 
+            freq: 432.00, 
+            voice: 'piano', 
+            isSacred: true,
+            cardId: 'sacred-card-1',
+            titleTa: '432 Hz • வெர்டி பிரபஞ்ச இயற்கை சுருதி', 
+            titleEn: '432 Hz • Verdi Universal Pitch', 
+            descTa: '432 ஹெர்ட்ஸ் இயற்கை பிரபஞ்ச இசை மற்றும் மன அமைதி சுருதி.', 
+            descEn: '432 Hertz Verdi natural frequency for peace and emotional clarity.',
+            dur: 6000 
+        },
+        { 
+            freq: 528.00, 
+            voice: 'vocal', 
+            isSacred: true,
+            cardId: 'sacred-card-2',
+            titleTa: '528 Hz • அதிசய அலை & DNA மாற்றம்', 
+            titleEn: '528 Hz • Solfeggio Miracle Frequency', 
+            descTa: '528 ஹெர்ட்ஸ் அதிசய அதிர்வலை மற்றும் புதுப்பித்தல் ஆற்றல்.', 
+            descEn: '528 Hertz Solfeggio miracle transformation frequency.',
+            dur: 6000 
+        },
+        { 
+            freq: 639.00, 
+            voice: 'harmonium', 
+            isSacred: true,
+            cardId: 'sacred-card-5',
+            titleTa: '639 Hz • அனாகத இதய சக்கர சுருதி', 
+            titleEn: '639 Hz • Heart Chakra Connection', 
+            descTa: '639 ஹெர்ட்ஸ் அனாகத சக்கரம், இதய பிணைப்பு மற்றும் அன்பு சுருதி.', 
+            descEn: '639 Hertz Heart Chakra tone for love and harmonious connection.',
+            dur: 6000 
+        },
+        { 
+            freq: 852.00, 
+            voice: 'sine', 
+            isSacred: true,
+            cardId: 'sacred-card-7',
+            titleTa: '852 Hz • ஆக்ஞா மூன்றாம் கண் ஞான சுருதி', 
+            titleEn: '852 Hz • Third Eye Chakra Intuition', 
+            descTa: '852 ஹெர்ட்ஸ் ஆக்ஞா சக்கரம், மூன்றாம் கண் விழிப்புணர்வு மற்றும் ஆன்மீக அமைதி.', 
+            descEn: '852 Hertz Third Eye Chakra intuition and spiritual clarity.',
+            dur: 6000 
+        },
+        { 
+            freq: 963.00, 
+            voice: 'jalatharangam', 
+            isSacred: true,
+            cardId: 'sacred-card-8',
+            titleTa: '963 Hz • சகஸ்ரார பிரபஞ்ச மணி நாதம்', 
+            titleEn: '963 Hz • Crown Chakra Divine Resonance', 
+            descTa: '963 ஹெர்ட்ஸ் சகஸ்ரார சக்கர மணி நாதம் மற்றும் பிரபஞ்ச பேரறிவு.', 
+            descEn: '963 Hertz Crown Chakra pure divine consciousness bell tone.',
+            dur: 6000 
+        }
+    ];
+
+    function stopDemoTour() {
+        if (demoStepTimer) {
+            clearTimeout(demoStepTimer);
+            demoStepTimer = null;
+        }
+        if (demoSweepInterval) {
+            clearInterval(demoSweepInterval);
+            demoSweepInterval = null;
+        }
+        isDemoTourRunning = false;
+        currentDemoTourType = null;
+        currentDemoStepIndex = 0;
+
+        document.querySelectorAll('.btn-demo-tour').forEach(b => b.classList.remove('active-demo-running'));
+        const hud = document.getElementById('demoRunningHud');
+        if (hud) hud.classList.remove('hud-visible');
+
+        stopAllTones();
+        showToast('⏹️ அதிர்வெண் டெமோ நிறுத்தப்பட்டது.');
+    }
+
+    function startMasterFrequencyTour() {
+        stopDemoTour();
+        initAudioContext();
+
+        isDemoTourRunning = true;
+        currentDemoTourType = 'master';
+        currentDemoTourSteps = MASTER_DEMO_TOUR_STEPS;
+        currentDemoStepIndex = 0;
+
+        const hud = document.getElementById('demoRunningHud');
+        if (hud) hud.classList.add('hud-visible');
+
+        const btn = document.getElementById('btnDemoMaster');
+        if (btn) btn.classList.add('active-demo-running');
+
+        showToast('🌟 முழு அதிர்வெண் வழிகாட்டப்பட்ட டெமோ தொடங்குகிறது!');
+        executeCurrentDemoStep();
+    }
+
+    function startFrequencySweepDemo() {
+        stopDemoTour();
+        initAudioContext();
+        stopAllTones();
+
+        isDemoTourRunning = true;
+        currentDemoTourType = 'sweep';
+        setToneVoice('sine');
+
+        const hud = document.getElementById('demoRunningHud');
+        if (hud) hud.classList.add('hud-visible');
+
+        const btn = document.getElementById('btnDemoSweep');
+        if (btn) btn.classList.add('active-demo-running');
+
+        document.getElementById('hudDemoTitle').textContent = '🌊 அதிர்வெண் ஸ்வீப் டெமோ (20 Hz - 2,000 Hz Sweep)';
+        document.getElementById('hudStepBadge').textContent = 'நேரலை ஸ்வீப் (Live Sweep)';
+
+        speakText('அதிர்வெண் ஸ்வீப் டெமோ தொடங்குகிறது. 20 ஹெர்ட்ஸ் முதல் 2000 ஹெர்ட்ஸ் வரை தொடர் அலை.', 'Frequency Sweep Demo starting from 20 Hertz to 2000 Hertz continuous glide.');
+
+        let sweepHz = 20.0;
+        updateFrequencyUI(sweepHz);
+        playCurrentToneContinuous();
+
+        const startTime = Date.now();
+        const duration = 20000; // 20 seconds exponential sweep
+
+        demoSweepInterval = setInterval(() => {
+            const elapsed = Date.now() - startTime;
+            const progress = Math.min(1.0, elapsed / duration);
+
+            sweepHz = 20 * Math.pow(100, progress); // 20Hz to 2000Hz
+            updateFrequencyUI(sweepHz);
+
+            const info = getNoteAndKattaiFromFreq(sweepHz);
+            document.getElementById('hudTranscriptText').textContent = `📡 தற்போதைய அலை: ${sweepHz.toFixed(1)} Hz • ${info.noteName} • ${info.kattaiName} • ${info.swaraName.split(' ')[0]}`;
+            document.getElementById('hudProgressBar').style.width = (progress * 100) + '%';
+
+            if (progress >= 1.0) {
+                clearInterval(demoSweepInterval);
+                demoSweepInterval = null;
+                speakText('ஸ்வீப் டெமோ நிறைவடைந்தது.', 'Frequency sweep demo completed.');
+                setTimeout(() => {
+                    stopDemoTour();
+                }, 2000);
+            }
+        }, 50);
+    }
+
+    function startKattaisAudioTour() {
+        stopDemoTour();
+        initAudioContext();
+
+        isDemoTourRunning = true;
+        currentDemoTourType = 'kattais';
+        currentDemoTourSteps = KATTAI_PRESETS.map(k => ({
+            freq: k.freq,
+            voice: 'vocal',
+            kattaiObj: k,
+            titleTa: `${k.kattai} கட்டை (${k.note} - ${k.freq.toFixed(1)} Hz)`,
+            titleEn: `${k.kattai} Kattai (${k.note} - ${k.freq.toFixed(1)} Hz)`,
+            descTa: `${k.kattai} கட்டை ${k.note} சுருதி. ${k.desc}.`,
+            descEn: `${k.kattai} Kattai ${k.note} pitch for ${k.desc}.`,
+            dur: 5000
+        }));
+        currentDemoStepIndex = 0;
+
+        const hud = document.getElementById('demoRunningHud');
+        if (hud) hud.classList.add('hud-visible');
+
+        const btn = document.getElementById('btnDemoKattai');
+        if (btn) btn.classList.add('active-demo-running');
+
+        showToast('🪕 12 கட்டைகள் ஆடியோ டூர் தொடங்குகிறது!');
+        executeCurrentDemoStep();
+    }
+
+    function startSacredSolfeggioTour() {
+        stopDemoTour();
+        initAudioContext();
+
+        isDemoTourRunning = true;
+        currentDemoTourType = 'sacred';
+        currentDemoTourSteps = SACRED_FREQUENCIES_DATA.map((s, idx) => ({
+            freq: s.freq,
+            voice: 'sine',
+            isSacred: true,
+            cardId: `sacred-card-${idx}`,
+            titleTa: s.nameTa,
+            titleEn: s.nameEn,
+            descTa: `${s.nameTa}. ${s.desc}`,
+            descEn: `${s.nameEn}. ${s.descEn}`,
+            dur: 6500
+        }));
+        currentDemoStepIndex = 0;
+
+        const hud = document.getElementById('demoRunningHud');
+        if (hud) hud.classList.add('hud-visible');
+
+        const btn = document.getElementById('btnDemoSacred');
+        if (btn) btn.classList.add('active-demo-running');
+
+        showToast('🧘 11 புனித தியான அதிர்வலைகள் டூர் தொடங்குகிறது!');
+        executeCurrentDemoStep();
+    }
+
+    function startInstrumentsTimbreDemo() {
+        stopDemoTour();
+        initAudioContext();
+
+        const instrumentList = [
+            { id: 'vocal', nameTa: '1. மனிதக் குரல் (Human Vocal - Saa/Ree)', nameEn: 'Human Vocal Voice' },
+            { id: 'piano', nameTa: '2. கிராண்ட் பியானோ (Grand Piano)', nameEn: 'Grand Piano' },
+            { id: 'veena', nameTa: '3. சரஸ்வதி வீணை (Saraswati Veena)', nameEn: 'Saraswati Veena' },
+            { id: 'flute', nameTa: '4. புல்லாங்குழல் (Bamboo Flute / Venu)', nameEn: 'Bamboo Flute' },
+            { id: 'harmonium', nameTa: '5. ஹார்மோனியம் (Carnatic Harmonium)', nameEn: 'Carnatic Harmonium' },
+            { id: 'tanpura', nameTa: '6. தஞ்சாவூர் தம்புரா (Tanpura Drone)', nameEn: 'Tanjore Tanpura' },
+            { id: 'guitar', nameTa: '7. அக்யூஸ்டிக் கிட்டார் (Acoustic Guitar)', nameEn: 'Acoustic Guitar' },
+            { id: 'violin', nameTa: '8. கர்நாடக வயலின் (Violin)', nameEn: 'Carnatic Violin' },
+            { id: 'jalatharangam', nameTa: '9. ஜலதரங்கம் கோயில் மணி (Bell Chime)', nameEn: 'Bell Chime' },
+            { id: 'sine', nameTa: '10. சுத்த சைன் அலை (Pure Sine Wave)', nameEn: 'Pure Sine Wave' },
+            { id: 'triangle', nameTa: '11. முக்கோண அலை (Triangle Wave)', nameEn: 'Triangle Wave' },
+            { id: 'sawtooth', nameTa: '12. சாடூத் அலை (Sawtooth Wave)', nameEn: 'Sawtooth Wave' },
+            { id: 'square', nameTa: '13. சதுர அலை (Square Wave)', nameEn: 'Square Wave' }
+        ];
+
+        isDemoTourRunning = true;
+        currentDemoTourType = 'instruments';
+        currentDemoTourSteps = instrumentList.map(inst => ({
+            freq: currentFrequency || 138.59,
+            voice: inst.id,
+            titleTa: `வாத்திய ஒலி: ${inst.nameTa}`,
+            titleEn: `Voice Timbre: ${inst.nameEn}`,
+            descTa: `${inst.nameTa} நாதம்.`,
+            descEn: `Acoustic timbre of ${inst.nameEn}.`,
+            dur: 4500
+        }));
+        currentDemoStepIndex = 0;
+
+        const hud = document.getElementById('demoRunningHud');
+        if (hud) hud.classList.add('hud-visible');
+
+        const btn = document.getElementById('btnDemoInstruments');
+        if (btn) btn.classList.add('active-demo-running');
+
+        showToast('🎻 13 வாத்தியங்களின் ஒலி டெமோ தொடங்குகிறது!');
+        executeCurrentDemoStep();
+    }
+
+    function executeCurrentDemoStep() {
+        if (!isDemoTourRunning || !currentDemoTourSteps || currentDemoTourSteps.length === 0) return;
+
+        if (currentDemoStepIndex >= currentDemoTourSteps.length) {
+            speakText('டெமோ வெற்றிகரமாக நிறைவடைந்தது!', 'Demo tour completed successfully!');
+            setTimeout(() => {
+                stopDemoTour();
+            }, 2500);
+            return;
+        }
+
+        const step = currentDemoTourSteps[currentDemoStepIndex];
+
+        // 1. Update UI and Voice
+        if (step.voice) {
+            currentToneVoice = step.voice;
+            const sel = document.getElementById('toneVoiceSelect');
+            if (sel) sel.value = step.voice;
+        }
+
+        if (step.isSacred) {
+            playSacredMeditationDemo(step.freq, step.cardId);
+        } else {
+            updateFrequencyUI(step.freq);
+            playCurrentToneContinuous();
+        }
+
+        // 2. Highlight Kattai button if applicable
+        if (step.kattaiObj) {
+            document.querySelectorAll('.kattai-card-btn').forEach(b => b.classList.remove('active-kattai'));
+            const kBtn = document.getElementById(`kattai-btn-${step.kattaiObj.kattai}`);
+            if (kBtn) kBtn.classList.add('active-kattai');
+        }
+
+        // 3. Update HUD Display
+        document.getElementById('hudDemoTitle').textContent = step.titleTa;
+        document.getElementById('hudStepBadge').textContent = `படி ${currentDemoStepIndex + 1} / ${currentDemoTourSteps.length}`;
+        document.getElementById('hudTranscriptText').textContent = `🗣️ குரல் அறிவிப்பு: "${step.descTa}"`;
+
+        const progressPercent = ((currentDemoStepIndex + 1) / currentDemoTourSteps.length) * 100;
+        document.getElementById('hudProgressBar').style.width = progressPercent + '%';
+
+        // 4. Speak frequency out loud
+        speakText(step.descTa, step.descEn, step.freq / 261.63);
+
+        // 5. Schedule Next Step
+        if (demoStepTimer) clearTimeout(demoStepTimer);
+        demoStepTimer = setTimeout(() => {
+            currentDemoStepIndex++;
+            executeCurrentDemoStep();
+        }, step.dur || 5500);
+    }
+
+    function nextDemoTourStep() {
+        if (!isDemoTourRunning) return;
+        if (demoStepTimer) clearTimeout(demoStepTimer);
+        currentDemoStepIndex++;
+        executeCurrentDemoStep();
+    }
+
+    function prevDemoTourStep() {
+        if (!isDemoTourRunning) return;
+        if (demoStepTimer) clearTimeout(demoStepTimer);
+        currentDemoStepIndex = Math.max(0, currentDemoStepIndex - 1);
+        executeCurrentDemoStep();
+    }
+
+    // Initialize UI on Load
+    window.addEventListener('DOMContentLoaded', () => {
+        renderKattaiGrid();
+        renderSwaraTable();
+        renderSacredDemoCards();
+        updateFrequencyUI(138.59);
+    });
+    </script>
+</body>
+</html>

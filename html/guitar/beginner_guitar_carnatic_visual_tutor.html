@@ -1,0 +1,3480 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎸 Carnatic Guitar - Guru's Real 12-Fret Visual Fretboard Studio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Noto+Sans+Tamil:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #070d18;
+            --card-bg: #111c30;
+            --card-border: #1e3a5f;
+            --accent-blue: #3b82f6;
+            --accent-cyan: #06b6d4;
+            --accent-green: #10b981;
+            --accent-yellow: #f59e0b;
+            --accent-purple: #8b5cf6;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Outfit', 'Noto Sans Tamil', 'Nirmala UI', 'Latha', 'Vijaya', 'Tamil Sangam MN', 'Segoe UI', 'Segoe UI Emoji', 'Segoe UI Symbol', -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif; }
+        body {
+            background: var(--bg-dark);
+            color: var(--text-main);
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            min-width: 360px;
+        }
+
+        /* Header */
+        .app-header {
+            background: linear-gradient(135deg, #0f172a, #1e1b4b);
+            border: 2px solid #3b82f6;
+            border-radius: 14px;
+            padding: 16px 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+        }
+        .header-title-box h1 {
+            font-size: 20px;
+            font-weight: 900;
+            background: linear-gradient(90deg, #38bdf8, #818cf8, #c084fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .header-title-box p {
+            font-size: 12.5px;
+            color: #94a3b8;
+            margin-top: 3px;
+        }
+
+        /* Navigation Studio Tabs */
+        .nav-tabs-bar {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            scrollbar-width: thin;
+            scrollbar-color: #38bdf8 #0b1324;
+            -webkit-overflow-scrolling: touch;
+            background: #0f172a;
+            padding: 6px;
+            border-radius: 10px;
+            border: 1px solid #1e293b;
+        }
+        .nav-tab-btn {
+            background: transparent;
+            border: none;
+            color: #94a3b8;
+            padding: 8px 14px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.15s;
+            white-space: nowrap;
+        }
+        .nav-tab-btn:hover { color: white; background: #1e293b; }
+        .nav-tab-btn.active {
+            background: #2563eb;
+            color: white;
+            box-shadow: 0 0 12px rgba(37,99,235,0.6);
+        }
+
+        /* Lesson Selection Card */
+        .control-panel-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 14px;
+            padding: 16px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+        .selector-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .select-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex: 1;
+            min-width: 280px;
+        }
+        .select-group label {
+            font-size: 13.5px;
+            font-weight: 800;
+            color: #38bdf8;
+            white-space: nowrap;
+        }
+        .lesson-select {
+            flex: 1;
+            background: #0b1324;
+            color: #ffffff;
+            border: 2px solid #3b82f6;
+            border-radius: 8px;
+            padding: 9px 12px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            outline: none;
+        }
+        .lesson-select optgroup {
+            background: #1e293b;
+            color: #fbbf24;
+            font-weight: 800;
+        }
+        .lesson-select option {
+            background: #0f172a;
+            color: #ffffff;
+            padding: 6px;
+        }
+
+        /* Player Bar */
+        .player-bar {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            background: #091322;
+            padding: 12px 16px;
+            border-radius: 10px;
+            border: 1px solid #1e3a5f;
+        }
+        .playback-buttons {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+        .btn {
+            background: #1e293b;
+            border: 1px solid #3b82f6;
+            color: white;
+            padding: 8px 14px;
+            border-radius: 8px;
+            font-size: 13.5px;
+            font-weight: 700;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.15s;
+        }
+        .btn:hover { background: #2563eb; transform: translateY(-1px); }
+        .btn-primary {
+            background: linear-gradient(135deg, #2563eb, #7c3aed);
+            border-color: #93c5fd;
+            box-shadow: 0 0 12px rgba(37,99,235,0.5);
+        }
+        .btn-primary.playing {
+            background: linear-gradient(135deg, #dc2626, #ea580c);
+            box-shadow: 0 0 14px rgba(220,38,38,0.7);
+        }
+
+        .speed-control {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #cbd5e1;
+            font-size: 13px;
+            font-weight: 700;
+        }
+        .speed-control select {
+            background: #0b1324;
+            color: #38bdf8;
+            border: 1px solid #3b82f6;
+            border-radius: 6px;
+            padding: 6px 10px;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        /* ==================================================== */
+        /* 🎸 REAL 12-FRET WOODEN GUITAR NECK VIEW (MASTERPIECE) */
+        /* ==================================================== */
+        .fretboard-card {
+            background: #160f0a; /* Real Dark Rosewood Wood Grain */
+            border: 3.5px solid #3d2416;
+            border-radius: 16px;
+            padding: 16px 18px 20px 18px;
+            box-shadow: 0 12px 35px rgba(0,0,0,0.7), inset 0 0 40px rgba(0,0,0,0.5);
+            margin-bottom: 14px;
+            overflow-x: scroll;
+            scrollbar-width: thin;
+            scrollbar-color: #38bdf8 #0b1324;
+            scrollbar-gutter: stable;
+            -webkit-overflow-scrolling: touch;
+            position: relative;
+        }
+
+        .nav-tabs-bar::-webkit-scrollbar,
+        .fretboard-card::-webkit-scrollbar,
+        .tab-view-card::-webkit-scrollbar,
+        .timeline-flow::-webkit-scrollbar {
+            height: 12px;
+        }
+        .nav-tabs-bar::-webkit-scrollbar-track,
+        .fretboard-card::-webkit-scrollbar-track,
+        .tab-view-card::-webkit-scrollbar-track,
+        .timeline-flow::-webkit-scrollbar-track {
+            background: #0b1324;
+            border-radius: 999px;
+        }
+        .nav-tabs-bar::-webkit-scrollbar-thumb,
+        .fretboard-card::-webkit-scrollbar-thumb,
+        .tab-view-card::-webkit-scrollbar-thumb,
+        .timeline-flow::-webkit-scrollbar-thumb {
+            background: linear-gradient(90deg, #2563eb, #06b6d4);
+            border: 2px solid #0b1324;
+            border-radius: 999px;
+        }
+
+        .fretboard-direction-bar {
+            background: linear-gradient(90deg, #1e3a8a, #0369a1, #1e3a8a);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 800;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .fret-guide-legend-bar {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            background: #0c172c;
+            padding: 8px 14px;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            font-size: 12px;
+            border: 1.5px solid #38bdf8;
+            gap: 8px;
+        }
+
+        .fretboard-inner {
+            min-width: 1060px;
+            position: relative;
+            background: #19110b; /* Rosewood Neck */
+            border-radius: 10px;
+            border: 2px solid #452a1a;
+            padding: 6px 0;
+            box-shadow: inset 0 4px 20px rgba(0,0,0,0.8);
+        }
+
+        .fretboard-scroll-hint {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin: 0 0 8px;
+            color: #bae6fd;
+            font-size: 12px;
+            font-weight: 800;
+        }
+
+        /* Fret Numbers Header Row */
+        
+        .fret-numbers-row.reverse-fret-dir,
+        .string-row-visual.reverse-fret-dir {
+            grid-template-columns: 140px repeat(12, 1fr) 40px !important;
+        }
+    
+        .fret-numbers-row {
+            display: grid;
+            grid-template-columns: 140px 40px repeat(12, 1fr);
+            text-align: center;
+            color: #d6d3d1;
+            font-size: 12.5px;
+            font-weight: 800;
+            padding-bottom: 6px;
+            border-bottom: 2px solid #573622;
+        }
+        .fret-num-cell {
+            padding: 4px 2px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .fret-num-cell.guide-marker {
+            color: #fef08a;
+            font-weight: 900;
+            text-shadow: 0 0 8px rgba(254,240,138,0.6);
+        }
+
+        /* String Row */
+        .string-row-visual {
+            display: grid;
+            grid-template-columns: 140px 40px repeat(12, 1fr);
+            height: 54px;
+            align-items: center;
+            position: relative;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+        .string-row-visual.active-string-row {
+            background: rgba(59, 130, 246, 0.08);
+        }
+
+        .string-name-tag {
+            font-size: 12px;
+            font-weight: 800;
+            color: #fbbf24;
+            padding-left: 10px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            z-index: 10;
+        }
+
+        /* Physical Metal Wire Running Across Frets */
+        .string-physical-wire {
+            position: absolute;
+            left: 140px;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.8);
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        /* Fret Slots */
+        .fret-slot {
+            height: 100%;
+            border-right: 3.5px solid #cbd5e1; /* Strong Silver Metallic Fret Wire */
+            box-shadow: 1px 0 3px rgba(255, 255, 255, 0.25);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 3;
+            cursor: pointer;
+            transition: background 0.15s;
+        }
+        .fret-slot:hover {
+            background: rgba(255, 255, 255, 0.08);
+        }
+        .fret-slot.nut-slot {
+            border-right: 10px solid #f8fafc !important; /* Thick Bone Nut */
+            box-shadow: 2px 0 10px rgba(255, 255, 255, 0.6) !important;
+            background: rgba(241, 245, 249, 0.05);
+        }
+
+        /* Laser Guide Column Highlight */
+        .fret-slot.active-fret-col { display: none !important; 
+            background: linear-gradient(180deg, rgba(56, 189, 248, 0.12) 0%, rgba(56, 189, 248, 0.26) 50%, rgba(56, 189, 248, 0.12) 100%) !important;
+            border-left: 1.5px dashed rgba(56, 189, 248, 0.6) !important;
+        }
+
+        /* Pearl Inlay Guide Dots */
+        .inlay-pearl-dot {
+            width: 15px;
+            height: 15px;
+            background: radial-gradient(circle, #ffffff 40%, #cbd5e1 75%, #64748b 100%);
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.75), 0 0 2px #000;
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0.55;
+            border: 1px solid rgba(0,0,0,0.4);
+        }
+        .inlay-double-top { top: calc(30% - 7px); }
+        .inlay-double-bot { top: calc(70% - 7px); }
+
+        /* Swara Glow Badges */
+        .swara-marker {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            font-weight: 900;
+            border: 2px solid #ffffff;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.7);
+            z-index: 20;
+            cursor: pointer;
+            transition: transform 0.15s ease, box-shadow 0.15s ease;
+            position: relative;
+        }
+        .swara-marker:hover {
+            transform: scale(1.18);
+            box-shadow: 0 0 16px #67e8f9;
+        }
+        .swara-marker.active-playing {
+            transform: scale(1.22) !important;
+            border: 3px solid #ffffff !important;
+            box-shadow: 0 0 20px #ffffff, 0 0 35px #38bdf8 !important;
+            z-index: 30;
+            animation: pulseMarker 0.6s infinite alternate;
+        }
+        @keyframes pulseMarker {
+            from { transform: scale(1.15); box-shadow: 0 0 14px #38bdf8; }
+            to { transform: scale(1.30); box-shadow: 0 0 25px #ffffff, 0 0 40px #38bdf8; }
+        }
+        .swara-marker .sub-west {
+            font-size: 9.5px;
+            color: #fef08a;
+            font-weight: 800;
+            line-height: 1;
+            margin-top: 1px;
+        }
+        .finger-badge { display: none !important;  display: none !important; 
+            position: absolute;
+            top: -6px;
+            right: -6px;
+            width: 17px;
+            height: 17px;
+            border-radius: 50%;
+            background: #f59e0b;
+            color: #000000;
+            font-size: 9.5px;
+            font-weight: 900;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #ffffff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        }
+
+        /* Action Details Grid */
+        
+        .swara-repeat-pill {
+            position: absolute;
+            bottom: -6px;
+            right: -6px;
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: #ffffff;
+            font-size: 11px;
+            font-weight: 900;
+            padding: 1.5px 6px;
+            border-radius: 10px;
+            border: 1.5px solid #ffffff;
+            box-shadow: 0 0 10px rgba(245, 158, 11, 0.9);
+            z-index: 15;
+            animation: pulse-badge 0.8s infinite alternate;
+        }
+        @keyframes pulse-badge {
+            0% { transform: scale(0.95); }
+            100% { transform: scale(1.15); box-shadow: 0 0 14px #fbbf24; }
+        }
+    
+        .action-details-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 10px;
+            margin-bottom: 14px;
+        }
+        .action-card-item {
+            background: var(--card-bg);
+            border: 2px solid var(--card-border);
+            border-radius: 12px;
+            padding: 12px 14px;
+            border-left: 5px solid #3b82f6;
+        }
+        .action-card-item .card-label { font-size: 11.5px; color: var(--text-muted); margin-bottom: 3px; font-weight: 600; }
+        .action-card-item .card-value { font-size: 15px; font-weight: 800; color: #ffffff; }
+
+        /* Dynamic Visual Diagram */
+        .lesson-visual-diagram-card {
+            background: #0d1527;
+            border: 2px solid #38bdf8;
+            border-radius: 14px;
+            padding: 16px 20px;
+            margin-bottom: 14px;
+        }
+        .diagram-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #1e3a5f;
+            padding-bottom: 8px;
+            margin-bottom: 12px;
+        }
+        .diagram-header h3 { font-size: 16px; color: #38bdf8; font-weight: 800; }
+        .diagram-lines-container { display: flex; flex-direction: column; gap: 12px; }
+        .diagram-line-row { background: #111c30; border: 1px solid #1e3a5f; border-radius: 10px; padding: 10px 14px; }
+        .diagram-line-title { font-size: 12.5px; font-weight: 800; color: #fbbf24; margin-bottom: 8px; }
+        .diagram-avartanam-grid { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+        .diagram-tala-section { display: flex; gap: 5px; padding: 3px; background: rgba(0,0,0,0.25); border-radius: 8px; border: 1px solid rgba(255,255,255,0.05); }
+        .diagram-tala-divider { color: #64748b; font-size: 18px; font-weight: 900; margin: 0 2px; user-select: none; }
+        .d-note-box {
+            width: 60px;
+            height: 58px;
+            background: #091322;
+            border: 2px solid #1e3a5f;
+            border-radius: 8px;
+            padding: 3px 2px;
+            text-align: center;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.15s;
+        }
+        .d-note-box:hover { border-color: #38bdf8; }
+        .d-note-box.active {
+            background: #1e293b;
+            border: 2px solid #38bdf8;
+            box-shadow: 0 0 12px #2563eb, inset 0 0 8px rgba(56,189,248,0.3);
+        }
+        .d-note-box .d-swara { font-size: 15.5px; font-weight: 900; }
+        .d-note-box .d-west { font-size: 10.5px; font-weight: 800; color: #38bdf8; }
+        .d-note-box .d-pos { font-size: 9px; font-weight: 700; color: #94a3b8; }
+
+        /* TAB View */
+        .tab-view-card {
+            background: #091322;
+            border: 2px solid #10b981;
+            border-radius: 14px;
+            padding: 16px 20px;
+            margin-bottom: 14px;
+            overflow-x: auto;
+            scrollbar-width: thin;
+            scrollbar-color: #38bdf8 #0b1324;
+            -webkit-overflow-scrolling: touch;
+        }
+        .tab-sheet-title { font-size: 16px; font-weight: 800; color: #34d399; margin-bottom: 10px; }
+        .guitar-tab-table { width: 100%; border-collapse: collapse; min-width: 800px; }
+        .guitar-tab-table tr td { padding: 5px 6px; text-align: center; border-bottom: 1px solid #1e3a5f; }
+        .guitar-tab-table .tab-str-header { font-weight: 800; color: #60a5fa; width: 90px; text-align: left; border-right: 2px solid #334155; }
+        .guitar-tab-table .tab-fret-cell { font-weight: 800; color: #f8fafc; font-size: 13.5px; min-width: 38px; }
+        .guitar-tab-table .tab-fret-cell.highlight { background: #1e3a8a; color: #38bdf8; border-radius: 4px; font-size: 15px; }
+
+        /* Timeline Flow */
+        .timeline-container {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 12px 16px;
+            margin-bottom: 14px;
+        }
+        .timeline-header { font-size: 12.5px; color: #94a3b8; font-weight: 700; margin-bottom: 8px; }
+        .timeline-flow { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 8px; scroll-behavior: smooth; scrollbar-width: thin; scrollbar-color: #38bdf8 #0b1324; -webkit-overflow-scrolling: touch; }
+        .timeline-chip {
+            background: #091322;
+            border: 2px solid #1e3a5f;
+            border-radius: 8px;
+            padding: 6px 12px;
+            font-size: 13px;
+            font-weight: 800;
+            color: #cbd5e1;
+            white-space: nowrap;
+            cursor: pointer;
+            flex-shrink: 0;
+            transition: all 0.15s;
+        }
+        .timeline-chip:hover { border-color: #38bdf8; color: white; }
+        .timeline-chip.active {
+            background: #2563eb;
+            color: white;
+            border-color: #93c5fd;
+            box-shadow: 0 0 10px rgba(37,99,235,0.8);
+        }
+
+        .guru-footer {
+            background: #0f172a;
+            border: 1px dashed #3b82f6;
+            border-radius: 10px;
+            padding: 12px 18px;
+            text-align: center;
+            font-size: 13px;
+            color: #cbd5e1;
+        }
+    
+        .guitar-tuning-card {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: linear-gradient(135deg, #0b1324, #131f37);
+            border: 1.5px solid #f59e0b;
+            padding: 8px 16px;
+            border-radius: 10px;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+        }
+    
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <div class="app-header">
+        <div class="header-title-box">
+            <h1>🎸 Carnatic Guitar - Guru's Complete Master Studio</h1>
+            <p style="color:#fbbf24; font-weight:800;">🎸 Customized for Yamaha F280 Acoustic Guitar (Standard Tuning E-A-D-G-B-E) | 12-Fret Real Neck View</p>
+            <p> • 14 Sarali • 10 Jantai • 10 Dhatu • 7 Alankarams • Geethams & Varnams</p>
+        </div>
+        <div class="nav-tabs-bar">
+            <button class="nav-tab-btn active" id="tab-lessons" onclick="switchStudioTab('lessons')">🎼 பாடங்கள் (Lessons)</button>
+            <button class="nav-tab-btn" id="tab-ragas" onclick="switchStudioTab('ragas')">🌈 ராக ஸ்வர வரைபடம் (Ragas)</button>
+            <button class="nav-tab-btn" id="tab-tabview" onclick="switchStudioTab('tabview')">📝 TAB நோட்ஸ் (Guitar TAB)</button>
+            <button class="nav-tab-btn" id="tab-tuner" onclick="switchStudioTab('tuner')">🎸 சுதி ட்யூனர் (Guitar Tuner)</button>
+            <button class="nav-tab-btn" id="tab-metronome" onclick="switchStudioTab('metronome')">🥁 மெட்ரோனோம் பயிற்சி (Metronome Studio)</button>
+        </div>
+    </div>
+
+    <!-- Control Panel -->
+    <div class="control-panel-card">
+        <div class="selector-row">
+            
+            <!-- Guitar Tuning Reference Card -->
+            <div class="guitar-tuning-card">
+                <span style="font-size: 24px;">🎸</span>
+                <div>
+                    <div style="font-size: 13px; font-weight: 800; color: #fbbf24;">கிட்டார் சுருதி (Guitar Pitch): 1 கட்டை (C / Middle C4)</div>
+                    <div style="font-size: 11.5px; color: #94a3b8; font-weight: 700;">Yamaha F280 Standard Tuning (E-A-D-G-B-E) • ஆரம்ப ஸ்வரம் ஸ = 3-ம் கம்பி (G) 5-ம் கட்டை</div>
+                </div>
+            </div>
+    
+            <div class="select-group" id="selector-wrapper-lessons" style="flex: 2; min-width: 320px;">
+                <label for="lessonSelect" style="color: #38bdf8; font-weight: 800; font-size: 14px;">📖 பாடம் தேர்வு செய்க (Select Lesson):</label>
+                <select id="lessonSelect" class="lesson-select" onchange="changeLesson(this.value)">
+                    <optgroup label="14 சரளி வரிசைகள் (Sarali Varisais 1 to 14)">
+                        <option value="s1">1. சரளி வரிசை 1 (SRGM PDNṠ - முழு வரிசை)</option>
+                        <option value="s2">2. சரளி வரிசை 2 (இரண்டாம் அடி பயிற்சி)</option>
+                        <option value="s3">3. சரளி வரிசை 3 (மூன்று அடி பயிற்சி)</option>
+                        <option value="s4">4. சரளி வரிசை 4 (நான்கு அடி பயிற்சி)</option>
+                        <option value="s5">5. சரளி வரிசை 5 (பஞ்சம தாவல் பயிற்சி)</option>
+                        <option value="s6">6. சரளி வரிசை 6 (மத்திய பஞ்சம பயிற்சி)</option>
+                        <option value="s7">7. சரளி வரிசை 7 (மேல் ஸ்தாயி தொடக்கம்)</option>
+                        <option value="s8">8. சரளி வரிசை 8 (மத்திய மந்தர பயிற்சி)</option>
+                        <option value="s9">9. சரளி வரிசை 9 (தீவிர ஆரோகண அவரோகணம்)</option>
+                        <option value="s10">10. சரளி வரிசை 10 (அதி தீவிர ஏறுவரிசை)</option>
+                        <option value="s11">11. சரளி வரிசை 11 (தார ஸ்தாயி உச்ச பயிற்சி)</option>
+                        <option value="s12">12. சரளி வரிசை 12 (சரிகமப தனித்துவ பயிற்சி)</option>
+                        <option value="s13">13. சரளி வரிசை 13 (அஷ்ட ஸ்வர வேகம்)</option>
+                        <option value="s14">14. சரளி வரிசை 14 (முழுமைப் பயிற்சி - Master Varisai)</option>
+                    </optgroup>
+                    <optgroup label="10 ஜண்டை வரிசைகள் (All 10 Jantai Varisais ⭐)">
+                        <option value="j1">1. ஜண்டை வரிசை 1 (SS RR GG MM - இரட்டை ஸ்வரம்)</option>
+                        <option value="j2">2. ஜண்டை வரிசை 2 (SS RR GG MM | RR GG MM PP)</option>
+                        <option value="j3">3. ஜண்டை வரிசை 3 (S S R R | G G | M M)</option>
+                        <option value="j4">4. ஜண்டை வரிசை 4 (S S R R | G S | R G)</option>
+                        <option value="j5">5. ஜண்டை வரிசை 5 (S S R R | G G | R R)</option>
+                        <option value="j6">6. ஜண்டை வரிசை 6 (S S R R | G G | M M || P P M M)</option>
+                        <option value="j7">7. ஜண்டை வரிசை 7 (தொடர் ஜண்டை இறங்குவரிசை)</option>
+                        <option value="j8">8. ஜண்டை வரிசை 8 (முழு ஸ்தாயி இரட்டை மீட்டல்)</option>
+                        <option value="j9">9. ஜண்டை வரிசை 9 (கார்வை ஜண்டை பயிற்சி S - S R)</option>
+                        <option value="j10">10. ஜண்டை வரிசை 10 (மகா ஜண்டை இறுதிப் பயிற்சி)</option>
+                    </optgroup>
+                    <optgroup label="10 தாட்டு வரிசைகள் (All 10 Full Dhatu Varisais ⭐⭐⭐)">
+                        <option value="d1">1. தாட்டு வரிசை 1 (S G R M | G P | M D - தாவல் பயிற்சி)</option>
+                        <option value="d2">2. தாட்டு வரிசை 2 (S R S G | R G | R M)</option>
+                        <option value="d3">3. தாட்டு வரிசை 3 (S G R S | R M | G R)</option>
+                        <option value="d4">4. தாட்டு வரிசை 4 (S M G R | S R | G M)</option>
+                        <option value="d5">5. தாட்டு வரிசை 5 (S P M G | R S | R G)</option>
+                        <option value="d6">6. தாட்டு வரிசை 6 (S R G S | G R | S R)</option>
+                        <option value="d7">7. தாட்டு வரிசை 7 (S G M G | R M | P M)</option>
+                        <option value="d8">8. தாட்டு வரிசை 8 (S M R G | S R | G M)</option>
+                        <option value="d9">9. தாட்டு வரிசை 9 (S G R M | P M | G R)</option>
+                        <option value="d10">10. தாட்டு வரிசை 10 (S P M D | P N | D Ṡ - மகா தாட்டு)</option>
+                    </optgroup>
+                    <optgroup label="7 சப்த தாள அலங்காரங்கள் (Saptha Tala Alankarams)">
+                        <option value="a1">1. துருவ தாள அலங்காரம் (Dhruva Talam - 14 அக்ஷரம்)</option>
+                        <option value="a2">2. மத்ய தாள அலங்காரம் (Matya Talam - 10 அக்ஷரம்)</option>
+                        <option value="a3">3. ரூபக தாள அலங்காரம் (Roopaka Talam - 6 அக்ஷரம்)</option>
+                        <option value="a4">4. ஜம்ப தாள அலங்காரம் (Jhampa Talam - 10 அக்ஷரம்)</option>
+                        <option value="a5">5. த்ரிபுட தாள அலங்காரம் (Triputa Talam - 7 அக்ஷரம்)</option>
+                        <option value="a6">6. அட தாள அலங்காரம் (Ata Talam - 14 அக்ஷரம்)</option>
+                        <option value="a7">7. ஏக தாள அலங்காரம் (Eka Talam - 4 அக்ஷரம்)</option>
+                    </optgroup>
+                    <optgroup label="கீதங்கள் & வர்ணங்கள் (Geethams & Varnams)">
+                        <option value="g1">1. ஸ்ரீ கணநாதா (மலஹரி கீதம் - ரூபகம்)</option>
+                        <option value="g2">2. குந்த கௌர (மலஹரி கீதம் - ரூபகம்)</option>
+                        <option value="g3">3. பதுமநாப (மலஹரி கீதம் - த்ரிபுட)</option>
+                        <option value="v1">4. நின்னுகோரி வர்ணம் (மோகனம் - ஆதி தாளம்)</option>
+                    </optgroup>
+                </select>
+            </div>
+
+            <div class="select-group" id="selector-wrapper-ragas" style="display:none;">
+                <label for="ragaSelect">🌈 ராகம் தேர்வு (Select Raga):</label>
+                <select id="ragaSelect" class="lesson-select" onchange="changeRagaMode(this.value)" style="background:#0b1324; color:#ffffff; border:2px solid #3b82f6; border-radius:8px; padding:9px 12px; font-size:14px; font-weight:700; cursor:pointer;">
+                    <optgroup label="👑 1. பிரதான மேளகர்த்தா தாய் ராகங்கள் (Major Melakartas)">
+                        <option value="maya">15. மாயாமாளவகௌளை (Mayamalavagowla - S R1 G3 M1 P D1 N3 S)</option>
+                        <option value="shankar">29. தீரசங்கராபரணம் (Shankarabharanam - Western Major)</option>
+                        <option value="kalyani">65. மேசகல்யாணி (Kalyani - Lydian M2)</option>
+                        <option value="khara">22. கரகரப்பிரியா (Kharaharapriya - Dorian R2 G2 D2 N2)</option>
+                        <option value="todi">08. ஹனுமத்தோடி (Hanumatodi - Phrygian R1 G2 D1 N2)</option>
+                        <option value="harikambhoji">28. ஹரிகாம்போஜி (Harikambhoji - Mixolydian N2)</option>
+                        <option value="natabhairavi">20. நடபைரவி (Natabhairavi - Natural Minor)</option>
+                        <option value="keeravani">21. கீரவாணி (Keeravani - Harmonic Minor)</option>
+                        <option value="simhendra">57. சிம்மேந்திரமத்திமம் (Simhendramadhyamam - M2 D1 N3)</option>
+                        <option value="chakravakam">16. சக்ரவாகம் (Chakravakam - R1 G3 D2 N2)</option>
+                        <option value="shanmukhapriya">56. ஷண்முகப்பிரியா (Shanmukhapriya - M2 D1 N2)</option>
+                        <option value="charukesi">26. சாருகேசி (Charukesi - D1 N2)</option>
+                        <option value="pantuvarali">51. காமவர்த்தனி / பந்துவராளி (Pantuvarali - R1 G3 M2 D1 N3)</option>
+                        <option value="hemavati">58. ஹேமாவதி (Hemavati - M2 D2 N2)</option>
+                        <option value="vakulabharanam">14. வகுளாபரணம் (Vakulabharanam - R1 G3 D1 N2)</option>
+                        <option value="vachaspati">64. வாசஸ்பதி (Vachaspati - Lydian Dominant M2 D2 N2)</option>
+                        <option value="dharmavati">59. தர்மவதி (Dharmavati - Lydian Minor M2 D2 N3)</option>
+                        <option value="sarasangi">27. சரசாங்கி (Sarasangi - D1 N3)</option>
+                    </optgroup>
+                    <optgroup label="🌟 2. 5/6 ஸ்வர பெண்டாடோனிக் ஜன்ய ராகங்கள் (Pentatonic & Audava)">
+                        <option value="mohanam">★ மோகனம் (Mohanam - S R2 G3 P D2 S / Major Pentatonic)</option>
+                        <option value="hamsadhwani">★ ஹம்சத்வனி (Hamsadhwani - S R2 G3 P N3 S)</option>
+                        <option value="suddhadhanyasi">★ சுத்த தன்யாசி (Suddha Dhanyasi - S G2 M1 P N2 S)</option>
+                        <option value="hindolam">★ ஹிந்தோளம் (Hindolam - S G2 M1 D1 N2 S / Minor Pentatonic)</option>
+                        <option value="madhyamavati">★ மத்யமாவதி (Madhyamavati - S R2 M1 P N2 S / மங்களம்)</option>
+                        <option value="sivaranjani">★ சிவரஞ்சனி (Sivaranjani - S R2 G2 P D2 S)</option>
+                        <option value="suddhasaveri">★ சுத்த சாவேரி (Suddha Saveri - S R2 M1 P D2 S)</option>
+                        <option value="abhogi">★ ஆபோகி (Abhogi - S R2 G2 M1 D2 S)</option>
+                        <option value="amritavarshini">★ அமிர்தவர்ஷிணி (Amritavarshini - S G3 M2 P N3 S / மழை)</option>
+                        <option value="valaji">★ வலயசி (Valaji - S G3 P D2 N2 S)</option>
+                        <option value="bahudari">★ பஹுதாரி (Bahudari - S G3 M1 P D2 N2 S)</option>
+                        <option value="revati">★ ரேவதி (Revati - S R1 M1 P N2 S)</option>
+                        <option value="malahari">★ மலஹரி (Malahari - Geetham Raga / S R1 M1 P D1 S)</option>
+                    </optgroup>
+                    <optgroup label="🎵 3. கச்சேரி & பக்திப் பாடல்கள் ராகங்கள் (Concert & Devotional)">
+                        <option value="bilahari">🎵 பிலஹரி (Bilahari - S R2 G3 P D2 S | S N3 D2 P M1 G3 R2 S)</option>
+                        <option value="arabhi">🎵 ஆரபி (Arabhi - S R2 M1 P D2 S | S N3 D2 P M1 G3 R2 S)</option>
+                        <option value="vasantha">🎵 வஸந்தா (Vasantha - S M1 G3 M1 D2 N3 S | S N3 D2 M1 G3 R1 S)</option>
+                        <option value="sindhubhairavi">🎵 சிந்துபைரவி (Sindhubhairavi - S R1 G2 M1 P D1 N2 S)</option>
+                        <option value="kapi">🎵 காபி (Kapi - S R2 M1 P N3 S | S N2 D2 P M1 G2 R2 S)</option>
+                        <option value="khamas">🎵 கமாஸ் (Khamas - S M1 G3 M1 P D2 N2 S)</option>
+                        <option value="behag">🎵 பேஹாக் (Behag - S G3 M1 P N3 S | S N3 D2 P M1 G3 R2 S)</option>
+                        <option value="hamsanandi">🎵 ஹம்சநந்தி (Hamsanandi - S R1 G3 M2 D2 N3 S)</option>
+                        <option value="saramati">🎵 சரமதி (Saramati - மோட்சமு கலதா / S R2 G2 M1 P D1 N2 S)</option>
+                    </optgroup>
+                </select>
+            </div>
+        </div>
+
+        <!-- Player Bar -->
+        <div class="player-bar">
+            <div class="playback-buttons">
+                <button class="btn btn-primary" id="playBtn" onclick="togglePlay()">▶ வாசி (Play)</button>
+                <button class="btn" onclick="prevStep()">⏮ முந்தையது</button>
+                <button class="btn" onclick="nextStep()">⏭ அடுத்தது</button>
+                <button id="guitarToneBtn" type="button" class="btn" onclick="toggleGuitarTone()" style="background:#1e293b; border:1.5px solid #38bdf8; color:#38bdf8; font-weight:800; padding:8px 14px; border-radius:8px; cursor:pointer;" title="கிட்டார் ஸ்வர ஒலி ஆன்/ஆஃப்">
+                    🎵 கிட்டார் ஒலி: ON
+                </button>
+                <button id="guitarSustainBtn" type="button" class="btn" onclick="toggleGuitarSustain()" style="background:#581c87; border:1.5px solid #c084fc; color:#ffffff; font-weight:800; padding:8px 14px; border-radius:8px; cursor:pointer;" title="சஸ்டைன் ஆன் / ஆஃப் மாற்ற">
+                    ⏳ சஸ்டைன்: ON (1.4s)
+                </button>
+                <button id="muteToggleBtn" type="button" class="btn" onclick="toggleAppMute()" style="background:#1e293b; border:1.5px solid #3b82f6; color:#93c5fd; font-weight:800; padding:8px 14px; border-radius:8px; cursor:pointer;" title="கணினி ஒலியை மியூட் செய்ய (Mute App Synth)">
+                    🔊 ஆப் ஒலி: ஆன் (App Sound)
+                </button>
+                <button class="btn" onclick="resetLesson()">🔄 முதல் நிலை (Reset)</button>
+            </div>
+            <div class="speed-control" style="display:flex; flex-wrap:wrap; align-items:center; gap:8px;">
+                <span id="currentStepBadge" style="background:#1e3a8a; color:#38bdf8; padding:4px 10px; border-radius:6px; font-weight:800; font-size:12px;">ஸ்வரம் 1 / 16</span>
+                <label style="font-weight:800; color:#38bdf8;">வேகம் (Speed):</label>
+                <select id="speedSelect" onchange="setSpeed(this.value)" style="background:#0b1324; color:#38bdf8; border:2px solid #3b82f6; border-radius:8px; padding:6px 10px; font-weight:800; font-size:13px; cursor:pointer;">
+                    <option value="3000">🐢 மிக மிக மெதுவாக (Super Slow - 3.0 வினாடிகள்)</option>
+                    <option value="2000" selected>🐢 தொடக்கநிலை வேகம் (Beginner - 2.0 வினாடிகள்)</option>
+                    <option value="1500">🚶 நிதானமாக (Slow - 1.5 வினாடிகள்)</option>
+                    <option value="1100">⚡ 1-ம் காலம் (1st Speed - 1.1 வினாடிகள்)</option>
+                    <option value="800">🎯 இயல்பான வேகம் / Normal Speed (800ms / 0.8s)</option>
+                    <option value="500">🔥 3-ம் காலம் (Fast Speed - 500ms)</option>
+                    <option value="350">⚡ அதிவேகம் (Ultra Fast - 350ms)</option>
+                </select>
+
+                <div style="display:flex; gap:5px; align-items:center;">
+                    <button type="button" onclick="quickSetSpeed(2000)" title="தொடக்கநிலை வேகம் (Slow 2.0s)" style="background:#1e293b; color:#fbbf24; border:1.5px solid #f59e0b; border-radius:6px; padding:5px 9px; font-size:11.5px; font-weight:800; cursor:pointer;">
+                        🐢 Slow (2s)
+                    </button>
+                    <button type="button" onclick="quickSetSpeed(800)" title="இயல்பான வேகம் (Normal Speed 800ms)" style="background:#1e3a8a; color:#ffffff; border:1.5px solid #38bdf8; border-radius:6px; padding:5px 9px; font-size:11.5px; font-weight:900; cursor:pointer; box-shadow:0 0 8px rgba(56,189,248,0.5);">
+                        🎯 Normal (0.8s)
+                    </button>
+                    <button type="button" onclick="quickSetSpeed(500)" title="வேகமாக (Fast 500ms)" style="background:#1e293b; color:#a78bfa; border:1.5px solid #8b5cf6; border-radius:6px; padding:5px 9px; font-size:11.5px; font-weight:800; cursor:pointer;">
+                        ⚡ Fast (0.5s)
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 🎸 12-FRET REAL WOODEN GUITAR FRETBOARD -->
+    
+    
+    <!-- 🥁 ADI TALA RHYTHM METRONOME BAR -->
+    <div class="tala-metronome-bar" id="talaMetronomeBar" style="background:#091322; border:1px solid #1e3a5f; border-radius:10px; padding:10px 16px; margin-bottom:12px; display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:10px;">
+        <div style="display:flex; align-items:center; gap:8px;">
+            <span style="color:#fbbf24; font-weight:800; font-size:13px;">🥁 ஆதி தாளம் (8 அட்சரங்கள்):</span>
+            <div style="display:flex; gap:4px;" id="talaBeatGrid">
+                <!-- 8 Beats -->
+                <div class="tala-beat" id="tala-beat-0" style="padding:4px 8px; border-radius:6px; background:#1e293b; color:#94a3b8; font-size:11.5px; font-weight:800; border:1px solid #334155;">1. தட்டு (Laghu)</div>
+                <div class="tala-beat" id="tala-beat-1" style="padding:4px 8px; border-radius:6px; background:#1e293b; color:#94a3b8; font-size:11.5px; font-weight:800; border:1px solid #334155;">2. விரல்</div>
+                <div class="tala-beat" id="tala-beat-2" style="padding:4px 8px; border-radius:6px; background:#1e293b; color:#94a3b8; font-size:11.5px; font-weight:800; border:1px solid #334155;">3. விரல்</div>
+                <div class="tala-beat" id="tala-beat-3" style="padding:4px 8px; border-radius:6px; background:#1e293b; color:#94a3b8; font-size:11.5px; font-weight:800; border:1px solid #334155;">4. விரல்</div>
+                <span style="color:#475569; font-weight:900; padding:0 2px;">|</span>
+                <div class="tala-beat" id="tala-beat-4" style="padding:4px 8px; border-radius:6px; background:#1e293b; color:#94a3b8; font-size:11.5px; font-weight:800; border:1px solid #334155;">5. தட்டு (Dhrutam)</div>
+                <div class="tala-beat" id="tala-beat-5" style="padding:4px 8px; border-radius:6px; background:#1e293b; color:#94a3b8; font-size:11.5px; font-weight:800; border:1px solid #334155;">6. வீச்சு</div>
+                <span style="color:#475569; font-weight:900; padding:0 2px;">||</span>
+                <div class="tala-beat" id="tala-beat-6" style="padding:4px 8px; border-radius:6px; background:#1e293b; color:#94a3b8; font-size:11.5px; font-weight:800; border:1px solid #334155;">7. தட்டு (Dhrutam)</div>
+                <div class="tala-beat" id="tala-beat-7" style="padding:4px 8px; border-radius:6px; background:#1e293b; color:#94a3b8; font-size:11.5px; font-weight:800; border:1px solid #334155;">8. வீச்சு</div>
+            </div>
+        </div>
+        <div id="scoreMiniSummary" style="font-size:12px; font-weight:800; color:#38bdf8;">
+            🎯 பயிற்சி துல்லியம் (Score): <span id="miniScorePct" style="color:#22c55e;">100%</span>
+        </div>
+    </div>
+
+    <!-- 🎙️ LIVE GUITAR LISTENER & MISTAKE DETECTOR CARD -->
+    <div class="mic-listener-card" id="micListenerCard" style="background: linear-gradient(135deg, #091322, #111e38); border: 2px solid #3b82f6; border-radius: 14px; padding: 14px 18px; margin-bottom: 14px; box-shadow: 0 4px 20px rgba(0,0,0,0.5);">
+        <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px;">
+            <div style="display: flex; align-items: center; gap: 12px;">
+                <button id="micToggleBtn" type="button" onclick="toggleMicListening()" style="background: #2563eb; color: #ffffff; border: none; border-radius: 8px; padding: 10px 18px; font-size: 13.5px; font-weight: 900; cursor: pointer; display: flex; align-items: center; gap: 8px; box-shadow: 0 0 15px rgba(37,99,235,0.6); transition: all 0.2s;">
+                    🎙️ மைக் ஆன் செய் (Start Live Listening)
+                </button>
+                <div id="micStatusIndicator" style="font-size: 13px; font-weight: 800; color: #94a3b8;">
+                    ⚪ மைக் ஆஃப் (Mic is Off)
+                </div>
+            </div>
+
+            <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+                <!-- Target Swaram -->
+                <div style="background: #0f172a; border: 1.5px solid #38bdf8; padding: 6px 14px; border-radius: 8px; text-align: center;">
+                    <div style="font-size: 11px; color: #94a3b8; font-weight: 800;">🎯 நீங்கள் வாசிக்க வேண்டியது:</div>
+                    <div id="micTargetSwaraDisplay" style="font-size: 16px; font-weight: 900; color: #38bdf8;">ஸ (Sa - C4)</div>
+                </div>
+
+                <!-- Detected Note -->
+                <div style="background: #0f172a; border: 1.5px solid #f59e0b; padding: 6px 14px; border-radius: 8px; text-align: center;">
+                    <div style="font-size: 11px; color: #94a3b8; font-weight: 800;">🎸 கிட்டார் ஒலி (Detected Note):</div>
+                    <div id="micDetectedNoteDisplay" style="font-size: 16px; font-weight: 900; color: #fbbf24;">--</div>
+                </div>
+
+                <!-- Validation Feedback Alert Badge -->
+                <div id="micFeedbackBadge" style="background: #1e293b; border: 1.5px solid #475569; padding: 8px 16px; border-radius: 8px; font-size: 13.5px; font-weight: 900; color: #94a3b8; transition: all 0.2s;">
+                    💤 காத்திருக்கிறது (Waiting for you to play...)
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+    <!-- 📊 PRACTICE SCORECARD CARD -->
+    <div id="scorecardModal" style="display:none; background:linear-gradient(135deg, #091322, #1e1b4b); border:2.5px solid #22c55e; border-radius:16px; padding:20px; margin-bottom:14px; text-align:center; box-shadow:0 0 30px rgba(34,197,94,0.4);">
+        <h3 style="color:#86efac; font-size:22px; font-weight:900;">🎉 அருமை! பாடம் நிறைவடைந்தது! (Lesson Completed)</h3>
+        <p style="color:#cbd5e1; font-size:13.5px; margin:6px 0 16px 0;">உங்கள் நேரலை மைக்ரோஃபோன் பயிற்சி முடிவுகள் இதோ:</p>
+
+        <div style="display:flex; justify-content:center; gap:20px; flex-wrap:wrap; margin-bottom:16px;">
+            <div style="background:#0f172a; border:1.5px solid #3b82f6; border-radius:10px; padding:12px 20px;">
+                <div style="font-size:12px; color:#94a3b8; font-weight:800;">துல்லியம் (Accuracy)</div>
+                <div id="finalScoreAccuracy" style="font-size:28px; font-weight:900; color:#22c55e;">100%</div>
+            </div>
+            <div style="background:#0f172a; border:1.5px solid #3b82f6; border-radius:10px; padding:12px 20px;">
+                <div style="font-size:12px; color:#94a3b8; font-weight:800;">சரியான ஸ்வரங்கள்</div>
+                <div id="finalScoreCorrectCount" style="font-size:28px; font-weight:900; color:#38bdf8;">16 / 16</div>
+            </div>
+        </div>
+
+        <div id="scorecardAdvice" style="font-size:14px; font-weight:800; color:#fbbf24; margin-bottom:16px;">
+            🌟 மிகச் சிறந்த பயிற்சி! அடுத்த பாடத்திற்கு முன்னேறலாம்!
+        </div>
+
+        <button onclick="document.getElementById('scorecardModal').style.display='none'; resetLesson();" style="background:#22c55e; color:#000000; border:none; padding:10px 22px; border-radius:8px; font-size:14px; font-weight:900; cursor:pointer; box-shadow:0 0 15px rgba(34,197,94,0.7);">
+            🔄 மீண்டும் பயிற்சி செய் (Practice Again)
+        </button>
+    </div>
+
+    <div class="fretboard-card">
+        <div class="fretboard-direction-bar" id="fretboardDirBar">
+            <span>👉 BODY (கிட்டார் உடல் பகுதி ➔ Bridge)</span>
+            <span style="letter-spacing:1px; font-weight:900;">FRETS: 12 | 11 | 10 | 9 | 8 | 7 | 6 | 5 | 4 | 3 | 2 | 1</span>
+            <span>👈 NUT (தலைப்பகுதி / Open 0) 🎸</span>
+        </div>
+
+        <div class="fret-guide-legend-bar">
+            <div id="fretGuideLegendContent" style="color:#f8fafc; display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
+                <span style="color:#38bdf8; font-weight:800;">📍 FRET GUIDE & INLAYS:</span>
+                <span>🌟🌟 <strong>12-ம் கட்டை</strong> (2 Dots / இரட்டைப் புள்ளி)</span>
+                <span>🔘 <strong>9-ம் கட்டை</strong> (Guide Dot)</span>
+                <span>🔴 <strong>8-ம் கட்டை</strong> (ப Pa / ஸ் Tara Sa)</span>
+                <span>⭐ <strong>7-ம் கட்டை</strong> (ரி₂ Ri2 / நி₃ Ni3)</span>
+                <span>⭐ <strong>5-ம் கட்டை</strong> (1 Dot / ஒற்றைப் புள்ளி - ஸ / க₃)</span>
+                <span>🔘 <strong>3-ம் கட்டை</strong> (Guide Dot)</span>
+            </div>
+            <div style="display:flex; gap:8px; align-items:center; margin-left:auto;">
+                <button id="directionToggleBtn" onclick="toggleFretDirection()" style="background:#1e293b; color:#fbbf24; border:1.5px solid #f59e0b; border-radius:6px; padding:6px 14px; font-size:12px; font-weight:800; cursor:pointer;">
+                    🔄 Fret திசை: 12 ➔ 1 ➔ NUT (Player Neck View)
+                </button>
+                <button id="orientToggleBtn" onclick="toggleFretboardOrientation()" style="background:#1e293b; color:#93c5fd; border:1.5px solid #3b82f6; border-radius:6px; padding:6px 14px; font-size:12px; font-weight:800; cursor:pointer;">
+                    🔄 பார்வை: Player View (6th Low E ➔ 1st High E4 Last)
+                </button>
+            </div>
+        </div>
+
+        <div class="fretboard-scroll-hint" aria-label="Scroll fretboard horizontally">
+            <span aria-hidden="true">↔</span>
+            <span>கழுத்தின் முழு அகலத்தையும் பார்க்க கீழே உள்ள நீல scrollbar-ஐ இழுக்கவும் / Swipe horizontally to view all frets</span>
+        </div>
+        <div class="fretboard-inner" id="fretboardInner">
+            <!-- Dynamically Populated by renderDynamicFretboard() -->
+        </div>
+    </div>
+
+    <!-- Action Details Grid -->
+    <div class="action-details-grid">
+        <div class="action-card-item">
+            <div class="card-label">🔁 ஸ்வர எண்ணிக்கை (Repeat Count)</div>
+            <div class="card-value" id="cardRepeatCount" style="color:#fbbf24; font-weight:900;">1 / 1</div>
+        </div>
+        <div class="action-card-item">
+            <div class="card-label">தற்போதைய ஸ்வரம் (Swara)</div>
+            <div class="card-value" id="cardSwara" style="color:#60a5fa;">ஸ (Sa)</div>
+        </div>
+        <div class="action-card-item">
+            <div class="card-label">மேற்கத்திய சுருதி (Western Note)</div>
+            <div class="card-value" id="cardWestNote" style="color:#38bdf8;">C4 (Middle C)</div>
+        </div>
+        <div class="action-card-item">
+            <div class="card-label">கிட்டார் கம்பி (String)</div>
+            <div class="card-value" id="cardString" style="color:#fbbf24;">G கம்பி (3-ம் கம்பி)</div>
+        </div>
+        <div class="action-card-item">
+            <div class="card-label">கட்டை (Fret Number)</div>
+            <div class="card-value" id="cardFret" style="color:#34d399;">5-ம் கட்டை (Fret 5)</div>
+        </div>
+        <div class="action-card-item">
+            <div class="card-label">இடது கை விரல் (Left Finger)</div>
+            <div class="card-value" id="cardFinger" style="color:#a78bfa;">1 (சுட்டு விரல் / Index)</div>
+        </div>
+        <div class="action-card-item">
+            <div class="card-label">வலது கை மீட்டல் (Pick Stroke)</div>
+            <div class="card-value" id="cardStroke" style="color:#f472b6;">⬇ கீழ்நோக்கி (Downstroke)</div>
+        </div>
+    </div>
+
+    
+    
+    <!-- 🥁 CARNATIC & GUITAR METRONOME STUDIO SECTION -->
+    <div id="metronomeSection" style="display:none; background:var(--card-bg); border:2px solid #f59e0b; border-radius:14px; padding:20px; margin-bottom:14px; box-shadow:0 8px 30px rgba(0,0,0,0.6);">
+        <div style="text-align:center; margin-bottom:18px;">
+            <h2 style="color:#fbbf24; font-size:22px; font-weight:900;">🥁 கர்நாடக தாள மெட்ரோனோம் ஸ்டுடியோ (Carnatic Metronome Studio)</h2>
+            <p style="color:#94a3b8; font-size:13.5px; margin-top:4px;">ஆதி, ரூபகம், சாபு தாளங்களில் 1-ம், 2-ம், 3-ம் கால லயப் பயிற்சிகளை மேற்கொள்ளுங்கள்.</p>
+        </div>
+
+        <div style="max-width:700px; margin:0 auto; background:#091322; border:2px solid #1e3a5f; border-radius:14px; padding:24px; text-align:center;">
+            <!-- BPM Display & Controls -->
+            <div style="margin-bottom:16px;">
+                <div style="font-size:13px; font-weight:800; color:#38bdf8; text-transform:uppercase; letter-spacing:1px;">வேகம் (Tempo / BPM)</div>
+                <div style="display:flex; align-items:center; justify-content:center; gap:16px; margin:10px 0;">
+                    <button type="button" onclick="adjustMetroBPM(-5)" style="background:#1e293b; color:#fbbf24; border:1.5px solid #f59e0b; padding:8px 14px; border-radius:8px; font-weight:900; font-size:16px; cursor:pointer;">-5</button>
+                    <button type="button" onclick="adjustMetroBPM(-1)" style="background:#1e293b; color:#fbbf24; border:1.5px solid #f59e0b; padding:8px 12px; border-radius:8px; font-weight:900; font-size:14px; cursor:pointer;">-1</button>
+                    
+                    <div id="metroBPMDisplay" style="font-size:44px; font-weight:900; color:#fbbf24; min-width:140px; text-shadow:0 0 15px rgba(251,191,36,0.6);">
+                        60 <span style="font-size:18px; color:#94a3b8;">BPM</span>
+                    </div>
+
+                    <button type="button" onclick="adjustMetroBPM(1)" style="background:#1e293b; color:#38bdf8; border:1.5px solid #3b82f6; padding:8px 12px; border-radius:8px; font-weight:900; font-size:14px; cursor:pointer;">+1</button>
+                    <button type="button" onclick="adjustMetroBPM(5)" style="background:#1e293b; color:#38bdf8; border:1.5px solid #3b82f6; padding:8px 14px; border-radius:8px; font-weight:900; font-size:16px; cursor:pointer;">+5</button>
+                </div>
+
+                <!-- Slider -->
+                <input type="range" id="metroBPMSlider" min="30" max="220" value="60" oninput="setMetroBPM(this.value)" style="width:80%; max-width:400px; accent-color:#f59e0b; cursor:pointer;">
+            </div>
+
+            <!-- Tala Preset & Sound Dropdowns -->
+            <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:14px; margin-bottom:20px;">
+                <div style="text-align:left;">
+                    <label style="font-size:12px; font-weight:800; color:#38bdf8; display:block; margin-bottom:4px;">தாள அமைப்பு (Tala):</label>
+                    <select id="metroTalaSelect" onchange="changeMetroTala(this.value)" style="background:#0f172a; color:#ffffff; border:1.5px solid #3b82f6; padding:8px 12px; border-radius:8px; font-weight:800; font-size:13.5px; cursor:pointer;">
+                        <option value="adi">ஆதி தாளம் (Adi Tala - 8 அட்சரம்)</option>
+                        <option value="rupaka">ரூபக தாளம் (Rupaka Tala - 6 அட்சரம்)</option>
+                        <option value="misra">மிஸ்ர சாபு (Misra Chapu - 7 அட்சரம்)</option>
+                        <option value="khanda">கண்ட சாபு (Khanda Chapu - 5 அட்சரம்)</option>
+                        <option value="eka">சதுஸ்ர ஏகம் (Chatusra Eka - 4 அட்சரம்)</option>
+                    </select>
+                </div>
+
+                <div style="text-align:left;">
+                    <label style="font-size:12px; font-weight:800; color:#38bdf8; display:block; margin-bottom:4px;">ஒலி வகை (Sound):</label>
+                    <select id="metroSoundSelect" style="background:#0f172a; color:#ffffff; border:1.5px solid #3b82f6; padding:8px 12px; border-radius:8px; font-weight:800; font-size:13.5px; cursor:pointer;">
+                        <option value="mridangam">🥁 மிருதங்க ஒலி (Mridangam: Thom, Tha)</option>
+                        <option value="woodblock">🪵 மரக் கட்டை (Woodblock Click)</option>
+                        <option value="bell">🔔 மணி ஒலி (Bell Accent)</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Visual Tala Beats Row -->
+            <div id="metroBeatsContainer" style="display:flex; justify-content:center; align-items:center; gap:8px; flex-wrap:wrap; margin:20px 0; min-height:60px;">
+                <!-- Dynamically populated beats -->
+            </div>
+
+            <!-- Play / Stop Button -->
+            <div>
+                <button id="metroPlayBtn" onclick="toggleStandaloneMetronome()" style="background:#22c55e; color:#000000; border:none; border-radius:10px; padding:12px 32px; font-size:16px; font-weight:900; cursor:pointer; box-shadow:0 0 20px rgba(34,197,94,0.6); transition:all 0.2s;">
+                    ▶ மெட்ரோனோம் தொடங்கு (Start Metronome)
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 🎸 YAMAHA F280 ACOUSTIC GUITAR TUNER STUDIO SECTION -->
+    <div id="tunerSection" style="display:none; background:var(--card-bg); border:2px solid #3b82f6; border-radius:14px; padding:20px; margin-bottom:14px; box-shadow:0 8px 30px rgba(0,0,0,0.6);">
+        <div style="text-align:center; margin-bottom:16px;">
+            <h2 style="color:#38bdf8; font-size:20px; font-weight:900;">🎸 Yamaha F280 துல்லிய சுதி ட்யூனர் (Acoustic Guitar Tuner)</h2>
+            <p style="color:#94a3b8; font-size:13px; margin-top:4px;">கிட்டாரின் 6 கம்பிகளையும் மீட்டி சரியான சுதியில் (In-Tune) உள்ளதா என்பதைச் சரிபாருங்கள்.</p>
+        </div>
+
+        <!-- Tuner Needle & Gauge Display -->
+        <div style="background:#091322; border:2px solid #1e3a5f; border-radius:12px; padding:20px; max-width:600px; margin:0 auto 20px auto; text-align:center;">
+            <div id="tunerNoteBig" style="font-size:48px; font-weight:900; color:#fbbf24; text-shadow:0 0 20px rgba(251,191,36,0.6);">--</div>
+            <div id="tunerFreqDisplay" style="font-size:16px; font-weight:800; color:#94a3b8; margin:6px 0;">அதிர்வெண்: 0.0 Hz</div>
+
+            <!-- Gauge Meter Bar -->
+            <div style="position:relative; width:100%; height:24px; background:#1e293b; border-radius:12px; margin:16px 0; overflow:hidden; border:1.5px solid #334155;">
+                <div style="position:absolute; left:50%; top:0; bottom:0; width:4px; background:#22c55e; transform:translateX(-50%); z-index:2;"></div>
+                <div id="tunerNeedle" style="position:absolute; left:50%; top:2px; bottom:2px; width:10px; background:#38bdf8; border-radius:6px; transform:translateX(-50%); transition:left 0.1s ease-out; z-index:3; box-shadow:0 0 10px #38bdf8;"></div>
+            </div>
+            <div style="display:flex; justify-content:space-between; font-size:12px; font-weight:800; color:#64748b;">
+                <span>◀ சுதி குறைவு (Flat)</span>
+                <span style="color:#22c55e;">🎯 சரியான சுதி (In Tune)</span>
+                <span>சுதி அதிகம் (Sharp) ▶</span>
+            </div>
+
+            <div id="tunerStatusText" style="margin-top:14px; font-size:15px; font-weight:900; color:#94a3b8;">
+                மைக் ஆன் செய்து கம்பியை மீட்டுங்கள்...
+            </div>
+        </div>
+
+        <!-- 6 Open Strings Selector & Reference Tones -->
+        <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:10px;">
+            <button onclick="playGuitarRefTone(82.41, '6th Low E (E2)')" style="background:#0f172a; border:2px solid #573622; color:#d6d3d1; padding:10px 14px; border-radius:8px; font-weight:800; cursor:pointer;">
+                🔊 6th Low E (82.4 Hz)
+            </button>
+            <button onclick="playGuitarRefTone(110.00, '5th A (A2)')" style="background:#0f172a; border:2px solid #573622; color:#d6d3d1; padding:10px 14px; border-radius:8px; font-weight:800; cursor:pointer;">
+                🔊 5th A (110.0 Hz)
+            </button>
+            <button onclick="playGuitarRefTone(146.83, '4th D (D3)')" style="background:#0f172a; border:2px solid #573622; color:#d6d3d1; padding:10px 14px; border-radius:8px; font-weight:800; cursor:pointer;">
+                🔊 4th D (146.8 Hz)
+            </button>
+            <button onclick="playGuitarRefTone(196.00, '3rd G (G3)')" style="background:#0f172a; border:2px solid #573622; color:#d6d3d1; padding:10px 14px; border-radius:8px; font-weight:800; cursor:pointer;">
+                🔊 3rd G (196.0 Hz)
+            </button>
+            <button onclick="playGuitarRefTone(246.94, '2nd B (B3)')" style="background:#0f172a; border:2px solid #573622; color:#d6d3d1; padding:10px 14px; border-radius:8px; font-weight:800; cursor:pointer;">
+                🔊 2nd B (246.9 Hz)
+            </button>
+            <button onclick="playGuitarRefTone(329.63, '1st High E (E4)')" style="background:#0f172a; border:2px solid #573622; color:#d6d3d1; padding:10px 14px; border-radius:8px; font-weight:800; cursor:pointer;">
+                🔊 1st High E (329.6 Hz)
+            </button>
+        </div>
+    </div>
+
+    <!-- Dynamic Lesson Visual Diagram Card -->
+    <div class="lesson-visual-diagram-card" id="lessonDiagramSection">
+        <div class="diagram-header">
+            <h3>📊 இந்த பாடத்திற்கான பிரத்யேக ஸ்வர வரைபடம் (Lesson Visual Flow Diagram)</h3>
+            <span style="font-size:12.5px; color:#94a3b8;">ஸ்வரம் • Western Note • கம்பி • கட்டை</span>
+        </div>
+        <div class="diagram-lines-container" id="diagramLinesContainer">
+            <!-- Injected per lesson -->
+        </div>
+    </div>
+
+    <!-- Guitar TAB Sheet Card -->
+    <div class="tab-view-card" id="guitarTabSection" style="display:none;">
+        <div class="tab-sheet-title">🎼 கிட்டார் Tablature வரைபடம் (Guitar TAB Sheet)</div>
+        <table class="guitar-tab-table" id="guitarTabTable">
+            <!-- Dynamically populated -->
+        </table>
+    </div>
+
+    <!-- Timeline Flow -->
+    <div class="timeline-container" id="timelineSection">
+        <div class="timeline-header">⏩ ஸ்வர காலவரிசை (Interactive Step Sequence):</div>
+        <div class="timeline-flow" id="timelineFlow">
+            <!-- Dynamically populated -->
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="guru-footer">
+        📌 <strong>குருவின் பயிற்சி விதி:</strong> ஒவ்வொரு ஸ்வரத்தையும் மீட்டும்போது விரல் எண்களையும் (`1=சுட்டு, 2=நடு, 3=மோதிர, 4=சுண்டு`), கட்டை எண்களையும் கவனித்து மெதுவாக சுத்தமான சஸ்டெய்னுடன் வாசிக்கவும்.
+    </div>
+
+<script>
+    // ==========================================
+    // GLOBAL GUITAR AUDIO STATE & CONTROLS (ALWAYS DEFINED FIRST)
+    // ==========================================
+    let audioCtx = null;
+    let isAppAudioMuted = false;
+    let isGuitarToneEnabled = true;
+    let currentMelodyVoice = 'guitar'; // Default: Acoustic Guitar
+
+    function setMelodyVoice(voice) {
+        currentMelodyVoice = 'guitar';
+    }
+    let isGuitarSustainOn = true;
+    let guitarSustainSec = 1.4;
+    let activeGuitarVoices = [];
+    let masterCompressor = null;
+    let masterHeadroomGain = null;
+
+    function getMasterOutput() {
+        if (!audioCtx) return null;
+        if (!masterCompressor) {
+            try {
+                masterCompressor = audioCtx.createDynamicsCompressor();
+                masterCompressor.threshold.setValueAtTime(-3.0, audioCtx.currentTime);
+                masterCompressor.knee.setValueAtTime(10.0, audioCtx.currentTime);
+                masterCompressor.ratio.setValueAtTime(16.0, audioCtx.currentTime);
+                masterCompressor.attack.setValueAtTime(0.002, audioCtx.currentTime);
+                masterCompressor.release.setValueAtTime(0.12, audioCtx.currentTime);
+
+                masterHeadroomGain = audioCtx.createGain();
+                masterHeadroomGain.gain.setValueAtTime(0.82, audioCtx.currentTime);
+
+                masterCompressor.connect(masterHeadroomGain);
+                masterHeadroomGain.connect(audioCtx.destination);
+            } catch(e) {
+                return audioCtx.destination;
+            }
+        }
+        return masterCompressor;
+    }
+
+    function stopAllGuitarVoices(crossfadeSec = 0.035) {
+        if (!audioCtx) return;
+        const now = audioCtx.currentTime;
+        for (const v of activeGuitarVoices) {
+            try {
+                v.gain.gain.cancelScheduledValues(now);
+                const gVal = v.gain.gain.value;
+                v.gain.gain.setValueAtTime(gVal > 0.0001 ? gVal : 0.001, now);
+                v.gain.gain.linearRampToValueAtTime(0.0001, now + crossfadeSec);
+                v.oscs.forEach(o => {
+                    try { o.stop(now + crossfadeSec + 0.02); } catch(e) {}
+                });
+            } catch(e) {}
+        }
+        activeGuitarVoices = [];
+    }
+
+    async function ensureAudioCtx() {
+        try {
+            if (!audioCtx) {
+                const AudioCtxClass = window.AudioContext || window.webkitAudioContext;
+                audioCtx = new AudioCtxClass();
+            }
+            if (audioCtx.state === 'suspended') {
+                await audioCtx.resume();
+            }
+            getMasterOutput();
+            return audioCtx;
+        } catch(e) {
+            return null;
+        }
+    }
+
+    if (typeof window !== 'undefined') {
+        window.addEventListener('click', () => {
+            if (!audioCtx) {
+                const AudioCtxClass = window.AudioContext || window.webkitAudioContext;
+                audioCtx = new AudioCtxClass();
+            }
+            if (audioCtx && audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+        }, { passive: true });
+    }
+
+    // Audio Synthesizer
+    // audioCtx already declared
+    // isAppAudioMuted declared above
+
+    function toggleAppMute() {
+        isAppAudioMuted = !isAppAudioMuted;
+        const btn = document.getElementById('muteToggleBtn');
+        if (btn) {
+            btn.innerHTML = isAppAudioMuted ? '🔇 ஆப் ஒலி: ஆஃப் (Silent Mode)' : '🔊 ஆப் ஒலி: ஆன் (App Sound ON)';
+            btn.style.background = isAppAudioMuted ? '#78350f' : '#1e293b';
+            btn.style.borderColor = isAppAudioMuted ? '#f59e0b' : '#3b82f6';
+        }
+    }
+
+    // ==========================================
+    // 🎸 REALISTIC ACOUSTIC GUITAR AUDIO SYNTHESIZER
+    // ==========================================
+
+    function synthGuitarTone(audioCtx, freq, effectiveSustain, masterOut, now) {
+        // 1. Plectrum pick pluck attack transient
+        const pickOsc = audioCtx.createOscillator();
+        const pickGain = audioCtx.createGain();
+        pickOsc.type = 'triangle';
+        pickOsc.frequency.setValueAtTime(freq * 3.8, now);
+        pickGain.gain.setValueAtTime(0.25, now);
+        pickGain.gain.exponentialRampToValueAtTime(0.0001, now + 0.025);
+        pickOsc.connect(pickGain);
+        pickOsc.start(now);
+        pickOsc.stop(now + 0.03);
+
+        // 2. Fundamental & Overtones of steel string
+        const osc1 = audioCtx.createOscillator();
+        const osc2 = audioCtx.createOscillator();
+        osc1.type = 'triangle';
+        osc1.frequency.setValueAtTime(freq, now);
+        osc2.type = 'sawtooth';
+        osc2.frequency.setValueAtTime(freq * 2.0, now);
+
+        const g1 = audioCtx.createGain();
+        const g2 = audioCtx.createGain();
+        g1.gain.setValueAtTime(0.70, now);
+        g2.gain.setValueAtTime(0.30, now);
+        osc1.connect(g1);
+        osc2.connect(g2);
+
+        // 3. Acoustic Rosewood/Spruce Body Resonance Filter
+        const bodyFilter = audioCtx.createBiquadFilter();
+        bodyFilter.type = 'lowpass';
+        bodyFilter.frequency.setValueAtTime(2600, now);
+        bodyFilter.frequency.exponentialRampToValueAtTime(1100, now + Math.min(effectiveSustain, 0.7));
+        bodyFilter.Q.setValueAtTime(1.1, now);
+        g1.connect(bodyFilter);
+        g2.connect(bodyFilter);
+        pickGain.connect(bodyFilter);
+
+        // 4. Acoustic Guitar Pluck Envelope
+        const noteGain = audioCtx.createGain();
+        const peakG = 0.50;
+        noteGain.gain.setValueAtTime(0.0001, now);
+        noteGain.gain.linearRampToValueAtTime(peakG, now + 0.006);
+        if (effectiveSustain > 0.4) {
+            noteGain.gain.exponentialRampToValueAtTime(peakG * 0.55, now + 0.12);
+            noteGain.gain.linearRampToValueAtTime(peakG * 0.22, now + (effectiveSustain * 0.65));
+            noteGain.gain.linearRampToValueAtTime(0.0001, now + effectiveSustain);
+        } else {
+            noteGain.gain.linearRampToValueAtTime(0.0001, now + effectiveSustain);
+        }
+
+        bodyFilter.connect(noteGain);
+        if (masterOut) noteGain.connect(masterOut);
+        else noteGain.connect(audioCtx.destination);
+
+        const oscs = [pickOsc, osc1, osc2];
+        [osc1, osc2].forEach(o => { o.start(now); o.stop(now + effectiveSustain + 0.05); });
+        return { gain: noteGain, oscs: oscs };
+    }
+
+    function playTone(freq) {
+        if (!isGuitarToneEnabled || isAppAudioMuted || (typeof isMicListening !== 'undefined' && isMicListening)) {
+            return;
+        }
+        try {
+            if (!audioCtx) {
+                const AudioCtxClass = window.AudioContext || window.webkitAudioContext;
+                audioCtx = new AudioCtxClass();
+            }
+            if (audioCtx.state === 'suspended') {
+                try { audioCtx.resume(); } catch(e) {}
+            }
+            if (!audioCtx) return;
+
+            const masterOut = getMasterOutput();
+            const now = audioCtx.currentTime;
+
+            // Cap guitar polyphony to max 3 concurrent ringing strings
+            while (activeGuitarVoices.length >= 3) {
+                const oldV = activeGuitarVoices.shift();
+                try {
+                    oldV.gain.gain.cancelScheduledValues(now);
+                    const gVal = oldV.gain.gain.value;
+                    oldV.gain.gain.setValueAtTime(gVal > 0.0001 ? gVal : 0.001, now);
+                    oldV.gain.gain.linearRampToValueAtTime(0.0001, now + 0.03);
+                    oldV.oscs.forEach(o => {
+                        try { o.stop(now + 0.04); } catch(e) {}
+                    });
+                } catch(e) {}
+            }
+
+            const effectiveSustain = isGuitarSustainOn ? Math.max(0.2, guitarSustainSec) : 0.35;
+
+            // Play pure acoustic guitar pluck tone
+            const voiceRec = synthGuitarTone(audioCtx, freq, effectiveSustain, masterOut, now);
+
+            if (voiceRec) {
+                activeGuitarVoices.push(voiceRec);
+                setTimeout(() => {
+                    const idx = activeGuitarVoices.indexOf(voiceRec);
+                    if (idx !== -1) activeGuitarVoices.splice(idx, 1);
+                }, (effectiveSustain + 0.1) * 1000);
+            }
+
+        } catch(e) {
+            console.log("Audio error:", e);
+        }
+    }
+
+    const allSwaras = {
+        'S':   { ta: 'ஸ (Sa)', west: 'C4 (Middle C)', westShort: 'C4', str: 'G கம்பி (3-ம் கம்பி)', strNum: 3, fretNum: 5, finger: 'சுட்டு விரல் 1 (Index)', freq: 261.63, col: '#9333ea' },
+        'R1':  { ta: 'ரி₁ (Ri1)', west: 'C#4 / D♭4', westShort: 'C#4', str: 'G கம்பி (3-ம் கம்பி)', strNum: 3, fretNum: 6, finger: 'நடு விரல் 2 (Middle)', freq: 277.18, col: '#2563eb' },
+        'R2':  { ta: 'ரி₂ (Ri2)', west: 'D4', westShort: 'D4', str: 'G கம்பி (3-ம் கம்பி)', strNum: 3, fretNum: 7, finger: 'மோதிர விரல் 3 (Ring)', freq: 293.66, col: '#0284c7' },
+        'G2':  { ta: 'க₂ (Ga2)', west: 'D#4 / E♭4', westShort: 'D#4', str: 'B கம்பி (2-ம் கம்பி)', strNum: 2, fretNum: 4, finger: 'சுட்டு விரல் 1 (Index)', freq: 311.13, col: '#0d9488' },
+        'G3':  { ta: 'க₃ (Ga3)', west: 'E4', westShort: 'E4', str: 'B கம்பி (2-ம் கம்பி)', strNum: 2, fretNum: 5, finger: 'சுட்டு விரல் 1 (Index)', freq: 329.63, col: '#059669' },
+        'M1':  { ta: 'ம₁ (Ma1)', west: 'F4', westShort: 'F4', str: 'B கம்பி (2-ம் கம்பி)', strNum: 2, fretNum: 6, finger: 'நடு விரல் 2 (Middle)', freq: 349.23, col: '#ea580c' },
+        'M2':  { ta: 'ம₂ (Ma2)', west: 'F#4', westShort: 'F#4', str: 'B கம்பி (2-ம் கம்பி)', strNum: 2, fretNum: 7, finger: 'மோதிர விரல் 3 (Ring)', freq: 369.99, col: '#d97706' },
+        'P':   { ta: 'ப (Pa)', west: 'G4', westShort: 'G4', str: 'B கம்பி (2-ம் கம்பி)', strNum: 2, fretNum: 8, finger: 'சுண்டு விரல் 4 (Pinky)', freq: 392.00, col: '#dc2626' },
+        'D1':  { ta: 'த₁ (Dha1)', west: 'G#4 / A♭4', westShort: 'G#4', str: 'High E (1-ம் கம்பி)', strNum: 1, fretNum: 4, finger: 'சுட்டு விரல் 1 (Index)', freq: 415.30, col: '#0891b2' },
+        'D2':  { ta: 'த₂ (Dha2)', west: 'A4', westShort: 'A4', str: 'High E (1-ம் கம்பி)', strNum: 1, fretNum: 5, finger: 'நடு விரல் 2 (Middle)', freq: 440.00, col: '#4f46e5' },
+        'N2':  { ta: 'நி₂ (Ni2)', west: 'A#4 / B♭4', westShort: 'A#4', str: 'High E (1-ம் கம்பி)', strNum: 1, fretNum: 6, finger: 'மோதிர விரல் 3 (Ring)', freq: 466.16, col: '#7c3aed' },
+        'N3':  { ta: 'நி₃ (Ni3)', west: 'B4', westShort: 'B4', str: 'High E (1-ம் கம்பி)', strNum: 1, fretNum: 7, finger: 'மோதிர விரல் 3 (Ring)', freq: 493.88, col: '#c026d3' },
+        'R3':  { ta: 'ரி₃ (Ri3 / Shatsruti Ri)', west: 'D#4 / E♭4', westShort: 'D#4', str: 'B கம்பி (2-ம் கம்பி)', strNum: 2, fretNum: 4, finger: 'ஆள்காட்டி விரல் 1 (Index)', freq: 311.13, col: '#0d9488' },
+        'D3':  { ta: 'த₃ (Dha3 / Shatsruti Dha)', west: 'A#4 / B♭4', westShort: 'A#4', str: 'High E (1-ம் கம்பி)', strNum: 1, fretNum: 6, finger: 'மோதிர விரல் 3 (Ring)', freq: 466.16, col: '#7c3aed' },
+        'S5':  { ta: 'ஸ் (Tara Sa)', west: 'C5 (High C)', westShort: 'C5', str: 'High E (1-ம் கம்பி)', strNum: 1, fretNum: 8, finger: 'சுண்டு விரல் 4 (Pinky)', freq: 523.25, col: '#9333ea' }
+    };
+
+    // Raga Layout Definitions (Which Swaras exist on the Fretboard for each Raga)
+
+    
+    // ==========================================
+    // 🎼 20+ COMPLETE CARNATIC RAGAS DATASET
+    // ==========================================
+        // ==========================================
+    // 🎼 45+ CARNATIC RAGAS MASTER TREASURY
+    // ==========================================
+    const ragasMasterData = {
+        // --- 1. பிரதான மேளகர்த்தா தாய் ராகங்கள் (Major Melakartas) ---
+        'maya': {
+            name: '15. மாயாமாளவகௌளை (Mayamalavagowla)',
+            desc: '15-வது மேளகர்த்தா தாய் ராகம் (Double Harmonic Major)',
+            swaras: ['S', 'R1', 'G3', 'M1', 'P', 'D1', 'N3', 'S5'],
+            arohanam: ['S', 'R1', 'G3', 'M1', 'P', 'D1', 'N3', 'S5'],
+            avarohanam: ['S5', 'N3', 'D1', 'P', 'M1', 'G3', 'R1', 'S']
+        },
+        'shankar': {
+            name: '29. தீரசங்கராபரணம் (Shankarabharanam)',
+            desc: '29-வது மேளகர்த்தா (Western Major Scale / Bilawal)',
+            swaras: ['S', 'R2', 'G3', 'M1', 'P', 'D2', 'N3', 'S5'],
+            arohanam: ['S', 'R2', 'G3', 'M1', 'P', 'D2', 'N3', 'S5'],
+            avarohanam: ['S5', 'N3', 'D2', 'P', 'M1', 'G3', 'R2', 'S']
+        },
+        'kalyani': {
+            name: '65. மேசகல்யாணி (Kalyani)',
+            desc: '65-வது மேளகர்த்தா (பிரதி மத்திமம் M2 / Lydian Mode)',
+            swaras: ['S', 'R2', 'G3', 'M2', 'P', 'D2', 'N3', 'S5'],
+            arohanam: ['S', 'R2', 'G3', 'M2', 'P', 'D2', 'N3', 'S5'],
+            avarohanam: ['S5', 'N3', 'D2', 'P', 'M2', 'G3', 'R2', 'S']
+        },
+        'khara': {
+            name: '22. கரகரப்பிரியா (Kharaharapriya)',
+            desc: '22-வது மேளகர்த்தா (Dorian Mode / Kafi Thaat)',
+            swaras: ['S', 'R2', 'G2', 'M1', 'P', 'D2', 'N2', 'S5'],
+            arohanam: ['S', 'R2', 'G2', 'M1', 'P', 'D2', 'N2', 'S5'],
+            avarohanam: ['S5', 'N2', 'D2', 'P', 'M1', 'G2', 'R2', 'S']
+        },
+        'todi': {
+            name: '08. ஹனுமத்தோடி (Hanumatodi)',
+            desc: '8-வது மேளகர்த்தா (Phrygian Mode / Bhairavi Thaat)',
+            swaras: ['S', 'R1', 'G2', 'M1', 'P', 'D1', 'N2', 'S5'],
+            arohanam: ['S', 'R1', 'G2', 'M1', 'P', 'D1', 'N2', 'S5'],
+            avarohanam: ['S5', 'N2', 'D1', 'P', 'M1', 'G2', 'R1', 'S']
+        },
+        'harikambhoji': {
+            name: '28. ஹரிகாம்போஜி (Harikambhoji)',
+            desc: '28-வது மேளகர்த்தா (Mixolydian Mode / Khamaj)',
+            swaras: ['S', 'R2', 'G3', 'M1', 'P', 'D2', 'N2', 'S5'],
+            arohanam: ['S', 'R2', 'G3', 'M1', 'P', 'D2', 'N2', 'S5'],
+            avarohanam: ['S5', 'N2', 'D2', 'P', 'M1', 'G3', 'R2', 'S']
+        },
+        'natabhairavi': {
+            name: '20. நடபைரவி (Natabhairavi)',
+            desc: '20-வது மேளகர்த்தா (Natural Minor Scale / Asavari)',
+            swaras: ['S', 'R2', 'G2', 'M1', 'P', 'D1', 'N2', 'S5'],
+            arohanam: ['S', 'R2', 'G2', 'M1', 'P', 'D1', 'N2', 'S5'],
+            avarohanam: ['S5', 'N2', 'D1', 'P', 'M1', 'G2', 'R2', 'S']
+        },
+        'keeravani': {
+            name: '21. கீரவாணி (Keeravani)',
+            desc: '21-வது மேளகர்த்தா (Harmonic Minor Scale)',
+            swaras: ['S', 'R2', 'G2', 'M1', 'P', 'D1', 'N3', 'S5'],
+            arohanam: ['S', 'R2', 'G2', 'M1', 'P', 'D1', 'N3', 'S5'],
+            avarohanam: ['S5', 'N3', 'D1', 'P', 'M1', 'G2', 'R2', 'S']
+        },
+        'simhendra': {
+            name: '57. சிம்மேந்திரமத்திமம் (Simhendramadhyamam)',
+            desc: '57-வது மேளகர்த்தா (Hungarian Minor / M2 D1 N3)',
+            swaras: ['S', 'R2', 'G2', 'M2', 'P', 'D1', 'N3', 'S5'],
+            arohanam: ['S', 'R2', 'G2', 'M2', 'P', 'D1', 'N3', 'S5'],
+            avarohanam: ['S5', 'N3', 'D1', 'P', 'M2', 'G2', 'R2', 'S']
+        },
+        'chakravakam': {
+            name: '16. சக்ரவாகம் (Chakravakam)',
+            desc: '16-வது மேளகர்த்தா (Ahir Bhairav / R1 G3 D2 N2)',
+            swaras: ['S', 'R1', 'G3', 'M1', 'P', 'D2', 'N2', 'S5'],
+            arohanam: ['S', 'R1', 'G3', 'M1', 'P', 'D2', 'N2', 'S5'],
+            avarohanam: ['S5', 'N2', 'D2', 'P', 'M1', 'G3', 'R1', 'S']
+        },
+        'shanmukhapriya': {
+            name: '56. ஷண்முகப்பிரியா (Shanmukhapriya)',
+            desc: '56-வது மேளகர்த்தா (M2 D1 N2)',
+            swaras: ['S', 'R2', 'G2', 'M2', 'P', 'D1', 'N2', 'S5'],
+            arohanam: ['S', 'R2', 'G2', 'M2', 'P', 'D1', 'N2', 'S5'],
+            avarohanam: ['S5', 'N2', 'D1', 'P', 'M2', 'G2', 'R2', 'S']
+        },
+        'charukesi': {
+            name: '26. சாருகேசி (Charukesi)',
+            desc: '26-வது மேளகர்த்தா (D1 N2)',
+            swaras: ['S', 'R2', 'G3', 'M1', 'P', 'D1', 'N2', 'S5'],
+            arohanam: ['S', 'R2', 'G3', 'M1', 'P', 'D1', 'N2', 'S5'],
+            avarohanam: ['S5', 'N2', 'D1', 'P', 'M1', 'G3', 'R2', 'S']
+        },
+        'pantuvarali': {
+            name: '51. காமவர்த்தனி / பந்துவராளி (Pantuvarali)',
+            desc: '51-வது மேளகர்த்தா (Puriya Dhanashree / R1 G3 M2 D1 N3)',
+            swaras: ['S', 'R1', 'G3', 'M2', 'P', 'D1', 'N3', 'S5'],
+            arohanam: ['S', 'R1', 'G3', 'M2', 'P', 'D1', 'N3', 'S5'],
+            avarohanam: ['S5', 'N3', 'D1', 'P', 'M2', 'G3', 'R1', 'S']
+        },
+        'hemavati': {
+            name: '58. ஹேமாவதி (Hemavati)',
+            desc: '58-வது மேளகர்த்தா (Dorian with Sharp 4th / M2 D2 N2)',
+            swaras: ['S', 'R2', 'G2', 'M2', 'P', 'D2', 'N2', 'S5'],
+            arohanam: ['S', 'R2', 'G2', 'M2', 'P', 'D2', 'N2', 'S5'],
+            avarohanam: ['S5', 'N2', 'D2', 'P', 'M2', 'G2', 'R2', 'S']
+        },
+        'vakulabharanam': {
+            name: '14. வகுளாபரணம் (Vakulabharanam)',
+            desc: '14-வது மேளகர்த்தா (R1 G3 M1 P D1 N2)',
+            swaras: ['S', 'R1', 'G3', 'M1', 'P', 'D1', 'N2', 'S5'],
+            arohanam: ['S', 'R1', 'G3', 'M1', 'P', 'D1', 'N2', 'S5'],
+            avarohanam: ['S5', 'N2', 'D1', 'P', 'M1', 'G3', 'R1', 'S']
+        },
+        'vachaspati': {
+            name: '64. வாசஸ்பதி (Vachaspati)',
+            desc: '64-வது மேளகர்த்தா (Lydian Dominant / M2 D2 N2)',
+            swaras: ['S', 'R2', 'G3', 'M2', 'P', 'D2', 'N2', 'S5'],
+            arohanam: ['S', 'R2', 'G3', 'M2', 'P', 'D2', 'N2', 'S5'],
+            avarohanam: ['S5', 'N2', 'D2', 'P', 'M2', 'G3', 'R2', 'S']
+        },
+        'dharmavati': {
+            name: '59. தர்மவதி (Dharmavati)',
+            desc: '59-வது மேளகர்த்தா (Lydian Minor / R2 G2 M2 P D2 N3)',
+            swaras: ['S', 'R2', 'G2', 'M2', 'P', 'D2', 'N3', 'S5'],
+            arohanam: ['S', 'R2', 'G2', 'M2', 'P', 'D2', 'N3', 'S5'],
+            avarohanam: ['S5', 'N3', 'D2', 'P', 'M2', 'G2', 'R2', 'S']
+        },
+        'sarasangi': {
+            name: '27. சரசாங்கி (Sarasangi)',
+            desc: '27-வது மேளகர்த்தா (R2 G3 M1 P D1 N3)',
+            swaras: ['S', 'R2', 'G3', 'M1', 'P', 'D1', 'N3', 'S5'],
+            arohanam: ['S', 'R2', 'G3', 'M1', 'P', 'D1', 'N3', 'S5'],
+            avarohanam: ['S5', 'N3', 'D1', 'P', 'M1', 'G3', 'R2', 'S']
+        },
+
+        // --- 2. பிரபலமான 5/6 ஸ்வர பெண்டாடோனிக் ஜன்ய ராகங்கள் (Pentatonic & Audava) ---
+        'mohanam': {
+            name: '★ மோகனம் (Mohanam)',
+            desc: 'Major Pentatonic (S R2 G3 P D2 S)',
+            swaras: ['S', 'R2', 'G3', 'P', 'D2', 'S5'],
+            arohanam: ['S', 'R2', 'G3', 'P', 'D2', 'S5'],
+            avarohanam: ['S5', 'D2', 'P', 'G3', 'R2', 'S']
+        },
+        'hamsadhwani': {
+            name: '★ ஹம்சத்வனி (Hamsadhwani)',
+            desc: 'ஆரம்ப மங்கள ராகம் (S R2 G3 P N3 S)',
+            swaras: ['S', 'R2', 'G3', 'P', 'N3', 'S5'],
+            arohanam: ['S', 'R2', 'G3', 'P', 'N3', 'S5'],
+            avarohanam: ['S5', 'N3', 'P', 'G3', 'R2', 'S']
+        },
+        'suddhadhanyasi': {
+            name: '★ சுத்த தன்யாசி (Suddha Dhanyasi)',
+            desc: 'கம்பீரமான 5 ஸ்வர ராகம் (S G2 M1 P N2 S)',
+            swaras: ['S', 'G2', 'M1', 'P', 'N2', 'S5'],
+            arohanam: ['S', 'G2', 'M1', 'P', 'N2', 'S5'],
+            avarohanam: ['S5', 'N2', 'P', 'M1', 'G2', 'S']
+        },
+        'hindolam': {
+            name: '★ ஹிந்தோளம் (Hindolam)',
+            desc: 'Minor Pentatonic (S G2 M1 D1 N2 S)',
+            swaras: ['S', 'G2', 'M1', 'D1', 'N2', 'S5'],
+            arohanam: ['S', 'G2', 'M1', 'D1', 'N2', 'S5'],
+            avarohanam: ['S5', 'N2', 'D1', 'M1', 'G2', 'S']
+        },
+        'madhyamavati': {
+            name: '★ மத்யமாவதி (Madhyamavati)',
+            desc: 'நிறைவு மங்கள ராகம் (S R2 M1 P N2 S)',
+            swaras: ['S', 'R2', 'M1', 'P', 'N2', 'S5'],
+            arohanam: ['S', 'R2', 'M1', 'P', 'N2', 'S5'],
+            avarohanam: ['S5', 'N2', 'P', 'M1', 'R2', 'S']
+        },
+        'sivaranjani': {
+            name: '★ சிவரஞ்சனி (Sivaranjani)',
+            desc: 'உணர்ச்சிமிகு 5 ஸ்வர ராகம் (S R2 G2 P D2 S)',
+            swaras: ['S', 'R2', 'G2', 'P', 'D2', 'S5'],
+            arohanam: ['S', 'R2', 'G2', 'P', 'D2', 'S5'],
+            avarohanam: ['S5', 'D2', 'P', 'G2', 'R2', 'S']
+        },
+        'suddhasaveri': {
+            name: '★ சுத்த சாவேரி (Suddha Saveri)',
+            desc: 'மங்களகரமான 5 ஸ்வர ராகம் (S R2 M1 P D2 S)',
+            swaras: ['S', 'R2', 'M1', 'P', 'D2', 'S5'],
+            arohanam: ['S', 'R2', 'M1', 'P', 'D2', 'S5'],
+            avarohanam: ['S5', 'D2', 'P', 'M1', 'R2', 'S']
+        },
+        'abhogi': {
+            name: '★ ஆபோகி (Abhogi)',
+            desc: '5 ஸ்வர ராகம் (S R2 G2 M1 D2 S)',
+            swaras: ['S', 'R2', 'G2', 'M1', 'D2', 'S5'],
+            arohanam: ['S', 'R2', 'G2', 'M1', 'D2', 'S5'],
+            avarohanam: ['S5', 'D2', 'M1', 'G2', 'R2', 'S']
+        },
+        'amritavarshini': {
+            name: '★ அமிர்தவர்ஷிணி (Amritavarshini)',
+            desc: 'மழை ராகம் (S G3 M2 P N3 S)',
+            swaras: ['S', 'G3', 'M2', 'P', 'N3', 'S5'],
+            arohanam: ['S', 'G3', 'M2', 'P', 'N3', 'S5'],
+            avarohanam: ['S5', 'N3', 'P', 'M2', 'G3', 'S']
+        },
+        'valaji': {
+            name: '★ வலயசி (Valaji)',
+            desc: 'இனிமையான 5 ஸ்வர ராகம் (S G3 P D2 N2 S)',
+            swaras: ['S', 'G3', 'P', 'D2', 'N2', 'S5'],
+            arohanam: ['S', 'G3', 'P', 'D2', 'N2', 'S5'],
+            avarohanam: ['S5', 'N2', 'D2', 'P', 'G3', 'S']
+        },
+        'bahudari': {
+            name: '★ பஹுதாரி (Bahudari)',
+            desc: 'பிரபலமான ஜன்ய ராகம் (S G3 M1 P D2 N2 S)',
+            swaras: ['S', 'G3', 'M1', 'P', 'D2', 'N2', 'S5'],
+            arohanam: ['S', 'G3', 'M1', 'P', 'D2', 'N2', 'S5'],
+            avarohanam: ['S5', 'N2', 'P', 'M1', 'G3', 'S']
+        },
+        'revati': {
+            name: '★ ரேவதி (Revati)',
+            desc: 'பக்தி ராகம் (S R1 M1 P N2 S)',
+            swaras: ['S', 'R1', 'M1', 'P', 'N2', 'S5'],
+            arohanam: ['S', 'R1', 'M1', 'P', 'N2', 'S5'],
+            avarohanam: ['S5', 'N2', 'P', 'M1', 'R1', 'S']
+        },
+        'malahari': {
+            name: '★ மலஹரி (Malahari)',
+            desc: 'கீத ராகம் (S R1 M1 P D1 S | S D1 P M1 G3 R1 S)',
+            swaras: ['S', 'R1', 'M1', 'P', 'D1', 'G3', 'S5'],
+            arohanam: ['S', 'R1', 'M1', 'P', 'D1', 'S5'],
+            avarohanam: ['S5', 'D1', 'P', 'M1', 'G3', 'R1', 'S']
+        },
+
+        // --- 3. புகழ்பெற்ற கர்நாடக கச்சேரி & பக்தி ராகங்கள் (Concert & Devotional) ---
+        'bilahari': {
+            name: '🎵 பிலஹரி (Bilahari)',
+            desc: 'காலை நேர உற்சாக ராகம் (S R2 G3 P D2 S | S N3 D2 P M1 G3 R2 S)',
+            swaras: ['S', 'R2', 'G3', 'P', 'D2', 'N3', 'M1', 'S5'],
+            arohanam: ['S', 'R2', 'G3', 'P', 'D2', 'S5'],
+            avarohanam: ['S5', 'N3', 'D2', 'P', 'M1', 'G3', 'R2', 'S']
+        },
+        'arabhi': {
+            name: '🎵 ஆரபி (Arabhi)',
+            desc: 'கம்பீரமான ராகம் (S R2 M1 P D2 S | S N3 D2 P M1 G3 R2 S)',
+            swaras: ['S', 'R2', 'M1', 'P', 'D2', 'N3', 'G3', 'S5'],
+            arohanam: ['S', 'R2', 'M1', 'P', 'D2', 'S5'],
+            avarohanam: ['S5', 'N3', 'D2', 'P', 'M1', 'G3', 'R2', 'S']
+        },
+        'vasantha': {
+            name: '🎵 வஸந்தா (Vasantha)',
+            desc: 'வசந்த கால ராகம் (S M1 G3 M1 D2 N3 S | S N3 D2 M1 G3 R1 S)',
+            swaras: ['S', 'R1', 'G3', 'M1', 'D2', 'N3', 'S5'],
+            arohanam: ['S', 'M1', 'G3', 'M1', 'D2', 'N3', 'S5'],
+            avarohanam: ['S5', 'N3', 'D2', 'M1', 'G3', 'R1', 'S']
+        },
+        'sindhubhairavi': {
+            name: '🎵 சிந்துபைரவி (Sindhubhairavi)',
+            desc: 'அனைத்து ஸ்வரங்களும் கொண்ட மாயாஜால ராகம் (S R1 G2 M1 P D1 N2 S)',
+            swaras: ['S', 'R1', 'R2', 'G2', 'G3', 'M1', 'M2', 'P', 'D1', 'D2', 'N2', 'N3', 'S5'],
+            arohanam: ['S', 'R1', 'G2', 'M1', 'P', 'D1', 'N2', 'S5'],
+            avarohanam: ['S5', 'N2', 'D1', 'P', 'M1', 'G2', 'R1', 'S']
+        },
+        'kapi': {
+            name: '🎵 காபி (Kapi)',
+            desc: 'இனிமையான பக்திராகம் (S R2 M1 P N3 S | S N2 D2 N2 P M1 G2 R2 S)',
+            swaras: ['S', 'R2', 'G2', 'M1', 'P', 'D2', 'N2', 'N3', 'S5'],
+            arohanam: ['S', 'R2', 'M1', 'P', 'N3', 'S5'],
+            avarohanam: ['S5', 'N2', 'D2', 'P', 'M1', 'G2', 'R2', 'S']
+        },
+        'khamas': {
+            name: '🎵 கமாஸ் (Khamas)',
+            desc: 'ஜாவளி & தில்லானா ராகம் (S M1 G3 M1 P D2 N2 S | S N2 D2 P M1 G3 R2 S)',
+            swaras: ['S', 'R2', 'G3', 'M1', 'P', 'D2', 'N2', 'N3', 'S5'],
+            arohanam: ['S', 'M1', 'G3', 'M1', 'P', 'D2', 'N2', 'S5'],
+            avarohanam: ['S5', 'N2', 'D2', 'P', 'M1', 'G3', 'R2', 'S']
+        },
+        'behag': {
+            name: '🎵 பேஹாக் (Behag)',
+            desc: 'இரவு நேர இனிமை ராகம் (S G3 M1 P N3 S | S N3 D2 P M2 G3 M1 G3 R2 S)',
+            swaras: ['S', 'R2', 'G3', 'M1', 'M2', 'P', 'D2', 'N3', 'S5'],
+            arohanam: ['S', 'G3', 'M1', 'P', 'N3', 'S5'],
+            avarohanam: ['S5', 'N3', 'D2', 'P', 'M1', 'G3', 'R2', 'S']
+        },
+        'hamsanandi': {
+            name: '🎵 ஹம்சநந்தி (Hamsanandi)',
+            desc: 'மாலை நேர ராகம் (S R1 G3 M2 D2 N3 S)',
+            swaras: ['S', 'R1', 'G3', 'M2', 'D2', 'N3', 'S5'],
+            arohanam: ['S', 'R1', 'G3', 'M2', 'D2', 'N3', 'S5'],
+            avarohanam: ['S5', 'N3', 'D2', 'M2', 'G3', 'R1', 'S']
+        },
+        'saramati': {
+            name: '🎵 சரமதி (Saramati)',
+            desc: 'மோட்சமு கலதா ராகம் (S R2 G2 M1 P D1 N2 S | S N2 D1 M1 G2 S)',
+            swaras: ['S', 'R2', 'G2', 'M1', 'P', 'D1', 'N2', 'S5'],
+            arohanam: ['S', 'R2', 'G2', 'M1', 'P', 'D1', 'N2', 'S5'],
+            avarohanam: ['S5', 'N2', 'D1', 'M1', 'G2', 'S']
+        }
+    };
+
+
+    // Complete Lessons Dataset with Associated Ragas
+
+    const lessonsData = {
+        's1': {
+            raga: 'maya',
+            title: '1. சரளி வரிசை 1 (ச ரி க ம ப த நி ஸ்)',
+            desc: 'மாயாமாளவகௌளை ராகம் • ஆதி தாளம் • நேரடி ஏறுவரிசை மற்றும் இறங்குவரிசை',
+            lines: [
+                { title: 'பாகம் 1: ஏறுவரிசை (Arohanam)', sections: [['S','R1','G3','M1'], ['P','D1'], ['N3','S5']] },
+                { title: 'பாகம் 2: இறங்குவரிசை (Avarohanam)', sections: [['S5','N3','D1','P'], ['M1','G3'], ['R1','S']] }
+            ]
+        },
+        's2': {
+            raga: 'maya',
+            title: '2. சரளி வரிசை 2 (இரட்டை அடி பயிற்சி)',
+            desc: 'SR SR | SRGM || SRGM | PDNṠ || ṠN ṠN | ṠNDP || ṠNDP | MGRS',
+            lines: [
+                { title: 'பாகம் 1: முதல் ஆவர்த்தனம்', sections: [['S','R1','S','R1'], ['S','R1'], ['G3','M1']] },
+                { title: 'பாகம் 2: இரண்டாம் ஆவர்த்தனம்', sections: [['S','R1','G3','M1'], ['P','D1'], ['N3','S5']] },
+                { title: 'பாகம் 3: மூன்றாம் ஆவர்த்தனம்', sections: [['S5','N3','S5','N3'], ['S5','N3'], ['D1','P']] },
+                { title: 'பாகம் 4: நான்காம் ஆவர்த்தனம்', sections: [['S5','N3','D1','P'], ['M1','G3'], ['R1','S']] }
+            ]
+        },
+        's3': {
+            raga: 'maya',
+            title: '3. சரளி வரிசை 3 (மூன்று அடி பயிற்சி)',
+            desc: 'SRG SRG | SRGM || SRGM | PDNṠ || ṠND ṠND | ṠNDP || ṠNDP | MGRS',
+            lines: [
+                { title: 'பாகம் 1: ஏறுவரிசை துவக்கம் (SRG SRG)', sections: [['S','R1','G3','S'], ['R1','G3'], ['S','R1']] },
+                { title: 'பாகம் 2: ஏறுவரிசை முடிவு (SRGM PDNS)', sections: [['G3','M1','P','D1'], ['N3','S5'], ['S5','N3']] },
+                { title: 'பாகம் 3: இறங்குவரிசை துவக்கம் (ṠND ṠND)', sections: [['S5','N3','D1','S5'], ['N3','D1'], ['S5','N3']] },
+                { title: 'பாகம் 4: இறங்குவரிசை முடிவு (ṠNDP MGRS)', sections: [['D1','P','M1','G3'], ['R1','S'], ['S','R1']] }
+            ]
+        },
+        's4': {
+            raga: 'maya',
+            title: '4. சரளி வரிசை 4 (நான்கு அடி பயிற்சி)',
+            desc: 'SRGM SRGM | SRGM | PDNṠ || ṠNDP ṠNDP | ṠNDP | MGRS',
+            lines: [
+                { title: 'பாகம் 1: ஏறுவரிசை (SRGM SRGM)', sections: [['S','R1','G3','M1'], ['S','R1'], ['G3','M1']] },
+                { title: 'பாகம் 2: ஏறுவரிசை தொடர்ச்சி (SRGM PDNS)', sections: [['S','R1','G3','M1'], ['P','D1'], ['N3','S5']] },
+                { title: 'பாகம் 3: இறங்குவரிசை (ṠNDP ṠNDP)', sections: [['S5','N3','D1','P'], ['S5','N3'], ['D1','P']] },
+                { title: 'பாகம் 4: இறங்குவரிசை தொடர்ச்சி (ṠNDP MGRS)', sections: [['S5','N3','D1','P'], ['M1','G3'], ['R1','S']] }
+            ]
+        },
+        's5': {
+            raga: 'maya',
+            title: '5. சரளி வரிசை 5 (பஞ்சம தாவல் பயிற்சி)',
+            desc: 'SRGM PD | SR || GM PD | N Ṡ || ṠNDP MG | ṠN || DP MG | R S',
+            lines: [
+                { title: 'பாகம் 1: ஏறுவரிசை முதல் வரி', sections: [['S','R1','G3','M1'], ['P','D1'], ['S','R1']] },
+                { title: 'பாகம் 2: ஏறுவரிசை இரண்டாம் வரி', sections: [['G3','M1','P','D1'], ['N3','S5'], ['S5','N3']] },
+                { title: 'பாகம் 3: இறங்குவரிசை முதல் வரி', sections: [['S5','N3','D1','P'], ['M1','G3'], ['S5','N3']] },
+                { title: 'பாகம் 4: இறங்குவரிசை இரண்டாம் வரி', sections: [['D1','P','M1','G3'], ['R1','S'], ['S','R1']] }
+            ]
+        },
+        's6': {
+            raga: 'maya',
+            title: '6. சரளி வரிசை 6 (தொடர் ஓட்டம்)',
+            desc: 'SRGM PD | N Ṡ || ṠNDP MG | R S',
+            lines: [
+                { title: 'பாகம் 1: ஏறுவரிசை (SRGM PDNS)', sections: [['S','R1','G3','M1'], ['P','D1'], ['N3','S5']] },
+                { title: 'பாகம் 2: இறங்குவரிசை (ṠNDP MGRS)', sections: [['S5','N3','D1','P'], ['M1','G3'], ['R1','S']] }
+            ]
+        },
+        's7': {
+            raga: 'maya',
+            title: '7. சரளி வரிசை 7 (மெதுவான ஏற்றம்)',
+            desc: 'SRG M | P D | N Ṡ || ṠND P | M G | R S',
+            lines: [
+                { title: 'பாகம் 1: ஏறுவரிசை', sections: [['S','R1','G3','M1'], ['P','D1'], ['N3','S5']] },
+                { title: 'பாகம் 2: இறங்குவரிசை', sections: [['S5','N3','D1','P'], ['M1','G3'], ['R1','S']] }
+            ]
+        },
+        's8': {
+            raga: 'maya',
+            title: '8. சரளி வரிசை 8 (ஜிக்-ஜாக் மீட்டும் முறை)',
+            desc: 'SRGM PM | GM || PDNṠ ṠN | DP || ṠNDP MP | DP || MGRS RM | GR',
+            lines: [
+                { title: 'பாகம் 1: ஏறுவரிசை ஜிக்-ஜாக் 1', sections: [['S','R1','G3','M1'], ['P','M1'], ['G3','M1']] },
+                { title: 'பாகம் 2: ஏறுவரிசை ஜிக்-ஜாக் 2', sections: [['P','D1','N3','S5'], ['S5','N3'], ['D1','P']] },
+                { title: 'பாகம் 3: இறங்குவரிசை ஜிக்-ஜாக் 1', sections: [['S5','N3','D1','P'], ['M1','P'], ['D1','P']] },
+                { title: 'பாகம் 4: இறங்குவரிசை ஜிக்-ஜாக் 2', sections: [['M1','G3','R1','S'], ['R1','M1'], ['G3','R1']] }
+            ]
+        },
+        's9': {
+            raga: 'maya',
+            title: '9. சரளி வரிசை 9 (உயரத் தாவல் பயிற்சி)',
+            desc: 'SRGM PM | DP || DNṠṠ ṠN | PM || ṠNDP MP | DP || MGRS RM | GR',
+            lines: [
+                { title: 'பாகம் 1: ஏறுவரிசை உயரத் தாவல்', sections: [['S','R1','G3','M1'], ['P','M1'], ['D1','P']] },
+                { title: 'பாகம் 2: உச்ச ஸ்தாயி தொடுதல்', sections: [['D1','N3','S5','S5'], ['S5','N3'], ['P','M1']] },
+                { title: 'பாகம் 3: இறங்குவரிசை தாவல்', sections: [['S5','N3','D1','P'], ['M1','P'], ['D1','P']] },
+                { title: 'பாகம் 4: அடி ஸ்தாயி திரும்புதல்', sections: [['M1','G3','R1','S'], ['R1','M1'], ['G3','R1']] }
+            ]
+        },
+        's10': {
+            raga: 'maya',
+            title: '10. சரளி வரிசை 10 (நீளப் பாய்ச்சல் பயிற்சி)',
+            desc: 'SRGM PD | N Ṡ || ṠNDP MG | R S',
+            lines: [
+                { title: 'பாகம் 1: ஏறுவரிசை', sections: [['S','R1','G3','M1'], ['P','D1'], ['N3','S5']] },
+                { title: 'பாகம் 2: இறங்குவரிசை', sections: [['S5','N3','D1','P'], ['M1','G3'], ['R1','S']] }
+            ]
+        },
+        's11': {
+            raga: 'maya',
+            title: '11. சரளி வரிசை 11 (இரட்டை ஸ்வரங்கள் SS RR)',
+            desc: 'SS RR GG MM | PP DD NN ṠṠ || ṠṠ NN DD PP | MM GG RR SS',
+            lines: [
+                { title: 'பாகம் 1: ஏறுவரிசை இரட்டை ஸ்வரங்கள்', sections: [['S','S','R1','R1'], ['G3','G3'], ['M1','M1']] },
+                { title: 'பாகம் 2: ஏறுவரிசை முடிவு', sections: [['P','P','D1','D1'], ['N3','N3'], ['S5','S5']] },
+                { title: 'பாகம் 3: இறங்குவரிசை இரட்டை ஸ்வரங்கள்', sections: [['S5','S5','N3','N3'], ['D1','D1'], ['P','P']] },
+                { title: 'பாகம் 4: இறங்குவரிசை முடிவு', sections: [['M1','M1','G3','G3'], ['R1','R1'], ['S','S']] }
+            ]
+        },
+        's12': {
+            raga: 'maya',
+            title: '12. சரளி வரிசை 12 (அருவி ஓட்டப் பயிற்சி)',
+            desc: 'SRGR GMGM | PDNṠ ṠNDP || ṠNDN DPM1P | MGRS RMGR',
+            lines: [
+                { title: 'பாகம் 1: அருவி ஓட்டம் 1', sections: [['S','R1','G3','R1'], ['G3','M1'], ['G3','M1']] },
+                { title: 'பாகம் 2: அருவி ஓட்டம் 2', sections: [['P','D1','N3','S5'], ['S5','N3'], ['D1','P']] },
+                { title: 'பாகம் 3: அருவி ஓட்டம் 3', sections: [['S5','N3','D1','N3'], ['D1','P'], ['M1','P']] },
+                { title: 'பாகம் 4: அருவி ஓட்டம் 4', sections: [['M1','G3','R1','S'], ['R1','M1'], ['G3','R1']] }
+            ]
+        },
+        's13': {
+            raga: 'maya',
+            title: '13. சரளி வரிசை 13 (இரட்டைத் தாவல் முறை)',
+            desc: 'SGRM GMPD | PṠND PMGS || ṠPDN DPMG | MRGS RNS',
+            lines: [
+                { title: 'பாகம் 1: இரட்டைத் தாவல் 1', sections: [['S','G3','R1','M1'], ['G3','P'], ['M1','D1']] },
+                { title: 'பாகம் 2: இரட்டைத் தாவல் 2', sections: [['P','S5','N3','D1'], ['P','M1'], ['G3','S']] },
+                { title: 'பாகம் 3: இரட்டைத் தாவல் 3', sections: [['S5','P','D1','N3'], ['D1','P'], ['M1','G3']] },
+                { title: 'பாகம் 4: இரட்டைத் தாவல் 4', sections: [['M1','R1','G3','S'], ['R1','N3'], ['S','S']] }
+            ]
+        },
+        's14': {
+            raga: 'maya',
+            title: '14. சரளி வரிசை 14 (முழுமையான மாஸ்டர் சரளி வரிசை)',
+            desc: 'ஆதி தாளத்தில் 3 கால வேகங்களிலும் வாசிக்க வேண்டிய முழுமையான பயிற்சி',
+            lines: [
+                { title: 'பாகம் 1: ஏறுவரிசை', sections: [['S','R1','G3','M1'], ['P','D1'], ['N3','S5']] },
+                { title: 'பாகம் 2: இறங்குவரிசை', sections: [['S5','N3','D1','P'], ['M1','G3'], ['R1','S']] }
+            ]
+        },
+        'j1': {
+            raga: 'maya',
+            title: 'ஜண்டை வரிசை 1 (SS RR GG MM PP DD NN ṠṠ)',
+            desc: 'மாயாமாளவகௌளை ராகம் • ஒவ்வொரு ஸ்வரத்தையும் அழுத்தி மீட்டவும் (ஸ்புரிதம்)',
+            lines: [
+                { title: 'பாகம் 1: ஏறுவரிசை (SS RR GG MM)', sections: [['S','S','R1','R1'], ['G3','G3'], ['M1','M1']] },
+                { title: 'பாகம் 2: ஏறுவரிசை தொடர்ச்சி (PP DD NN ṠṠ)', sections: [['P','P','D1','D1'], ['N3','N3'], ['S5','S5']] },
+                { title: 'பாகம் 3: இறங்குவரிசை (ṠṠ NN DD PP)', sections: [['S5','S5','N3','N3'], ['D1','D1'], ['P','P']] },
+                { title: 'பாகம் 4: இறங்குவரிசை முடிவு (MM GG RR SS)', sections: [['M1','M1','G3','G3'], ['R1','R1'], ['S','S']] }
+            ]
+        },
+        'j2': {
+            raga: 'maya',
+            title: 'ஜண்டை வரிசை 2 (SS RR GG MM - வேகப் பயிற்சி)',
+            desc: 'விரல் உறுதி மற்றும் பிக் கட்டுப்பாட்டிற்கான பிரத்யேக பயிற்சி',
+            lines: [
+                { title: 'பாகம் 1: ஏறுவரிசை', sections: [['S','S','R1','R1'], ['G3','G3'], ['M1','M1']] },
+                { title: 'பாகம் 2: ஏறுவரிசை முடிவு', sections: [['P','P','D1','D1'], ['N3','N3'], ['S5','S5']] },
+                { title: 'பாகம் 3: இறங்குவரிசை', sections: [['S5','S5','N3','N3'], ['D1','D1'], ['P','P']] },
+                { title: 'பாகம் 4: இறங்குவரிசை முடிவு', sections: [['M1','M1','G3','G3'], ['R1','R1'], ['S','S']] }
+            ]
+        },
+        'd1': {
+            raga: 'maya',
+            title: 'தாட்டு வரிசை 1 (S G R M, R M G P - தாண்டி மீட்டுதல்)',
+            desc: 'கம்பிகளைத் தாண்டி விரல்களை லாவகமாக இயக்கும் சிறப்புப் பயிற்சி',
+            lines: [
+                { title: 'பாகம் 1: ஏறுவரிசை தாவுதல் 1', sections: [['S','G3','R1','M1'], ['R1','M1'], ['G3','P']] },
+                { title: 'பாகம் 2: ஏறுவரிசை தாவுதல் 2', sections: [['G3','P','M1','D1'], ['M1','D1','P','N3'], ['P','N3','D1','S5']] },
+                { title: 'பாகம் 3: இறங்குவரிசை தாவுதல் 1', sections: [['S5','D1','N3','P'], ['N3','P'], ['D1','M1']] },
+                { title: 'பாகம் 4: இறங்குவரிசை தாவுதல் 2', sections: [['D1','M1','P','G3'], ['P','G3','M1','R1'], ['M1','R1','G3','S']] }
+            ]
+        },
+        'd2': {
+            raga: 'maya',
+            title: 'தாட்டு வரிசை 2 (S M G R, R P M G - தலைகீழ் தாவுதல்)',
+            desc: 'S M G R | R P M G | G D P M | M N D P | P Ṡ N D',
+            lines: [
+                { title: 'பாகம் 1: தலைகீழ் தாவுதல் 1', sections: [['S','M1','G3','R1'], ['R1','P'], ['M1','G3']] },
+                { title: 'பாகம் 2: தலைகீழ் தாவுதல் 2', sections: [['G3','D1','P','M1'], ['M1','N3','D1','P'], ['P','S5','N3','D1']] },
+                { title: 'பாகம் 3: தலைகீழ் தாவுதல் 3', sections: [['S5','P','D1','N3'], ['N3','M1'], ['P','D1']] },
+                { title: 'பாகம் 4: தலைகீழ் தாவுதல் 4', sections: [['D1','G3','M1','P'], ['P','R1','G3','M1'], ['M1','S','R1','G3']] }
+            ]
+        },
+        'a1': {
+            raga: 'maya',
+            title: 'துருவ தாள அலங்காரம் (Dhruva Talam - 14 அக்ஷரங்கள்)',
+            desc: 'தாள வடிவம்: 1 லகு + 1 துருதம் + 2 லகு (4 + 2 + 4 + 4 = 14 அக்ஷரங்கள்)',
+            lines: [
+                { title: 'பாகம் 1: ஏறுவரிசை (14 அக்ஷரங்கள்)', sections: [['S','R1','G3','M1'], ['G3','R1'], ['S','R1','G3','M1'], ['P','D1','N3','S5']] },
+                { title: 'பாகம் 2: இறங்குவரிசை (14 அக்ஷரங்கள்)', sections: [['S5','N3','D1','P'], ['D1','N3'], ['S5','N3','D1','P'], ['M1','G3','R1','S']] }
+            ]
+        },
+        'a2': {
+            raga: 'maya',
+            title: 'ரூபக தாள அலங்காரம் (Rupaka Talam - 6 அக்ஷரங்கள்)',
+            desc: 'தாள வடிவம்: 1 துருதம் + 1 லகு (2 + 4 = 6 அக்ஷரங்கள்)',
+            lines: [
+                { title: 'ஆவர்த்தனம் 1 & 2', sections: [['S','R1'], ['G3','R1','S','R1'], ['R1','G3'], ['M1','G3','R1','G3']] },
+                { title: 'ஆவர்த்தனம் 3 & 4', sections: [['G3','M1'], ['P','M1','G3','M1'], ['M1','P'], ['D1','P','M1','P']] },
+                { title: 'ஆவர்த்தனம் 5 & 6', sections: [['P','D1'], ['N3','D1','P','D1'], ['D1','N3'], ['S5','N3','D1','N3']] },
+                { title: 'முடிவு ஆவர்த்தனம்', sections: [['S5','N3'], ['D1','N3','S5','N3']] }
+            ]
+        },
+        'a3': {
+            raga: 'maya',
+            title: 'திரிபுட தாள அலங்காரம் (Triputa Talam - 7 அக்ஷரங்கள்)',
+            desc: 'தாள வடிவம்: 1 லகு + 2 துருதம் (3 + 2 + 2 = 7 அக்ஷரங்கள்)',
+            lines: [
+                { title: 'ஆவர்த்தனம் 1 (S R G | S R | G M)', sections: [['S','R1','G3'], ['S','R1'], ['G3','M1']] },
+                { title: 'ஆவர்த்தனம் 2 (R G M | R G | M P)', sections: [['R1','G3','M1'], ['R1','G3'], ['M1','P']] },
+                { title: 'ஆவர்த்தனம் 3 (G M P | G M | P D)', sections: [['G3','M1','P'], ['G3','M1'], ['P','D1']] },
+                { title: 'ஆவர்த்தனம் 4 (M P D | M P | D N)', sections: [['M1','P','D1'], ['M1','P'], ['D1','N3']] },
+                { title: 'ஆவர்த்தனம் 5 (P D N | P D | N Ṡ)', sections: [['P','D1','N3'], ['P','D1'], ['N3','S5']] }
+            ]
+        },
+        'a4': {
+            raga: 'maya',
+            title: 'ஏக தாள அலங்காரம் (Eka Talam - 4 அக்ஷரங்கள்)',
+            desc: 'தாள வடிவம்: 1 லகு (4 அக்ஷரங்கள்)',
+            lines: [
+                { title: 'ஏறுவரிசை ஆவர்த்தனங்கள்', sections: [['S','R1','G3','M1'], ['R1','G3','M1','P'], ['G3','M1','P','D1'], ['M1','P','D1','N3'], ['P','D1','N3','S5']] },
+                { title: 'இறங்குவரிசை ஆவர்த்தனங்கள்', sections: [['S5','N3','D1','P'], ['N3','D1','P','M1'], ['D1','P','M1','G3'], ['P','M1','G3','R1'], ['M1','G3','R1','S']] }
+            ]
+        },
+        'g1': {
+            raga: 'malahari',
+            title: 'கீதம் 1: ஸ்ரீ கணநாதா (மலஹரி ராகம் • ரூபக தாளம்)',
+            desc: 'மலஹரி ராக சுவரூபம் (ஸ ரி₁ ம₁ ப த₁ ஸ் / ஸ் த₁ ப ம₁ க₃ ரி₁ ஸ - நி நீக்கப்பட்டுள்ளது)',
+            lines: [
+                { title: 'பல்லவி வரி 1 (ஸ்ரீ கணநாதா சிந்தூர வர்ணா)', sections: [['M1','P'], ['D1','S5','D1','P']] },
+                { title: 'பல்லவி வரி 2 (கருண சாகரா கரிவதனா)', sections: [['M1','P'], ['D1','P','M1','G3']] },
+                { title: 'பல்லவி வரி 3 (லம்போதர ஹே லம்போதர)', sections: [['R1','S'], ['R1','M1','G3','R1']] },
+                { title: 'பல்லவி வரி 4 (சித்த விநாயகா சிவ நந்தனா)', sections: [['S','R1'], ['M1','G3','R1','S']] }
+            ]
+        },
+        'g2': {
+            raga: 'mohanam',
+            title: 'கீதம் 2: வர வீணா (மோகனம் ராகம் • ரூபக தாளம்)',
+            desc: 'மோகன ராகம் (ஸ ரி₂ க₃ ப த₂ ஸ்) - பலகையில் ரி₂ Fret 7 மற்றும் த₂ Fret 5 நிலைகளுக்கு மாறுவதைப் பாருங்கள்! ⭐',
+            lines: [
+                { title: 'வரி 1 (வர வீணா மிருதுபாணீ)', sections: [['G3','G3'], ['P','P','D2','P']] },
+                { title: 'வரி 2 (வனருஹ லோசன ராணீ)', sections: [['S5','S5'], ['R2','S5','D2','P']] },
+                { title: 'வரி 3 (சுரருசிர கரபல்லவ)', sections: [['D2','P'], ['G3','R2','G3','P']] },
+                { title: 'வரி 4 (சுரவர தேவ பூஜிதே)', sections: [['G3','R2'], ['S','R2','G3','S']] }
+            ]
+        },
+        'g3': {
+            raga: 'malahari',
+            title: 'கீதம் 3: குந்தகௌரா (மலஹரி ராகம்)',
+            desc: 'மலஹரி ராகத்தில் விநாயகா துதி கீதம்',
+            lines: [
+                { title: 'வரி 1 (குந்தகௌர கௌரிவர)', sections: [['D1','P'], ['M1','G3','R1','S']] },
+                { title: 'வரி 2 (மந்திராய மானா மகுட)', sections: [['R1','M1'], ['P','D1','S5','S5']] },
+                { title: 'வரி 3 (வந்தே சந்தோஹ வந்தித)', sections: [['D1','P'], ['M1','G3','R1','S']] }
+            ]
+        },
+        'v1': {
+            raga: 'mohanam',
+            title: 'வர்ணம்: நின்னு கோரி (மோகன ராக வர்ணம் • ஆதி தாளம்)',
+            desc: 'மோகனம்: ஸ ரி₂ க₃ ப த₂ ஸ் • பல்லவி ஆரம்பப் பகுதி',
+            lines: [
+                { title: 'பல்லவி வரி 1 (நின்னு கோரி யுன்னானுரா)', sections: [['G3','G3','P','P'], ['G3','G3'], ['R2','R2']] },
+                { title: 'பல்லவி வரி 2 (நிகில லோக நாயகா)', sections: [['S','R2','G3','R2'], ['S','R2'], ['G3','R2']] },
+                { title: 'பல்லவி வரி 3 (நன்னு பாலிம்ப சமயம்மிதே)', sections: [['G3','P','G3','R2'], ['S','R2'], ['G3','P']] }
+            ]
+        }
+    ,
+
+        // --- Jantai Varisais 3 to 10 ---
+        'j3': {
+            raga: 'maya',
+            title: '3. ஜண்டை வரிசை 3 (SSS RRR GGG MMM - மும்முறை தட்டு)',
+            desc: 'ஒவ்வொரு ஸ்வரத்தையும் மும்முறை தட்டி வாசிக்கும் தீவிர ஜண்டை பயிற்சி',
+            lines: [
+                { title: 'பாகம் 1: ஏறுவரிசை துவக்கம் (SSS RRR GGG MMM)', sections: [['S','S','S','R1'], ['R1','R1','G3','G3'], ['G3','M1','M1','M1']] },
+                { title: 'பாகம் 2: ஏறுவரிசை முடிவு (PPP DDD NNN ṠṠṠ)', sections: [['P','P','P','D1'], ['D1','D1','N3','N3'], ['N3','S5','S5','S5']] },
+                { title: 'பாகம் 3: இறங்குவரிசை துவக்கம் (ṠṠṠ NNN DDD PPP)', sections: [['S5','S5','S5','N3'], ['N3','N3','D1','D1'], ['D1','P','P','P']] },
+                { title: 'பாகம் 4: இறங்குவரிசை முடிவு (MMM GGG RRR SSS)', sections: [['M1','M1','M1','G3'], ['G3','G3','R1','R1'], ['R1','S','S','S']] }
+            ]
+        },
+        'j4': {
+            raga: 'maya',
+            title: '4. ஜண்டை வரிசை 4 (SRSR SSRR RGRG RRGG)',
+            desc: 'ஒற்றை ஸ்வரமும் ஜண்டை ஸ்வரமும் பின்னிப் பிணைந்து வரும் அதிவேகப் பயிற்சி',
+            lines: [
+                { title: 'பாகம் 1: ஏறுவரிசை 1 (SRSR SSRR)', sections: [['S','R1','S','R1'], ['S','S','R1','R1']] },
+                { title: 'பாகம் 2: ஏறுவரிசை 2 (RGRG RRGG)', sections: [['R1','G3','R1','G3'], ['R1','R1','G3','G3']] },
+                { title: 'பாகம் 3: ஏறுவரிசை 3 (GMGM GGMM)', sections: [['G3','M1','G3','M1'], ['G3','G3','M1','M1']] },
+                { title: 'பாகம் 4: ஏறுவரிசை 4 (MPMP MMPP)', sections: [['M1','P','M1','P'], ['M1','M1','P','P']] },
+                { title: 'பாகம் 5: இறங்குவரிசை 1 (ṠNṠN ṠṠNN)', sections: [['S5','N3','S5','N3'], ['S5','S5','N3','N3']] },
+                { title: 'பாகம் 6: இறங்குவரிசை 2 (NDND NNDD)', sections: [['N3','D1','N3','D1'], ['N3','N3','D1','D1']] },
+                { title: 'பாகம் 7: இறங்குவரிசை 3 (DPDP DDPP)', sections: [['D1','P','D1','P'], ['D1','D1','P','P']] },
+                { title: 'பாகம் 8: இறங்குவரிசை 4 (PMPM PMPP)', sections: [['P','M1','P','M1'], ['P','P','M1','M1']] }
+            ]
+        },
+        'j5': {
+            raga: 'maya',
+            title: '5. ஜண்டை வரிசை 5 (SSRR GGMM RRGG MMPP)',
+            desc: 'நான்கு நால்வராக இரட்டை ஸ்வரங்கள் தாவும் முறை',
+            lines: [
+                { title: 'பாகம் 1: ஏறுவரிசை 1 (SSRR GGMM)', sections: [['S','S','R1','R1'], ['G3','G3','M1','M1']] },
+                { title: 'பாகம் 2: ஏறுவரிசை 2 (RRGG MMPP)', sections: [['R1','R1','G3','G3'], ['M1','M1','P','P']] },
+                { title: 'பாகம் 3: ஏறுவரிசை 3 (GGMM PPDD)', sections: [['G3','G3','M1','M1'], ['P','P','D1','D1']] },
+                { title: 'பாகம் 4: ஏறுவரிசை 4 (MMPP DDNN)', sections: [['M1','M1','P','P'], ['D1','D1','N3','N3']] },
+                { title: 'பாகம் 5: இறங்குவரிசை 1 (ṠṠNN DDPP)', sections: [['S5','S5','N3','N3'], ['D1','D1','P','P']] },
+                { title: 'பாகம் 6: இறங்குவரிசை 2 (NNDD PPMM)', sections: [['N3','N3','D1','D1'], ['P','P','M1','M1']] },
+                { title: 'பாகம் 7: இறங்குவரிசை 3 (DDPP MMGG)', sections: [['D1','D1','P','P'], ['M1','M1','G3','G3']] },
+                { title: 'பாகம் 8: இறங்குவரிசை 4 (PPMM GGRR)', sections: [['P','P','M1','M1'], ['G3','G3','R1','R1']] }
+            ]
+        },
+        'j6': {
+            raga: 'maya',
+            title: '6. ஜண்டை வரிசை 6 (SSRR SSGR RRGG RRMG)',
+            desc: 'ஜண்டை மற்றும் குறுக்கு தாது ஸ்வரங்களின் இணைப்பு',
+            lines: [
+                { title: 'பாகம் 1: ஏறுவரிசை 1 (SSRR SSGR)', sections: [['S','S','R1','R1'], ['S','S','G3','R1']] },
+                { title: 'பாகம் 2: ஏறுவரிசை 2 (RRGG RRMG)', sections: [['R1','R1','G3','G3'], ['R1','R1','M1','G3']] },
+                { title: 'பாகம் 3: ஏறுவரிசை 3 (GGMM GGPM)', sections: [['G3','G3','M1','M1'], ['G3','G3','P','M1']] },
+                { title: 'பாகம் 4: ஏறுவரிசை 4 (MMPP MMDP)', sections: [['M1','M1','P','P'], ['M1','M1','D1','P']] },
+                { title: 'பாகம் 5: இறங்குவரிசை 1 (ṠṠNN ṠṠDN)', sections: [['S5','S5','N3','N3'], ['S5','S5','D1','N3']] },
+                { title: 'பாகம் 6: இறங்குவரிசை 2 (NNDD NNPD)', sections: [['N3','N3','D1','D1'], ['N3','N3','P','D1']] },
+                { title: 'பாகம் 7: இறங்குவரிசை 3 (DDPP DDMP)', sections: [['D1','D1','P','P'], ['D1','D1','M1','P']] },
+                { title: 'பாகம் 8: இறங்குவரிசை 4 (PPMM PPGM)', sections: [['P','P','M1','M1'], ['P','P','G3','M1']] }
+            ]
+        },
+        'j7': {
+            raga: 'maya',
+            title: '7. ஜண்டை வரிசை 7 (SSRR GGMM PPDD NNṠṠ - முழு சுற்று)',
+            desc: 'முழுமையான 8 ஸ்வர இரட்டை ஜண்டை ஓட்டம்',
+            lines: [
+                { title: 'பாகம் 1: ஏறுவரிசை முதல் பாதி (SSRR GGMM)', sections: [['S','S','R1','R1'], ['G3','G3','M1','M1']] },
+                { title: 'பாகம் 2: ஏறுவரிசை இரண்டாம் பாதி (PPDD NNṠṠ)', sections: [['P','P','D1','D1'], ['N3','N3','S5','S5']] },
+                { title: 'பாகம் 3: இறங்குவரிசை முதல் பாதி (ṠṠNN DDPP)', sections: [['S5','S5','N3','N3'], ['D1','D1','P','P']] },
+                { title: 'பாகம் 4: இறங்குவரிசை இரண்டாம் பாதி (MMGG RRSS)', sections: [['M1','M1','G3','G3'], ['R1','R1','S','S']] }
+            ]
+        },
+        'j8': {
+            raga: 'maya',
+            title: '8. ஜண்டை வரிசை 8 (SSSS RRRR GGGG MMMM - நான்கு முறை தட்டு)',
+            desc: 'விரல்களுக்கு அதீத பலம் மற்றும் வேகம் தரும் 4 முறை தட்டும் ஜண்டை பயிற்சி',
+            lines: [
+                { title: 'பாகம் 1: ஏறுவரிசை 1 (SSSS RRRR)', sections: [['S','S','S','S'], ['R1','R1','R1','R1']] },
+                { title: 'பாகம் 2: ஏறுவரிசை 2 (GGGG MMMM)', sections: [['G3','G3','G3','G3'], ['M1','M1','M1','M1']] },
+                { title: 'பாகம் 3: ஏறுவரிசை 3 (PPPP DDDD)', sections: [['P','P','P','P'], ['D1','D1','D1','D1']] },
+                { title: 'பாகம் 4: ஏறுவரிசை 4 (NNNN ṠṠṠṠ)', sections: [['N3','N3','N3','N3'], ['S5','S5','S5','S5']] },
+                { title: 'பாகம் 5: இறங்குவரிசை 1 (ṠṠṠṠ NNNN)', sections: [['S5','S5','S5','S5'], ['N3','N3','N3','N3']] },
+                { title: 'பாகம் 6: இறங்குவரிசை 2 (DDDD PPPP)', sections: [['D1','D1','D1','D1'], ['P','P','P','P']] },
+                { title: 'பாகம் 7: இறங்குவரிசை 3 (MMMM GGGG)', sections: [['M1','M1','M1','M1'], ['G3','G3','G3','G3']] },
+                { title: 'பாகம் 8: இறங்குவரிசை 4 (RRRR SSSS)', sections: [['R1','R1','R1','R1'], ['S','S','S','S']] }
+            ]
+        },
+        'j9': {
+            raga: 'maya',
+            title: '9. ஜண்டை வரிசை 9 (SRGR SSRR RGMG RRGG)',
+            desc: 'சுற்றிச் சுழன்று வரும் ஜண்டை மற்றும் தாது வடிவங்களின் சங்கமம்',
+            lines: [
+                { title: 'பாகம் 1: ஏறுவரிசை 1 (SRGR SSRR)', sections: [['S','R1','G3','R1'], ['S','S','R1','R1']] },
+                { title: 'பாகம் 2: ஏறுவரிசை 2 (RGMG RRGG)', sections: [['R1','G3','M1','G3'], ['R1','R1','G3','G3']] },
+                { title: 'பாகம் 3: ஏறுவரிசை 3 (GMPM GGMM)', sections: [['G3','M1','P','M1'], ['G3','G3','M1','M1']] },
+                { title: 'பாகம் 4: ஏறுவரிசை 4 (MPDP MMPP)', sections: [['M1','P','D1','P'], ['M1','M1','P','P']] },
+                { title: 'பாகம் 5: இறங்குவரிசை 1 (ṠNDN ṠṠNN)', sections: [['S5','N3','D1','N3'], ['S5','S5','N3','N3']] },
+                { title: 'பாகம் 6: இறங்குவரிசை 2 (NDPD NNDD)', sections: [['N3','D1','P','D1'], ['N3','N3','D1','D1']] },
+                { title: 'பாகம் 7: இறங்குவரிசை 3 (DPM P DDPP)', sections: [['D1','P','M1','P'], ['D1','D1','P','P']] },
+                { title: 'பாகம் 8: இறங்குவரிசை 4 (PMGM PPMM)', sections: [['P','M1','G3','M1'], ['P','P','M1','M1']] }
+            ]
+        },
+        'j10': {
+            raga: 'maya',
+            title: '10. ஜண்டை வரிசை 10 (SSRRGGMM PPDDNNṠṠ - மகா ஜண்டை நிறைவு)',
+            desc: 'ஜண்டை வரிசைகளின் மகுடமான நிறைவுப் பயிற்சி',
+            lines: [
+                { title: 'பாகம் 1: ஏறுவரிசை ஆரம்பம்', sections: [['S','S','R1','R1'], ['G3','G3','M1','M1']] },
+                { title: 'பாகம் 2: ஏறுவரிசை உச்சம்', sections: [['P','P','D1','D1'], ['N3','N3','S5','S5']] },
+                { title: 'பாகம் 3: இறங்குவரிசை ஆரம்பம்', sections: [['S5','S5','N3','N3'], ['D1','D1','P','P']] },
+                { title: 'பாகம் 4: இறங்குவரிசை நிறைவு', sections: [['M1','M1','G3','G3'], ['R1','R1','S','S']] }
+            ]
+        },
+
+        // --- Dhatu Varisais 3 to 10 ---
+        'd3': {
+            raga: 'maya',
+            title: '3. தாது வரிசை 3 (SM GR SM GR / ṠP DN ṠP DN)',
+            desc: 'நான்கு ஸ்வர இடைவெளி தாவல் பயிற்சி (ஸ ➔ ம மற்றும் ஸ் ➔ ப)',
+            lines: [
+                { title: 'பாகம் 1: ஏறுவரிசை முதல் வரி (SM GR SM GR)', sections: [['S','M1','G3','R1'], ['S','M1','G3','R1']] },
+                { title: 'பாகம் 2: ஏறுவரிசை இரண்டாம் வரி (RP MG RP MG)', sections: [['R1','P','M1','G3'], ['R1','P','M1','G3']] },
+                { title: 'பாகம் 3: ஏறுவரிசை மூன்றாம் வரி (GD PM GD PM)', sections: [['G3','D1','P','M1'], ['G3','D1','P','M1']] },
+                { title: 'பாகம் 4: ஏறுவரிசை நான்காம் வரி (MN DP MN DP)', sections: [['M1','N3','D1','P'], ['M1','N3','D1','P']] },
+                { title: 'பாகம் 5: இறங்குவரிசை முதல் வரி (ṠP DN ṠP DN)', sections: [['S5','P','D1','N3'], ['S5','P','D1','N3']] },
+                { title: 'பாகம் 6: இறங்குவரிசை இரண்டாம் வரி (NM DP NM DP)', sections: [['N3','M1','D1','P'], ['N3','M1','D1','P']] },
+                { title: 'பாகம் 7: இறங்குவரிசை மூன்றாம் வரி (DG PM DG PM)', sections: [['D1','G3','P','M1'], ['D1','G3','P','M1']] },
+                { title: 'பாகம் 8: இறங்குவரிசை நான்காம் வரி (PR MG PR MG)', sections: [['P','R1','M1','G3'], ['P','R1','M1','G3']] }
+            ]
+        },
+        'd4': {
+            raga: 'maya',
+            title: '4. தாது வரிசை 4 (S M G R S R G M)',
+            desc: 'நீண்ட பாய்ச்சலும் தொடர்ந்து நேர்வரிசை ஓட்டமும் இணையும் தாது பயிற்சி',
+            lines: [
+                { title: 'பாகம் 1: ஏறுவரிசை 1 (S M G R S R G M)', sections: [['S','M1','G3','R1'], ['S','R1','G3','M1']] },
+                { title: 'பாகம் 2: ஏறுவரிசை 2 (R P M G R G M P)', sections: [['R1','P','M1','G3'], ['R1','G3','M1','P']] },
+                { title: 'பாகம் 3: ஏறுவரிசை 3 (G D P M G M P D)', sections: [['G3','D1','P','M1'], ['G3','M1','P','D1']] },
+                { title: 'பாகம் 4: ஏறுவரிசை 4 (M N D P M P D N)', sections: [['M1','N3','D1','P'], ['M1','P','D1','N3']] },
+                { title: 'பாகம் 5: இறங்குவரிசை 1 (Ṡ P D N Ṡ N D P)', sections: [['S5','P','D1','N3'], ['S5','N3','D1','P']] },
+                { title: 'பாகம் 6: இறங்குவரிசை 2 (N M P D N D P M)', sections: [['N3','M1','P','D1'], ['N3','D1','P','M1']] },
+                { title: 'பாகம் 7: இறங்குவரிசை 3 (D G M P D P M G)', sections: [['D1','G3','M1','P'], ['D1','P','M1','G3']] },
+                { title: 'பாகம் 8: இறங்குவரிசை 4 (P R G M P M G R)', sections: [['P','R1','G3','M1'], ['P','M1','G3','R1']] }
+            ]
+        },
+        'd5': {
+            raga: 'maya',
+            title: '5. தாது வரிசை 5 (SP DM GP MR / ṠM GP DN ṠR)',
+            desc: 'பஞ்சம தாவல் (ஸ ➔ ப) கொண்ட அதீத இடைவெளி தாது முறை',
+            lines: [
+                { title: 'பாகம் 1: ஏறுவரிசை 1 (SP DM GP MR)', sections: [['S','P','D1','M1'], ['G3','P','M1','R1']] },
+                { title: 'பாகம் 2: ஏறுவரிசை 2 (RD PN MD PG)', sections: [['R1','D1','P','N3'], ['M1','D1','P','G3']] },
+                { title: 'பாகம் 3: ஏறுவரிசை 3 (GN ṠD PN DM)', sections: [['G3','N3','S5','D1'], ['P','N3','D1','M1']] },
+                { title: 'பாகம் 4: ஏறுவரிசை 4 (MṠ ND DN ṠṠ)', sections: [['M1','S5','N3','D1'], ['D1','N3','S5','S5']] },
+                { title: 'பாகம் 5: இறங்குவரிசை 1 (ṠM GP DN ṠR)', sections: [['S5','M1','G3','P'], ['D1','N3','S5','R1']] },
+                { title: 'பாகம் 6: இறங்குவரிசை 2 (NG PM PD NṠ)', sections: [['N3','G3','P','M1'], ['P','D1','N3','S5']] },
+                { title: 'பாகம் 7: இறங்குவரிசை 3 (DR MG MP DN)', sections: [['D1','R1','M1','G3'], ['M1','P','D1','N3']] },
+                { title: 'பாகம் 8: இறங்குவரிசை 4 (PS GR GM PD)', sections: [['P','S','G3','R1'], ['G3','M1','P','D1']] }
+            ]
+        },
+        'd6': {
+            raga: 'maya',
+            title: '6. தாது வரிசை 6 (SR SG SM SP / ṠN ṠD ṠP ṠM)',
+            desc: 'ஆதார ஸ்வரத்தில் இருந்து வரிசையாக விரியும் தாது பயிற்சி',
+            lines: [
+                { title: 'பாகம் 1: ஏறுவரிசை (SR SG SM SP)', sections: [['S','R1','S','G3'], ['S','M1','S','P']] },
+                { title: 'பாகம் 2: ஏறுவரிசை தொடர்ச்சி (SD SN SṠ ṠṠ)', sections: [['S','D1','S','N3'], ['S','S5','S5','S5']] },
+                { title: 'பாகம் 3: இறங்குவரிசை (ṠN ṠD ṠP ṠM)', sections: [['S5','N3','S5','D1'], ['S5','P','S5','M1']] },
+                { title: 'பாகம் 4: இறங்குவரிசை தொடர்ச்சி (ṠG ṠR ṠS SS)', sections: [['S5','G3','S5','R1'], ['S5','S','S','S']] }
+            ]
+        },
+        'd7': {
+            raga: 'maya',
+            title: '7. தாது வரிசை 7 (SG RM GP MD / ṠD NP DM PG)',
+            desc: 'ஒன்று விட்டு ஒன்று சீரான தாவல் பயிற்சி',
+            lines: [
+                { title: 'பாகம் 1: ஏறுவரிசை 1 (SG RM GP MD)', sections: [['S','G3','R1','M1'], ['G3','P','M1','D1']] },
+                { title: 'பாகம் 2: ஏறுவரிசை 2 (PN DṠ NṘ ṠṠ)', sections: [['P','N3','D1','S5'], ['N3','S5','S5','S5']] },
+                { title: 'பாகம் 3: இறங்குவரிசை 1 (ṠD NP DM PG)', sections: [['S5','D1','N3','P'], ['D1','M1','P','G3']] },
+                { title: 'பாகம் 4: இறங்குவரிசை 2 (MR GS RN SS)', sections: [['M1','R1','G3','S'], ['R1','S','S','S']] }
+            ]
+        },
+        'd8': {
+            raga: 'maya',
+            title: '8. தாது வரிசை 8 (SM GR GP MR / ṠP DN DM PG)',
+            desc: 'குறுக்கு மறுக்கான தீவிர தாது பயிற்சி',
+            lines: [
+                { title: 'பாகம் 1: ஏறுவரிசை 1 (SM GR GP MR)', sections: [['S','M1','G3','R1'], ['G3','P','M1','R1']] },
+                { title: 'பாகம் 2: ஏறுவரிசை 2 (RP MD PN GP)', sections: [['R1','P','M1','D1'], ['P','N3','G3','P']] },
+                { title: 'பாகம் 3: இறங்குவரிசை 1 (ṠP DN DM PG)', sections: [['S5','P','D1','N3'], ['D1','M1','P','G3']] },
+                { title: 'பாகம் 4: இறங்குவரிசை 2 (NM DP PM GR)', sections: [['N3','M1','D1','P'], ['P','M1','G3','R1']] }
+            ]
+        },
+        'd9': {
+            raga: 'maya',
+            title: '9. தாது வரிசை 9 (SGRS RMGR GMPM / ṠNDṠ NDPM DPMD)',
+            desc: 'வட்ட வடிவ சுழற்சி தாது பயிற்சி',
+            lines: [
+                { title: 'பாகம் 1: ஏறுவரிசை 1 (SGRS RMGR)', sections: [['S','G3','R1','S'], ['R1','M1','G3','R1']] },
+                { title: 'பாகம் 2: ஏறுவரிசை 2 (GMPM PNDP)', sections: [['G3','M1','P','M1'], ['P','N3','D1','P']] },
+                { title: 'பாகம் 3: இறங்குவரிசை 1 (ṠNDṠ NDPM)', sections: [['S5','N3','D1','S5'], ['N3','D1','P','M1']] },
+                { title: 'பாகம் 4: இறங்குவரிசை 2 (DPMD PMGR)', sections: [['D1','P','M1','D1'], ['P','M1','G3','R1']] }
+            ]
+        },
+        'd10': {
+            raga: 'maya',
+            title: '10. தாது வரிசை 10 (மகா தாது நிறைவு)',
+            desc: 'அனைத்து தாது வகைகளின் சாராம்சம் கொண்ட நிறைவுப் பயிற்சி',
+            lines: [
+                { title: 'பாகம் 1: ஏறுவரிசை ஆரம்பம்', sections: [['S','G3','R1','M1'], ['G3','P','M1','D1']] },
+                { title: 'பாகம் 2: ஏறுவரிசை முடிவு', sections: [['P','N3','D1','S5'], ['N3','S5','S5','S5']] },
+                { title: 'பாகம் 3: இறங்குவரிசை ஆரம்பம்', sections: [['S5','D1','N3','P'], ['D1','M1','P','G3']] },
+                { title: 'பாகம் 4: இறங்குவரிசை முடிவு', sections: [['M1','R1','G3','S'], ['R1','S','S','S']] }
+            ]
+        },
+
+        // --- Alankarams 5 to 7 ---
+        'a5': {
+            raga: 'maya',
+            title: '5. திரிபுட தாள அலங்காரம் (Triputa Tala - 7 அக்ஷரம்: 3+2+2)',
+            desc: 'திஸ்ர லகு மற்றும் 2 திருதங்கள் கொண்ட 7 அக்ஷர தாளம்',
+            lines: [
+                { title: 'பாகம் 1: ஏறுவரிசை 1 (SRG SR GM)', sections: [['S','R1','G3','S'], ['R1','G3','M1','M1']] },
+                { title: 'பாகம் 2: ஏறுவரிசை 2 (RGM RG MP)', sections: [['R1','G3','M1','R1'], ['G3','M1','P','P']] },
+                { title: 'பாகம் 3: இறங்குவரிசை 1 (ṠND ṠN DP)', sections: [['S5','N3','D1','S5'], ['N3','D1','P','P']] },
+                { title: 'பாகம் 4: இறங்குவரிசை 2 (NDP ND PM)', sections: [['N3','D1','P','N3'], ['D1','P','M1','M1']] }
+            ]
+        },
+        'a6': {
+            raga: 'maya',
+            title: '6. அட தாள அலங்காரம் (Ata Tala - 14 அக்ஷரம்: 5+5+2+2)',
+            desc: 'கண்ட லகு + கண்ட லகு + 2 திருதங்கள் கொண்ட கம்பீர தாளம்',
+            lines: [
+                { title: 'பாகம் 1: ஏறுவரிசை 1 (SRGMP SRGMP GM PD)', sections: [['S','R1','G3','M1'], ['P','S','R1','G3'], ['M1','P','G3','M1'], ['P','D1','D1','D1']] },
+                { title: 'பாகம் 2: இறங்குவரிசை 1 (ṠNDPM ṠNDPM DP MG)', sections: [['S5','N3','D1','P'], ['M1','S5','N3','D1'], ['P','M1','D1','P'], ['M1','G3','G3','G3']] }
+            ]
+        },
+        'a7': {
+            raga: 'maya',
+            title: '7. ஏக தாள அலங்காரம் (Eka Tala - 4 அக்ஷரம்: 4)',
+            desc: 'ஒரே ஒரு சதுஸ்ர லகு கொண்ட 4 அக்ஷர அடிப்படை தாளம்',
+            lines: [
+                { title: 'பாகம் 1: ஏறுவரிசை (SRGM RGMP GMPD MPDN)', sections: [['S','R1','G3','M1'], ['R1','G3','M1','P'], ['G3','M1','P','D1'], ['M1','P','D1','N3']] },
+                { title: 'பாகம் 2: இறங்குவரிசை (ṠNDP NDPM DPMG PMGR)', sections: [['S5','N3','D1','P'], ['N3','D1','P','M1'], ['D1','P','M1','G3'], ['P','M1','G3','R1']] }
+            ]
+        }
+
+    };
+
+    // Helper to extract flattened sequence
+    function extractSequence(lesson) {
+        let seq = [];
+        lesson.lines.forEach(l => {
+            l.sections.forEach(sec => {
+                sec.forEach(note => {
+                    seq.push(note);
+                });
+            });
+        });
+        return seq;
+    }
+
+    // App State
+    let currentMode = 'lesson';
+    let currentLessonKey = 's1';
+    let currentRagaKey = 'maya';
+    let currentStepIndex = 0;
+    let isPlaying = false;
+    let playInterval = null;
+    let currentSpeed = 2000; // Default 2.0 seconds for beginner practice
+    let fretDirection = 'reverse'; // 'reverse' = 12 -> 1 -> NUT, 'standard' = NUT -> 1 -> 12
+    let fretboardOrientation = 'player'; // 'player' = Low E Top -> High E4 Bottom/Last
+
+    let flatStepSequence = [];
+
+    function initFlatSequence() {
+        flatStepSequence = [];
+        const item = lessonsData[currentLessonKey];
+        if (!item) return;
+
+        item.lines.forEach((line, lIdx) => {
+            line.sections.forEach((sec, sIdx) => {
+                sec.forEach((swKey, nIdx) => {
+                    const isEven = (flatStepSequence.length % 2 === 0);
+                    flatStepSequence.push({
+                        swKey: swKey,
+                        lineIdx: lIdx,
+                        secIdx: sIdx,
+                        noteIdx: nIdx,
+                        stroke: isEven ? '⬇ கீழ்நோக்கி (Downstroke)' : '⬆ மேல்நோக்கி (Upstroke)',
+                        lineTitle: line.title
+                    });
+                });
+            });
+        });
+    }
+
+    
+    function toggleFretDirection() {
+        fretDirection = (fretDirection === 'reverse') ? 'standard' : 'reverse';
+        const btn = document.getElementById('directionToggleBtn');
+        if (btn) {
+            btn.innerHTML = (fretDirection === 'reverse')
+                ? '🔄 Fret திசை: 12 ➔ 1 ➔ NUT (Player Neck View)'
+                : '🔄 Fret திசை: NUT ➔ 1 ➔ 12 (Standard View)';
+        }
+
+        const dirBar = document.getElementById('fretboardDirBar');
+        if (dirBar) {
+            dirBar.innerHTML = (fretDirection === 'reverse')
+                ? '<span>👉 BODY (கிட்டார் உடல் பகுதி ➔ Bridge)</span><span style="letter-spacing:1px; font-weight:900;">FRETS: 12 | 11 | 10 | 9 | 8 | 7 | 6 | 5 | 4 | 3 | 2 | 1</span><span>👈 NUT (தலைப்பகுதி / Open 0) 🎸</span>'
+                : '<span>🎸 NUT (தலைப்பகுதி / Open 0) 👉</span><span style="letter-spacing:1px; font-weight:900;">FRETS: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12</span><span>👉 BODY (கிட்டார் உடல் பகுதி ➔ Bridge)</span>';
+        }
+
+        const legend = document.getElementById('fretGuideLegendContent');
+        if (legend) {
+            legend.innerHTML = (fretDirection === 'reverse')
+                ? '<span style="color:#38bdf8; font-weight:800;">📍 FRET GUIDE & INLAYS:</span><span>🌟🌟 <strong>12-ம் கட்டை</strong> (2 Dots / இரட்டைப் புள்ளி)</span><span>🔘 <strong>9-ம் கட்டை</strong> (Guide Dot)</span><span>🔴 <strong>8-ம் கட்டை</strong> (ப Pa / ஸ் Tara Sa)</span><span>⭐ <strong>7-ம் கட்டை</strong> (ரி₂ Ri2 / நி₃ Ni3)</span><span>⭐ <strong>5-ம் கட்டை</strong> (1 Dot / ஒற்றைப் புள்ளி - ஸ / க₃)</span><span>🔘 <strong>3-ம் கட்டை</strong> (Guide Dot)</span>'
+                : '<span style="color:#38bdf8; font-weight:800;">📍 FRET GUIDE & INLAYS:</span><span>🔘 <strong>3-ம் கட்டை</strong> (Guide Dot)</span><span>⭐ <strong>5-ம் கட்டை</strong> (1 Dot / ஒற்றைப் புள்ளி - ஸ / க₃)</span><span>⭐ <strong>7-ம் கட்டை</strong> (ரி₂ Ri2 / நி₃ Ni3)</span><span>🔴 <strong>8-ம் கட்டை</strong> (ப Pa / ஸ் Tara Sa)</span><span>🔘 <strong>9-ம் கட்டை</strong> (Guide Dot)</span><span>🌟🌟 <strong>12-ம் கட்டை</strong> (2 Dots / இரட்டைப் புள்ளி)</span>';
+        }
+
+        renderDynamicFretboard();
+    }
+
+    function toggleFretboardOrientation() {
+        fretboardOrientation = (fretboardOrientation === 'player') ? 'tab' : 'player';
+        const btn = document.getElementById('orientToggleBtn');
+        if (btn) {
+            btn.innerHTML = (fretboardOrientation === 'player') 
+                ? '🔄 பார்வை: Player View (6th Low E ➔ 1st High E4 Last)' 
+                : '🔄 பார்வை: TAB View (1st High E4 Top ➔ 6th Low E Bottom)';
+        }
+        renderDynamicFretboard();
+    }
+
+    // ==========================================
+    // 🎸 RENDER 12-FRET REAL WOODEN GUITAR NECK
+    // ==========================================
+    function renderDynamicFretboard() {
+        const container = document.getElementById('fretboardInner');
+        container.innerHTML = '';
+
+        let boardSwaraKeys = [];
+        if (currentMode === 'lesson') {
+            const activeRagaKey = lessonsData[currentLessonKey] ? lessonsData[currentLessonKey].raga : 'maya';
+            const ragaObj = ragasMasterData[activeRagaKey] || ragasMasterData['maya'];
+            boardSwaraKeys = ragaObj.swaras;
+        } else {
+            const ragaObj = ragasMasterData[currentRagaKey] || ragasMasterData['maya'];
+            boardSwaraKeys = ragaObj.swaras;
+        }
+
+        // 1. Header Row (Fret Numbers Row)
+        const headerRow = document.createElement('div');
+        headerRow.className = 'fret-numbers-row' + (fretDirection === 'reverse' ? ' reverse-fret-dir' : '');
+
+        const corner = document.createElement('div');
+        corner.className = 'fret-num-cell';
+        corner.textContent = 'கம்பி (String)';
+        headerRow.appendChild(corner);
+
+        const nutHdr = document.createElement('div');
+        nutHdr.className = 'fret-num-cell';
+        nutHdr.id = 'fret-hdr-0';
+        nutHdr.style.color = '#38bdf8';
+        nutHdr.textContent = 'NUT (0)';
+
+        const guideBadges = { 3: '🔘 3', 5: '⭐ 5', 7: '⭐ 7', 8: '🔴 8', 9: '🔘 9', 12: '🌟🌟 12' };
+
+        if (fretDirection === 'reverse') {
+            // Frets 12 down to 1
+            for (let f = 12; f >= 1; f--) {
+                const fCell = document.createElement('div');
+                fCell.className = 'fret-num-cell' + (guideBadges[f] ? ' guide-marker' : '');
+                fCell.id = 'fret-hdr-' + f;
+                fCell.textContent = guideBadges[f] ? guideBadges[f] : f;
+                headerRow.appendChild(fCell);
+            }
+            // Nut on right
+            headerRow.appendChild(nutHdr);
+        } else {
+            // Nut on left
+            headerRow.appendChild(nutHdr);
+            // Frets 1 to 12
+            for (let f = 1; f <= 12; f++) {
+                const fCell = document.createElement('div');
+                fCell.className = 'fret-num-cell' + (guideBadges[f] ? ' guide-marker' : '');
+                fCell.id = 'fret-hdr-' + f;
+                fCell.textContent = guideBadges[f] ? guideBadges[f] : f;
+                headerRow.appendChild(fCell);
+            }
+        }
+        container.appendChild(headerRow);
+
+        // 2. 6 Strings Ordered for Player's View (Low E Top -> High E4 Bottom/Last)
+        let stringDefs = [
+            { num: 6, name: '6th (Low E / E2)', wireH: 5.5, active: false, badge: '6-ம் தடிமனான கம்பி' },
+            { num: 5, name: '5th (A / A2)', wireH: 4.2, active: false, badge: '5-ம் கம்பி' },
+            { num: 4, name: '4th (D / D3)', wireH: 3.2, active: false, badge: '4-ம் கம்பி' },
+            { num: 3, name: '3rd (G / G3)', wireH: 2.4, active: true, badge: '3-ம் கம்பி (ஸ, ரி₁)' },
+            { num: 2, name: '2nd (B / B3)', wireH: 1.8, active: true, badge: '2-ம் கம்பி (க₃, ம₁, ப)' },
+            { num: 1, name: '1st (High E / E4)', wireH: 1.2, active: true, badge: '1-ம் கம்பி (த₁, நி₃, ஸ்)' }
+        ];
+
+        if (fretboardOrientation === 'tab') {
+            stringDefs.reverse();
+        }
+
+        stringDefs.forEach(str => {
+            const row = document.createElement('div');
+            row.className = 'string-row-visual' + (fretDirection === 'reverse' ? ' reverse-fret-dir' : '') + (str.active ? ' active-string-row' : '');
+
+            // String Name Tag
+            const nameTag = document.createElement('div');
+            nameTag.className = 'string-name-tag';
+            nameTag.textContent = str.name;
+            row.appendChild(nameTag);
+
+            // Physical continuous wire
+            const wire = document.createElement('div');
+            wire.className = 'string-physical-wire';
+            wire.style.height = `${str.wireH}px`;
+            if (str.num >= 4) {
+                wire.style.background = 'linear-gradient(180deg, #d6d3d1 0%, #a8a29e 50%, #44403c 100%)';
+            } else {
+                wire.style.background = 'linear-gradient(180deg, #ffffff 0%, #cbd5e1 50%, #64748b 100%)';
+            }
+            row.appendChild(wire);
+
+            // Helper to build a fret slot
+            function buildSlot(f) {
+                const slot = document.createElement('div');
+                slot.className = 'fret-slot' + (f === 0 ? ' nut-slot' : '');
+                slot.id = `slot-${str.num}-${f}`;
+
+                // Inlay Dots on center strings (str.num === 3 or 4)
+                if (f !== 0) {
+                    // Yamaha F280 Exact Inlays:
+                    // Frets 5, 7, 9: Single Pearl Dot in center of neck (between 3rd and 4th string)
+                    if ((f === 5 || f === 7 || f === 9) && (str.num === 3 || (fretboardOrientation === 'tab' && str.num === 4))) {
+                        const inlay = document.createElement('div');
+                        inlay.className = 'inlay-pearl-dot';
+                        slot.appendChild(inlay);
+                    }
+                    // Fret 12: TWO Pearl Dots (Double Dot Octave - One on 5th string, One on 2nd string)
+                    else if (f === 12 && (str.num === 5 || str.num === 2)) {
+                        const inlay = document.createElement('div');
+                        inlay.className = 'inlay-pearl-dot';
+                        slot.appendChild(inlay);
+                    }
+                }
+
+                // Check Swara sits on this (str.num, f)
+                boardSwaraKeys.forEach(sk => {
+                    const swInfo = allSwaras[sk];
+                    if (swInfo && swInfo.strNum === str.num && swInfo.fretNum === f) {
+                        const marker = document.createElement('div');
+                        marker.className = 'swara-marker';
+                        marker.id = `badge-${sk}`;
+                        marker.style.backgroundColor = swInfo.col;
+                        marker.onclick = () => onFretBadgeClick(sk);
+
+                        const mainTxt = document.createElement('span');
+                        mainTxt.textContent = swInfo.ta.split(' ')[0];
+                        marker.appendChild(mainTxt);
+
+                        const subWest = document.createElement('span');
+                        subWest.className = 'sub-west';
+                        subWest.textContent = swInfo.westShort;
+                        marker.appendChild(subWest);
+
+                        // finger badge removed as requested
+
+                        slot.appendChild(marker);
+                    }
+                });
+
+                return slot;
+            }
+
+            if (fretDirection === 'reverse') {
+                // Frets 12 down to 1
+                for (let f = 12; f >= 1; f--) {
+                    row.appendChild(buildSlot(f));
+                }
+                // Nut (0) on right
+                row.appendChild(buildSlot(0));
+            } else {
+                // Nut (0) on left
+                row.appendChild(buildSlot(0));
+                // Frets 1 to 12
+                for (let f = 1; f <= 12; f++) {
+                    row.appendChild(buildSlot(f));
+                }
+            }
+
+            container.appendChild(row);
+        });
+    }
+
+    // Visual Flow Diagram Generator
+    function renderLessonVisualDiagram() {
+        const container = document.getElementById('diagramLinesContainer');
+        container.innerHTML = '';
+        const item = lessonsData[currentLessonKey];
+        if (!item) return;
+
+        const diagTitle = document.querySelector('#lessonDiagramSection .diagram-header h3');
+        if (diagTitle) {
+            diagTitle.textContent = '📊 இந்த பாடத்திற்கான பிரத்யேக ஸ்வர வரைபடம் (Lesson Visual Flow Diagram)';
+        }
+
+        let globalNoteCounter = 0;
+        item.lines.forEach((line, lIdx) => {
+            const lineRow = document.createElement('div');
+            lineRow.className = 'diagram-line-row';
+
+            const lineTitle = document.createElement('div');
+            lineTitle.className = 'diagram-line-title';
+            lineTitle.textContent = line.title;
+            lineRow.appendChild(lineTitle);
+
+            const grid = document.createElement('div');
+            grid.className = 'diagram-avartanam-grid';
+
+            line.sections.forEach((sec, sIdx) => {
+                const secBox = document.createElement('div');
+                secBox.className = 'diagram-tala-section';
+
+                sec.forEach((swKey) => {
+                    const curNoteIdx = globalNoteCounter++;
+                    const sw = allSwaras[swKey];
+
+                    const noteBox = document.createElement('div');
+                    noteBox.className = 'd-note-box';
+                    noteBox.id = `d-box-${curNoteIdx}`;
+                    noteBox.onclick = () => jumpToStep(curNoteIdx);
+
+                    const sName = document.createElement('div');
+                    sName.className = 'd-swara';
+                    sName.textContent = sw ? sw.ta.split(' ')[0] : swKey;
+                    sName.style.color = sw ? sw.col : '#ffffff';
+                    noteBox.appendChild(sName);
+
+                    const sWest = document.createElement('div');
+                    sWest.className = 'd-west';
+                    sWest.textContent = sw ? sw.westShort : '';
+                    noteBox.appendChild(sWest);
+
+                    const sPos = document.createElement('div');
+                    sPos.className = 'd-pos';
+                    sPos.textContent = sw ? (sw.strNum === 0 ? 'Hold' : `Str${sw.strNum}-F${sw.fretNum}`) : '';
+                    noteBox.appendChild(sPos);
+
+                    secBox.appendChild(noteBox);
+                });
+
+                grid.appendChild(secBox);
+                if (sIdx < line.sections.length - 1) {
+                    const div = document.createElement('span');
+                    div.className = 'diagram-tala-divider';
+                    div.textContent = '|';
+                    grid.appendChild(div);
+                }
+            });
+
+            lineRow.appendChild(grid);
+            container.appendChild(lineRow);
+        });
+    }
+
+    // Guitar TAB Sheet Generator
+    function renderGuitarTabSheet() {
+        const table = document.getElementById('guitarTabTable');
+        table.innerHTML = '';
+        const item = lessonsData[currentLessonKey];
+        if (!item) return;
+
+        const tabTitle = document.querySelector('#guitarTabSection .tab-sheet-title');
+        if (tabTitle) {
+            tabTitle.textContent = '🎼 கிட்டார் Tablature வரைபடம் (Guitar TAB Sheet)';
+        }
+
+        const stringLabels = [
+            { num: 1, label: '1 (E high)' },
+            { num: 2, label: '2 (B)' },
+            { num: 3, label: '3 (G)' },
+            { num: 4, label: '4 (D)' },
+            { num: 5, label: '5 (A)' },
+            { num: 6, label: '6 (E low)' }
+        ];
+
+        stringLabels.forEach(str => {
+            const tr = document.createElement('tr');
+            const th = document.createElement('td');
+            th.className = 'tab-str-header';
+            th.textContent = str.label;
+            tr.appendChild(th);
+
+            flatStepSequence.forEach((step, idx) => {
+                const td = document.createElement('td');
+                td.className = 'tab-fret-cell';
+                td.id = `tab-cell-${str.num}-${idx}`;
+
+                const sw = allSwaras[step.swKey];
+                if (sw && sw.strNum === str.num) {
+                    td.textContent = sw.fretNum;
+                    td.style.color = '#38bdf8';
+                } else {
+                    td.textContent = '-';
+                    td.style.color = '#475569';
+                }
+                tr.appendChild(td);
+            });
+
+            table.appendChild(tr);
+        });
+    }
+
+    // Timeline Flow
+    function renderTimeline() {
+        const flow = document.getElementById('timelineFlow');
+        flow.innerHTML = '';
+
+        flatStepSequence.forEach((step, idx) => {
+            const sw = allSwaras[step.swKey];
+            const chip = document.createElement('div');
+            chip.className = 'timeline-chip';
+            chip.id = `timeline-chip-${idx}`;
+            chip.textContent = `${idx + 1}. ${sw ? sw.ta.split(' ')[0] : step.swKey} (${sw ? sw.westShort : ''})`;
+            chip.onclick = () => jumpToStep(idx);
+            flow.appendChild(chip);
+        });
+    }
+
+    
+    // ==========================================
+    // 🎙️ LIVE GUITAR MICROPHONE PITCH DETECTOR
+    // ==========================================
+    let micAudioCtx = null;
+    let micAnalyser = null;
+    let micStream = null;
+    let isMicListening = false;
+    let lastCorrectTime = 0;
+
+    const noteFrequencies = [
+        { key: 'S',  ta: 'ஸ (Sa)',    freq: 261.63, note: 'C4' },
+        { key: 'R1', ta: 'ரி₁ (Ri1)', freq: 277.18, note: 'C#4' },
+        { key: 'R2', ta: 'ரி₂ (Ri2)', freq: 293.66, note: 'D4' },
+        { key: 'G2', ta: 'க₂ (Ga2)',  freq: 311.13, note: 'D#4' },
+        { key: 'G3', ta: 'க₃ (Ga3)',  freq: 329.63, note: 'E4' },
+        { key: 'M1', ta: 'ம₁ (Ma1)',  freq: 349.23, note: 'F4' },
+        { key: 'M2', ta: 'ம₂ (Ma2)',  freq: 369.99, note: 'F#4' },
+        { key: 'P',  ta: 'ப (Pa)',    freq: 392.00, note: 'G4' },
+        { key: 'D1', ta: 'த₁ (Dha1)', freq: 415.30, note: 'G#4' },
+        { key: 'D2', ta: 'த₂ (Dha2)', freq: 440.00, note: 'A4' },
+        { key: 'N2', ta: 'நி₂ (Ni2)', freq: 466.16, note: 'A#4' },
+        { key: 'N3', ta: 'நி₃ (Ni3)', freq: 493.88, note: 'B4' },
+        { key: 'S5', ta: 'ஸ் (Tara Sa)', freq: 523.25, note: 'C5' },
+        { key: 'E2', ta: 'Low E',    freq: 82.41,  note: 'E2' },
+        { key: 'A2', ta: 'A',        freq: 110.00, note: 'A2' },
+        { key: 'D3', ta: 'D',        freq: 146.83, note: 'D3' },
+        { key: 'G3', ta: 'G',        freq: 196.00, note: 'G3' },
+        { key: 'B3', ta: 'B',        freq: 246.94, note: 'B3' },
+        { key: 'E4', ta: 'High E',   freq: 329.63, note: 'E4' }
+    ];
+
+    async function toggleMicListening() {
+        if (!isMicListening) {
+            try {
+                micStream = await navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: false, noiseSuppression: false, autoGainControl: false } });
+                micAudioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                const source = micAudioCtx.createMediaStreamSource(micStream);
+                micAnalyser = micAudioCtx.createAnalyser();
+                micAnalyser.fftSize = 2048;
+                source.connect(micAnalyser);
+
+                isMicListening = true;
+                const btn = document.getElementById('micToggleBtn');
+                if (btn) {
+                    btn.innerHTML = '🛑 மைக்கை நிறுத்து (Stop Listening)';
+                    btn.style.background = '#dc2626';
+                    btn.style.boxShadow = '0 0 15px rgba(220,38,38,0.7)';
+                }
+                const status = document.getElementById('micStatusIndicator');
+                if (status) {
+                    status.innerHTML = '🟢 மைக் கேட்கிறது... கிட்டாரில் வாசியுங்கள்!';
+                    status.style.color = '#4ade80';
+                }
+
+                processMicPitch();
+            } catch (err) {
+                alert('மைக்ரோஃபோன் அனுமதி கிடைக்கவில்லை! (Microphone permission required): ' + err.message);
+            }
+        } else {
+            stopMicListening();
+        }
+    }
+
+    function stopMicListening() {
+        isMicListening = false;
+        if (micStream) {
+            micStream.getTracks().forEach(t => t.stop());
+            micStream = null;
+        }
+        if (micAudioCtx) {
+            micAudioCtx.close();
+            micAudioCtx = null;
+        }
+        const btn = document.getElementById('micToggleBtn');
+        if (btn) {
+            btn.innerHTML = '🎙️ மைக் ஆன் செய் (Start Live Listening)';
+            btn.style.background = '#2563eb';
+            btn.style.boxShadow = '0 0 15px rgba(37,99,235,0.6)';
+        }
+        const status = document.getElementById('micStatusIndicator');
+        if (status) {
+            status.innerHTML = '⚪ மைக் ஆஃப் (Mic is Off)';
+            status.style.color = '#94a3b8';
+        }
+        const feedback = document.getElementById('micFeedbackBadge');
+        if (feedback) {
+            feedback.innerHTML = '💤 காத்திருக்கிறது (Waiting to play...)';
+            feedback.style.background = '#1e293b';
+            feedback.style.borderColor = '#475569';
+            feedback.style.color = '#94a3b8';
+            feedback.style.boxShadow = 'none';
+        }
+    }
+
+    function processMicPitch() {
+        if (!isMicListening || !micAnalyser) return;
+
+        const buffer = new Float32Array(micAnalyser.fftSize);
+        micAnalyser.getFloatTimeDomainData(buffer);
+
+        let sum = 0;
+        for (let i = 0; i < buffer.length; i++) {
+            sum += buffer[i] * buffer[i];
+        }
+        const rms = Math.sqrt(sum / buffer.length);
+
+        if (rms > 0.015) {
+            const pitch = autoCorrelate(buffer, micAudioCtx.sampleRate);
+            if (pitch !== -1) {
+                updateTunerLive(pitch);
+                if (pitch >= 65 && pitch <= 1000) {
+                    evaluateLivePitch(pitch);
+                }
+            }
+        }
+
+        if (isMicListening) {
+            requestAnimationFrame(processMicPitch);
+        }
+    }
+
+    function autoCorrelate(buf, sampleRate) {
+        const SIZE = buf.length;
+        let r1 = 0, r2 = SIZE - 1, thres = 0.2;
+        for (let i = 0; i < SIZE / 2; i++) {
+            if (Math.abs(buf[i]) < thres) { r1 = i; break; }
+        }
+        for (let i = 1; i < SIZE / 2; i++) {
+            if (Math.abs(buf[SIZE - i]) < thres) { r2 = SIZE - i; break; }
+        }
+        buf = buf.slice(r1, r2);
+        const c = new Array(buf.length).fill(0);
+        for (let i = 0; i < buf.length; i++) {
+            for (let j = 0; j < buf.length - i; j++) {
+                c[i] = c[i] + buf[j] * buf[j + i];
+            }
+        }
+        let d = 0;
+        while (c[d] > c[d + 1]) d++;
+        let maxval = -1, maxpos = -1;
+        for (let i = d; i < buf.length; i++) {
+            if (c[i] > maxval) {
+                maxval = c[i];
+                maxpos = i;
+            }
+        }
+        let T0 = maxpos;
+        return sampleRate / T0;
+    }
+
+    function evaluateLivePitch(detectedFreq) {
+        if (!flatStepSequence || !flatStepSequence.length) return;
+        const cur = flatStepSequence[currentStepIndex];
+        const targetSw = allSwaras[cur.swKey];
+        if (!targetSw) return;
+
+        let closestSw = null;
+        let minDiff = Infinity;
+        for (let s of noteFrequencies) {
+            let diff = Math.abs(detectedFreq - s.freq);
+            if (diff < minDiff) {
+                minDiff = diff;
+                closestSw = s;
+            }
+        }
+
+        const detectedNoteEl = document.getElementById('micDetectedNoteDisplay');
+        const targetNoteEl = document.getElementById('micTargetSwaraDisplay');
+        const feedbackEl = document.getElementById('micFeedbackBadge');
+
+        if (targetNoteEl) targetNoteEl.innerHTML = `${targetSw.ta} <span style="font-size:12px; color:#94a3b8;">(${targetSw.westShort})</span>`;
+        if (detectedNoteEl && closestSw) {
+            detectedNoteEl.innerHTML = `${closestSw.ta} <span style="font-size:12px; color:#cbd5e1;">(${closestSw.note} - ${Math.round(detectedFreq)}Hz)</span>`;
+        }
+
+        const tolerance = targetSw.freq * 0.07;
+        const isCorrect = Math.abs(detectedFreq - targetSw.freq) <= tolerance || (closestSw && closestSw.key === cur.swKey);
+
+        const now = Date.now();
+        if (isCorrect) {
+            if (feedbackEl) {
+                feedbackEl.innerHTML = `✅ மிகச் சரி! (Correct! - ${targetSw.ta})`;
+                feedbackEl.style.background = '#14532d';
+                feedbackEl.style.borderColor = '#22c55e';
+                feedbackEl.style.color = '#86efac';
+                feedbackEl.style.boxShadow = '0 0 15px rgba(34,197,94,0.7)';
+            }
+
+            if (now - lastCorrectTime > 700) {
+                lastCorrectTime = now;
+                setTimeout(() => {
+                    if (isMicListening) {
+                        nextStep();
+                    }
+                }, 400);
+            }
+        } else {
+            if (feedbackEl && closestSw) {
+                feedbackEl.innerHTML = `❌ தவறு! (நீங்கள் '${closestSw.ta}' வாசித்துள்ளீர்கள். வாசிக்க வேண்டியது: '${targetSw.ta}')`;
+                feedbackEl.style.background = '#7f1d1d';
+                feedbackEl.style.borderColor = '#ef4444';
+                feedbackEl.style.color = '#fca5a5';
+                feedbackEl.style.boxShadow = '0 0 15px rgba(239,68,68,0.7)';
+            }
+        }
+    }
+
+    
+    
+    // ==========================================
+    // 🥁 STANDALONE CARNATIC METRONOME ENGINE
+    // ==========================================
+    let metroBPM = 60;
+    let isMetroRunning = false;
+    let metroInterval = null;
+    let metroCurrentBeat = 0;
+    let currentMetroTala = 'adi';
+
+    const metroTalaDefinitions = {
+        'adi': [
+            { name: '1. தட்டு (Laghu)', accent: true },
+            { name: '2. விரல்', accent: false },
+            { name: '3. விரல்', accent: false },
+            { name: '4. விரல்', accent: false },
+            { name: '5. தட்டு (Dhrutam)', accent: true },
+            { name: '6. வீச்சு', accent: false },
+            { name: '7. தட்டு (Dhrutam)', accent: true },
+            { name: '8. வீச்சு', accent: false }
+        ],
+        'rupaka': [
+            { name: '1. தட்டு (Dhrutam)', accent: true },
+            { name: '2. வீச்சு', accent: false },
+            { name: '3. தட்டு (Laghu)', accent: true },
+            { name: '4. விரல்', accent: false },
+            { name: '5. விரல்', accent: false },
+            { name: '6. விரல்', accent: false }
+        ],
+        'misra': [
+            { name: '1. தட்டு', accent: true },
+            { name: '2. தட்டு', accent: false },
+            { name: '3. தட்டு', accent: false },
+            { name: '4. தட்டு', accent: true },
+            { name: '5. வீச்சு', accent: false },
+            { name: '6. தட்டு', accent: true },
+            { name: '7. வீச்சு', accent: false }
+        ],
+        'khanda': [
+            { name: '1. தட்டு', accent: true },
+            { name: '2. வீச்சு', accent: false },
+            { name: '3. தட்டு', accent: true },
+            { name: '4. விரல்', accent: false },
+            { name: '5. விரல்', accent: false }
+        ],
+        'eka': [
+            { name: '1. தட்டு (Laghu)', accent: true },
+            { name: '2. விரல்', accent: false },
+            { name: '3. விரல்', accent: false },
+            { name: '4. விரல்', accent: false }
+        ]
+    };
+
+    function renderMetroBeats() {
+        const container = document.getElementById('metroBeatsContainer');
+        if (!container) return;
+        container.innerHTML = '';
+
+        const beats = metroTalaDefinitions[currentMetroTala] || metroTalaDefinitions['adi'];
+        beats.forEach((b, idx) => {
+            const el = document.createElement('div');
+            el.id = `m-beat-${idx}`;
+            el.className = 'metro-beat-box';
+            el.style.padding = '8px 12px';
+            el.style.borderRadius = '8px';
+            el.style.background = '#1e293b';
+            el.style.color = '#94a3b8';
+            el.style.fontSize = '12px';
+            el.style.fontWeight = '800';
+            el.style.border = b.accent ? '1.5px solid #f59e0b' : '1px solid #334155';
+            el.textContent = b.name;
+            container.appendChild(el);
+        });
+    }
+
+    function setMetroBPM(val) {
+        metroBPM = parseInt(val);
+        const disp = document.getElementById('metroBPMDisplay');
+        if (disp) disp.innerHTML = `${metroBPM} <span style="font-size:18px; color:#94a3b8;">BPM</span>`;
+        const slider = document.getElementById('metroBPMSlider');
+        if (slider) slider.value = metroBPM;
+
+        if (isMetroRunning) {
+            clearInterval(metroInterval);
+            const intervalMs = (60 / metroBPM) * 1000;
+            metroInterval = setInterval(stepMetronome, intervalMs);
+        }
+    }
+
+    function adjustMetroBPM(delta) {
+        setMetroBPM(Math.max(30, Math.min(220, metroBPM + delta)));
+    }
+
+    function changeMetroTala(tKey) {
+        currentMetroTala = tKey;
+        metroCurrentBeat = 0;
+        renderMetroBeats();
+    }
+
+    function playMetroClickSound(isAccent) {
+        try {
+            if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            if (audioCtx.state === 'suspended') audioCtx.resume();
+
+            const soundType = document.getElementById('metroSoundSelect') ? document.getElementById('metroSoundSelect').value : 'mridangam';
+
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+
+            if (soundType === 'mridangam') {
+                // Low resonant 'Thom' for accent, crisp 'Tha' for regular
+                osc.type = isAccent ? 'sine' : 'triangle';
+                const freq = isAccent ? 130 : 350;
+                osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+                if (isAccent) {
+                    osc.frequency.exponentialRampToValueAtTime(70, audioCtx.currentTime + 0.12);
+                }
+                gain.gain.setValueAtTime(0.01, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(isAccent ? 0.6 : 0.35, audioCtx.currentTime + 0.01);
+                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + (isAccent ? 0.18 : 0.08));
+            } else if (soundType === 'bell') {
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(isAccent ? 1200 : 800, audioCtx.currentTime);
+                gain.gain.setValueAtTime(0.01, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.4, audioCtx.currentTime + 0.01);
+                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.15);
+            } else {
+                // Woodblock
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(isAccent ? 900 : 600, audioCtx.currentTime);
+                gain.gain.setValueAtTime(0.01, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.5, audioCtx.currentTime + 0.005);
+                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.05);
+            }
+
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.start();
+            osc.stop(audioCtx.currentTime + 0.2);
+        } catch(e) {}
+    }
+
+    function stepMetronome() {
+        const beats = metroTalaDefinitions[currentMetroTala] || metroTalaDefinitions['adi'];
+        const total = beats.length;
+
+        // Reset visual highlight on all beats
+        for (let i = 0; i < total; i++) {
+            const el = document.getElementById(`m-beat-${i}`);
+            if (el) {
+                el.style.background = '#1e293b';
+                el.style.color = '#94a3b8';
+                el.style.boxShadow = 'none';
+            }
+        }
+
+        // Highlight current beat
+        const activeEl = document.getElementById(`m-beat-${metroCurrentBeat}`);
+        const currentBeatInfo = beats[metroCurrentBeat];
+        if (activeEl && currentBeatInfo) {
+            activeEl.style.background = currentBeatInfo.accent ? '#f59e0b' : '#2563eb';
+            activeEl.style.color = '#ffffff';
+            activeEl.style.boxShadow = currentBeatInfo.accent ? '0 0 16px #fbbf24' : '0 0 12px #38bdf8';
+
+            playMetroClickSound(currentBeatInfo.accent);
+        }
+
+        metroCurrentBeat = (metroCurrentBeat + 1) % total;
+    }
+
+    function toggleStandaloneMetronome() {
+        const btn = document.getElementById('metroPlayBtn');
+        if (!isMetroRunning) {
+            isMetroRunning = true;
+            metroCurrentBeat = 0;
+            if (btn) {
+                btn.innerHTML = '⏸ நிறுத்து (Stop Metronome)';
+                btn.style.background = '#dc2626';
+                btn.style.boxShadow = '0 0 20px rgba(220,38,38,0.7)';
+                btn.style.color = '#ffffff';
+            }
+            const intervalMs = (60 / metroBPM) * 1000;
+            stepMetronome();
+            metroInterval = setInterval(stepMetronome, intervalMs);
+        } else {
+            isMetroRunning = false;
+            if (metroInterval) {
+                clearInterval(metroInterval);
+                metroInterval = null;
+            }
+            if (btn) {
+                btn.innerHTML = '▶ மெட்ரோனோம் தொடங்கு (Start Metronome)';
+                btn.style.background = '#22c55e';
+                btn.style.boxShadow = '0 0 20px rgba(34,197,94,0.6)';
+                btn.style.color = '#000000';
+            }
+            // Reset beat visuals
+            const beats = metroTalaDefinitions[currentMetroTala] || metroTalaDefinitions['adi'];
+            for (let i = 0; i < beats.length; i++) {
+                const el = document.getElementById(`m-beat-${i}`);
+                if (el) {
+                    el.style.background = '#1e293b';
+                    el.style.color = '#94a3b8';
+                    el.style.boxShadow = 'none';
+                }
+            }
+        }
+    }
+
+    // ==========================================
+    // 🥁 TALA METRONOME & PRACTICE SCORECARD & TUNER JS
+    // ==========================================
+    let totalLessonNotes = 0;
+    let correctLessonNotes = 0;
+
+    function updateTalaBeat(stepIdx) {
+        const beatIdx = stepIdx % 8;
+        for (let i = 0; i < 8; i++) {
+            const el = document.getElementById(`tala-beat-${i}`);
+            if (el) {
+                if (i === beatIdx) {
+                    el.style.background = '#2563eb';
+                    el.style.color = '#ffffff';
+                    el.style.boxShadow = '0 0 10px #38bdf8';
+                    el.style.borderColor = '#60a5fa';
+                } else {
+                    el.style.background = '#1e293b';
+                    el.style.color = '#94a3b8';
+                    el.style.boxShadow = 'none';
+                    el.style.borderColor = '#334155';
+                }
+            }
+        }
+    }
+
+    function playGuitarRefTone(freq, name) {
+        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+        gain.gain.setValueAtTime(0.01, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.4, audioCtx.currentTime + 0.05);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 1.8);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + 1.9);
+
+        const status = document.getElementById('tunerStatusText');
+        if (status) status.innerHTML = `🔊 ஒலிப்பது: ${name} (${freq} Hz)`;
+    }
+
+    function updateTunerLive(detectedFreq) {
+        const needle = document.getElementById('tunerNeedle');
+        const noteBig = document.getElementById('tunerNoteBig');
+        const freqDisp = document.getElementById('tunerFreqDisplay');
+        const statusText = document.getElementById('tunerStatusText');
+
+        if (!needle || !noteBig) return;
+
+        // Find closest standard guitar string
+        const strings = [
+            { name: '6th E (Low E)', freq: 82.41, note: 'E2' },
+            { name: '5th A', freq: 110.00, note: 'A2' },
+            { name: '4th D', freq: 146.83, note: 'D3' },
+            { name: '3rd G', freq: 196.00, note: 'G3' },
+            { name: '2nd B', freq: 246.94, note: 'B3' },
+            { name: '1st E (High E)', freq: 329.63, note: 'E4' }
+        ];
+
+        let closest = strings[0];
+        let minDiff = Math.abs(detectedFreq - strings[0].freq);
+        for (let s of strings) {
+            let diff = Math.abs(detectedFreq - s.freq);
+            if (diff < minDiff) {
+                minDiff = diff;
+                closest = s;
+            }
+        }
+
+        // Cents calculation: 1200 * log2(f / f0)
+        const cents = 1200 * Math.log2(detectedFreq / closest.freq);
+        const clampedCents = Math.max(-50, Math.min(50, cents));
+        const percent = ((clampedCents + 50) / 100) * 100;
+
+        needle.style.left = `${percent}%`;
+        noteBig.textContent = closest.note;
+        if (freqDisp) freqDisp.textContent = `அதிர்வெண்: ${detectedFreq.toFixed(1)} Hz (இலக்கு: ${closest.freq} Hz)`;
+
+        if (Math.abs(cents) <= 5) {
+            needle.style.background = '#22c55e';
+            needle.style.boxShadow = '0 0 15px #22c55e';
+            statusText.innerHTML = `✅ <strong style="color:#22c55e;">சரியான சுதி! (PERFECT IN TUNE - ${closest.name})</strong>`;
+        } else if (cents < -5) {
+            needle.style.background = '#38bdf8';
+            needle.style.boxShadow = '0 0 10px #38bdf8';
+            statusText.innerHTML = `◀ <strong style="color:#38bdf8;">சுதி குறைவு (FLAT: கம்பியை இறுக்குங்கள்) - ${closest.name}</strong>`;
+        } else {
+            needle.style.background = '#f59e0b';
+            needle.style.boxShadow = '0 0 10px #f59e0b';
+            statusText.innerHTML = `▶ <strong style="color:#f59e0b;">சுதி அதிகம் (SHARP: கம்பியைத் தளர்த்துங்கள்) - ${closest.name}</strong>`;
+        }
+    }
+
+    // Step UI Update
+    
+    // Changeable Kattai / Shruti Transposition Handler
+    let currentKattaiRatio = 1.0;
+    // ==========================================
+    // ==========================================
+    // STUDIO MASTER OUTPUT & DYNAMICS LIMITER (PREVENTS AUDIO BREAKING / CLIPPING)
+    // ==========================================
+    // masterCompressor declared above
+    // masterHeadroomGain declared above
+
+    function getMasterOutput() {
+        if (!audioCtx) return null;
+        if (!masterCompressor) {
+            try {
+                masterCompressor = audioCtx.createDynamicsCompressor();
+                masterCompressor.threshold.setValueAtTime(-3.0, audioCtx.currentTime);
+                masterCompressor.knee.setValueAtTime(10.0, audioCtx.currentTime);
+                masterCompressor.ratio.setValueAtTime(16.0, audioCtx.currentTime);
+                masterCompressor.attack.setValueAtTime(0.002, audioCtx.currentTime);
+                masterCompressor.release.setValueAtTime(0.12, audioCtx.currentTime);
+
+                masterHeadroomGain = audioCtx.createGain();
+                masterHeadroomGain.gain.setValueAtTime(0.82, audioCtx.currentTime);
+
+                masterCompressor.connect(masterHeadroomGain);
+                masterHeadroomGain.connect(audioCtx.destination);
+            } catch(e) {
+                return audioCtx.destination;
+            }
+        }
+        return masterCompressor;
+    }
+
+    // activeGuitarVoices declared above
+
+    function stopAllGuitarVoices(crossfadeSec = 0.035) {
+        if (!audioCtx) return;
+        const now = audioCtx.currentTime;
+        for (const v of activeGuitarVoices) {
+            try {
+                v.gain.gain.cancelScheduledValues(now);
+                const gVal = v.gain.gain.value;
+                v.gain.gain.setValueAtTime(gVal > 0.0001 ? gVal : 0.001, now);
+                v.gain.gain.linearRampToValueAtTime(0.0001, now + crossfadeSec);
+                v.oscs.forEach(o => {
+                    try { o.stop(now + crossfadeSec + 0.02); } catch(e) {}
+                });
+            } catch(e) {}
+        }
+        activeGuitarVoices = [];
+    }
+
+    
+    // isGuitarToneEnabled declared above
+    
+    // isGuitarSustainOn declared above
+    // guitarSustainSec declared above
+
+    function toggleGuitarSustain() {
+        isGuitarSustainOn = !isGuitarSustainOn;
+        const btn = document.getElementById('guitarSustainBtn');
+        if (btn) {
+            if (isGuitarSustainOn) {
+                btn.style.background = '#581c87';
+                btn.style.borderColor = '#c084fc';
+                btn.style.color = '#ffffff';
+                btn.innerHTML = `⏳ சஸ்டைன்: ON (${guitarSustainSec.toFixed(1)}s)`;
+            } else {
+                btn.style.background = '#1e293b';
+                btn.style.borderColor = '#64748b';
+                btn.style.color = '#94a3b8';
+                btn.innerHTML = '⏳ சஸ்டைன்: OFF (0.3s)';
+            }
+        }
+    }
+    
+    function toggleGuitarTone() {
+        isGuitarToneEnabled = !isGuitarToneEnabled;
+        const btn = document.getElementById('guitarToneBtn');
+        if (btn) {
+            if (isGuitarToneEnabled) {
+                btn.style.background = '#1e293b';
+                btn.style.borderColor = '#38bdf8';
+                btn.style.color = '#38bdf8';
+                btn.innerHTML = '🎵 கிட்டார் ஒலி: ON';
+            } else {
+                btn.style.background = '#78350f';
+                btn.style.borderColor = '#f59e0b';
+                btn.style.color = '#fbbf24';
+                btn.innerHTML = '🔇 கிட்டார் ஒலி: OFF';
+            }
+        }
+    }
+    
+    function updateStepUI(playAudio = true) {
+        if (!flatStepSequence || flatStepSequence.length === 0) return;
+        if (currentStepIndex >= flatStepSequence.length) currentStepIndex = 0;
+        if (currentStepIndex < 0) currentStepIndex = flatStepSequence.length - 1;
+
+        const cur = flatStepSequence[currentStepIndex];
+        const sw = allSwaras[cur.swKey];
+
+        // 1. Calculate consecutive identical swara repeat count (e.g. for Jantai Varisai SS RR GG)
+        let streakStart = currentStepIndex;
+        while (streakStart > 0 && flatStepSequence[streakStart - 1].swKey === cur.swKey) {
+            streakStart--;
+        }
+        let streakEnd = currentStepIndex;
+        while (streakEnd < flatStepSequence.length - 1 && flatStepSequence[streakEnd + 1].swKey === cur.swKey) {
+            streakEnd++;
+        }
+        const currentCount = currentStepIndex - streakStart + 1;
+        const totalCount = streakEnd - streakStart + 1;
+
+        const stepBadge = document.getElementById('currentStepBadge');
+        const targetSwaraDisplay = document.getElementById('micTargetSwaraDisplay');
+        if (targetSwaraDisplay && sw) {
+            targetSwaraDisplay.innerHTML = `${sw.ta} <span style="font-size:12px; color:#94a3b8;">(${sw.westShort})</span>`;
+        }
+        updateTalaBeat(currentStepIndex);
+        if (stepBadge) {
+            stepBadge.textContent = `ஸ்வரம் ${currentStepIndex + 1} / ${flatStepSequence.length}`;
+        }
+
+        if (sw) {
+            const elSwara = document.getElementById('cardSwara');
+            if (elSwara) { elSwara.textContent = sw.ta; elSwara.style.color = sw.col; }
+
+            const elWest = document.getElementById('cardWestNote');
+            if (elWest) elWest.textContent = sw.west;
+
+            const elStr = document.getElementById('cardString');
+            if (elStr) elStr.textContent = sw.str;
+
+            const elFret = document.getElementById('cardFret');
+            if (elFret) elFret.textContent = (sw.fretNum === 0 && sw.strNum === 0) ? 'கார்வை (Hold)' : (sw.fretNum === 0 ? 'திறந்த கம்பி (Open 0)' : `${sw.fretNum}-ம் கட்டை (Fret ${sw.fretNum})`);
+
+            const elFinger = document.getElementById('cardFinger');
+            if (elFinger) elFinger.textContent = sw.finger;
+
+            const elStroke = document.getElementById('cardStroke');
+            if (elStroke) elStroke.textContent = cur.stroke;
+
+            // Small Repeat Count Display Card
+            const elRepeat = document.getElementById('cardRepeatCount');
+            if (elRepeat) {
+                if (totalCount > 1) {
+                    elRepeat.innerHTML = `<span style="color:#f59e0b; font-size:16px; font-weight:900;">${currentCount} / ${totalCount}</span> <span style="font-size:12px; color:#cbd5e1;">(${currentCount === 1 ? '1-வது முறை' : currentCount === 2 ? '2-வது முறை' : currentCount + '-ம் முறை'})</span>`;
+                } else {
+                    elRepeat.innerHTML = `<span style="color:#38bdf8; font-size:13.5px; font-weight:700;">1 / 1 (ஒரு முறை)</span>`;
+                }
+            }
+
+            if (playAudio && sw.freq > 0) {
+                playTone(sw.freq);
+            }
+        }
+
+        // Highlight Fretboard Note Marker
+        document.querySelectorAll('.swara-marker').forEach(b => b.classList.remove('active-playing'));
+        document.querySelectorAll('.fret-slot').forEach(s => s.classList.remove('active-fret-col'));
+        document.querySelectorAll('.swara-repeat-pill').forEach(p => p.remove());
+
+        const activeBadge = document.getElementById(`badge-${cur.swKey}`);
+        if (activeBadge) {
+            activeBadge.classList.add('active-playing');
+
+            // Add small count badge on the fretboard marker when played 2 or more times
+            if (totalCount > 1) {
+                const pill = document.createElement('div');
+                pill.className = 'swara-repeat-pill';
+                pill.textContent = `${currentCount}/${totalCount}`;
+                activeBadge.appendChild(pill);
+            }
+        }
+
+        // Highlight Visual Diagram Note
+        document.querySelectorAll('.d-note-box').forEach(box => box.classList.remove('active'));
+        const activeBox = document.getElementById(`d-box-${currentStepIndex}`);
+        if (activeBox) activeBox.classList.add('active');
+
+        // Highlight Timeline Chip (horizontal scrolling inside timeline only)
+        document.querySelectorAll('.timeline-chip').forEach(c => c.classList.remove('active'));
+        const activeChip = document.getElementById(`timeline-chip-${currentStepIndex}`);
+        if (activeChip) {
+            activeChip.classList.add('active');
+            const flow = document.getElementById('timelineFlow');
+            if (flow && activeChip && typeof flow.scrollTo === 'function') {
+                flow.scrollTo({ left: activeChip.offsetLeft - (flow.clientWidth / 2) + (activeChip.clientWidth / 2), behavior: 'smooth' });
+            }
+        }
+
+        // Highlight TAB
+        document.querySelectorAll('.tab-fret-cell').forEach(c => c.classList.remove('highlight'));
+        if (sw) {
+            const activeTabCell = document.getElementById(`tab-cell-${sw.strNum}-${currentStepIndex}`);
+            if (activeTabCell) activeTabCell.classList.add('highlight');
+        }
+    }
+
+    function nextStep() {
+        currentStepIndex++;
+        if (currentStepIndex >= flatStepSequence.length) currentStepIndex = 0;
+        updateStepUI(true);
+    }
+
+    function prevStep() {
+        currentStepIndex--;
+        if (currentStepIndex < 0) currentStepIndex = flatStepSequence.length - 1;
+        updateStepUI(true);
+    }
+
+    function jumpToStep(idx) {
+        currentStepIndex = idx;
+        updateStepUI(true);
+    }
+
+    function resetLesson() {
+        currentStepIndex = 0;
+        if (isPlaying) togglePlay();
+        updateStepUI(false);
+    }
+
+    function onFretBadgeClick(swKey) {
+        const sw = allSwaras[swKey];
+        if (sw) {
+            playTone(sw.freq);
+            document.getElementById('cardSwara').textContent = sw.ta;
+            document.getElementById('cardSwara').style.color = sw.col;
+            document.getElementById('cardWestNote').textContent = sw.west;
+            document.getElementById('cardString').textContent = sw.str;
+            document.getElementById('cardFret').textContent = `${sw.fretNum}-ம் கட்டை (Fret ${sw.fretNum})`;
+            document.getElementById('cardFinger').textContent = sw.finger;
+        }
+        document.querySelectorAll('.swara-marker').forEach(b => b.classList.remove('active-playing'));
+        const activeBadge = document.getElementById(`badge-${swKey}`);
+        if (activeBadge) activeBadge.classList.add('active-playing');
+    }
+
+    function changeLesson(lKey) {
+        currentLessonKey = lKey;
+        currentStepIndex = 0;
+        initFlatSequence();
+        renderDynamicFretboard();
+        renderLessonVisualDiagram();
+        renderGuitarTabSheet();
+        renderTimeline();
+        updateStepUI(false);
+    }
+
+    function changeRagaMode(rKey) {
+        currentRagaKey = rKey;
+        const rData = ragasMasterData[rKey] || ragasMasterData['maya'];
+
+        // Populate flat sequence with Arohanam and Avarohanam so user can play along!
+        flatStepSequence = [];
+        rData.arohanam.forEach(swKey => {
+            flatStepSequence.push({ swKey: swKey, stroke: '⊓ கீழ்நோக்கு (Down)' });
+        });
+        rData.avarohanam.forEach(swKey => {
+            flatStepSequence.push({ swKey: swKey, stroke: '∨ மேல்நோக்கு (Up)' });
+        });
+
+        currentStepIndex = 0;
+        renderDynamicFretboard();
+        renderTimeline();
+        updateStepUI(false);
+    }
+
+    function switchStudioTab(tab) {
+        const tunerSec = document.getElementById('tunerSection');
+        const metroSec = document.getElementById('metronomeSection');
+        const fretCard = document.querySelector('.fretboard-card');
+        const micCard = document.getElementById('micListenerCard');
+        const talaBar = document.getElementById('talaMetronomeBar');
+        const selLessons = document.getElementById('selector-wrapper-lessons');
+        const selRagas = document.getElementById('selector-wrapper-ragas');
+        const diagSec = document.getElementById('lessonDiagramSection');
+        const tabSec = document.getElementById('guitarTabSection');
+        const timeSec = document.getElementById('timelineSection');
+        const actionGrid = document.querySelector('.action-details-grid');
+
+        // Toggle special sections
+        if (tunerSec) tunerSec.style.display = (tab === 'tuner') ? 'block' : 'none';
+        if (metroSec) metroSec.style.display = (tab === 'metronome') ? 'block' : 'none';
+
+        const isStandardTab = (tab === 'lessons' || tab === 'ragas' || tab === 'tabview');
+        if (fretCard) fretCard.style.display = isStandardTab ? 'block' : 'none';
+        if (micCard) micCard.style.display = isStandardTab ? 'block' : 'none';
+        if (talaBar) talaBar.style.display = isStandardTab ? 'flex' : 'none';
+        if (actionGrid) actionGrid.style.display = isStandardTab ? 'grid' : 'none';
+
+        document.querySelectorAll('.nav-tab-btn').forEach(b => b.classList.remove('active'));
+        const activeBtn = document.getElementById(`tab-${tab}`);
+        if (activeBtn) activeBtn.classList.add('active');
+
+        if (tab === 'lessons') {
+            currentMode = 'lesson';
+            if (selLessons) selLessons.style.display = 'flex';
+            if (selRagas) selRagas.style.display = 'none';
+            if (diagSec) diagSec.style.display = 'block';
+            if (tabSec) tabSec.style.display = 'none';
+            if (timeSec) timeSec.style.display = 'block';
+            currentStepIndex = 0;
+            initFlatSequence();
+            renderDynamicFretboard();
+            renderLessonVisualDiagram();
+            renderGuitarTabSheet();
+            renderTimeline();
+            updateStepUI(false);
+        } else if (tab === 'ragas') {
+            currentMode = 'raga';
+            if (selLessons) selLessons.style.display = 'none';
+            if (selRagas) selRagas.style.display = 'flex';
+            if (diagSec) diagSec.style.display = 'none';
+            if (tabSec) tabSec.style.display = 'none';
+            if (timeSec) timeSec.style.display = 'none';
+            renderDynamicFretboard();
+        } else if (tab === 'tabview') {
+            if (selLessons) selLessons.style.display = 'flex';
+            if (selRagas) selRagas.style.display = 'none';
+            if (diagSec) diagSec.style.display = 'block';
+            if (tabSec) tabSec.style.display = 'block';
+            if (timeSec) timeSec.style.display = 'block';
+            renderDynamicFretboard();
+            renderGuitarTabSheet();
+        } else if (tab === 'metronome') {
+            if (selLessons) selLessons.style.display = 'none';
+            if (selRagas) selRagas.style.display = 'none';
+            renderMetroBeats();
+            if (diagSec) diagSec.style.display = 'none';
+            if (tabSec) tabSec.style.display = 'none';
+            if (timeSec) timeSec.style.display = 'none';
+        } else if (tab === 'tuner') {
+            if (selLessons) selLessons.style.display = 'none';
+            if (selRagas) selRagas.style.display = 'none';
+            if (diagSec) diagSec.style.display = 'none';
+            if (tabSec) tabSec.style.display = 'none';
+            if (timeSec) timeSec.style.display = 'none';
+        }
+    }
+
+    async function togglePlay() {
+        await ensureAudioCtx();
+        const btn = document.getElementById('playBtn');
+        if (!isPlaying) {
+            isPlaying = true;
+            btn.innerHTML = '⏸ நிறுத்து (Pause)';
+            btn.classList.add('playing');
+            updateStepUI(true);
+            playInterval = setInterval(() => {
+                nextStep();
+            }, currentSpeed);
+        } else {
+            isPlaying = false;
+            stopAllGuitarVoices(0.05);
+            btn.innerHTML = '▶ வாசி (Play)';
+            btn.classList.remove('playing');
+            clearInterval(playInterval);
+            playInterval = null;
+        }
+    }
+
+    
+    function adjustSpeed(delta) {
+        currentSpeed = Math.max(300, Math.min(5000, currentSpeed + delta));
+        const sel = document.getElementById('speedSelect');
+        if (sel) {
+            // Find closest option or update select
+            sel.value = currentSpeed;
+        }
+        if (isPlaying) {
+            clearInterval(playInterval);
+            playInterval = setInterval(() => {
+                nextStep();
+            }, currentSpeed);
+        }
+    }
+
+    
+    function quickSetSpeed(spd) {
+        currentSpeed = parseInt(spd);
+        const sel = document.getElementById('speedSelect');
+        if (sel) sel.value = spd;
+        if (isPlaying) {
+            clearInterval(playInterval);
+            playInterval = setInterval(() => {
+                nextStep();
+            }, currentSpeed);
+        }
+    }
+
+    function setSpeed(spd) {
+        currentSpeed = parseInt(spd);
+        if (isPlaying) {
+            clearInterval(playInterval);
+            playInterval = setInterval(() => {
+                nextStep();
+            }, currentSpeed);
+        }
+    }
+
+    // Initialize App
+    window.addEventListener('DOMContentLoaded', () => {
+        initFlatSequence();
+        renderDynamicFretboard();
+        renderLessonVisualDiagram();
+        renderGuitarTabSheet();
+        renderTimeline();
+        updateStepUI(false);
+    });
+</script>
+</body>
+</html>

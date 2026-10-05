@@ -1,0 +1,3702 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎵 கலிம்பா குருகுலம் & நேரலை சுருதிமானி | 17-Key Kalimba Master Learning & Real-Time Tuner Studio</title>
+    
+    <!-- Google Fonts Preconnect & Stylesheets -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Noto+Sans+Tamil:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-main: #060913;
+            --bg-card: rgba(15, 23, 42, 0.88);
+            --bg-card-hover: rgba(26, 38, 66, 0.95);
+            --border-card: rgba(56, 189, 248, 0.22);
+            --border-gold: rgba(245, 158, 11, 0.35);
+            --accent-cyan: #38bdf8;
+            --accent-blue: #3b82f6;
+            --accent-indigo: #6366f1;
+            --accent-purple: #c084fc;
+            --accent-gold: #f59e0b;
+            --accent-amber: #fbbf24;
+            --accent-emerald: #10b981;
+            --accent-rose: #f43f5e;
+            --accent-pink: #ec4899;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --metal-shine: linear-gradient(180deg, #ffffff 0%, #cbd5e1 25%, #94a3b8 55%, #64748b 100%);
+            --metal-active: linear-gradient(180deg, #fef08a 0%, #fbbf24 40%, #f59e0b 80%, #d97706 100%);
+        }
+
+        *, html, body, button, input, select, textarea {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Outfit', 'Noto Sans Tamil', 'Nirmala UI', 'Latha', 'Vijaya', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .tamil-text, [lang="ta"] {
+            font-family: 'Noto Sans Tamil', 'Outfit', sans-serif;
+        }
+
+        .mono-text, code, pre {
+            font-family: 'JetBrains Mono', 'Cascadia Code', monospace;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(56, 189, 248, 0.12) 0px, transparent 45%),
+                radial-gradient(at 100% 0%, rgba(192, 132, 252, 0.12) 0px, transparent 45%),
+                radial-gradient(at 50% 100%, rgba(16, 185, 129, 0.08) 0px, transparent 50%),
+                radial-gradient(at 20% 50%, rgba(245, 158, 11, 0.07) 0px, transparent 40%);
+            background-attachment: fixed;
+            color: var(--text-main);
+            min-height: 100vh;
+            padding: 16px 20px;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1560px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        /* Glass Panel Container */
+        .glass-panel {
+            background: var(--bg-card);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--border-card);
+            border-radius: 18px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
+        }
+
+        /* Top Hero Header */
+        header.hero-header {
+            padding: 22px 28px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 18px;
+            border-top: 3px solid #f59e0b;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header.hero-header::after {
+            content: '';
+            position: absolute;
+            top: 0; right: 0; width: 300px; height: 100%;
+            background: radial-gradient(circle, rgba(245,158,11,0.15) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero-left {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .hero-icon-box {
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(135deg, #b45309, #d97706, #f59e0b);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 34px;
+            box-shadow: 0 0 25px rgba(245, 158, 11, 0.45);
+            border: 2px solid rgba(254, 243, 199, 0.4);
+            flex-shrink: 0;
+            animation: floatGently 4s ease-in-out infinite;
+        }
+
+        @keyframes floatGently {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-4px); }
+        }
+
+        .hero-titles h1 {
+            font-size: 24px;
+            font-weight: 900;
+            background: linear-gradient(90deg, #fef08a, #f59e0b, #38bdf8, #c084fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.3px;
+            line-height: 1.25;
+        }
+
+        .hero-titles p {
+            color: var(--text-muted);
+            font-size: 13.5px;
+            margin-top: 4px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .badge-pill {
+            background: rgba(245, 158, 11, 0.15);
+            color: #fbbf24;
+            border: 1px solid rgba(245, 158, 11, 0.4);
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .stat-badge {
+            background: rgba(15, 23, 42, 0.75);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 8px 14px;
+            border-radius: 12px;
+            font-size: 12px;
+            color: #cbd5e1;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .stat-badge b {
+            color: #38bdf8;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        
+        /* Top Sticky Navigation Tabs Bar */
+        .nav-tabs-container {
+            position: sticky;
+            top: 0;
+            z-index: 999;
+            background: rgba(10, 15, 29, 0.94);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(245, 158, 11, 0.3);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.55);
+            padding: 8px 4px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .nav-tabs-bar {
+            display: flex;
+            gap: 8px;
+            padding: 4px 6px;
+            overflow-x: auto;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            flex-grow: 1;
+            scroll-behavior: smooth;
+        }
+        .nav-tabs-bar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .nav-scroll-btn {
+            background: rgba(30, 41, 59, 0.85);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #f59e0b;
+            width: 32px;
+            height: 38px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            flex-shrink: 0;
+            transition: all 0.2s ease;
+            font-size: 14px;
+        }
+        .nav-scroll-btn:hover {
+            background: #f59e0b;
+            color: #0f172a;
+            box-shadow: 0 0 12px rgba(245, 158, 11, 0.5);
+        }
+
+        .tab-btn {
+            background: rgba(30, 41, 59, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.09);
+            color: #94a3b8;
+            padding: 9px 15px;
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            position: relative;
+        }
+
+        .tab-btn .tab-num-badge {
+            background: rgba(255, 255, 255, 0.1);
+            color: #cbd5e1;
+            font-size: 11px;
+            font-weight: 800;
+            padding: 2px 6px;
+            border-radius: 6px;
+            font-family: 'JetBrains Mono', monospace;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+        }
+
+        .tab-btn:hover {
+            background: rgba(51, 65, 85, 0.85);
+            color: #ffffff;
+            border-color: rgba(245, 158, 11, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(135deg, #d97706, #b45309);
+            color: #ffffff;
+            border-color: #fbbf24;
+            box-shadow: 0 0 20px rgba(245, 158, 11, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            transform: translateY(-1px);
+        }
+
+        .tab-btn.active .tab-num-badge {
+            background: #ffffff;
+            color: #92400e;
+            border-color: #fef3c7;
+        }
+
+        /* Floating Quick Switcher Dock at bottom */
+        .floating-quick-dock {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(15, 23, 42, 0.94);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(245, 158, 11, 0.35);
+            padding: 6px 10px;
+            border-radius: 40px;
+            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.6), 0 0 20px rgba(245, 158, 11, 0.2);
+            animation: dockFloat 3s ease-in-out infinite;
+        }
+
+        @keyframes dockFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-4px); }
+        }
+
+        .dock-btn {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: rgba(30, 41, 59, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: #cbd5e1;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .dock-btn:hover {
+            background: #f59e0b;
+            color: #0f172a;
+            transform: scale(1.15);
+            box-shadow: 0 0 14px rgba(245, 158, 11, 0.6);
+        }
+
+        .dock-btn.active {
+            background: linear-gradient(135deg, #d97706, #f59e0b);
+            color: #ffffff;
+            border-color: #fef08a;
+            box-shadow: 0 0 16px rgba(245, 158, 11, 0.7);
+            transform: scale(1.12);
+        }
+
+        .dock-btn-top {
+            background: rgba(56, 189, 248, 0.15);
+            border-color: rgba(56, 189, 248, 0.4);
+            color: #38bdf8;
+        }
+        .dock-btn-top:hover {
+            background: #38bdf8;
+            color: #0f172a;
+        }
+
+        /* Bottom Tab-Paging Footer Box */
+        .tab-bottom-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            margin-top: 30px;
+            padding: 16px 20px;
+            background: rgba(15, 23, 42, 0.75);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            flex-wrap: wrap;
+        }
+
+        .tab-nav-btn {
+            background: rgba(30, 41, 59, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: #f8fafc;
+            padding: 10px 18px;
+            border-radius: 12px;
+            font-size: 13.5px;
+            font-weight: 700;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .tab-nav-btn:hover {
+            background: linear-gradient(135deg, #d97706, #b45309);
+            border-color: #fbbf24;
+            box-shadow: 0 0 15px rgba(245, 158, 11, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .tab-nav-btn.btn-top {
+            background: rgba(56, 189, 248, 0.15);
+            border-color: rgba(56, 189, 248, 0.35);
+            color: #38bdf8;
+        }
+        .tab-nav-btn.btn-top:hover {
+            background: #38bdf8;
+            color: #0f172a;
+        }
+
+        /* Toast Notice for Quick Switch */
+        #tabToastNotice {
+            position: fixed;
+            top: 64px;
+            left: 50%;
+            transform: translateX(-50%) translateY(-20px);
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(16px);
+            border: 1px solid #f59e0b;
+            color: #fef08a;
+            padding: 10px 22px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 800;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), 0 0 20px rgba(245, 158, 11, 0.35);
+            z-index: 1001;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        #tabToastNotice.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+
+/* Tab Content Section Panels */
+        .tab-panel {
+            display: none;
+            flex-direction: column;
+            gap: 20px;
+            animation: fadeIn 0.3s ease-out forwards;
+        }
+
+        .tab-panel.active {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ------------------------------------------------------------- */
+        /* KALIMBA INSTRUMENT VISUALIZER & SIMULATOR */
+        /* ------------------------------------------------------------- */
+        .kalimba-stage-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 24px 16px;
+            background: radial-gradient(circle at 50% 30%, rgba(30, 41, 59, 0.9) 0%, rgba(15, 23, 42, 0.98) 100%);
+            border-radius: 20px;
+            border: 1px solid var(--border-gold);
+            position: relative;
+            box-shadow: inset 0 0 60px rgba(0, 0, 0, 0.6);
+        }
+
+        .kalimba-controls-toolbar {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            max-width: 1040px;
+            margin-bottom: 20px;
+            gap: 12px;
+            background: rgba(15, 23, 42, 0.9);
+            padding: 12px 18px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .toolbar-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .toolbar-label {
+            font-size: 12px;
+            font-weight: 800;
+            color: var(--accent-gold);
+            text-transform: uppercase;
+        }
+
+        .btn-toggle-group {
+            display: flex;
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 8px;
+            padding: 3px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .btn-toggle {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+        .btn-toggle:hover {
+            color: white;
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .btn-toggle.active {
+            background: var(--accent-cyan);
+            color: #041226;
+            box-shadow: 0 0 8px rgba(56, 189, 248, 0.5);
+        }
+
+        /* Giant Live Note Display HUD */
+        .live-note-hud {
+            width: 100%;
+            max-width: 1040px;
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(30, 41, 59, 0.9));
+            border: 2px solid rgba(56, 189, 248, 0.35);
+            border-radius: 14px;
+            padding: 14px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 14px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+        }
+
+        .hud-note-group {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .hud-big-num {
+            font-size: 38px;
+            font-weight: 900;
+            font-family: 'JetBrains Mono', monospace;
+            color: #fde047;
+            text-shadow: 0 0 15px rgba(245, 158, 11, 0.8);
+            line-height: 1;
+        }
+
+        .hud-note-details {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .hud-note-details .h-title {
+            font-size: 16px;
+            font-weight: 800;
+            color: #ffffff;
+        }
+
+        .hud-note-details .h-sub {
+            font-size: 12.5px;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Physical 17-Key Kalimba Graphic Component */
+        .kalimba-body {
+            width: 100%;
+            max-width: 980px;
+            background: linear-gradient(175deg, #7c3f1d 0%, #5c2c12 40%, #3e1b09 85%, #2a1104 100%);
+            border-radius: 28px 28px 45px 45px;
+            padding: 24px 16px 36px 16px;
+            position: relative;
+            box-shadow: 
+                0 25px 60px rgba(0, 0, 0, 0.85),
+                inset 0 2px 4px rgba(255, 255, 255, 0.25),
+                inset 0 -10px 30px rgba(0, 0, 0, 0.6);
+            border: 3px solid #8f4d25;
+            user-select: none;
+        }
+
+        .kalimba-body::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            border-radius: 26px 26px 42px 42px;
+            background-image: repeating-linear-gradient(90deg, rgba(255,255,255,0.02) 0px, rgba(0,0,0,0.03) 8px, transparent 16px);
+            pointer-events: none;
+        }
+
+        /* Metal Bridge / Saddle */
+        .kalimba-bridge-top {
+            width: 96%;
+            margin: 0 auto 12px auto;
+            height: 18px;
+            background: linear-gradient(180deg, #94a3b8 0%, #475569 40%, #1e293b 80%, #0f172a 100%);
+            border-radius: 6px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.6), inset 0 1px 2px rgba(255,255,255,0.4);
+            border: 1px solid #64748b;
+            position: relative;
+            z-index: 10;
+        }
+
+        .kalimba-saddle {
+            width: 94%;
+            margin: 0 auto;
+            height: 8px;
+            background: linear-gradient(180deg, #e2e8f0 0%, #94a3b8 50%, #475569 100%);
+            border-radius: 4px;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.5);
+            position: relative;
+            z-index: 10;
+        }
+
+        /* 17 Tines Rack */
+        .kalimba-tines-rack {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 5px;
+            padding: 0 8px;
+            min-height: 390px;
+            position: relative;
+            z-index: 5;
+        }
+
+        /* Individual Steel Tine */
+        .kalimba-tine {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+            width: calc((100% - 16 * 5px) / 17);
+            max-width: 50px;
+            min-width: 24px;
+            border-radius: 0 0 16px 16px;
+            background: var(--metal-shine);
+            box-shadow: 
+                -2px 5px 8px rgba(0, 0, 0, 0.45),
+                inset 1px 0 2px rgba(255,255,255,0.7),
+                inset -1px 0 2px rgba(0,0,0,0.3);
+            border: 1px solid #94a3b8;
+            border-top: none;
+            cursor: pointer;
+            transition: transform 0.08s ease, filter 0.15s ease, background 0.12s ease;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .kalimba-tine:hover {
+            filter: brightness(1.15);
+            box-shadow: 0 8px 20px rgba(56, 189, 248, 0.4);
+        }
+
+        .kalimba-tine:active, .kalimba-tine.playing {
+            transform: translateY(6px) scale(0.98);
+            background: var(--metal-active);
+            box-shadow: 0 0 25px rgba(245, 158, 11, 0.8), inset 0 0 8px #fff;
+            filter: brightness(1.25);
+        }
+
+        .kalimba-tine.in-tune-glow {
+            background: linear-gradient(180deg, #bbf7d0 0%, #4ade80 40%, #22c55e 80%, #15803d 100%) !important;
+            box-shadow: 0 0 25px rgba(34, 197, 94, 0.8) !important;
+        }
+
+        .kalimba-tine.sharp-glow {
+            background: linear-gradient(180deg, #fecdd3 0%, #fb7185 40%, #e11d48 80%, #9f1239 100%) !important;
+            box-shadow: 0 0 25px rgba(225, 29, 72, 0.8) !important;
+        }
+
+        .kalimba-tine.flat-glow {
+            background: linear-gradient(180deg, #fed7aa 0%, #fb923c 40%, #ea580c 80%, #9a3412 100%) !important;
+            box-shadow: 0 0 25px rgba(234, 88, 12, 0.8) !important;
+        }
+
+        /* Exact Sticker Layout matching User Cropped Photo & Vertical Dots (. over . over 2) */
+        .tine-sticker {
+            width: 88%;
+            min-height: 70px;
+            border-radius: 6px;
+            margin-bottom: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.45);
+            border: 1.5px solid rgba(255,255,255,0.6);
+            flex-shrink: 0;
+            padding: 5px 2px 4px 2px;
+            position: relative;
+        }
+
+        /* Letter on Top */
+        .tine-sticker .st-letter {
+            font-size: 14px;
+            font-weight: 900;
+            color: #ffffff;
+            line-height: 1;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+            font-family: 'Outfit', -apple-system, sans-serif;
+            letter-spacing: 0.5px;
+        }
+
+        /* Vertically Stacked Dots in Middle (. over . over number) */
+        .tine-sticker .st-dots-column,
+        .hud-sticker-box .st-dots-column {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 3px;
+            height: 16px;
+            margin: 1px 0;
+        }
+
+        .tine-sticker .st-dot-circle,
+        .hud-sticker-box .st-dot-circle {
+            width: 4.5px;
+            height: 4.5px;
+            border-radius: 50%;
+            background-color: #ffffff;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.8);
+            display: block;
+        }
+
+        .tine-sticker .st-dot-placeholder,
+        .hud-sticker-box .st-dot-placeholder {
+            width: 4.5px;
+            height: 4.5px;
+            visibility: hidden;
+            display: block;
+        }
+
+        /* Number at Bottom */
+        .tine-sticker .st-num,
+        .hud-sticker-box .st-num {
+            font-size: 15px;
+            font-weight: 900;
+            color: #ffffff;
+            font-family: 'Outfit', 'JetBrains Mono', sans-serif;
+            line-height: 1;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+        }
+
+        /* Sticker Color Themes matching User Photo */
+        .sticker-cyan { background: linear-gradient(135deg, #06b6d4, #0284c7); }
+        .sticker-green { background: linear-gradient(135deg, #10b981, #059669); }
+        .sticker-lime { background: linear-gradient(135deg, #22c55e, #16a34a); }
+        .sticker-pink { background: linear-gradient(135deg, #ec4899, #db2777); }
+        .sticker-orange { background: linear-gradient(135deg, #f97316, #ea580c); }
+        .sticker-purple { background: linear-gradient(135deg, #a855f7, #7e22ce); }
+        .sticker-silver { background: linear-gradient(135deg, #94a3b8, #64748b); }
+
+        /* HUD Miniature Sticker Preview */
+        .hud-sticker-box {
+            width: 44px;
+            height: 64px;
+            border-radius: 6px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            padding: 5px 2px 4px 2px;
+            border: 1.5px solid rgba(255,255,255,0.7);
+            box-shadow: 0 0 15px rgba(56,189,248,0.5);
+            flex-shrink: 0;
+        }
+
+        /* Engraved Metal Stamp */
+        .tine-engraved {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1px;
+            color: #0f172a;
+            font-weight: 800;
+            text-align: center;
+        }
+
+        .tine-engraved .eng-stack {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            line-height: 1;
+        }
+
+        .tine-engraved .eng-dot-row {
+            font-size: 11px;
+            line-height: 6px;
+            height: 6px;
+            font-weight: 900;
+            color: #0f172a;
+            margin-bottom: 2px;
+            letter-spacing: 2px;
+        }
+
+        .tine-engraved .eng-stamp {
+            font-size: 11px;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 900;
+            color: #1e293b;
+            text-shadow: 0 1px 0 rgba(255,255,255,0.6);
+        }
+
+        .tine-engraved .carnatic-sub {
+            font-size: 10px;
+            color: #713f12;
+            font-weight: 900;
+            background: rgba(254, 240, 138, 0.9);
+            border: 1px solid rgba(234, 179, 8, 0.4);
+            padding: 1px 5px;
+            border-radius: 4px;
+            margin-top: 2px;
+            display: none; /* Hidden by default in numbered and keyboard mode */
+        }
+
+        /* Show Carnatic swaras ONLY when Carnatic notation mode is active */
+        .notation-carnatic .tine-engraved .carnatic-sub {
+            display: inline-block;
+            animation: fadeIn 0.2s ease-out;
+        }
+
+        .tine-key-hint {
+            position: absolute;
+            top: -24px;
+            background: rgba(15, 23, 42, 0.9);
+            color: #38bdf8;
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            padding: 1px 5px;
+            border-radius: 4px;
+            font-size: 10px;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
+            display: none;
+        }
+
+        .show-keyboard-hints .tine-key-hint {
+            display: block;
+        }
+
+        /* Wooden Rosette Sound Hole */
+        .kalimba-soundhole {
+            width: 130px;
+            height: 130px;
+            margin: 24px auto 8px auto;
+            border-radius: 50%;
+            background: radial-gradient(circle, #090402 60%, #1e0d05 90%, #3a190b 100%);
+            border: 4px solid #b45309;
+            box-shadow: 
+                inset 0 10px 25px rgba(0, 0, 0, 0.95),
+                0 0 20px rgba(0, 0, 0, 0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .kalimba-soundhole::before {
+            content: '🌸 🌿 🌸';
+            position: absolute;
+            font-size: 14px;
+            color: rgba(245, 158, 11, 0.4);
+            letter-spacing: 6px;
+        }
+
+        .kalimba-brand {
+            text-align: center;
+            color: rgba(254, 243, 199, 0.45);
+            font-size: 13px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-top: 6px;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        /* ------------------------------------------------------------- */
+        /* REAL-TIME MICROPHONE PITCH TUNER TAB */
+        /* ------------------------------------------------------------- */
+        .tuner-dashboard {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 20px;
+        }
+
+        @media (max-width: 992px) {
+            .tuner-dashboard { grid-template-columns: 1fr; }
+        }
+
+        .tuner-meter-panel {
+            background: rgba(15, 23, 42, 0.9);
+            border: 1px solid var(--border-gold);
+            border-radius: 18px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 18px;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .mic-activation-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .btn-mic-start {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 800;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4);
+            transition: all 0.2s;
+        }
+
+        .btn-mic-start:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(239, 68, 68, 0.6);
+        }
+
+        .btn-mic-start.listening {
+            background: linear-gradient(135deg, #10b981, #059669);
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.5);
+            animation: pulseMic 1.8s infinite;
+        }
+
+        @keyframes pulseMic {
+            0%, 100% { box-shadow: 0 0 15px rgba(16, 185, 129, 0.5); }
+            50% { box-shadow: 0 0 30px rgba(16, 185, 129, 0.9); }
+        }
+
+        .gauge-canvas-container {
+            width: 100%;
+            max-width: 460px;
+            height: 220px;
+            position: relative;
+            display: flex;
+            justify-content: center;
+        }
+
+        #tunerGaugeCanvas {
+            width: 100%;
+            height: 100%;
+        }
+
+        .detected-note-hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            background: rgba(0, 0, 0, 0.4);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 16px 36px;
+            min-width: 260px;
+            text-align: center;
+        }
+
+        .detected-note-name {
+            font-size: 52px;
+            font-weight: 900;
+            font-family: 'JetBrains Mono', monospace;
+            line-height: 1;
+            color: #f8fafc;
+        }
+
+        .detected-hz-cents {
+            display: flex;
+            gap: 14px;
+            font-size: 14px;
+            color: var(--text-muted);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .detected-hz-cents b {
+            color: #38bdf8;
+        }
+
+        .tuning-guidance-banner {
+            width: 100%;
+            padding: 14px 20px;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            text-align: center;
+            transition: all 0.2s;
+            background: rgba(30, 41, 59, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #cbd5e1;
+        }
+
+        .guidance-sharp {
+            background: rgba(225, 29, 72, 0.25);
+            border-color: #f43f5e;
+            color: #fda4af;
+        }
+
+        .guidance-flat {
+            background: rgba(234, 88, 12, 0.25);
+            border-color: #f97316;
+            color: #fed7aa;
+        }
+
+        .guidance-perfect {
+            background: rgba(16, 185, 129, 0.25);
+            border-color: #10b981;
+            color: #6ee7b7;
+        }
+
+        .target-tines-matrix {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(68px, 1fr));
+            gap: 8px;
+            width: 100%;
+        }
+
+        .target-tine-btn {
+            background: rgba(17, 24, 39, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 10px;
+            padding: 8px 4px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
+            cursor: pointer;
+            transition: all 0.15s;
+            color: #e2e8f0;
+        }
+
+        .target-tine-btn:hover {
+            border-color: var(--accent-gold);
+            transform: translateY(-2px);
+        }
+
+        .target-tine-btn.selected {
+            background: linear-gradient(135deg, #d97706, #b45309);
+            border-color: #fde047;
+            box-shadow: 0 0 12px rgba(245, 158, 11, 0.6);
+            color: white;
+        }
+
+        /* ------------------------------------------------------------- */
+        /* THEORY SECTION WITH DEEP DOTS & LETTERS EXPLANATION */
+        /* ------------------------------------------------------------- */
+        .theory-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+        }
+
+        .theory-card {
+            background: rgba(17, 24, 39, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 22px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .theory-card:hover {
+            transform: translateY(-2px);
+            border-color: var(--accent-gold);
+        }
+
+        .theory-card-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            padding-bottom: 12px;
+        }
+
+        .theory-card-icon {
+            font-size: 26px;
+            width: 44px;
+            height: 44px;
+            background: rgba(245, 158, 11, 0.15);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            flex-shrink: 0;
+        }
+
+        .theory-card-header h3 {
+            font-size: 17px;
+            font-weight: 800;
+            color: #fef08a;
+        }
+
+        .theory-card-header span {
+            font-size: 12px;
+            color: var(--text-muted);
+            display: block;
+        }
+
+        .theory-content {
+            font-size: 14px;
+            line-height: 1.65;
+            color: #cbd5e1;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .theory-highlight-box {
+            background: rgba(15, 23, 42, 0.9);
+            border-left: 4px solid var(--accent-cyan);
+            border-radius: 0 8px 8px 0;
+            padding: 10px 14px;
+            font-size: 13px;
+            color: #e2e8f0;
+            margin-top: 4px;
+        }
+
+        .tine-color-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 3px 8px;
+            border-radius: 6px;
+            font-size: 11.5px;
+            font-weight: 700;
+            margin: 2px 4px;
+        }
+
+        /* ------------------------------------------------------------- */
+        /* LESSONS SECTION */
+        /* ------------------------------------------------------------- */
+        .lessons-container {
+            display: grid;
+            grid-template-columns: 330px 1fr;
+            gap: 20px;
+        }
+
+        @media (max-width: 900px) {
+            .lessons-container { grid-template-columns: 1fr; }
+        }
+
+        .lessons-sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            background: rgba(15, 23, 42, 0.85);
+            padding: 16px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            max-height: 750px;
+            overflow-y: auto;
+        }
+
+        .lesson-level-header {
+            font-size: 12.5px;
+            font-weight: 800;
+            color: var(--accent-gold);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 8px 6px 4px 6px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            border-bottom: 1px solid rgba(245, 158, 11, 0.2);
+            margin-top: 8px;
+        }
+
+        .lesson-item-btn {
+            background: transparent;
+            border: 1px solid transparent;
+            border-radius: 10px;
+            padding: 10px 12px;
+            text-align: left;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+            transition: all 0.15s;
+            color: #cbd5e1;
+        }
+
+        .lesson-item-btn:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .lesson-item-btn.active {
+            background: linear-gradient(135deg, rgba(56, 189, 248, 0.2), rgba(59, 130, 246, 0.3));
+            border-color: #38bdf8;
+            color: #ffffff;
+            box-shadow: 0 0 12px rgba(56, 189, 248, 0.2);
+        }
+
+        .lesson-viewer-card {
+            background: rgba(15, 23, 42, 0.9);
+            border: 1px solid var(--border-card);
+            border-radius: 16px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .interactive-note-sequence {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            padding: 16px;
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            align-items: center;
+        }
+
+        .seq-note-bubble {
+            min-width: 50px;
+            height: 62px;
+            padding: 2px 6px;
+            border-radius: 10px;
+            background: rgba(30, 41, 59, 0.85);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-family: 'JetBrains Mono', monospace;
+            color: #cbd5e1;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+
+        .bubble-stack {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            line-height: 1;
+        }
+
+        .bubble-stack .b-dots {
+            font-size: 12px;
+            line-height: 7px;
+            height: 7px;
+            color: #fde047;
+            font-weight: 900;
+            margin-bottom: 2px;
+            letter-spacing: 2px;
+        }
+
+        .bubble-stack .b-num {
+            font-size: 17px;
+            font-weight: 900;
+            color: #ffffff;
+            line-height: 1;
+        }
+
+        .bubble-stack .b-letter {
+            font-size: 10px;
+            font-weight: 800;
+            color: #38bdf8;
+            margin-top: 2px;
+        }
+
+        .target-stack {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            line-height: 1;
+        }
+
+        .target-stack .t-dots {
+            font-size: 11px;
+            line-height: 6px;
+            height: 6px;
+            color: #fde047;
+            font-weight: 900;
+            letter-spacing: 2px;
+            margin-bottom: 1px;
+        }
+
+        .target-stack .t-num-main {
+            font-size: 13px;
+            font-weight: 900;
+            font-family: 'JetBrains Mono', monospace;
+            color: #f8fafc;
+        }
+
+        .seq-note-bubble.active-step {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: white;
+            border-color: #fef08a;
+            transform: scale(1.1);
+            box-shadow: 0 0 15px rgba(245, 158, 11, 0.7);
+        }
+
+        .seq-note-bubble.played-step {
+            background: rgba(16, 185, 129, 0.2);
+            border-color: #10b981;
+            color: #34d399;
+        }
+
+        /* ------------------------------------------------------------- */
+        /* SONGS SECTION */
+        /* ------------------------------------------------------------- */
+        .songs-hub {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .songs-selector-strip {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding: 10px 4px;
+        }
+
+        .song-card-btn {
+            background: rgba(17, 24, 39, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 14px;
+            padding: 14px 18px;
+            min-width: 220px;
+            cursor: pointer;
+            text-align: left;
+            transition: all 0.2s;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .song-card-btn:hover {
+            border-color: var(--accent-cyan);
+            transform: translateY(-2px);
+        }
+
+        .song-card-btn.active {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.2), rgba(180, 83, 9, 0.3));
+            border-color: #fbbf24;
+            box-shadow: 0 0 16px rgba(245, 158, 11, 0.35);
+        }
+
+        .song-player-stage {
+            background: rgba(15, 23, 42, 0.95);
+            border: 1px solid var(--border-gold);
+            border-radius: 18px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .song-controls-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 14px;
+            background: rgba(0, 0, 0, 0.35);
+            padding: 14px 20px;
+            border-radius: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .btn-play-song {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            border: none;
+            padding: 10px 22px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 800;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+
+        .btn-play-song:hover {
+            transform: scale(1.03);
+            box-shadow: 0 0 15px rgba(16, 185, 129, 0.6);
+        }
+
+        .karaoke-lyrics-line {
+            font-size: 22px;
+            font-weight: 800;
+            color: #38bdf8;
+            text-align: center;
+            min-height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .tablature-sheet {
+            background: rgba(7, 12, 22, 0.85);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 14px;
+            padding: 18px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            line-height: 1.8;
+            color: #e2e8f0;
+            overflow-x: auto;
+            white-space: pre-wrap;
+        }
+
+        .audio-sliders-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .slider-range {
+            accent-color: var(--accent-gold);
+            cursor: pointer;
+        }
+
+        footer.studio-footer {
+            padding: 20px;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 13px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .footer-links a {
+            color: var(--accent-cyan);
+            text-decoration: none;
+            font-weight: 700;
+        }
+    
+        /* Mini Kalimba Visualizer inside Song Player */
+        .song-mini-kalimba-rack {
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            gap: 3px;
+            height: 95px;
+            padding: 4px 2px;
+            overflow-x: auto;
+        }
+        .song-mini-tine {
+            flex: 1;
+            min-width: 17px;
+            max-width: 26px;
+            border-radius: 0 0 5px 5px;
+            background: linear-gradient(180deg, #e2e8f0 0%, #94a3b8 60%, #cbd5e1 100%);
+            border: 1px solid rgba(255,255,255,0.4);
+            border-top: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            padding: 3px 1px 4px 1px;
+            cursor: pointer;
+            transition: all 0.1s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+            user-select: none;
+        }
+        .song-mini-tine:hover {
+            filter: brightness(1.2);
+            transform: translateY(2px);
+        }
+        .song-mini-tine.mini-tine-active {
+            background: linear-gradient(180deg, #fde047 0%, #f59e0b 50%, #ea580c 100%) !important;
+            box-shadow: 0 0 16px rgba(245, 158, 11, 0.95), 0 0 8px rgba(253, 224, 71, 0.9) !important;
+            transform: translateY(5px) scale(1.06) !important;
+            border-color: #ffffff !important;
+        }
+        .song-mini-tine .smt-letter {
+            font-size: 10px;
+            font-weight: 900;
+            color: #0f172a;
+            line-height: 1;
+        }
+        .song-mini-tine .smt-dots {
+            font-size: 8px;
+            color: #d97706;
+            font-weight: 900;
+            line-height: 1;
+            margin: -2px 0;
+        }
+        .song-mini-tine .smt-num {
+            font-size: 11px;
+            font-weight: 900;
+            color: #0f172a;
+            line-height: 1;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Top Hero Header -->
+    <header class="glass-panel hero-header">
+        <div class="hero-left">
+            <div class="hero-icon-box">🎵</div>
+            <div class="hero-titles">
+                <h1 class="tamil-text">கலிம்பா குருகுலம் & நேரலை சுருதி ஆய்வகம்</h1>
+                <p>
+                    <span class="badge-pill">17-Key C Major Standard</span>
+                    <span>புள்ளிகள் & எழுத்துக்கள் முழு தத்துவம், நேரலை சுருதிமானி & 19+ தமிழ் பாடல்கள்</span>
+                </p>
+            </div>
+        </div>
+        <div class="hero-stats">
+            <div class="stat-badge">🎛️ சுருதி: <b>C Major (தீரசங்கராபரணம்)</b></div>
+            <div class="stat-badge">🎹 கம்பிகள்: <b>17 Tines (D6 2̈ முதல் E6 3̈)</b></div>
+            <div class="stat-badge">🎤 நேரலை மைக்: <b>Auto-Pitch Engine</b></div>
+        </div>
+    </header>
+
+    <!-- Navigation Tabs Bar -->
+        <!-- Sticky Navigation Tabs Bar with Scroll Buttons & Numbers -->
+    <div class="nav-tabs-container">
+        <button class="nav-scroll-btn" onclick="scrollNavTabs('left')" title="இடதுபக்கம் உருட்டு (Scroll Left)">◀</button>
+        <nav class="nav-tabs-bar" id="mainNavTabsBar">
+            <button class="tab-btn active" id="tabbtn-simulator" onclick="switchTab('simulator')">
+                <span>🎹</span>
+                <span class="tab-num-badge">1</span>
+                <span>கலிம்பா சாதகம் (Simulator)</span>
+            </button>
+            <button class="tab-btn" id="tabbtn-theory" onclick="switchTab('theory')">
+                <span>📖</span>
+                <span class="tab-num-badge">2</span>
+                <span>புள்ளிகள் & தத்துவம் (Theory)</span>
+            </button>
+            <button class="tab-btn" id="tabbtn-tuner" onclick="switchTab('tuner')">
+                <span>🎛️</span>
+                <span class="tab-num-badge">3</span>
+                <span>சுருதிமானி (Live Tuner)</span>
+            </button>
+            <button class="tab-btn" id="tabbtn-lessons" onclick="switchTab('lessons')">
+                <span>🎓</span>
+                <span class="tab-num-badge">4</span>
+                <span>அடுக்குமுறை பாடங்கள் (Lessons)</span>
+            </button>
+            <button class="tab-btn" id="tabbtn-songs" onclick="switchTab('songs')">
+                <span>🎵</span>
+                <span class="tab-num-badge">5</span>
+                <span>தமிழ் பாடல்கள் (Tamil Songs)</span>
+            </button>
+            <button class="tab-btn" id="tabbtn-composer" onclick="switchTab('composer')">
+                <span>🎼</span>
+                <span class="tab-num-badge">6</span>
+                <span>ரெக்கார்டர் (Studio)</span>
+            </button>
+            <button class="tab-btn" id="tabbtn-chart" onclick="switchTab('chart')">
+                <span>📊</span>
+                <span class="tab-num-badge">7</span>
+                <span>ஸ்வர அட்டவணை (Chart)</span>
+            </button>
+        </nav>
+        <button class="nav-scroll-btn" onclick="scrollNavTabs('right')" title="வலதுபக்கம் உருட்டு (Scroll Right)">▶</button>
+    </div>
+
+    <!-- ============================================================= -->
+    <!-- TAB 1: KALIMBA SIMULATOR & INTERACTIVE INSTRUMENT             -->
+    <!-- ============================================================= -->
+    <div id="tab-simulator" class="tab-panel active">
+        <div class="kalimba-stage-container">
+            <!-- Toolbar -->
+            <div class="kalimba-controls-toolbar">
+                <div class="toolbar-group">
+                    <span class="toolbar-label">ஒலி வடிவம் (Sound Model):</span>
+                    <div class="btn-toggle-group">
+                        <button class="btn-toggle active" id="btnSoundAcoustic" onclick="setSynthSoundMode('acoustic')">🪵 Acoustic Wood</button>
+                        <button class="btn-toggle" id="btnSoundElectric" onclick="setSynthSoundMode('electric')">⚡ Electric Chime</button>
+                        <button class="btn-toggle" id="btnSoundMusicbox" onclick="setSynthSoundMode('musicbox')">🔮 Music Box</button>
+                        <button class="btn-toggle" id="btnSoundSine" onclick="setSynthSoundMode('sine')">🧘 Meditation</button>
+                    </div>
+                </div>
+
+                <div class="toolbar-group">
+                    <span class="toolbar-label">குறியீடு:</span>
+                    <div class="btn-toggle-group">
+                        <button class="btn-toggle active" id="btnNotNumbered" onclick="setNotationMode('numbered')">1 2 3 (எண்+புள்ளி)</button>
+                        <button class="btn-toggle" id="btnNotWestern" onclick="setNotationMode('western')">C D E (ஆங்கிலம்)</button>
+                        <button class="btn-toggle" id="btnNotCarnatic" onclick="setNotationMode('carnatic')">ச ரி க (கர்நாடகம்)</button>
+                    </div>
+                    <button class="btn-toggle" id="btnKeyHints" onclick="toggleKeyHints()">⌨️ கீபோர்டு</button>
+                </div>
+            </div>
+
+            <!-- Giant Live Note Display HUD -->
+            <div class="live-note-hud" id="liveNoteHud">
+                <div class="hud-note-group">
+                    <div class="hud-sticker-box sticker-silver" id="hudStickerPreview">
+                        <span class="st-letter" style="font-size:16px;">C</span>
+                        <div class="st-dots-column"><span class="st-dot-placeholder"></span><span class="st-dot-placeholder"></span></div>
+                        <span class="st-num" style="font-size:16px;">1</span>
+                    </div>
+                    <div class="hud-note-details">
+                        <div class="h-title" id="hudTamilTitle">மத்திய ச (Shadjam) • C4 • மத்திய ஸ்தாயி (புள்ளி இல்லை)</div>
+                        <div class="h-sub">
+                            <span id="hudHzText">அதிர்வெண்: <b>261.63 Hz</b></span> • 
+                            <span id="hudHandText">🖐️ <b>நடுவில் உள்ள மிக நீண்ட கம்பி (Center)</b></span> • 
+                            <span id="hudStickerText" class="tine-color-pill sticker-silver">SILVER</span>
+                        </div>
+                    </div>
+                </div>
+                <div style="font-size: 13px; color: #38bdf8; font-weight: 700;" id="hudGuideTip">
+                    💡 கம்பியைத் தொட்டு ஒலியையும் ஸ்தாயி விளக்கத்தையும் காணவும்
+                </div>
+            </div>
+
+            <!-- Virtual 17-Key Kalimba Instrument matching User Photo -->
+            <div class="kalimba-body" id="kalimbaBody">
+                <!-- Top Metal Pressure Bar -->
+                <div class="kalimba-bridge-top"></div>
+                <div class="kalimba-saddle"></div>
+
+                <!-- 17 Steel Tines Rack -->
+                <div class="kalimba-tines-rack" id="tinesRack">
+                    <!-- Injected dynamically via JS to match user's photo -->
+                </div>
+
+                <!-- Wooden Resonant Rosette Sound Hole -->
+                <div class="kalimba-soundhole" id="soundHole"></div>
+                <div class="kalimba-brand">✨ OSIAN RESONANCE • 17-KEYS C MAJOR ✨</div>
+            </div>
+            
+            <div style="margin-top: 18px; font-size: 13px; color: var(--text-muted); text-align: center;">
+                💡 <b>குறிப்பு:</b> கம்பிகளை மவுஸ் அல்லது விரலால் தொடவும். தொடர்ச்சியாக விரலை நகர்த்தினால் <b>கிளிசாண்டோ (Glissando)</b> ஒலி எழும்!
+            </div>
+        </div>
+    
+        <div class="tab-bottom-nav">
+            <div></div>
+            <button class="tab-nav-btn btn-top" onclick="window.scrollTo({top:0, behavior:'smooth'})">⬆️ மேலே செல்க (Top)</button>
+            <button class="tab-nav-btn" onclick="switchTab('theory', true)">📖 2. புள்ளிகள் & தத்துவம் (Theory) ➡️</button>
+        </div>
+    
+</div>
+
+    <!-- ============================================================= -->
+    <!-- TAB 2: THEORY SECTION WITH DEEP DOTS & LETTERS EXPLANATION   -->
+    <!-- ============================================================= -->
+    <div id="tab-theory" class="tab-panel">
+        <div class="theory-grid">
+            <!-- Card 1: What is Kalimba & Octave Dots -->
+            <div class="theory-card" style="border-color: #f59e0b;">
+                <div class="theory-card-header">
+                    <div class="theory-card-icon">🎯</div>
+                    <div>
+                        <h3>1. புள்ளிகள் (Dots) மற்றும் ஸ்தாயி தத்துவம்</h3>
+                        <span>ஏன் சில எண்களுக்கு மேல் புள்ளி இல்லை? ஒரு புள்ளி? இரு புள்ளிகள்?</span>
+                    </div>
+                </div>
+                <div class="theory-content">
+                    <p>
+                        கலிம்பாவில் உள்ள 17 கம்பிகள் <b>3 ஸ்தாயிகளில் (3 Octaves)</b> பிரிக்கப்பட்டுள்ளன. அதனை அடையாளம் காணவே எண்களுக்கு மேல் புள்ளிகள் வைக்கப்படுகின்றன:
+                    </p>
+                    <div style="background: rgba(0,0,0,0.4); padding: 12px; border-radius: 10px; display: flex; flex-direction: column; gap: 8px;">
+                        <div>
+                            🟢 <b>1. புள்ளி இல்லாத எண்கள் (1 2 3 4 5 6 7):</b>
+                            <br><span style="color: #38bdf8;">மத்திய ஸ்தாயி (Middle Octave 4)</span> - C4 முதல் B4 வரை (அடிக்குரல் / இயல்பான கம்பிகள்).
+                        </div>
+                        <div>
+                            🔵 <b>2. ஒரு புள்ளி உள்ள எண்கள் (1̇ 2̇ 3̇ 4̇ 5̇ 6̇ 7̇):</b>
+                            <br><span style="color: #38bdf8;">தார ஸ்தாயி (High Octave 5)</span> - C5 முதல் B5 வரை (மேல் ஸ்தாயி மணி ஒலி).
+                        </div>
+                        <div>
+                            🟣 <b>3. இரு புள்ளிகள் உள்ள எண்கள் (1̈ 2̈ 3̈):</b>
+                            <br><span style="color: #38bdf8;">அதி தார ஸ்தாயி (Super High Octave 6)</span> - C6, D6, E6 (உச்ச ஸ்தாயி மிகக் குட்டையான கம்பிகள்).
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 2: Letter Mapping & Why A appears on left and right -->
+            <div class="theory-card" style="border-color: #38bdf8;">
+                <div class="theory-card-header">
+                    <div class="theory-card-icon">🔤</div>
+                    <div>
+                        <h3>2. ஆங்கில எழுத்துக்கள் & A விளக்கம்</h3>
+                        <span>C, D, E, F, G, A, B எழுத்துக்கள் எப்படி எண்களோடு இணைகின்றன?</span>
+                    </div>
+                </div>
+                <div class="theory-content">
+                    <p>
+                        மேற்கத்திய இசையில் 7 ஸ்வரங்கள் எழுத்துக்களாக குறிக்கப்படுகின்றன. கலிம்பா $C$ ஸ்வரத்தில் தொடங்குவதால்:
+                    </p>
+                    <ul style="padding-left: 18px; display: flex; flex-direction: column; gap: 4px;">
+                        <li><b>C = 1 (ச)</b> • <b>D = 2 (ரி)</b> • <b>E = 3 (க)</b></li>
+                        <li><b>F = 4 (ம)</b> • <b>G = 5 (ப)</b> • <b>A = 6 (த)</b> • <b>B = 7 (நி)</b></li>
+                    </ul>
+
+                    <div style="background: rgba(0,0,0,0.4); padding: 10px 14px; border-radius: 8px; border: 1px solid rgba(56,189,248,0.25); font-size: 12.5px;">
+                        <b style="color: #38bdf8;">✨ தார ஸ்தாயி (1 Dot - மேல் ஒரு புள்ளி) எழுத்து இணைப்பு:</b>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(75px, 1fr)); gap: 6px; margin-top: 6px; text-align: center;">
+                            <span style="background: rgba(255,255,255,0.06); padding: 4px; border-radius: 6px;"><b>1̇</b> = C5 (ச)</span>
+                            <span style="background: rgba(255,255,255,0.06); padding: 4px; border-radius: 6px;"><b>2̇</b> = D5 (ரி)</span>
+                            <span style="background: rgba(255,255,255,0.06); padding: 4px; border-radius: 6px;"><b>3̇</b> = E5 (க)</span>
+                            <span style="background: rgba(255,255,255,0.06); padding: 4px; border-radius: 6px;"><b>4̇</b> = F5 (ம)</span>
+                            <span style="background: rgba(255,255,255,0.06); padding: 4px; border-radius: 6px;"><b>5̇</b> = G5 (ப)</span>
+                            <span style="background: rgba(255,255,255,0.06); padding: 4px; border-radius: 6px;"><b>6̇</b> = A5 (த)</span>
+                            <span style="background: rgba(255,255,255,0.06); padding: 4px; border-radius: 6px;"><b>7̇</b> = B5 (நி)</span>
+                        </div>
+                    </div>
+
+                    <div class="theory-highlight-box">
+                        🔍 <b>A எழுத்து இருமுறை ஏன் வருகிறது?</b>
+                        <br>• <b>இடதுபுறம் உள்ள A:</b> இது <b>A4 (6)</b> - புள்ளி இல்லாத மத்திய ஸ்தாயி ($440\text{ Hz}$).
+                        <br>• <b>வலதுபுறம் உள்ள A:</b> இது <b>A5 (6̇)</b> - மேலே ஒரு புள்ளி கொண்ட தார ஸ்தாயி ($880\text{ Hz}$ - இருமடங்கு அதிர்வெண்!).
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 3: Exact 17 Keys Left-Right Layout Breakdown -->
+            <div class="theory-card">
+                <div class="theory-card-header">
+                    <div class="theory-card-icon">⚡</div>
+                    <div>
+                        <h3>3. இடது & வலது V-அமைப்பு வரைபடம்</h3>
+                        <span>17 கம்பிகளின் துல்லியமான இருப்பிட விளக்கம்</span>
+                    </div>
+                </div>
+                <div class="theory-content">
+                    <p><b>இடது கை கம்பிகள் (Left Thumb):</b></p>
+                    <div class="mono-text" style="background:rgba(0,0,0,0.35); padding:8px 12px; border-radius:8px; font-size:12px; color:#38bdf8;">
+                        2̈(D6) • 7̇(B5) • 5̇(G5) • 3̇(E5) • 1̇(C5) • 6(A4) • 4(F4) • 2(D4)
+                    </div>
+                    <p style="margin-top:6px;"><b>நடுவில் உள்ள கம்பி (Center):</b></p>
+                    <div class="mono-text" style="background:rgba(0,0,0,0.35); padding:8px 12px; border-radius:8px; font-size:12px; color:#fde047;">
+                        1(C4) - மிக நீண்ட கம்பி (Center Longest Tine)
+                    </div>
+                    <p style="margin-top:6px;"><b>வலது கை கம்பிகள் (Right Thumb):</b></p>
+                    <div class="mono-text" style="background:rgba(0,0,0,0.35); padding:8px 12px; border-radius:8px; font-size:12px; color:#f59e0b;">
+                        3(E4) • 5(G4) • 7(B4) • 2̇(D5) • 4̇(F5) • 6̇(A5) • 1̈(C6) • 3̈(E6)
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 4: Color Stickers Matching Your Photo -->
+            <div class="theory-card" style="border-color: #06b6d4;">
+                <div class="theory-card-header">
+                    <div class="theory-card-icon">🎨</div>
+                    <div>
+                        <h3>4. உங்கள் கலிம்பா ஸ்டிக்கர் அமைப்பு (D •• 2)</h3>
+                        <span>மேலே எழுத்து, நடுவில் புள்ளிகள், கீழே எண்!</span>
+                    </div>
+                </div>
+                <div class="theory-content">
+                    <!-- Exact Visual Sticker Illustration -->
+                    <div style="display: flex; gap: 14px; align-items: center; background: rgba(0,0,0,0.4); padding: 12px 16px; border-radius: 10px; border: 1px solid rgba(56,189,248,0.3);">
+                        <div class="hud-sticker-box sticker-cyan" style="width: 50px; height: 72px;">
+                            <span class="st-letter" style="font-size: 16px;">D</span>
+                            <div class="st-dots-column" style="margin: 2px 0;">
+                                <span class="st-dot-circle"></span>
+                                <span class="st-dot-circle"></span>
+                            </div>
+                            <span class="st-num" style="font-size: 16px;">2</span>
+                        </div>
+                        <div style="font-size: 13px; color: #cbd5e1; line-height: 1.6;">
+                            <b style="color: #38bdf8;">ஸ்டிக்கர் அடுக்குகளின் செங்குத்து அமைப்பு (Top to Bottom):</b>
+                            <br>1. <b>மேல் பகுதி:</b> ஆங்கில எழுத்து (Letter: <b>D</b>)
+                            <br>2. <b>இடைவெளி:</b> சிறிய இடைவெளி
+                            <br>3. <b>மேல் புள்ளி:</b> முதல் புள்ளி (Top Dot: <b>•</b>)
+                            <br>4. <b>கீழ் புள்ளி:</b> இரண்டாவது புள்ளி (Second Dot: <b>•</b>)
+                            <br>5. <b>கீழ் பகுதி:</b> ஸ்வர எண் (Number: <b>2</b>)
+                        </div>
+                    </div>
+
+                    <p style="margin-top: 6px;">உங்கள் கலிம்பா ஸ்டிக்கர்களின் 7 வண்ணங்கள்:</p>
+                    <ul style="padding-left: 18px; display: flex; flex-direction: column; gap: 4px;">
+                        <li><span class="tine-color-pill sticker-cyan">CYAN BLUE</span> : <b>D ஸ்வரங்கள் (2, 2̇, 2̈)</b></li>
+                        <li><span class="tine-color-pill sticker-green">GREEN / TEAL</span> : <b>B ஸ்வரங்கள் (7, 7̇)</b></li>
+                        <li><span class="tine-color-pill sticker-pink">PINK</span> : <b>G ஸ்வரங்கள் (5, 5̇)</b></li>
+                        <li><span class="tine-color-pill sticker-orange">ORANGE</span> : <b>E ஸ்வரங்கள் (3, 3̇, 3̈)</b></li>
+                        <li><span class="tine-color-pill sticker-silver">SILVER</span> : <b>C ஸ்வரங்கள் (1, 1̇, 1̈)</b></li>
+                        <li><span class="tine-color-pill sticker-lime">LIME GREEN</span> : <b>A ஸ்வரங்கள் (6, 6̇)</b></li>
+                        <li><span class="tine-color-pill sticker-purple">PURPLE</span> : <b>F ஸ்வரங்கள் (4, 4̇)</b></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Card 5: How Tuning Works & Physics -->
+            <div class="theory-card">
+                <div class="theory-card-header">
+                    <div class="theory-card-icon">🔨</div>
+                    <div>
+                        <h3>5. சுருதி சேர்த்தல் தத்துவம் & இயற்பியல்</h3>
+                        <span>சுருதி சுத்தியல் (Tuning Hammer) விதிகள்</span>
+                    </div>
+                </div>
+                <div class="theory-content">
+                    <p>
+                        <b>இயற்பியல் விதி:</b> கம்பியின் அதிரும் நீளம் குறைய குறைய சுருதி கூடும் (High Pitch). நீளம் கூடக்கூட சுருதி இறங்கும் (Low Pitch).
+                    </p>
+                    <div style="background: rgba(0,0,0,0.3); padding: 10px; border-radius: 8px;">
+                        <p>🔹 <b>FLAT / சுருதி குறைவு (- cents):</b> கம்பியின் கீழிருந்து மேல்நோக்கி ⬆️ லேசாகத் தட்டவும்.</p>
+                        <p style="margin-top: 6px;">🔹 <b>SHARP / சுருதி அதிகம் (+ cents):</b> கம்பியின் மேலிருந்து கீழ்நோக்கி ⬇️ லேசாகத் தட்டவும்.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 6: Carnatic Swara Mapping -->
+            <div class="theory-card">
+                <div class="theory-card-header">
+                    <div class="theory-card-icon">🪕</div>
+                    <div>
+                        <h3>6. கர்நாடக சங்கீத ஸ்வர இணைப்பு</h3>
+                        <span>29-வது மேளகர்த்தா தீரசங்கராபரணம்</span>
+                    </div>
+                </div>
+                <div class="theory-content">
+                    <p>
+                        C Major கலிம்பா என்பது கர்நாடக சங்கீதத்தின் அடிப்படைத் தாயான <b>தீரசங்கராபரண ராகம்</b> ஆகும்:
+                    </p>
+                    <p>
+                        • 1 = <b>ச (Shadjam)</b> • 2 = <b>ரி₂ (Chathusruthi Rishabham)</b>
+                        <br>• 3 = <b>க₃ (Anthara Gandharam)</b> • 4 = <b>ம₁ (Suddha Madhyamam)</b>
+                        <br>• 5 = <b>ப (Panchamam)</b> • 6 = <b>த₂ (Chathusruthi Dhaivatham)</b>
+                        <br>• 7 = <b>நி₃ (Kakali Nishadham)</b>
+                    </p>
+                </div>
+            </div>
+        </div>
+    
+        <div class="tab-bottom-nav">
+            <button class="tab-nav-btn" onclick="switchTab('simulator', true)">⬅️ 🎹 1. கலிம்பா சாதகம் (Simulator)</button>
+            <button class="tab-nav-btn btn-top" onclick="window.scrollTo({top:0, behavior:'smooth'})">⬆️ மேலே செல்க (Top)</button>
+            <button class="tab-nav-btn" onclick="switchTab('tuner', true)">🎛️ 3. நேரலை சுருதிமானி (Tuner) ➡️</button>
+        </div>
+    
+</div>
+
+    <!-- ============================================================= -->
+    <!-- TAB 3: REAL-TIME MICROPHONE PITCH TUNER                       -->
+    <!-- ============================================================= -->
+    <div id="tab-tuner" class="tab-panel">
+        <div class="tuner-dashboard">
+            <div class="tuner-meter-panel">
+                <div class="mic-activation-bar">
+                    <button class="btn-mic-start" id="btnToggleMic" onclick="toggleMicrophoneTuner()">
+                        <span id="micIcon">🎤</span>
+                        <span id="micBtnText">நேரலை மைக்ரோஃபோனைத் தொடங்கு (Start Tuner)</span>
+                    </button>
+                    <span style="font-size: 12px; color: var(--text-muted);" id="tunerStatusText">மைக் ஆஃப் செய்யப்பட்டுள்ளது</span>
+                </div>
+
+                <div class="gauge-canvas-container">
+                    <canvas id="tunerGaugeCanvas" width="460" height="220"></canvas>
+                </div>
+
+                <div class="detected-note-hero">
+                    <div class="detected-note-name" id="detectedNoteName">--</div>
+                    <div class="detected-hz-cents">
+                        <span>அதிர்வெண்: <b id="detectedFreq">0.0 Hz</b></span>
+                        <span>விலகல்: <b id="detectedCents">0 cents</b></span>
+                    </div>
+                </div>
+
+                <div class="tuning-guidance-banner" id="tuningGuidanceBanner">
+                    🎯 கலிம்பா கம்பியை மீட்டி ஒலியை மைக்ரோஃபோனில் காட்டவும்
+                </div>
+
+                <div style="background: rgba(0,0,0,0.3); padding: 14px 18px; border-radius: 12px; font-size: 13px; line-height: 1.6; color: #cbd5e1; width: 100%;">
+                    <div style="font-weight: 800; color: #fde047; margin-bottom: 4px;">🔨 சுருதி சுத்தியல் (Tuning Hammer) விதிகள்:</div>
+                    <div style="display: flex; gap: 14px; flex-wrap: wrap;">
+                        <div>🔻 <b>FLAT / சுருதி குறைவு (- cents)</b>: ⬆️ கம்பியின் கீழிருந்து மேல்நோக்கித் தட்டவும்.</div>
+                        <div>🔺 <b>SHARP / சுருதி அதிகம் (+ cents)</b>: ⬇️ கம்பியின் மேலிருந்து கீழ்நோக்கித் தட்டவும்.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass-panel" style="padding: 22px; display: flex; flex-direction: column; gap: 16px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px;">
+                    <div>
+                        <h3 style="font-size: 16px; font-weight: 800; color: #fef08a;">🎯 சுருதி சேர்க்க வேண்டிய குறிப்பிட்ட கம்பி</h3>
+                        <span style="font-size: 12px; color: var(--text-muted);">குறிப்பிட்ட கம்பியைத் தேர்ந்தெடுத்து மாதிரி ஒலியைக் கேட்கவும்</span>
+                    </div>
+                    <button class="btn-toggle active" id="btnAutoDetectMode" onclick="toggleAutoDetectMode()">⚡ Auto-Detect</button>
+                </div>
+
+                <div class="target-tines-matrix" id="targetTinesMatrix"></div>
+
+                <div style="background: rgba(15, 23, 42, 0.7); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 14px; display: flex; flex-direction: column; gap: 8px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <span style="font-size: 13px; font-weight: 700; color: #38bdf8;">🔊 மாதிரி சுருதி ஒலி (Reference Tone):</span>
+                        <button class="btn-toggle" id="btnPlayReference" onclick="playSelectedTargetTone()">▶️ ஒலி எழுப்பு (Play Tone)</button>
+                    </div>
+                    <p style="font-size: 12px; color: var(--text-muted);">
+                        நீங்கள் கம்பியை சுத்தியலால் தட்டிய பின், இதன் ஒலியோடு உங்கள் கலிம்பாவின் நாதம் ஒரே சுருதியில் இணைகிறதா என செவிமடுத்து சரிபார்க்கலாம்.
+                    </p>
+                </div>
+            </div>
+        </div>
+    
+        <div class="tab-bottom-nav">
+            <button class="tab-nav-btn" onclick="switchTab('theory', true)">⬅️ 📖 2. புள்ளிகள் தத்துவம் (Theory)</button>
+            <button class="tab-nav-btn btn-top" onclick="window.scrollTo({top:0, behavior:'smooth'})">⬆️ மேலே செல்க (Top)</button>
+            <button class="tab-nav-btn" onclick="switchTab('lessons', true)">🎓 4. அடுக்குமுறை பாடங்கள் (Lessons) ➡️</button>
+        </div>
+    
+</div>
+
+    <!-- ============================================================= -->
+    <!-- TAB 4: STEP-BY-STEP LESSONS (52 LESSONS: LEVEL 1 TO 6)        -->
+    <!-- ============================================================= -->
+    <div id="tab-lessons" class="tab-panel">
+        <div class="lessons-container">
+            <div class="lessons-sidebar" id="lessonsSidebar">
+                <!-- Injected dynamically via renderLessonsSidebar() -->
+            </div>
+
+            <div class="lesson-viewer-card">
+                <div class="lesson-hud-header" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:14px;">
+                    <div>
+                        <span class="badge-pill" id="lessonBadgeLevel">LEVEL 1</span>
+                        <h2 id="lessonTitle" style="margin-top: 4px; font-size:20px; font-weight:800; color:#f8fafc;">பாடம் 1.1: மத்திய ஸ்தாயி (No Dots: 1 2 3 4 5 6 7)</h2>
+                    </div>
+                    <div style="display: flex; gap: 8px; align-items: center;">
+                        <button class="btn-toggle" onclick="playCurrentLessonDemo()">▶️ மாதிரி ஒலி (Listen Demo)</button>
+                        <button class="btn-play-song" id="btnPracticeMode" onclick="toggleLessonPracticeMode()">🎮 பயிற்சி முறை (Practice)</button>
+                    </div>
+                </div>
+
+                <p id="lessonDescription" style="font-size: 14px; line-height: 1.6; color: #cbd5e1;">
+                    புள்ளிகள் இல்லாத 1, 2, 3, 4, 5, 6, 7 (C4 முதல் B4 வரை) கம்பிகளை நிதானமாக மீட்டி மத்திய ஸ்தாயி ஸ்வரங்களை உணருங்கள்.
+                </p>
+
+                <div>
+                    <div style="font-size: 13px; font-weight: 700; color: #38bdf8; margin-bottom: 8px;">
+                        🎵 வாசிக்க வேண்டிய ஸ்வர வரிசை:
+                    </div>
+                    <div class="interactive-note-sequence" id="lessonNoteSequence"></div>
+                </div>
+
+                <div style="background: rgba(15, 23, 42, 0.7); border-left: 4px solid #f59e0b; padding: 12px 16px; border-radius: 0 10px 10px 0; font-size: 13px; color: #e2e8f0;" id="lessonTipBox">
+                    💡 <b>விரல் நுட்பம்:</b> கட்டை விரல் நகத்தை லேசாக வளைத்து கம்பியின் முனையில் கீழ்நோக்கி வருடி இழுக்கவும்.
+                </div>
+            </div>
+        </div>
+    
+        <div class="tab-bottom-nav">
+            <button class="tab-nav-btn" onclick="switchTab('tuner', true)">⬅️ 🎛️ 3. நேரலை சுருதிமானி (Tuner)</button>
+            <button class="tab-nav-btn btn-top" onclick="window.scrollTo({top:0, behavior:'smooth'})">⬆️ மேலே செல்க (Top)</button>
+            <button class="tab-nav-btn" onclick="switchTab('songs', true)">🎵 5. தமிழ் திரைப்பாடல்கள் (Songs) ➡️</button>
+        </div>
+    
+</div>
+
+    <!-- ============================================================= -->
+    <!-- TAB 5: TAMIL SONGS & INTERACTIVE TAB PLAYER (19 SONGS)        -->
+    <!-- ============================================================= -->
+    <div id="tab-songs" class="tab-panel">
+        <div style="display:flex;align-items:center;justify-content:center;height:400px;flex-direction:column;gap:20px;">
+            <div style="font-size:60px;">🗑️</div>
+            <div style="font-size:24px;font-weight:900;color:#fde047;">Songs Section Removed</div>
+            <div style="font-size:16px;color:#94a3b8;">பாடல் பகுதி நீக்கப்பட்டது</div>
+        </div>
+    <div id="tab-composer" class="tab-panel">
+        <div class="glass-panel" style="padding: 24px; display: flex; flex-direction: column; gap: 20px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 12px;">
+                <div>
+                    <h2 style="font-size: 20px; font-weight: 800; color: #fef08a;">🎼 சொந்த மெல்லிசை உருவாக்குநர் & ரெக்கார்டர்</h2>
+                    <p style="font-size: 13px; color: var(--text-muted);">உங்கள் சொந்த எண்களை தட்டச்சு செய்து வாசிக்கலாம் அல்லது உங்கள் வாசிப்பை ஆடியோவாக பதிவு செய்யலாம்.</p>
+                </div>
+                <div style="display: flex; gap: 10px;">
+                    <button class="btn-mic-start" id="btnRecordAudio" onclick="toggleAudioRecording()">
+                        <span id="recIcon">🔴</span>
+                        <span id="recBtnText">ரெக்கார்ட் செய் (Record)</span>
+                    </button>
+                </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                <div style="display: flex; flex-direction: column; gap: 10px;">
+                    <label style="font-size: 13px; font-weight: 700; color: #38bdf8;">
+                        📝 கலிம்பா எண்களை உள்ளிடவும் (உதா: 1 1 5 5 6 6 5 | 4 4 3 3 2 2 1):
+                    </label>
+                    <textarea id="customTabTextarea" class="tablature-sheet" style="height: 180px; width: 100%; border-radius: 12px; font-size: 14px; padding: 12px;" placeholder="1 3 5 1̇ 7 5 3 1..."></textarea>
+                    <div style="display: flex; gap: 10px;">
+                        <button class="btn-play-song" onclick="playCustomNotes()">▶️ உள்ளீட்டை வாசி (Play Custom)</button>
+                        <button class="btn-toggle" onclick="clearCustomNotes()">🗑️ அழி (Clear)</button>
+                    </div>
+                </div>
+
+                <div style="background: rgba(0,0,0,0.35); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 18px; display: flex; flex-direction: column; gap: 12px;">
+                    <h4 style="font-size: 14px; font-weight: 800; color: #fde047;">🎙️ பதிவு செய்யப்பட்ட ஆடியோக்கள் (Recordings):</h4>
+                    <div id="recordingsList" style="display: flex; flex-direction: column; gap: 8px; font-size: 13px; color: var(--text-muted);">
+                        இன்னும் எதுவும் பதிவு செய்யப்படவில்லை. 'ரெக்கார்ட் செய்' பட்டனை அழுத்தவும்.
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <div class="tab-bottom-nav">
+            <button class="tab-nav-btn" onclick="switchTab('songs', true)">⬅️ 🎵 5. தமிழ் திரைப்பாடல்கள் (Songs)</button>
+            <button class="tab-nav-btn btn-top" onclick="window.scrollTo({top:0, behavior:'smooth'})">⬆️ மேலே செல்க (Top)</button>
+            <button class="tab-nav-btn" onclick="switchTab('chart', true)">📊 7. சுவர அட்டவணை (Chart) ➡️</button>
+        </div>
+    
+</div>
+
+    <!-- ============================================================= -->
+    <!-- TAB 7: QUICK FREQUENCY & SWARA MAPPING CHART                  -->
+    <!-- ============================================================= -->
+    <div id="tab-chart" class="tab-panel">
+        <div class="glass-panel" style="padding: 24px; display: flex; flex-direction: column; gap: 18px; overflow-x: auto;">
+            <h2 style="font-size: 20px; font-weight: 800; color: #fef08a;">📊 17-கீ கலிம்பா முழுமையான அதிர்வெண் & ஸ்வர அட்டவணை</h2>
+            <table style="width: 100%; border-collapse: collapse; text-align: center; font-size: 13.5px;">
+                <thead>
+                    <tr style="background: rgba(30, 41, 59, 0.9); color: #38bdf8; border-bottom: 2px solid #f59e0b;">
+                        <th style="padding: 12px 8px;">கம்பி #</th>
+                        <th style="padding: 12px 8px;">பக்கம்</th>
+                        <th style="padding: 12px 8px;">எழுத்து</th>
+                        <th style="padding: 12px 8px;">எண் + புள்ளி</th>
+                        <th style="padding: 12px 8px;">ஸ்தாயி விளக்கம்</th>
+                        <th style="padding: 12px 8px;">அதிர்வெண் (Hz)</th>
+                        <th style="padding: 12px 8px;">கர்நாடக ஸ்வரம்</th>
+                        <th style="padding: 12px 8px;">ஸ்டிக்கர் நிறம்</th>
+                    </tr>
+                </thead>
+                <tbody id="chartTableBody"></tbody>
+            </table>
+        </div>
+    
+        <div class="tab-bottom-nav">
+            <button class="tab-nav-btn" onclick="switchTab('composer', true)">⬅️ 🎼 6. சொந்த மெல்லிசை (Studio)</button>
+            <button class="tab-nav-btn btn-top" onclick="window.scrollTo({top:0, behavior:'smooth'})">⬆️ மேலே செல்க (Top)</button>
+            <button class="tab-nav-btn" onclick="switchTab('simulator', true)">🎹 1. கலிம்பா சாதகம் (Simulator) ➡️</button>
+        </div>
+    
+</div>
+
+    <!-- Footer -->
+    <footer class="studio-footer">
+        <div class="footer-links">
+            <a href="../../index.html">🏠 முதன்மை அகாடமி முகப்பு (Music Academy Home)</a>
+            <a href="../guitar/beginner_guitar_carnatic_visual_tutor.html">🎸 கார்னாடிக் கிட்டார் ஸ்டுடியோ</a>
+            <a href="../vocal/carnatic_vocal_beginner_visual_tutor.html">🎤 குரலிசை சாதக ஸ்டுடியோ</a>
+            <a href="../vocal/frequency_sound_vocal_studio.html">🎛️ அதிர்வெண் ஆய்வகம்</a>
+        </div>
+        <p>© 2026 சங்கீத வித்யா கேந்திரா | Kalimba Visual Master Tutor & Studio</p>
+    </footer>
+</div>
+
+<!-- ============================================================= -->
+<!-- JAVASCRIPT: WEB AUDIO SYNTH, PITCH DETECTION & INTERACTION   -->
+<!-- ============================================================= -->
+<script>
+// EXACT 17 TINES CONFIGURATION MATCHING USER PHOTO
+// Arranged physically from Left (index 0) to Right (index 16):
+// Left to Center: D6 (2̈), B5 (7̇), G5 (5̇), E5 (3̇), C5 (1̇), A4 (6), F4 (4), D4 (2)
+// Center: C4 (1)
+// Right from Center: E4 (3), G4 (5), B4 (7), D5 (2̇), F5 (4̇), A5 (6̇), C6 (1̈), E6 (3̈)
+const KALIMBA_TINES = [
+    { id: 0,  letter: "D", note: "D6", num: "2̈", numClean: "2", dots: "..", dotCount: 2, octaveName: "அதி தார ஸ்தாயி (Super High)", octave: 6, freq: 1174.66, side: "left",  order: 8, carnatic: "ரி", carnaticFull: "அதி தார ரி", sticker: "cyan",   color: "#06b6d4", key: "Q", lengthRel: 0.52 },
+    { id: 1,  letter: "B", note: "B5", num: "7̇", numClean: "7", dots: ".",  dotCount: 1, octaveName: "தார ஸ்தாயி (High)",       octave: 5, freq: 987.77,  side: "left",  order: 7, carnatic: "நி", carnaticFull: "தார நி",     sticker: "green",  color: "#10b981", key: "W", lengthRel: 0.58 },
+    { id: 2,  letter: "G", note: "G5", num: "5̇", numClean: "5", dots: ".",  dotCount: 1, octaveName: "தார ஸ்தாயி (High)",       octave: 5, freq: 783.99,  side: "left",  order: 6, carnatic: "ப", carnaticFull: "தார ப",     sticker: "pink",   color: "#ec4899", key: "E", lengthRel: 0.65 },
+    { id: 3,  letter: "E", note: "E5", num: "3̇", numClean: "3", dots: ".",  dotCount: 1, octaveName: "தார ஸ்தாயி (High)",       octave: 5, freq: 659.25,  side: "left",  order: 5, carnatic: "க", carnaticFull: "தார க",     sticker: "orange", color: "#f97316", key: "R", lengthRel: 0.72 },
+    { id: 4,  letter: "C", note: "C5", num: "1̇", numClean: "1", dots: ".",  dotCount: 1, octaveName: "தார ஸ்தாயி (High)",       octave: 5, freq: 523.25,  side: "left",  order: 4, carnatic: "ச", carnaticFull: "தார ச",     sticker: "silver", color: "#e2e8f0", key: "T", lengthRel: 0.79 },
+    { id: 5,  letter: "A", note: "A4", num: "6",  numClean: "6", dots: "",   dotCount: 0, octaveName: "மத்திய ஸ்தாயி (Middle)",  octave: 4, freq: 440.00,  side: "left",  order: 3, carnatic: "த", carnaticFull: "மத்திய த",   sticker: "lime",   color: "#22c55e", key: "Y", lengthRel: 0.86 },
+    { id: 6,  letter: "F", note: "F4", num: "4",  numClean: "4", dots: "",   dotCount: 0, octaveName: "மத்திய ஸ்தாயி (Middle)",  octave: 4, freq: 349.23,  side: "left",  order: 2, carnatic: "ம", carnaticFull: "மத்திய ம",   sticker: "purple", color: "#a855f7", key: "U", lengthRel: 0.93 },
+    { id: 7,  letter: "D", note: "D4", num: "2",  numClean: "2", dots: "",   dotCount: 0, octaveName: "மத்திய ஸ்தாயி (Middle)",  octave: 4, freq: 293.66,  side: "left",  order: 1, carnatic: "ரி", carnaticFull: "மத்திய ரி",   sticker: "cyan",   color: "#06b6d4", key: "I", lengthRel: 0.98 },
+    { id: 8,  letter: "C", note: "C4", num: "1",  numClean: "1", dots: "",   dotCount: 0, octaveName: "மத்திய ஸ்தாயி (Middle)",  octave: 4, freq: 261.63,  side: "center",order: 0, carnatic: "ச", carnaticFull: "மத்திய ச (ஆதாரம்)", sticker: "silver", color: "#f8fafc", key: "O", lengthRel: 1.00 },
+    { id: 9,  letter: "E", note: "E4", num: "3",  numClean: "3", dots: "",   dotCount: 0, octaveName: "மத்திய ஸ்தாயி (Middle)",  octave: 4, freq: 329.63,  side: "right", order: 1, carnatic: "க", carnaticFull: "மத்திய க",   sticker: "orange", color: "#f97316", key: "P", lengthRel: 0.96 },
+    { id: 10, letter: "G", note: "G4", num: "5",  numClean: "5", dots: "",   dotCount: 0, octaveName: "மத்திய ஸ்தாயி (Middle)",  octave: 4, freq: 392.00,  side: "right", order: 2, carnatic: "ப", carnaticFull: "மத்திய ப",   sticker: "pink",   color: "#ec4899", key: "A", lengthRel: 0.90 },
+    { id: 11, letter: "B", note: "B4", num: "7",  numClean: "7", dots: "",   dotCount: 0, octaveName: "மத்திய ஸ்தாயி (Middle)",  octave: 4, freq: 493.88,  side: "right", order: 3, carnatic: "நி", carnaticFull: "மத்திய நி",   sticker: "green",  color: "#14b8a6", key: "S", lengthRel: 0.82 },
+    { id: 12, letter: "D", note: "D5", num: "2̇", numClean: "2", dots: ".",  dotCount: 1, octaveName: "தார ஸ்தாயி (High)",       octave: 5, freq: 587.33,  side: "right", order: 4, carnatic: "ரி", carnaticFull: "தார ரி",     sticker: "cyan",   color: "#06b6d4", key: "D", lengthRel: 0.76 },
+    { id: 13, letter: "F", note: "F5", num: "4̇", numClean: "4", dots: ".",  dotCount: 1, octaveName: "தார ஸ்தாயி (High)",       octave: 5, freq: 698.46,  side: "right", order: 5, carnatic: "ம", carnaticFull: "தார ம",     sticker: "purple", color: "#a855f7", key: "F", lengthRel: 0.68 },
+    { id: 14, letter: "A", note: "A5", num: "6̇", numClean: "6", dots: ".",  dotCount: 1, octaveName: "தார ஸ்தாயி (High)",       octave: 5, freq: 880.00,  side: "right", order: 6, carnatic: "த", carnaticFull: "தார த",     sticker: "lime",   color: "#22c55e", key: "G", lengthRel: 0.62 },
+    { id: 15, letter: "C", note: "C6", num: "1̈", numClean: "1", dots: "..", dotCount: 2, octaveName: "அதி தார ஸ்தாயி (Super High)", octave: 6, freq: 1046.50, side: "right", order: 7, carnatic: "ச", carnaticFull: "அதி தார ச", sticker: "silver", color: "#e2e8f0", key: "H", lengthRel: 0.55 },
+    { id: 16, letter: "E", note: "E6", num: "3̈", numClean: "3", dots: "..", dotCount: 2, octaveName: "அதி தார ஸ்தாயி (Super High)", octave: 6, freq: 1318.51, side: "right", order: 8, carnatic: "க", carnaticFull: "அதி தார க", sticker: "orange", color: "#f97316", key: "J", lengthRel: 0.48 }
+];
+
+// App State
+let audioCtx = null;
+let masterGain = null;
+let synthSoundMode = 'acoustic'; // 'acoustic' | 'electric' | 'musicbox' | 'sine'
+let notationMode = 'numbered';   // 'numbered' | 'western' | 'carnatic'
+let isKeyHintsShown = false;
+let selectedTargetTineId = 8;     // Default Center C4
+let isAutoDetect = true;
+
+// Microphone Tuner State
+let micStream = null;
+let micSource = null;
+let micAnalyser = null;
+let isMicTunerRunning = false;
+let micAnimId = null;
+
+// =============================================================
+// WEB AUDIO SYNTHESIZER (4 SOUND MODELS)
+// =============================================================
+// =============================================================
+// PRISTINE KALIMBA AUDIO ENGINE (CRYSTAL CLEAR SINE & METALLIC TINE HARMONICS)
+// =============================================================
+let delayNode = null;
+let delayFeedback = null;
+let delayGain = null;
+
+function initAudio() {
+    if (!audioCtx) {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        audioCtx = new AudioContext();
+        masterGain = audioCtx.createGain();
+        masterGain.gain.value = 0.95;
+
+        // Clean Sweet Stereo Delay for natural acoustic space
+        delayNode = audioCtx.createDelay();
+        delayNode.delayTime.value = 0.16; // 160ms soft acoustic bounce
+
+        delayFeedback = audioCtx.createGain();
+        delayFeedback.gain.value = 0.22; // very gentle feedback
+
+        delayGain = audioCtx.createGain();
+        delayGain.gain.value = 0.18; // subtle wet mix
+
+        delayNode.connect(delayFeedback);
+        delayFeedback.connect(delayNode);
+        delayNode.connect(delayGain);
+        delayGain.connect(audioCtx.destination);
+
+        masterGain.connect(audioCtx.destination);
+        masterGain.connect(delayNode);
+    }
+    if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+    }
+}
+
+function setSynthSoundMode(mode) {
+    synthSoundMode = mode;
+    document.querySelectorAll('.btn-toggle-group button').forEach(b => {
+        if (b.id && b.id.startsWith('btnSound')) b.classList.remove('active');
+    });
+    const activeBtn = document.getElementById(`btnSound${mode.charAt(0).toUpperCase() + mode.slice(1)}`);
+    if (activeBtn) activeBtn.classList.add('active');
+}
+
+function playKalimbaTineSound(tine, skipVisual = false, volMultiplier = 1.0) {
+    initAudio();
+    const now = audioCtx.currentTime;
+    const freq = tine.freq;
+
+    // Stereo Panning (Left prongs pan slightly left, Right prongs slightly right)
+    let panner = null;
+    if (audioCtx.createStereoPanner) {
+        panner = audioCtx.createStereoPanner();
+        const panVal = tine.side === 'left' ? -0.22 : (tine.side === 'right' ? 0.22 : 0);
+        panner.pan.setValueAtTime(panVal, now);
+    }
+
+    // 1. Pluck Transient (Crisp wooden/metal strike)
+    const pluckBuffer = audioCtx.createBuffer(1, Math.floor(audioCtx.sampleRate * 0.015), audioCtx.sampleRate);
+    const pluckData = pluckBuffer.getChannelData(0);
+    for (let i = 0; i < pluckData.length; i++) {
+        pluckData[i] = (Math.random() * 2 - 1) * Math.exp(-i / (audioCtx.sampleRate * 0.003));
+    }
+    const pluckSource = audioCtx.createBufferSource();
+    pluckSource.buffer = pluckBuffer;
+    const pluckFilter = audioCtx.createBiquadFilter();
+    pluckFilter.type = 'bandpass';
+    pluckFilter.frequency.setValueAtTime(Math.min(3500, freq * 2.5), now);
+    pluckFilter.Q.setValueAtTime(2.0, now);
+    const pluckGain = audioCtx.createGain();
+    pluckGain.gain.setValueAtTime(0.12 * volMultiplier, now);
+    pluckGain.gain.exponentialRampToValueAtTime(0.0001, now + 0.015);
+    pluckSource.connect(pluckFilter);
+    pluckFilter.connect(pluckGain);
+
+    // 2. Fundamental Body (Warm, Sweet Sine + Triangle blend)
+    const osc1 = audioCtx.createOscillator();
+    const gain1 = audioCtx.createGain();
+    osc1.type = 'sine';
+    osc1.frequency.setValueAtTime(freq, now);
+
+    // Dynamic natural decay (lower tines ring 2.2s, higher tines ring 1.4s)
+    const decay = Math.max(1.3, 2.5 - (freq / 900));
+
+    gain1.gain.setValueAtTime(0.0001, now);
+    gain1.gain.linearRampToValueAtTime(0.85 * volMultiplier, now + 0.004);
+    gain1.gain.exponentialRampToValueAtTime(0.0001, now + decay);
+
+    // 3. Subtle 2nd Octave Bell Chime
+    const osc2 = audioCtx.createOscillator();
+    const gain2 = audioCtx.createGain();
+    osc2.type = 'sine';
+    osc2.frequency.setValueAtTime(freq * 2.0, now);
+
+    gain2.gain.setValueAtTime(0.0001, now);
+    gain2.gain.linearRampToValueAtTime(0.18 * volMultiplier, now + 0.003);
+    gain2.gain.exponentialRampToValueAtTime(0.0001, now + 0.22);
+
+    // Route connections
+    osc1.connect(gain1);
+    osc2.connect(gain2);
+
+    const tineMix = audioCtx.createGain();
+    gain1.connect(tineMix);
+    gain2.connect(tineMix);
+    pluckGain.connect(tineMix);
+
+    if (panner) {
+        tineMix.connect(panner);
+        panner.connect(masterGain);
+    } else {
+        tineMix.connect(masterGain);
+    }
+
+    pluckSource.start(now);
+    osc1.start(now);
+    osc2.start(now);
+    osc1.stop(now + decay);
+    osc2.stop(now + 0.25);
+
+    if (!skipVisual) {
+        triggerTineVisual(tine);
+    } else {
+        const el = document.getElementById(`tine-${tine.id}`);
+        if (el) {
+            el.classList.add('playing');
+            setTimeout(() => el.classList.remove('playing'), 200);
+        }
+    }
+
+    // Also highlight mini tine in song player if present
+    const miniTine = document.getElementById(`mini-tine-${tine.id}`);
+    if (miniTine) {
+        miniTine.classList.add('mini-tine-active');
+        setTimeout(() => miniTine.classList.remove('mini-tine-active'), 220);
+    }
+}
+
+function triggerTineVisual(tine) {
+    const el = document.getElementById(`tine-${tine.id}`);
+    if (el) {
+        el.classList.add('playing');
+        setTimeout(() => el.classList.remove('playing'), 220);
+    }
+
+    // Update Live Note HUD with exact Sticker Preview (Vertical Stacking)
+    let hudDotsHtml = '';
+    if (tine.dotCount === 2) {
+        hudDotsHtml = '<div class="st-dots-column"><span class="st-dot-circle"></span><span class="st-dot-circle"></span></div>';
+    } else if (tine.dotCount === 1) {
+        hudDotsHtml = '<div class="st-dots-column"><span class="st-dot-placeholder"></span><span class="st-dot-circle"></span></div>';
+    } else {
+        hudDotsHtml = '<div class="st-dots-column"><span class="st-dot-placeholder"></span><span class="st-dot-placeholder"></span></div>';
+    }
+
+    const preview = document.getElementById('hudStickerPreview');
+    if (preview) {
+        preview.className = `hud-sticker-box sticker-${tine.sticker}`;
+        preview.innerHTML = `
+            <span class="st-letter" style="font-size:16px;">${tine.letter}</span>
+            ${hudDotsHtml}
+            <span class="st-num" style="font-size:16px;">${tine.numClean}</span>
+        `;
+    }
+
+    document.getElementById('hudTamilTitle').innerHTML = `<b>${tine.carnaticFull}</b> • ${tine.note} • ${tine.octaveName}`;
+    document.getElementById('hudHzText').innerHTML = `அதிர்வெண்: <b>${tine.freq.toFixed(2)} Hz</b>`;
+    document.getElementById('hudHandText').innerHTML = `🖐️ <b>${tine.side === 'left' ? 'இடது கை (Left Thumb)' : (tine.side === 'right' ? 'வலது கை (Right Thumb)' : 'நடுவில் (Center)')} • வரிசை ${tine.order}</b>`;
+    document.getElementById('hudStickerText').className = `tine-color-pill sticker-${tine.sticker}`;
+    document.getElementById('hudStickerText').innerText = `${tine.sticker.toUpperCase()} STICKER`;
+
+    const sh = document.getElementById('soundHole');
+    if (sh) {
+        sh.style.transform = 'scale(1.04)';
+        setTimeout(() => sh.style.transform = 'scale(1)', 180);
+    }
+}
+
+// =============================================================
+// DOM RENDERING & 17-KEY SIMULATOR SETUP
+// =============================================================
+function renderSongMiniKalimba() {
+    const rack = document.getElementById('songMiniKalimba');
+    if (!rack) return;
+    rack.innerHTML = '';
+
+    KALIMBA_TINES.forEach(tine => {
+        const mini = document.createElement('div');
+        mini.id = `mini-tine-${tine.id}`;
+        mini.className = 'song-mini-tine';
+        
+        // Height proportional to lengthRel
+        const height = Math.round(55 + (tine.lengthRel * 35));
+        mini.style.height = `${height}px`;
+
+        const dotsStr = tine.dotCount === 2 ? '••' : (tine.dotCount === 1 ? '•' : '');
+
+        mini.innerHTML = `
+            <span class="smt-letter">${tine.letter}</span>
+            <span class="smt-dots">${dotsStr}</span>
+            <span class="smt-num">${tine.numClean}</span>
+        `;
+
+        mini.title = `${tine.carnaticFull} (${tine.note}) - Key [${tine.key}]`;
+        mini.onclick = () => playKalimbaTineSound(tine);
+        rack.appendChild(mini);
+    });
+}
+
+function renderKalimbaTines() {
+    const rack = document.getElementById('tinesRack');
+    rack.innerHTML = '';
+
+    KALIMBA_TINES.forEach(tine => {
+        const tineEl = document.createElement('div');
+        tineEl.id = `tine-${tine.id}`;
+        tineEl.className = 'kalimba-tine';
+
+        const heightPx = Math.round(180 + (tine.lengthRel * 170));
+        tineEl.style.height = `${heightPx}px`;
+
+        const stickerClass = `sticker-${tine.sticker}`;
+
+        // Exact vertical white circular dots in middle (. over . over number)
+        let dotsHtml = '';
+        if (tine.dotCount === 2) {
+            dotsHtml = '<div class="st-dots-column"><span class="st-dot-circle"></span><span class="st-dot-circle"></span></div>';
+        } else if (tine.dotCount === 1) {
+            dotsHtml = '<div class="st-dots-column"><span class="st-dot-placeholder"></span><span class="st-dot-circle"></span></div>';
+        } else {
+            dotsHtml = '<div class="st-dots-column"><span class="st-dot-placeholder"></span><span class="st-dot-placeholder"></span></div>';
+        }
+
+        tineEl.innerHTML = `
+            <div class="tine-key-hint">${tine.key}</div>
+            <div class="tine-sticker ${stickerClass}">
+                <span class="st-letter">${tine.letter}</span>
+                ${dotsHtml}
+                <span class="st-num">${tine.numClean}</span>
+            </div>
+            <div class="tine-engraved">
+                <div class="eng-stack">
+                    <span class="eng-dot-row">${tine.dotCount === 2 ? '••' : (tine.dotCount === 1 ? '•' : '&nbsp;')}</span>
+                    <span class="eng-stamp">${tine.numClean} ${tine.letter}</span>
+                </div>
+                <span class="carnatic-sub">${tine.carnatic}</span>
+            </div>
+        `;
+
+        tineEl.addEventListener('mousedown', (e) => {
+            e.preventDefault();
+            playKalimbaTineSound(tine);
+            handleNotePlayedInLessonOrSong(tine);
+        });
+
+        tineEl.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            playKalimbaTineSound(tine);
+            handleNotePlayedInLessonOrSong(tine);
+        });
+
+        tineEl.addEventListener('mouseenter', (e) => {
+            if (e.buttons === 1) {
+                playKalimbaTineSound(tine);
+                handleNotePlayedInLessonOrSong(tine);
+            }
+        });
+
+        rack.appendChild(tineEl);
+    });
+}
+
+function setNotationMode(mode) {
+    notationMode = mode;
+    document.getElementById('btnNotNumbered').classList.toggle('active', mode === 'numbered');
+    document.getElementById('btnNotWestern').classList.toggle('active', mode === 'western');
+    document.getElementById('btnNotCarnatic').classList.toggle('active', mode === 'carnatic');
+
+    const body = document.getElementById('kalimbaBody');
+    if (body) {
+        body.classList.remove('notation-numbered', 'notation-western', 'notation-carnatic');
+        body.classList.add(`notation-${mode}`);
+    }
+}
+
+function toggleKeyHints() {
+    isKeyHintsShown = !isKeyHintsShown;
+    document.getElementById('kalimbaBody').classList.toggle('show-keyboard-hints', isKeyHintsShown);
+    document.getElementById('btnKeyHints').classList.toggle('active', isKeyHintsShown);
+}
+
+window.addEventListener('keydown', (e) => {
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+
+    // Direct 1-7 or Alt+1..7 for Instant Tab Access
+    if ((e.altKey && e.key >= '1' && e.key <= '7') || (!e.ctrlKey && !e.metaKey && !e.altKey && e.key >= '1' && e.key <= '7')) {
+        const idx = parseInt(e.key) - 1;
+        if (idx >= 0 && idx < TAB_DEFINITIONS.length) {
+            e.preventDefault();
+            switchTab(TAB_DEFINITIONS[idx].id, true);
+            return;
+        }
+    }
+
+    const pressedKey = e.key.toUpperCase();
+    const match = KALIMBA_TINES.find(t => t.key === pressedKey);
+    if (match) {
+        playKalimbaTineSound(match);
+        handleNotePlayedInLessonOrSong(match);
+    }
+});
+
+// =============================================================
+// REAL-TIME MICROPHONE PITCH TUNER (AUTOCORRELATION / YIN)
+// =============================================================
+async function toggleMicrophoneTuner() {
+    initAudio();
+    const btn = document.getElementById('btnToggleMic');
+    const statusText = document.getElementById('tunerStatusText');
+
+    if (isMicTunerRunning) {
+        if (micStream) micStream.getTracks().forEach(track => track.stop());
+        if (micAnimId) cancelAnimationFrame(micAnimId);
+        isMicTunerRunning = false;
+        btn.classList.remove('listening');
+        document.getElementById('micBtnText').innerText = "நேரலை மைக்ரோஃபோனைத் தொடங்கு (Start Tuner)";
+        statusText.innerText = "மைக் ஆஃப் செய்யப்பட்டுள்ளது";
+        drawTunerGauge(0, 0, false);
+    } else {
+        try {
+            micStream = await navigator.mediaDevices.getUserMedia({
+                audio: { echoCancellation: false, noiseSuppression: false, autoGainControl: false }
+            });
+            micSource = audioCtx.createMediaStreamSource(micStream);
+            micAnalyser = audioCtx.createAnalyser();
+            micAnalyser.fftSize = 4096;
+            micSource.connect(micAnalyser);
+
+            isMicTunerRunning = true;
+            btn.classList.add('listening');
+            document.getElementById('micBtnText').innerText = "🛑 மைக்ரோஃபோனை நிறுத்து (Stop Tuner)";
+            statusText.innerText = "🎤 மைக் நேரலையில் கேட்கிறது...";
+
+            runPitchDetectionLoop();
+        } catch (err) {
+            alert("மைக்ரோஃபோன் அனுமதியைப் பெற முடியவில்லை: " + err.message);
+        }
+    }
+}
+
+function runPitchDetectionLoop() {
+    if (!isMicTunerRunning) return;
+    const buffer = new Float32Array(micAnalyser.fftSize);
+    micAnalyser.getFloatTimeDomainData(buffer);
+
+    let rms = 0;
+    for (let i = 0; i < buffer.length; i++) rms += buffer[i] * buffer[i];
+    rms = Math.sqrt(rms / buffer.length);
+
+    if (rms > 0.015) {
+        const pitch = autoCorrelatePitch(buffer, audioCtx.sampleRate);
+        if (pitch !== -1 && pitch >= 200 && pitch <= 1800) {
+            processDetectedPitch(pitch);
+        }
+    }
+    micAnimId = requestAnimationFrame(runPitchDetectionLoop);
+}
+
+function autoCorrelatePitch(buf, sampleRate) {
+    const SIZE = buf.length;
+    let r1 = 0, r2 = SIZE - 1, thres = 0.2;
+    for (let i = 0; i < SIZE / 2; i++) {
+        if (Math.abs(buf[i]) < thres) { r1 = i; break; }
+    }
+    for (let i = 1; i < SIZE / 2; i++) {
+        if (Math.abs(buf[SIZE - i]) < thres) { r2 = SIZE - i; break; }
+    }
+
+    buf = buf.slice(r1, r2);
+    const c = new Array(buf.length).fill(0);
+    for (let i = 0; i < buf.length; i++) {
+        for (let j = 0; j < buf.length - i; j++) {
+            c[i] = c[i] + buf[j] * buf[j + i];
+        }
+    }
+
+    let d = 0; while (c[d] > c[d + 1]) d++;
+    let maxval = -1, maxpos = -1;
+    for (let i = d; i < buf.length; i++) {
+        if (c[i] > maxval) {
+            maxval = c[i];
+            maxpos = i;
+        }
+    }
+    let T0 = maxpos;
+    const x1 = c[T0 - 1], x2 = c[T0], x3 = c[T0 + 1];
+    const a = (x1 + x3 - 2 * x2) / 2;
+    const b = (x3 - x1) / 2;
+    if (a) T0 = T0 - b / (2 * a);
+
+    return sampleRate / T0;
+}
+
+function processDetectedPitch(freq) {
+    let targetTine = null;
+    if (isAutoDetect) {
+        let minDiff = Infinity;
+        KALIMBA_TINES.forEach(tine => {
+            const diff = Math.abs(tine.freq - freq);
+            if (diff < minDiff) {
+                minDiff = diff;
+                targetTine = tine;
+            }
+        });
+    } else {
+        targetTine = KALIMBA_TINES.find(t => t.id === selectedTargetTineId) || KALIMBA_TINES[8];
+    }
+    if (!targetTine) return;
+
+    const cents = Math.round(1200 * Math.log2(freq / targetTine.freq));
+    document.getElementById('detectedNoteName').innerText = `${targetTine.num} (${targetTine.letter} - ${targetTine.note})`;
+    document.getElementById('detectedFreq').innerText = `${freq.toFixed(1)} Hz (இலக்கு: ${targetTine.freq.toFixed(1)} Hz)`;
+    document.getElementById('detectedCents').innerText = `${cents > 0 ? '+' : ''}${cents} cents`;
+
+    const banner = document.getElementById('tuningGuidanceBanner');
+    banner.className = 'tuning-guidance-banner';
+
+    document.querySelectorAll('.kalimba-tine').forEach(el => el.classList.remove('in-tune-glow', 'sharp-glow', 'flat-glow'));
+    const activeTineEl = document.getElementById(`tine-${targetTine.id}`);
+
+    if (Math.abs(cents) <= 5) {
+        banner.classList.add('guidance-perfect');
+        banner.innerHTML = `🎯 <b>அருமை!</b> ${targetTine.num} (${targetTine.letter}) கம்பி மிகச் சரியான சுருதியில் உள்ளது! (PERFECT IN-TUNE)`;
+        if (activeTineEl) activeTineEl.classList.add('in-tune-glow');
+    } else if (cents > 5) {
+        banner.classList.add('guidance-sharp');
+        banner.innerHTML = `🔺 <b>சுருதி அதிகம் (+${cents} cents)</b> ➔ ⬇️ சுத்தியலால் மேலிருந்து கீழ்நோக்கித் தட்டவும் (Tap Top Downwards)`;
+        if (activeTineEl) activeTineEl.classList.add('sharp-glow');
+    } else {
+        banner.classList.add('guidance-flat');
+        banner.innerHTML = `🔻 <b>சுருதி குறைவு (${cents} cents)</b> ➔ ⬆️ சுத்தியலால் கீழிருந்து மேல்நோக்கித் தட்டவும் (Tap Bottom Upwards)`;
+        if (activeTineEl) activeTineEl.classList.add('flat-glow');
+    }
+
+    drawTunerGauge(cents, freq, true);
+}
+
+function drawTunerGauge(cents, freq, isActive) {
+    const canvas = document.getElementById('tunerGaugeCanvas');
+    const ctx = canvas.getContext('2d');
+    const w = canvas.width;
+    const h = canvas.height;
+    const cx = w / 2;
+    const cy = h - 25;
+    const radius = 155;
+
+    ctx.clearRect(0, 0, w, h);
+
+    ctx.beginPath();
+    ctx.arc(cx, cy, radius, Math.PI * 0.8, Math.PI * 2.2, false);
+    ctx.lineWidth = 14;
+    ctx.strokeStyle = 'rgba(30, 41, 59, 0.8)';
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.arc(cx, cy, radius, Math.PI * 1.46, Math.PI * 1.54, false);
+    ctx.lineWidth = 14;
+    ctx.strokeStyle = '#10b981';
+    ctx.stroke();
+
+    for (let c = -50; c <= 50; c += 10) {
+        const angle = Math.PI * 1.5 + (c / 50) * (Math.PI * 0.7);
+        const x1 = cx + Math.cos(angle) * (radius - 12);
+        const y1 = cy + Math.sin(angle) * (radius - 12);
+        const x2 = cx + Math.cos(angle) * (radius + 12);
+        const y2 = cy + Math.sin(angle) * (radius + 12);
+
+        ctx.beginPath();
+        ctx.moveTo(x1, y1);
+        ctx.lineTo(x2, y2);
+        ctx.lineWidth = c === 0 ? 3 : 1.5;
+        ctx.strokeStyle = c === 0 ? '#10b981' : 'rgba(255, 255, 255, 0.35)';
+        ctx.stroke();
+
+        const tx = cx + Math.cos(angle) * (radius - 26);
+        const ty = cy + Math.sin(angle) * (radius - 26);
+        ctx.font = '10px JetBrains Mono';
+        ctx.fillStyle = c === 0 ? '#10b981' : 'rgba(148, 163, 184, 0.8)';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(c === 0 ? '0' : (c > 0 ? `+${c}` : `${c}`), tx, ty);
+    }
+
+    const clampedCents = Math.max(-50, Math.min(50, cents));
+    const needleAngle = Math.PI * 1.5 + (clampedCents / 50) * (Math.PI * 0.7);
+
+    ctx.save();
+    ctx.shadowBlur = isActive ? (Math.abs(cents) <= 5 ? 20 : 12) : 0;
+    ctx.shadowColor = Math.abs(cents) <= 5 ? '#10b981' : (cents > 0 ? '#f43f5e' : '#f97316');
+
+    ctx.beginPath();
+    ctx.moveTo(cx, cy);
+    const nx = cx + Math.cos(needleAngle) * (radius + 5);
+    const ny = cy + Math.sin(needleAngle) * (radius + 5);
+    ctx.lineTo(nx, ny);
+    ctx.lineWidth = 3.5;
+    ctx.strokeStyle = isActive ? (Math.abs(cents) <= 5 ? '#34d399' : (cents > 0 ? '#f43f5e' : '#fb923c')) : '#64748b';
+    ctx.lineCap = 'round';
+    ctx.stroke();
+    ctx.restore();
+
+    ctx.beginPath();
+    ctx.arc(cx, cy, 9, 0, Math.PI * 2);
+    ctx.fillStyle = '#f8fafc';
+    ctx.fill();
+    ctx.lineWidth = 2;
+    ctx.strokeStyle = '#0f172a';
+    ctx.stroke();
+}
+
+function renderTargetTinesMatrix() {
+    const matrix = document.getElementById('targetTinesMatrix');
+    matrix.innerHTML = '';
+    KALIMBA_TINES.forEach(tine => {
+        const btn = document.createElement('button');
+        btn.className = `target-tine-btn ${tine.id === selectedTargetTineId ? 'selected' : ''}`;
+        btn.id = `target-btn-${tine.id}`;
+        const dotsText = tine.dotCount === 2 ? '••' : (tine.dotCount === 1 ? '•' : '');
+        btn.innerHTML = `
+            <div class="target-stack">
+                <span class="t-dots">${dotsText || '&nbsp;'}</span>
+                <span class="t-num-main">${tine.numClean} <span style="font-size:10.5px; color:#38bdf8;">${tine.letter}</span></span>
+            </div>
+            <span class="t-num">${tine.carnatic}</span>
+            <span class="t-hz">${tine.freq.toFixed(0)}Hz</span>
+        `;
+        btn.onclick = () => selectTargetTine(tine.id);
+        matrix.appendChild(btn);
+    });
+}
+
+function selectTargetTine(id) {
+    selectedTargetTineId = id;
+    isAutoDetect = false;
+    document.getElementById('btnAutoDetectMode').classList.remove('active');
+    document.querySelectorAll('.target-tine-btn').forEach(btn => btn.classList.remove('selected'));
+    const selectedBtn = document.getElementById(`target-btn-${id}`);
+    if (selectedBtn) selectedBtn.classList.add('selected');
+
+    const tine = KALIMBA_TINES.find(t => t.id === id);
+    if (tine) {
+        document.getElementById('detectedNoteName').innerText = `${tine.num} (${tine.letter})`;
+        document.getElementById('detectedFreq').innerText = `இலக்கு அதிர்வெண்: ${tine.freq.toFixed(1)} Hz`;
+    }
+}
+
+function toggleAutoDetectMode() {
+    isAutoDetect = !isAutoDetect;
+    document.getElementById('btnAutoDetectMode').classList.toggle('active', isAutoDetect);
+    if (isAutoDetect) {
+        document.querySelectorAll('.target-tine-btn').forEach(btn => btn.classList.remove('selected'));
+    }
+}
+
+function playSelectedTargetTone() {
+    const tine = KALIMBA_TINES.find(t => t.id === selectedTargetTineId) || KALIMBA_TINES[8];
+    playKalimbaTineSound(tine);
+}
+
+// =============================================================
+// STEP-BY-STEP LESSONS (52 COMPREHENSIVE TAMIL LESSONS ACROSS 6 LEVELS)
+// =============================================================
+const LESSONS = [
+    // =========================================================================
+    // --- LEVEL 1: தொடக்க நிலை & அடிப்படை கை பழக்கம் (Foundations & Octaves) ---
+    // =========================================================================
+    {
+        id: 0,
+        level: "🌱 LEVEL 1: தொடக்க நிலை & அடிப்படை கை பழக்கம்",
+        title: "பாடம் 1.1: மத்திய ஸ்தாயி (No Dots: 1 2 3 4 5 6 7)",
+        subtitle: "1, 2, 3, 4, 5, 6, 7 புள்ளி இல்லாத இயல்பான கம்பிகள்",
+        desc: "எந்தப் புள்ளியும் இல்லாத 1 (C4), 2 (D4), 3 (E4), 4 (F4), 5 (G4), 6 (A4), 7 (B4) கம்பிகள் மத்திய ஸ்தாயி ஆகும். இவற்றை நடுவிலிருந்து இடது-வலது மாறி மாறி சீராக மீட்டிப் பழகவும்.",
+        tip: "💡 நடுவில் உள்ள 1 (C4) கம்பிதான் மிக நீளமானது. அங்கிருந்து தொடங்கி இரு கட்டை விரல்களாலும் மாறி மாறி மீட்டவும்.",
+        notes: ["1", "2", "3", "4", "5", "6", "7", "1"]
+    },
+    {
+        id: 1,
+        level: "🌱 LEVEL 1: தொடக்க நிலை & அடிப்படை கை பழக்கம்",
+        title: "பாடம் 1.2: தார ஸ்தாயி (1 Dot: 1̇ 2̇ 3̇ 4̇ 5̇ 6̇ 7̇)",
+        subtitle: "ஒரு புள்ளி கொண்ட மேல் ஸ்தாயி மணி கம்பிகள்",
+        desc: "எண்களுக்கு மேலே ஒரு புள்ளி இருந்தால் அது தார ஸ்தாயி (High Octave 5) ஆகும். 1̇ (C5) முதல் 7̇ (B5) வரையிலான கண்ணாடி போன்ற மெல்லிசை கம்பிகளை மீட்டிப் பழகவும்.",
+        tip: "💡 ஒரு புள்ளி உள்ள கம்பிகள் குறைந்த நீளம் கொண்டவை. படிகம் போன்ற இனிமையான நாதம் உண்டாகும்.",
+        notes: ["1̇", "2̇", "3̇", "4̇", "5̇", "6̇", "7̇", "1̇"]
+    },
+    {
+        id: 2,
+        level: "🌱 LEVEL 1: தொடக்க நிலை & அடிப்படை கை பழக்கம்",
+        title: "பாடம் 1.3: அதி தார ஸ்தாயி (2 Dots: 1̈ 2̈ 3̈)",
+        subtitle: "இரு புள்ளிகள் கொண்ட உச்ச ஸ்தாயிக் கம்பிகள்",
+        desc: "எண்களுக்கு மேலே இரண்டு புள்ளிகள் உள்ள 1̈ (C6), 2̈ (D6), 3̈ (E6) ஆகிய 3 உச்ச ஸ்தாயி கம்பிகளை மீட்டி அவற்றின் அதிர்வெண் உயரத்தை உணரவும்.",
+        tip: "💡 2̈ (D6) இடதுபுறக் கடைசி கம்பி! 1̈ (C6) மற்றும் 3̈ (E6) வலதுபுறக் கடைசி கம்பிகள்!",
+        notes: ["1", "1̇", "1̈", "2", "2̇", "2̈", "3", "3̇", "3̈"]
+    },
+    {
+        id: 3,
+        level: "🌱 LEVEL 1: தொடக்க நிலை & அடிப்படை கை பழக்கம்",
+        title: "பாடம் 1.4: இடது - வலது கட்டை விரல் சமச்சீர் பயிற்சி",
+        subtitle: "நடுவிலிருந்து இருபுறமும் மாறி மாறி விரல் நீட்டுதல்",
+        desc: "நடுவில் உள்ள 1 (C4) கம்பியை அடித்தளமாக வைத்துக்கொண்டு, இடது கை (2, 4, 6) மற்றும் வலது கை (3, 5, 7) கம்பிகளை மாறி மாறி மீட்டவும்.",
+        tip: "💡 இந்த சமச்சீர் பயிற்சி இரு கைகளுக்கும் சம பலத்தையும், கலிம்பா கம்பிகளின் இருப்பிட நினைவாற்றலையும் தரும்.",
+        notes: ["1", "2", "1", "3", "1", "4", "1", "5", "1", "6", "1", "7", "1", "1̇"]
+    },
+    {
+        id: 4,
+        level: "🌱 LEVEL 1: தொடக்க நிலை & அடிப்படை கை பழக்கம்",
+        title: "பாடம் 1.5: C4(1) - C5(1̇) - C6(1̈) ஸ்தாயி மும்மை",
+        subtitle: "ஒரே C ஸ்வரத்தின் மூன்று வெவ்வேறு ஸ்தாயி கம்பிகள்",
+        desc: "மத்திய ச (1), தார ச (1̇), அதி தார ச (1̈) ஆகிய ஒரே ஸ்வரத்தின் 3 ஸ்தாயிகளையும் தொடர்ச்சியாக மீட்டி ஸ்தாயி உணர்வை வளர்க்கவும்.",
+        tip: "💡 1 என்பது நடுவில் உள்ள கம்பி; 1̇ என்பது வலதுபுறம்; 1̈ என்பது வலதுபுற உச்சிக்கம்பி!",
+        notes: ["1", "1̇", "1̈", "1̇", "1", "1̇", "1̈"]
+    },
+    {
+        id: 5,
+        level: "🌱 LEVEL 1: தொடக்க நிலை & அடிப்படை கை பழக்கம்",
+        title: "பாடம் 1.6: A4 (6) vs A5 (6̇) ஸ்தாயி வேறுபாடு",
+        subtitle: "இடது A4 (440Hz) vs வலது A5 (880Hz) நாத ஒப்பீடு",
+        desc: "இடதுபுறம் உள்ள A4 (6 - புள்ளி இல்லை, 440 Hz) மற்றும் வலதுபுறம் உள்ள A5 (6̇ - ஒரு புள்ளி, 880 Hz) ஆகியவற்றின் ஒலி வித்தியாசத்தை மீட்டிப் பாருங்கள்.",
+        tip: "💡 இடது கை A4 தடித்த பேஸ் நாதம்; வலது கை A5 மெல்லிய உயர் நாதம்!",
+        notes: ["6", "6̇", "6", "6̇", "1", "6", "1̇", "6̇"]
+    },
+    {
+        id: 6,
+        level: "🌱 LEVEL 1: தொடக்க நிலை & அடிப்படை கை பழக்கம்",
+        title: "பாடம் 1.7: 3-ஸ்வர எளிய சுழற்சி (3-Note Triad Steps)",
+        subtitle: "ச ரி க - க ரி ச அடிப்படை விரல் நடை",
+        desc: "முதல் மூன்று ஸ்வரங்களை (1, 2, 3) முன்னோக்கியும் பின்னோக்கியும் மீட்டி கட்டை விரலின் வேகத்தையும் லயத்தையும் பழகவும்.",
+        tip: "💡 1-2-3-2-1 என தொடர்ச்சியாக 5 முறை நிறுத்தாமல் மீட்டிப் பழகவும்.",
+        notes: ["1", "2", "3", "2", "1", "2", "3", "4", "3", "2", "1"]
+    },
+    {
+        id: 7,
+        level: "🌱 LEVEL 1: தொடக்க நிலை & அடிப்படை கை பழக்கம்",
+        title: "பாடம் 1.8: 4-ஸ்வர படிக்கட்டு நடை (4-Note Staircase)",
+        subtitle: "1-2-3-4, 2-3-4-5, 3-4-5-6 ஏறும் படிக்கட்டு",
+        desc: "ஒவ்வொரு ஸ்வரமாக நகர்ந்து நான்கு நான்கு ஸ்வரங்களாக ஏறும் படிக்கட்டு நடைப் பயிற்சி.",
+        tip: "💡 இரு கட்டை விரல்களும் ஒன்றன்பின் ஒன்றாக லாவகமாக ஆட வேண்டும்.",
+        notes: ["1", "2", "3", "4", "2", "3", "4", "5", "3", "4", "5", "6", "4", "5", "6", "7", "5", "6", "7", "1̇"]
+    },
+    {
+        id: 8,
+        level: "🌱 LEVEL 1: தொடக்க நிலை & அடிப்படை கை பழக்கம்",
+        title: "பாடம் 1.9: 5-ஸ்வர பென்டாடோனிக் நடை (Pentatonic Scale)",
+        subtitle: "ச ரி க ப த ச் (1 2 3 5 6) உலகளாவிய இனிமை ஸ்வரங்கள்",
+        desc: "எப்போதும் தவறு செய்ய முடியாத, எப்போது மீட்டினாலும் இனிமையான பென்டாடோனிக் 5 ஸ்வர நடைப் பயிற்சி.",
+        tip: "💡 ம(4), நி(7) தவிர்த்து மற்ற 5 கம்பிகளை வரிசையாக மீட்டிப் பாருங்கள்.",
+        notes: ["1", "2", "3", "5", "6", "1̇", "6", "5", "3", "2", "1"]
+    },
+    {
+        id: 9,
+        level: "🌱 LEVEL 1: தொடக்க நிலை & அடிப்படை கை பழக்கம்",
+        title: "பாடம் 1.10: 7-ஸ்வர முழு ஏறுவரிசை & இறங்குவரிசை",
+        subtitle: "1 2 3 4 5 6 7 1̇ - 1̇ 7 6 5 4 3 2 1 முழு ஸ்தாயி நடை",
+        desc: "மத்திய ச முதல் தார ச வரை அனைத்து 7 ஸ்வரங்களையும் ஏறி இறங்கும் அடிப்படை பூரண பயிற்சி.",
+        tip: "💡 விரல் நகத்தை லேசாக வளைத்து கம்பியின் முனையில் சம அழுத்தத்துடன் மீட்டவும்.",
+        notes: ["1", "2", "3", "4", "5", "6", "7", "1̇", "1̇", "7", "6", "5", "4", "3", "2", "1"]
+    },
+
+    // =========================================================================
+    // --- LEVEL 2: விரல் வேகம், நயம் & இசை நுட்பங்கள் (Techniques & Dynamics) ---
+    // =========================================================================
+    {
+        id: 10,
+        level: "🌿 LEVEL 2: விரல் வேகம் & இசை நுட்பங்கள்",
+        title: "பாடம் 2.1: இரட்டை ஸ்வர சங்கமம் (Dual Harmonies & Chords)",
+        subtitle: "1+3 (C+E), 1+5 (C+G) இரு விரல் ஒரே நேரத்தில் மீட்டல்",
+        desc: "இரு கட்டை விரல்களையும் ஒரே நேரத்தில் பயன்படுத்தி 1+3 (ச+க), 1+5 (ச+ப) ஆகிய இனிமையான நாண்களை (Harmonies) உண்டாக்குங்கள்.",
+        tip: "💡 இரு கம்பிகளையும் ஒரே நேரத்தில் சம அழுத்தத்தில் மீட்ட வேண்டும்.",
+        notes: ["1", "3", "5", "1", "5", "3", "1", "2", "4", "6", "2", "6", "4", "2"]
+    },
+    {
+        id: 11,
+        level: "🌿 LEVEL 2: விரல் வேகம் & இசை நுட்பங்கள்",
+        title: "பாடம் 2.2: வலது கை கிளிசாண்டோ சறுக்கல் (Right Thumb Glissando)",
+        subtitle: "வலதுபுற கம்பிகளில் நகத்தை உருட்டி அருவி ஒலி எழுப்புதல்",
+        desc: "வலது கை கட்டை விரல் நகத்தை வரிசையாக பக்கத்து கம்பிகளின் மீது மென்மையாக உருட்டி அருவி போன்ற ஒலியை எழுப்பும் பயிற்சி.",
+        tip: "💡 நகத்தை மென்மையாக 1-3-5-7-1̇ என வலதுபுறம் பக்கவாட்டில் உருட்டவும்.",
+        notes: ["1", "3", "5", "7", "1̇", "3̇", "5̇", "1̇", "7", "5", "3", "1"]
+    },
+    {
+        id: 12,
+        level: "🌿 LEVEL 2: விரல் வேகம் & இசை நுட்பங்கள்",
+        title: "பாடம் 2.3: இடது கை கிளிசாண்டோ சறுக்கல் (Left Thumb Glissando)",
+        subtitle: "இடதுபுற கம்பிகளில் நகத்தை உருட்டி எதிரொலி எழுப்புதல்",
+        desc: "இடது கை கட்டை விரல் நகத்தை 2-4-6-1̇-2̇ என இடதுபுற கம்பிகளில் மென்மையாக உருட்டும் பயிற்சி.",
+        tip: "💡 நகத்தின் பக்கவாட்டுப் பகுதியை கம்பிகளின் மேல் லேசாக வழுக்கிச் செல்ல விடவும்.",
+        notes: ["2", "4", "6", "1̇", "2̇", "4̇", "6̇", "2̇", "6", "4", "2"]
+    },
+    {
+        id: 13,
+        level: "🌿 LEVEL 2: விரல் வேகம் & இசை நுட்பங்கள்",
+        title: "பாடம் 2.4: ஆர்பெஜியோ அலைகள் (Rolling Arpeggio Chords)",
+        subtitle: "கார்டுகளை அலை அலையாகப் பாடும் அழகான இசைக்கோலம்",
+        desc: "கார்டுகளை ஒவ்வொன்றாக வரிசைப்படுத்தி அலை அலையாகப் பாடும் அழகான இசைக்கோலம்.",
+        tip: "💡 1 - 3 - 5 - 1̇ - 5 - 3 - 1 சுழற்சியை தொடர்ந்து சீரான வேகத்தில் பயிற்சி செய்யுங்கள்.",
+        notes: ["1", "3", "5", "1̇", "5", "3", "1", "2", "4", "6", "2̇", "6", "4", "2"]
+    },
+    {
+        id: 14,
+        level: "🌿 LEVEL 2: விரல் வேகம் & இசை நுட்பங்கள்",
+        title: "பாடம் 2.5: வால்ட்ஸ் 3/4 தாள நடை (Waltz Rhythm: 1 - 2 - 3)",
+        subtitle: "டம் - டக் - டக் மூன்று கால நடன லயப் பயிற்சி",
+        desc: "முதல் அடியில் பேஸ் (1) மீட்டி, அடுத்த இரண்டு அடிகளில் மெல்லிய நாண்களை (5 5) மீட்டும் 'டம்-டக்-டக்' வால்ட்ஸ் தாளப் பயிற்சி.",
+        tip: "💡 முதல் அடியை அழுத்துங்கள், அடுத்த இரண்டு அடிகளை மென்மையாகத் தட்டுங்கள்.",
+        notes: ["1", "5", "5", "1", "5", "5", "4", "1̇", "1̇", "5", "7", "7", "1", "5", "5"]
+    },
+    {
+        id: 15,
+        level: "🌿 LEVEL 2: விரல் வேகம் & இசை நுட்பங்கள்",
+        title: "பாடம் 2.6: வைப்ரேட்டோ & பின்புற ஓட்டை கலை (Wah-Wah Vibrato)",
+        subtitle: "கலிம்பாவின் பின்புற துளைகளைத் திறந்து மூடி நாத அலைவு உண்டாக்குதல்",
+        desc: "கலிம்பாவின் பின்புறம் உள்ள இரண்டு துளைகளை ஆள்காட்டி விரல்களால் மூடித் திறந்து ஒலியில் 'வா-வா' (Wah-Wah) அதிர்வை உருவாக்கும் நுட்பம்.",
+        tip: "💡 கம்பியை மீட்ட உடனே பின்புற துளையைத் திறந்து மூடினால் காந்த அதிர்வு நாதம் எழும்.",
+        notes: ["1", "3", "5", "6", "5", "3", "1", "1̇", "7̇", "5̇", "3̇", "1̇"]
+    },
+    {
+        id: 16,
+        level: "🌿 LEVEL 2: விரல் வேகம் & இசை நுட்பங்கள்",
+        title: "பாடம் 2.7: ஸ்டகாட்டோ துள்ளல் தட்டல் (Staccato Quick Muting)",
+        subtitle: "விரல் சதையால் ஒலியை சட்டென நிறுத்தும் துள்ளல் நுட்பம்",
+        desc: "கம்பியை மீட்ட உடனே விரலின் சதையால் மென்மையாகத் தொட்டு நாதத்தை துண்டித்து துள்ளல் ஒலி எழுப்பும் பயிற்சி.",
+        tip: "💡 கம்பியை மீட்ட அடுத்த கணமே விரலை மீண்டும் அதன் மேல் லேசாக வைக்கவும்.",
+        notes: ["1", "1", "3", "3", "5", "5", "1̇", "1̇", "5", "5", "3", "3", "1", "1"]
+    },
+    {
+        id: 17,
+        level: "🌿 LEVEL 2: விரல் வேகம் & இசை நுட்பங்கள்",
+        title: "பாடம் 2.8: இரு கைகள் தொடர் கிளிசாண்டோ (Dual Hand Sweep)",
+        subtitle: "இடது & வலது கைகளில் தொடர் அருவி சறுக்கல்",
+        desc: "இரு கைகளாலும் மாறி மாறி கிளிசாண்டோ செய்து வானவில் போன்ற ஒலியை எழுப்பும் அழகான பயிற்சி.",
+        tip: "💡 1-3-5 மீட்ட உடனே இடது கையால் 2-4-6 என சறுக்கிக் கொண்டு செல்லவும்.",
+        notes: ["1", "3", "5", "2", "4", "6", "1̇", "3̇", "5̇", "2̇", "4̇", "6̇", "1̇"]
+    },
+    {
+        id: 18,
+        level: "🌿 LEVEL 2: விரல் வேகம் & இசை நுட்பங்கள்",
+        title: "பாடம் 2.9: தாள சத்தம் & தட்டு முறை (Percussive Strum)",
+        subtitle: "கலிம்பா பலகையை தட்டி லயத்தோடு மீட்டல்",
+        desc: "கலிம்பா மரப் பலகையில் கட்டை விரல் மூட்டினால் லேசாகத் தட்டி தாளம் போட்டவாறே ஸ்வரங்களை மீட்டல்.",
+        tip: "💡 தட்டு - மீட்டு - தட்டு - மீட்டு என்ற ரிதத்தில் வாசியுங்கள்.",
+        notes: ["1", "1", "5", "5", "6", "6", "5", "4", "4", "3", "3", "2", "2", "1"]
+    },
+    {
+        id: 19,
+        level: "🌿 LEVEL 2: விரல் வேகம் & இசை நுட்பங்கள்",
+        title: "பாடம் 2.10: ட்ரெமோலோ அதிர்வு மீட்டல் (Rapid Tremolo Plucking)",
+        subtitle: "ஒரே கம்பியை மிக வேகமாகத் தொடர்ந்து மீட்டல்",
+        desc: "ஒரே ஸ்வரத்தை 3 முறை அதிவேகமாக மீட்டி நாதத்தை நீடிக்கச் செய்யும் மாண்டலின்/சித்தார் பாணி ட்ரெமோலோ நுட்பம்.",
+        tip: "💡 விரல் நகத்தை லேசாக ஊன்றி விநாடிக்கு 3 முறை வேகமாக மீட்டவும்.",
+        notes: ["1", "1", "1", "3", "3", "3", "5", "5", "5", "1̇", "1̇", "1̇", "5", "5", "3", "3", "1"]
+    },
+
+    // =========================================================================
+    // --- LEVEL 3: கர்நாடக சங்கதிகள் & ராகப் பயிற்சிகள் (Carnatic Exercises) ---
+    // =========================================================================
+    {
+        id: 20,
+        level: "🌳 LEVEL 3: கர்நாடக சங்கதிகள் & ராகப் பயிற்சிகள்",
+        title: "பாடம் 3.1: சரளி வரிசை 1 (Sarali Varisai 1)",
+        subtitle: "ச ரி க ம ப த நி ச் (1 2 3 4 5 6 7 1̇) பூரண ஏறு-இறங்கு வரிசை",
+        desc: "ஆரோகணம் (ஏறுவரிசை: 1 2 3 4 5 6 7 1̇) மற்றும் அவரோகணம் (இறங்குவரிசை: 1̇ 7 6 5 4 3 2 1) ஆகியவற்றை சீரான காலப்பிரமாணத்தில் வாசிக்கவும்.",
+        tip: "💡 ஒவ்வொரு ஸ்வரத்திற்கும் சமமான கால இடைவெளி (Metronome Tempo) கொடுக்கவும்.",
+        notes: ["1", "2", "3", "4", "5", "6", "7", "1̇", "1̇", "7", "6", "5", "4", "3", "2", "1"]
+    },
+    {
+        id: 21,
+        level: "🌳 LEVEL 3: கர்நாடக சங்கதிகள் & ராகப் பயிற்சிகள்",
+        title: "பாடம் 3.2: சரளி வரிசை 2 (Sarali Varisai 2)",
+        subtitle: "1 2 1 2 1 2 3 4 - ச ரி ச ரி ச ரி க ம",
+        desc: "ஒரே ஸ்வரத் தொடரை மீண்டும் மீண்டும் மீட்டி காலப்பிரமாணத்தைக் கட்டுப்படுத்தும் பயிற்சி.",
+        tip: "💡 ச ரி ச ரி ச ரி க ம என்று சீரான தாள லயத்தில் மீட்டவும்.",
+        notes: ["1", "2", "1", "2", "1", "2", "3", "4", "1̇", "7", "1̇", "7", "1̇", "7", "6", "5", "1"]
+    },
+    {
+        id: 22,
+        level: "🌳 LEVEL 3: கர்நாடக சங்கதிகள் & ராகப் பயிற்சிகள்",
+        title: "பாடம் 3.3: சரளி வரிசை 3 (Sarali Varisai 3)",
+        subtitle: "1 2 3 1 2 3 1 2 3 4 - ச ரி க ச ரி க ச ரி க ம",
+        desc: "மும்மை ஸ்வரங்களை அடுக்கி தாளத்தின் 3-வது கால நடைக்கு விரல்களைத் தயார் செய்யும் பயிற்சி.",
+        tip: "💡 1-2-3, 1-2-3 என மூன்று மூன்றாக மனதில் எண்ணி மீட்டவும்.",
+        notes: ["1", "2", "3", "1", "2", "3", "1", "2", "3", "4", "1̇", "7", "6", "1̇", "7", "6", "1̇", "7", "6", "5"]
+    },
+    {
+        id: 23,
+        level: "🌳 LEVEL 3: கர்நாடக சங்கதிகள் & ராகப் பயிற்சிகள்",
+        title: "பாடம் 3.4: சரளி வரிசை 4 (Sarali Varisai 4)",
+        subtitle: "1 2 3 4 1 2 3 4 1 2 3 4 5 6 7 1̇ - சதுஸ்ர நடை",
+        desc: "நான்கு நான்கு ஸ்வரங்களாக அடித்து முழு ஸ்தாயியையும் எட்டும் வேகப்பயிற்சி.",
+        tip: "💡 தாளக்கட்டுப்பாடு மிக முக்கியம்; வேகம் மாறாமல் வாசியுங்கள்.",
+        notes: ["1", "2", "3", "4", "1", "2", "3", "4", "1", "2", "3", "4", "5", "6", "7", "1̇", "1̇", "7", "6", "5", "1̇", "7", "6", "5", "1̇", "7", "6", "5", "4", "3", "2", "1"]
+    },
+    {
+        id: 24,
+        level: "🌳 LEVEL 3: கர்நாடக சங்கதிகள் & ராகப் பயிற்சிகள்",
+        title: "பாடம் 3.5: ஜண்டை வரிசை 1 (Jantai Varisai 1 - இரட்டை மீட்டல்)",
+        subtitle: "1 1 2 2 3 3 4 4 5 5 6 6 7 7 1̇ 1̇ அழுத்த மீட்டல்",
+        desc: "ஒவ்வொரு கம்பியையும் இருமுறை அழுத்தமாக மீட்டும்போது விரல்களுக்கு நல்ல பலமும் தனித்தனி ஸ்வரத் துல்லியமும் உண்டாகும்.",
+        tip: "💡 முதல் மீட்டல் இயல்பாகவும், இரண்டாவது மீட்டல் லேசான அழுத்தத்துடனும் இருக்கட்டும்.",
+        notes: ["1", "1", "2", "2", "3", "3", "4", "4", "5", "5", "6", "6", "7", "7", "1̇", "1̇", "1̇", "1̇", "7", "7", "6", "6", "5", "5", "4", "4", "3", "3", "2", "2", "1", "1"]
+    },
+    {
+        id: 25,
+        level: "🌳 LEVEL 3: கர்நாடக சங்கதிகள் & ராகப் பயிற்சிகள்",
+        title: "பாடம் 3.6: ஜண்டை வரிசை 2 (Jantai Varisai 2 - ஜோடி சுழற்சி)",
+        subtitle: "1 1 2 2 3 3 - 2 2 3 3 4 4 - 3 3 4 4 5 5",
+        desc: "ஜோடி ஸ்வரங்களை அடுக்கிக் கொண்டே முன்னோக்கி நகரும் உயர் ஜண்டை பயிற்சி.",
+        tip: "💡 ஸ்வரங்களின் இரட்டை நாதம் மிகத் தெளிவாக ஒலிக்க வேண்டும்.",
+        notes: ["1", "1", "2", "2", "3", "3", "2", "2", "3", "3", "4", "4", "3", "3", "4", "4", "5", "5", "4", "4", "5", "5", "6", "6", "5", "5", "6", "6", "7", "7", "6", "6", "7", "7", "1̇", "1̇"]
+    },
+    {
+        id: 26,
+        level: "🌳 LEVEL 3: கர்நாடக சங்கதிகள் & ராகப் பயிற்சிகள்",
+        title: "பாடம் 3.7: தாது வரிசை (Dhatu Varisai - தாவுதல் பயிற்சி)",
+        subtitle: "ச க ரி ம க ப ம த - ஸ்வரத் தாவல் பயிற்சி (1 3 2 4 / 3 5 4 6)",
+        desc: "ஒவ்வொரு கம்பியையும் ஒன்றன் பின் ஒன்றாகத் தாண்டி மீட்டும் போது கட்டை விரல்களின் தூர கணிப்புத் திறன் கூடும்.",
+        tip: "💡 1-3 மீட்டும்போது வலது கையும், 2-4 மீட்டும்போது இடது கையும் தாவிச் செல்லும்.",
+        notes: ["1", "3", "2", "4", "3", "5", "4", "6", "5", "7", "6", "1̇", "1̇", "6", "7", "5", "6", "4", "5", "3", "4", "2", "3", "1"]
+    },
+    {
+        id: 27,
+        level: "🌳 LEVEL 3: கர்நாடக சங்கதிகள் & ராகப் பயிற்சிகள்",
+        title: "பாடம் 3.8: மேல்ஸ்தாயி வரிசை (Tara Sthayi Varisai)",
+        subtitle: "1 2 3 4 5 6 7 1̇ 2̇ 3̇ தார ஸ்தாயி உச்சியைத் தொடுதல்",
+        desc: "மத்திய ஸ்தாயியில் தொடங்கி தார ஸ்தாயி 3̇ (E5) வரை சென்று திரும்பும் நீண்ட நாதப் பயிற்சி.",
+        tip: "💡 மேல் ஸ்தாயிக்குச் செல்லும்போது விரல்களை லேசாக உயர்த்தவும்.",
+        notes: ["1", "2", "3", "4", "5", "6", "7", "1̇", "1̇", "2̇", "3̇", "2̇", "1̇", "7", "6", "5", "4", "3", "2", "1"]
+    },
+    {
+        id: 28,
+        level: "🌳 LEVEL 3: கர்நாடக சங்கதிகள் & ராகப் பயிற்சிகள்",
+        title: "பாடம் 3.9: மோஹன ராக கீதம் (வரவீணா மிருதுபாணி)",
+        subtitle: "ச ரி க ப த (1 2 3 5 6) தெய்வீக பஞ்சம ராகம்",
+        desc: "1, 2, 3, 5, 6 (ச ரி க ப த) ஆகிய ஐந்து ஸ்வரங்களை மட்டுமே கொண்ட தெய்வீக மோஹன ராக கீதம்.",
+        tip: "💡 ம(4), நி(7) கம்பிகளைத் தொடாமல் மற்ற 5 கம்பிகளை மட்டும் கவனமாக மீட்டவும்.",
+        notes: ["5", "5", "6", "5", "3", "3", "2", "3", "2", "1", "2", "3", "2", "1", "5", "6", "1̇", "6", "5", "3", "2", "1"]
+    },
+    {
+        id: 29,
+        level: "🌳 LEVEL 3: கர்நாடக சங்கதிகள் & ராகப் பயிற்சிகள்",
+        title: "பாடம் 3.10: மலஹரி ராக கீதம் (ஸ்ரீ கணநாத சிந்துரவர்ண)",
+        subtitle: "1 2 4 5 6 1̇ (ச ரி ம ப த ச்) விநாயகர் காலை கீதம்",
+        desc: "க(3), நி(7) நீக்கிய அழகிய காலை ராகமான மலஹரி கீதப் பயிற்சி.",
+        tip: "💡 அமைதியான நாதத்துடன் பக்திப் பரவசமாக மீட்டவும்.",
+        notes: ["4", "5", "6", "1̇", "1̇", "6", "5", "4", "2", "4", "4", "2", "1", "2", "4", "4", "5", "6", "1̇", "6", "5", "4"]
+    },
+
+    // =========================================================================
+    // --- LEVEL 4: தமிழ் திரையிசை நுட்பங்கள் & பின்னணி லூப்கள் (Tamil Cinema Patterns) ---
+    // =========================================================================
+    {
+        id: 30,
+        level: "👑 LEVEL 4: தமிழ் திரையிசை & பின்னணி லூப்கள்",
+        title: "பாடம் 4.1: பாட்டு + பேஸ் நாண் (Melody + Bassline Harmony)",
+        subtitle: "இடது கை பேஸ் + வலது கை முன்னணி மெல்லிசை பாலமாய் இணைதல்",
+        desc: "இடது கை கட்டை விரலால் பேஸ் ஸ்வரம் (1) கொடுத்துக் கொண்டே, வலது கையால் பாடலின் மெல்லிசையை மீட்டவும்.",
+        tip: "💡 ஒரு விரல் சீரான லயத்தையும், மற்றொரு விரல் பாடலையும் கையாளும் ஒருங்கிணைப்பு.",
+        notes: ["1", "5", "6", "5", "1", "4", "3", "2", "1", "5", "1̇", "7", "6", "5"]
+    },
+    {
+        id: 31,
+        level: "👑 LEVEL 4: தமிழ் திரையிசை & பின்னணி லூப்கள்",
+        title: "பாடம் 4.2: பாப் 4-கார்டு லூப் (I - V - vi - IV Progression)",
+        subtitle: "C -> G -> Am -> F உலகப் புகழ்பெற்ற திரை இசை தளம்",
+        desc: "ஆயிரக்கணக்கான உலகத் திரைப்படப் பாடல்கள் மற்றும் தமிழ் ஹிட் பாடல்களில் பயன்படுத்தப்படும் 4-கார்டு மேஜிக் லூப்.",
+        tip: "💡 1(C) -> 5(G) -> 6(Am) -> 4(F) என்ற கார்டு வரிசையை சுழற்சியாக வாசியுங்கள்.",
+        notes: ["1", "3", "5", "5", "7", "2̇", "6", "1̇", "3̇", "4", "6", "1̇", "1", "3", "5"]
+    },
+    {
+        id: 32,
+        level: "👑 LEVEL 4: தமிழ் திரையிசை & பின்னணி லூப்கள்",
+        title: "பாடம் 4.3: இளையராஜா கிராமிய 6/8 தாள நடை (Folk 6/8 Groove)",
+        subtitle: "1-2-3-4-5-6 நாட்டுப்புற துள்ளல் தாளம்",
+        desc: "இளையராஜாவின் கிராமியப் பாடல்களின் உயிர் நாடியான 6/8 தாளத்தில் கார்டுகளை மீட்டும் உற்சாகப் பயிற்சி.",
+        tip: "💡 1-3-5, 1-3-5, 4-6-1̇ என 3-3 அடிகளாக சீராகப் பிரித்து மீட்டவும்.",
+        notes: ["1", "3", "5", "1", "3", "5", "4", "6", "1̇", "5", "7", "2̇", "1", "3", "5"]
+    },
+    {
+        id: 33,
+        level: "👑 LEVEL 4: தமிழ் திரையிசை & பின்னணி லூப்கள்",
+        title: "பாடம் 4.4: இளையராஜா புல்லாங்குழல் தீம் ரிஃப் (Maestro Flute Interlude)",
+        subtitle: "கிராமிய தென்றல் காற்று போன்ற புல்லாங்குழல் நடை",
+        desc: "இளையராஜாவின் கிராமியப் பாடல்களில் வரும் மென்மையான புல்லாங்குழல் இடைச்செருகல் இசைக்கோலம்.",
+        tip: "💡 மெல்லிய விரல் தொடுதலுடன் இனிமையாக மீட்டவும்.",
+        notes: ["5", "6", "1̇", "2̇", "3̇", "2̇", "1̇", "6", "5", "6", "5", "3", "2", "1", "2", "3", "5"]
+    },
+    {
+        id: 34,
+        level: "👑 LEVEL 4: தமிழ் திரையிசை & பின்னணி லூப்கள்",
+        title: "பாடம் 4.5: ஏ.ஆர்.ரஹ்மான் மெலடி கார்டு லூப் (ARR Ambient Progression)",
+        subtitle: "ஆழ்ந்த தியான நிலை மெல்லிசை கார்டு அலைகள்",
+        desc: "ஏ.ஆர்.ரஹ்மானின் அமைதியான மெலடிகளில் ஒலிக்கும் பரந்த ஒலிப்பரப்பு (Ambient Soundscape) பயிற்சி.",
+        tip: "💡 கார்டுகளின் அதிர்வை காற்றில் கரையவிட்டு அடுத்த கார்டுக்கு மென்மையாகச் செல்லவும்.",
+        notes: ["1", "5", "1̇", "2̇", "3̇", "6", "1̇", "3̇", "4", "1̇", "4̇", "5", "2̇", "5̇", "1", "5", "1̇"]
+    },
+    {
+        id: 35,
+        level: "👑 LEVEL 4: தமிழ் திரையிசை & பின்னணி லூப்கள்",
+        title: "பாடம் 4.6: ஏ.ஆர்.ரஹ்மான் பாம்பே தீம் சாயல் (ARR Bombay Theme Riff)",
+        subtitle: "உலகப் புகழ்பெற்ற பாம்பே தீம் புல்லாங்குழல் ஆரம்ப இசை",
+        desc: "ஏ.ஆர்.ரஹ்மானின் உலகப் புகழ்பெற்ற பாம்பே தீம் பாடலின் ஆன்மாவைத் தொடும் கலிம்பா ஸ்வரப் பயிற்சி.",
+        tip: "💡 6 (A4)-ல் தொடங்கி தார ஸ்தாயி 3̇ (E5) வரை ஏறும் உருக்கமான மெல்லிசை.",
+        notes: ["6", "1̇", "2̇", "3̇", "2̇", "1̇", "6", "5", "6", "1̇", "2̇", "1̇", "6", "5", "3", "5", "6"]
+    },
+    {
+        id: 36,
+        level: "👑 LEVEL 4: தமிழ் திரையிசை & பின்னணி லூப்கள்",
+        title: "பாடம் 4.7: அனிருத் பாஸ்-டிராப் லூப் (Modern Anirudh Beat Loop)",
+        subtitle: "Am -> F -> C -> G தற்கால துள்ளல் ராக் வடிவம்",
+        desc: "இன்றைய தலைமுறை திரைப்படப் பாடல்களில் பயன்படுத்தப்படும் மாடர்ன் துள்ளல் கார்டு பேட்டர்ன்.",
+        tip: "💡 இரட்டை அடிகளை வேகமாகவும், லயத்துடனும் தட்டி எழுப்புங்கள்.",
+        notes: ["6", "6", "1̇", "3̇", "4", "4", "6", "1̇", "1", "1", "3", "5", "5", "5", "7", "2̇"]
+    },
+    {
+        id: 37,
+        level: "👑 LEVEL 4: தமிழ் திரையிசை & பின்னணி லூப்கள்",
+        title: "பாடம் 4.8: ஹாரிஸ் ஜெயராஜ் மெலடி அலைகள் (Harris Acoustic Arpeggio)",
+        subtitle: "கிட்டார் ஸ்டைல் அலைபாயும் ஆர்பெஜியோ நாதம்",
+        desc: "ஹாரிஸ் ஜெயராஜின் காதல் பாடல்களில் ஒலிக்கும் மென்மையான அக்வாஸ்டிக் கிட்டார் நடை.",
+        tip: "💡 பேஸ் ஸ்வரத்தை முதலில் மீட்டி பிறகு மேல் ஸ்தாயி ஸ்வரங்களை அலைபோல தொடரவும்.",
+        notes: ["1", "5", "3̇", "5", "1̇", "5", "3", "5", "4", "1̇", "4̇", "1̇", "5", "2̇", "5̇", "2̇"]
+    },
+    {
+        id: 38,
+        level: "👑 LEVEL 4: தமிழ் திரையிசை & பின்னணி லூப்கள்",
+        title: "பாடம் 4.9: யுவன் ஷங்கர் ராஜா எமோஷனல் லூப் (U1 Melancholy Loop)",
+        subtitle: "மனதைத் தொடும் மெல்லிசை சோக கார்டு சுழற்சி",
+        desc: "யுவன் ஷங்கர் ராஜாவின் எமோஷனல் பின்னணி இசையில் வரும் மெலன்கலி கார்டு சுழற்சி.",
+        tip: "💡 6(Am) கார்டில் தொடங்கி ஆழ்ந்த உணர்வோடு வாசியுங்கள்.",
+        notes: ["6", "1̇", "3̇", "6", "4", "6", "1̇", "4", "1", "3", "5", "1", "5", "7", "2̇", "5"]
+    },
+    {
+        id: 39,
+        level: "👑 LEVEL 4: தமிழ் திரையிசை & பின்னணி லூப்கள்",
+        title: "பாடம் 4.10: பெண்டாடோனிக் ரன்னிங் சோலோ (Pentatonic Fast Run)",
+        subtitle: "கீழ் ஸ்தாயி முதல் மேல் ஸ்தாயி வரை அதிவேக ஓட்டம்",
+        desc: "திரைப்பட பின்னணி இசையில் சோலோ வாசிப்பதற்கான மின்னல் வேக விரல் ஓட்டப் பயிற்சி.",
+        tip: "💡 1-2-3-5-6-1̇-2̇-3̇-5̇-6̇ வரை நகத்தை தொடர்ந்து ஓடவிட்டு மீண்டும் கீழ்நோக்கி இறக்கவும்.",
+        notes: ["1", "2", "3", "5", "6", "1̇", "2̇", "3̇", "5̇", "6̇", "5̇", "3̇", "2̇", "1̇", "6", "5", "3", "2", "1"]
+    },
+
+    // =========================================================================
+    // --- LEVEL 5: உலகளாவிய மெலடிகள் & தாலாட்டுகள் (World Melodies & Lullabies) ---
+    // =========================================================================
+    {
+        id: 40,
+        level: "🌍 LEVEL 5: உலகளாவிய மெலடிகள் & தாலாட்டுகள்",
+        title: "பாடம் 5.1: டுவிங்கிள் டுவிங்கிள் லிட்டில் ஸ்டார் (Twinkle Twinkle)",
+        subtitle: "1 1 5 5 6 6 5 - உலகப் புகழ் பெற்ற எளிய தாலாட்டு",
+        desc: "குழந்தைகள் முதல் பெரியவர்கள் வரை அனைவரும் விரும்பும் உலகளாவிய நர்சரி மெல்லிசை.",
+        tip: "💡 1-1-5-5-6-6-5 என்ற சீரான இரட்டை மீட்டல் லயத்தில் வாசியுங்கள்.",
+        notes: ["1", "1", "5", "5", "6", "6", "5", "4", "4", "3", "3", "2", "2", "1", "5", "5", "4", "4", "3", "3", "2", "5", "5", "4", "4", "3", "3", "2", "1", "1", "5", "5", "6", "6", "5", "4", "4", "3", "3", "2", "2", "1"]
+    },
+    {
+        id: 41,
+        level: "🌍 LEVEL 5: உலகளாவிய மெலடிகள் & தாலாட்டுகள்",
+        title: "பாடம் 5.2: பிறந்தநாள் வாழ்த்து மெல்லிசை (Happy Birthday)",
+        subtitle: "1 1 2 1 4 3 - பிறந்தநாள் விழா கொண்டாட்ட மெல்லிசை",
+        desc: "உங்கள் அன்பானவர்களின் பிறந்தநாளில் கலிம்பாவில் வாசித்து அசத்த உதவும் பாடல்.",
+        tip: "💡 1 1 2 1 4 3 | 1 1 2 1 5 4 என்ற சுழற்சியைப் பழகவும்.",
+        notes: ["1", "1", "2", "1", "4", "3", "1", "1", "2", "1", "5", "4", "1", "1", "1̇", "6", "4", "3", "2", "7", "7", "6", "4", "5", "4"]
+    },
+    {
+        id: 42,
+        level: "🌍 LEVEL 5: உலகளாவிய மெலடிகள் & தாலாட்டுகள்",
+        title: "பாடம் 5.3: ஜிங்கிள் பெல்ஸ் கிறிஸ்துமஸ் நாதம் (Jingle Bells)",
+        subtitle: "3 3 3 - 3 3 3 - 3 5 1 2 3 துள்ளல் மணிகளின் ஓசை",
+        desc: "கிறிஸ்துமஸ் விழாக்களில் கலிம்பாவின் மணி போன்ற நாதத்தில் மிக அழகாக ஒலிக்கும் பாடல்.",
+        tip: "💡 3 (E4) கம்பியை மூன்று மூன்று அடிகளாக துள்ளலாக மீட்டவும்.",
+        notes: ["3", "3", "3", "3", "3", "3", "3", "5", "1", "2", "3", "4", "4", "4", "4", "4", "3", "3", "3", "3", "2", "2", "3", "2", "5", "3", "3", "3", "3", "3", "3", "3", "5", "1", "2", "3", "4", "4", "4", "4", "4", "3", "3", "5", "5", "4", "2", "1"]
+    },
+    {
+        id: 43,
+        level: "🌍 LEVEL 5: உலகளாவிய மெலடிகள் & தாலாட்டுகள்",
+        title: "பாடம் 5.4: பிரம்மஸ் தாலாட்டு (Brahms Lullaby - Sleep Baby)",
+        subtitle: "3 3 5 3 3 5 - ஆழ்ந்த உறக்கத்திற்கான மெல்லிய தாலாட்டு",
+        desc: "இரவில் மன அமைதியோடும் மெல்லிய வருடுதலோடும் வாசிக்கப்படும் உலகப்புகழ் பெற்ற தாலாட்டு.",
+        tip: "💡 மிகவும் மென்மையாக, நகத்தை உருட்டி வாசியுங்கள்.",
+        notes: ["3", "3", "5", "3", "3", "5", "3", "5", "1̇", "7", "6", "6", "5", "2", "3", "4", "2", "2", "3", "4", "2", "4", "7", "6", "5", "7", "1̇"]
+    },
+    {
+        id: 44,
+        level: "🌍 LEVEL 5: உலகளாவிய மெலடிகள் & தாலாட்டுகள்",
+        title: "பாடம் 5.5: ஆனந்த கீதம் (Ode to Joy - Beethoven Symphony 9)",
+        subtitle: "3 3 4 5 5 4 3 2 1 1 2 3 - பீத்தோவனின் கம்பீர மெல்லிசை",
+        desc: "மேற்கத்திய கிளாசிக்கல் இசையின் சிகரமான பீத்தோவனின் 9-வது சிம்பொனி ஆனந்த கீதம்.",
+        tip: "💡 கம்பீரமான, சீரான வேகத்தில் 1-2-3-4 தாளத்தில் வாசிக்கவும்.",
+        notes: ["3", "3", "4", "5", "5", "4", "3", "2", "1", "1", "2", "3", "3", "2", "2", "3", "3", "4", "5", "5", "4", "3", "2", "1", "1", "2", "3", "2", "1", "1"]
+    },
+    {
+        id: 45,
+        level: "🌍 LEVEL 5: உலகளாவிய மெலடிகள் & தாலாட்டுகள்",
+        title: "பாடம் 5.6: அமேசிங் கிரேஸ் மெல்லிசை (Amazing Grace)",
+        subtitle: "1 4 6 4 6 5 4 - அமைதி தரும் பாரம்பரிய ஆத்மார்த்த கீதம்",
+        desc: "மன அமைதியும் ஆத்ம சாந்தியும் தரும் பாரம்பரிய ஆன்மிக மெல்லிசை.",
+        tip: "💡 ஒவ்வொரு ஸ்வரத்தையும் நீளமாக ஒலிக்க விடவும்.",
+        notes: ["1", "4", "6", "4", "6", "5", "4", "2", "1", "1", "4", "6", "4", "6", "5", "1̇", "6", "1̇", "6", "4", "1", "2", "4", "4", "2", "1", "1", "4", "6", "4", "6", "5", "4"]
+    },
+
+    // =========================================================================
+    // --- LEVEL 6: உச்ச மாஸ்டரி & 17-கம்பி விஸ்வரூபம் (Advanced Polyphony & Solos) ---
+    // =========================================================================
+    {
+        id: 46,
+        level: "⚡ LEVEL 6: உச்ச மாஸ்டரி & 17-கம்பி விஸ்வரூபம்",
+        title: "பாடம் 6.1: இரு கைகள் பல்குரல் பாலிபோனி (Two-Hand Polyphony)",
+        subtitle: "ஒரே நேரத்தில் கீழ் ஸ்தாயி + மேல் ஸ்தாயி இரட்டை மீட்டல்",
+        desc: "இடது கை கீழ் ஸ்தாயியிலும், வலது கை மேல் ஸ்தாயியிலும் ஒரே நேரத்தில் அச்சு அசலாக இணைந்து வாசிக்கும் மேஜிக்.",
+        tip: "💡 இரு கைகளின் கட்டை விரல்களையும் ஒரே சமகாலத் துடிப்பில் இயக்கவும்.",
+        notes: ["1", "1̇", "3", "3̇", "5", "5̇", "1", "1̇", "4", "4̇", "2", "2̇", "1", "1̇"]
+    },
+    {
+        id: 47,
+        level: "⚡ LEVEL 6: உச்ச மாஸ்டரி & 17-கம்பி விஸ்வரூபம்",
+        title: "பாடம் 6.2: அதி தார கம்பிகள் மாஸ்டரி (D6 2̈, C6 1̈, E6 3̈ Precision)",
+        subtitle: "உச்சக் கம்பிகளின் துல்லியமான மென்மீட்டல்",
+        desc: "கலிம்பாவின் மிகச் சிறிய, உச்ச நாதம் கொண்ட 1̈, 2̈, 3̈ கம்பிகளை பிசிறு தட்டாமல் மென்மையாக மீட்டும் பயிற்சி.",
+        tip: "💡 உச்ச கம்பிகளை நகத்தின் கூர்மையான முனையால் லேசாக வருடி மீட்டவும்.",
+        notes: ["1̇", "1̈", "2̇", "2̈", "3̇", "3̈", "2̈", "1̈", "7̇", "6̇", "5̇", "3̇", "1̇", "1"]
+    },
+    {
+        id: 48,
+        level: "⚡ LEVEL 6: உச்ச மாஸ்டரி & 17-கம்பி விஸ்வரூபம்",
+        title: "பாடம் 6.3: முழுக் கலிம்பா விஸ்வரூப சோலோ (Grand Cascade Solo)",
+        subtitle: "C4 மத்திய ச முதல் E6 உச்ச அதி தார க வரை",
+        desc: "கலிம்பாவில் உள்ள அனைத்து 17 கம்பிகளையும் முழுமையாகப் பயன்படுத்தி வாசிக்கும் விஸ்வரூப கிராண்ட் சோலோ பயிற்சி.",
+        tip: "💡 மத்திய 1-ல் தொடங்கி உச்ச 3̈ வரை ஏறி இறங்கும் பிரம்மாண்ட இசைப் பயணம்.",
+        notes: ["1", "3", "5", "1̇", "3̇", "1̈", "3̈", "2̈", "7̇", "5̇", "3̇", "1̇", "6", "4", "2", "1", "2̈", "1̈", "3̈", "1"]
+    },
+    {
+        id: 49,
+        level: "⚡ LEVEL 6: உச்ச மாஸ்டரி & 17-கம்பி விஸ்வரூபம்",
+        title: "பாடம் 6.4: அதிவேக இரட்டை விரல் பயிற்சி (Velocity Drill)",
+        subtitle: "அனைத்து 17 கம்பிகளிலும் மின்னல் வேக ஓட்டப் பயிற்சி",
+        desc: "கலிம்பாவின் 17 கம்பிகளிலும் இடது-வலது மாறி மாறி மின்னல் வேகத்தில் வாசிக்கும் விரல் திறனாய்வு பயிற்சி.",
+        tip: "💡 முதலில் மெதுவாகத் தொடங்கி படிப்படியாக வேகத்தை அதிகரியுங்கள்.",
+        notes: ["1", "2", "3", "4", "5", "6", "7", "1̇", "2̇", "3̇", "4̇", "5̇", "6̇", "7̇", "1̈", "2̈", "3̈", "2̈", "1̈", "7̇", "6̇", "5̇", "4̇", "3̇", "2̇", "1̇", "7", "6", "5", "4", "3", "2", "1"]
+    },
+    {
+        id: 50,
+        level: "⚡ LEVEL 6: உச்ச மாஸ்டரி & 17-கம்பி விஸ்வரூபம்",
+        title: "பாடம் 6.5: மெடிடேஷன் சவுண்ட் ஹீலிங் நாதம் (Sound Healing)",
+        subtitle: "மன அமைதிக்கான மெதுவான மூச்சுடன் கூடிய நாதப் பயிற்சி",
+        desc: "ஒவ்வொரு மீட்டலையும் 3 விநாடிகள் நீடித்து ஒலிக்கவிட்டு மன அமைதி பெறும் தியான இசைப் பயிற்சி.",
+        tip: "💡 கண்களை மூடி ஒவ்வொரு கம்பியின் அதிர்வு நாதத்தையும் முழுமையாக உணர்ந்து மூச்சை சீராக்குங்கள்.",
+        notes: ["1", "3", "5", "1̇", "3̇", "5̇", "1̇", "5", "3", "1", "4", "6", "1̇", "4̇", "1̇", "6", "4", "1"]
+    },
+    {
+        id: 51,
+        level: "⚡ LEVEL 6: உச்ச மாஸ்டரி & 17-கம்பி விஸ்வரூபம்",
+        title: "பாடம் 6.6: கலிம்பா மாஸ்டர் பட்டமளிப்பு இசைக்கோலம் (Grand Graduation Piece)",
+        subtitle: "அனைத்து நுட்பங்களும் இணைந்த முழுமையான பட்டமளிப்பு சங்கீதம்",
+        desc: "சரளி, ஜண்டை, கிளிசாண்டோ, ஆர்பெஜியோ மற்றும் அனைத்து 17 கம்பிகளையும் இணைத்து வாசிக்கும் இறுதி பட்டமளிப்பு இசைக்கோலம்.",
+        tip: "💡 வாழ்த்துகள்! இந்தப் பாடத்தை வாசித்து முடித்தால் நீங்கள் கலிம்பா வாசிப்பில் முழு தேர்ச்சி பெற்றவர்!",
+        notes: ["1", "3", "5", "1̇", "3̇", "5̇", "1̈", "3̈", "2̈", "7̇", "5̇", "4̇", "2̇", "1̇", "7", "6", "5", "4", "3", "2", "1", "1", "3", "5", "1̇"]
+    }
+];
+
+let currentLessonIdx = 0;
+let lessonStepIdx = 0;
+let isLessonPracticeMode = false;
+
+function renderLessonsSidebar() {
+    const sidebar = document.getElementById('lessonsSidebar');
+    if (!sidebar) return;
+    sidebar.innerHTML = '';
+
+    let currentLevel = '';
+    LESSONS.forEach((l, idx) => {
+        if (l.level !== currentLevel) {
+            currentLevel = l.level;
+            const header = document.createElement('div');
+            header.className = 'lesson-level-header';
+            header.innerHTML = l.level;
+            sidebar.appendChild(header);
+        }
+
+        const btn = document.createElement('button');
+        btn.className = `lesson-item-btn ${idx === currentLessonIdx ? 'active' : ''}`;
+        btn.id = `lesson-btn-${idx}`;
+        btn.innerHTML = `
+            <span class="l-title">${l.title}</span>
+            <span class="l-sub">${l.subtitle || (l.desc.slice(0, 42) + '...')}</span>
+        `;
+        btn.onclick = () => loadLesson(idx);
+        sidebar.appendChild(btn);
+    });
+}
+
+function loadLesson(idx) {
+    currentLessonIdx = idx;
+    lessonStepIdx = 0;
+    const l = LESSONS[idx];
+
+    document.getElementById('lessonBadgeLevel').innerText = l.level;
+    document.getElementById('lessonTitle').innerText = l.title;
+    document.getElementById('lessonDescription').innerText = l.desc;
+    document.getElementById('lessonTipBox').innerHTML = l.tip;
+
+    document.querySelectorAll('.lesson-item-btn').forEach((btn, i) => {
+        btn.classList.toggle('active', i === idx);
+    });
+
+    renderLessonSequence();
+}
+
+function renderLessonSequence() {
+    const l = LESSONS[currentLessonIdx];
+    const seq = document.getElementById('lessonNoteSequence');
+    seq.innerHTML = '';
+
+    l.notes.forEach((noteStr, i) => {
+        const bubble = document.createElement('div');
+        bubble.className = `seq-note-bubble ${i === lessonStepIdx && isLessonPracticeMode ? 'active-step' : ''}`;
+        bubble.id = `lesson-step-${i}`;
+        const tine = findTineByNumString(noteStr);
+        const dotsText = tine ? (tine.dotCount === 2 ? '••' : (tine.dotCount === 1 ? '•' : '')) : (noteStr.includes('̈') || noteStr.includes('..') ? '••' : (noteStr.includes('̇') || noteStr.includes('.') ? '•' : ''));
+        const cleanNum = tine ? tine.numClean : noteStr.replace(/[^0-9]/g, '');
+        const letter = tine ? tine.letter : '';
+
+        bubble.innerHTML = `
+            <div class="bubble-stack">
+                <span class="b-dots">${dotsText || '&nbsp;'}</span>
+                <span class="b-num">${cleanNum}</span>
+                <span class="b-letter">${letter}</span>
+            </div>
+        `;
+        bubble.onclick = () => {
+            if (tine) playKalimbaTineSound(tine);
+        };
+        seq.appendChild(bubble);
+    });
+}
+
+function findTineByNumString(str) {
+    if (!str) return KALIMBA_TINES[8];
+    let match = KALIMBA_TINES.find(t => t.num === str);
+    if (match) return match;
+    match = KALIMBA_TINES.find(t => t.note === str || t.letter === str);
+    if (match) return match;
+    return KALIMBA_TINES.find(t => t.numClean === str) || KALIMBA_TINES[8];
+}
+
+function playCurrentLessonDemo() {
+    const l = LESSONS[currentLessonIdx];
+    let i = 0;
+    function playNext() {
+        if (i < l.notes.length) {
+            const tine = findTineByNumString(l.notes[i]);
+            if (tine) playKalimbaTineSound(tine);
+
+            document.querySelectorAll('.seq-note-bubble').forEach((b, idx) => {
+                b.classList.toggle('active-step', idx === i);
+            });
+
+            i++;
+            setTimeout(playNext, 450);
+        } else {
+            setTimeout(() => {
+                document.querySelectorAll('.seq-note-bubble').forEach(b => b.classList.remove('active-step'));
+            }, 500);
+        }
+    }
+    playNext();
+}
+
+function toggleLessonPracticeMode() {
+    isLessonPracticeMode = !isLessonPracticeMode;
+    lessonStepIdx = 0;
+    const btn = document.getElementById('btnPracticeMode');
+    btn.innerText = isLessonPracticeMode ? "🛑 பயிற்சியை நிறுத்து (Stop)" : "🎮 பயிற்சி முறை (Practice)";
+    renderLessonSequence();
+}
+
+function handleNotePlayedInLessonOrSong(tine) {
+    if (isLessonPracticeMode) {
+        const l = LESSONS[currentLessonIdx];
+        const targetStr = l.notes[lessonStepIdx];
+        const targetTine = findTineByNumString(targetStr);
+        if (targetTine && tine.id === targetTine.id) {
+            const bubble = document.getElementById(`lesson-step-${lessonStepIdx}`);
+            if (bubble) bubble.classList.add('played-step');
+
+            lessonStepIdx++;
+            if (lessonStepIdx >= l.notes.length) {
+                setTimeout(() => {
+                    alert("🎉 மிக அருமை! இந்தப் பாடத்தின் அனைத்து ஸ்வரங்களையும் வெற்றிகரமாக வாசித்து முடித்துவிட்டீர்கள்!");
+                    lessonStepIdx = 0;
+                    renderLessonSequence();
+                }, 120);
+            } else {
+                renderLessonSequence();
+            }
+        }
+    }
+}
+
+// =============================================================
+// TAMIL SONGS LIBRARY & KARAOKE TAB PLAYER (19 SONGS - FULL ILAYARAAJA MASTER COLLECTION)
+// =============================================================
+const TAMIL_SONGS = [];
+
+let currentSongIdx = 0;
+let currentSongFilter = 'all';
+let isSongPlaying = false;
+let songTimeoutId = null;
+let songCurrentTempo = 90;
+
+function filterSongsByCategory(category, btnElement) {
+    currentSongFilter = category;
+    document.querySelectorAll('#songFilterBtns .btn-toggle').forEach(b => b.classList.remove('active'));
+    if (btnElement) btnElement.classList.add('active');
+    renderSongsStrip();
+}
+
+function renderSongsStrip() {
+    const strip = document.getElementById('songsStrip');
+    strip.innerHTML = '';
+
+    const filtered = TAMIL_SONGS.filter(s => {
+        if (currentSongFilter === 'all') return true;
+        if (currentSongFilter === 'easy') return s.difficulty.includes('மிக எளியது');
+        return s.category === currentSongFilter;
+    });
+
+    document.getElementById('songsCountBadge').innerText = `🎵 ${filtered.length} பாடல்கள்`;
+
+    filtered.forEach((song) => {
+        const card = document.createElement('div');
+        card.className = `song-card-btn ${song.id === currentSongIdx ? 'active' : ''}`;
+        card.innerHTML = `
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+                <span class="s-title">🎵 ${song.title}</span>
+            </div>
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-top:2px;">
+                <span class="s-movie">${song.movie}</span>
+                <span style="font-size:10px; font-weight:700; color:#34d399; background:rgba(16,185,129,0.15); padding:2px 6px; border-radius:4px;">${song.difficulty}</span>
+            </div>
+        `;
+        card.onclick = () => selectTamilSong(song.id);
+        strip.appendChild(card);
+    });
+}
+
+function selectTamilSong(id) {
+    stopTamilSongPlayback();
+    currentSongIdx = id;
+    const song = TAMIL_SONGS.find(s => s.id === id) || TAMIL_SONGS[0];
+
+    document.getElementById('songTabSheet').innerText = song.tabsText;
+    document.getElementById('songLyricsLine').innerText = `🎶 ${song.title} - ${song.movie} 🎶`;
+    document.getElementById('songTempoSlider').value = song.tempo;
+    document.getElementById('songTempoVal').innerText = `${song.tempo} BPM`;
+    songCurrentTempo = song.tempo;
+
+    renderSongsStrip();
+}
+
+function toggleTamilSongPlayback() {
+    if (isSongPlaying) {
+        stopTamilSongPlayback();
+    } else {
+        startTamilSongPlayback();
+    }
+}
+
+function startTamilSongPlayback() {
+    initAudio();
+    isSongPlaying = true;
+    document.getElementById('songPlayIcon').innerText = "⏹️";
+    document.getElementById('songPlayText').innerText = "நிறுத்து (Stop)";
+
+    const song = TAMIL_SONGS.find(s => s.id === currentSongIdx) || TAMIL_SONGS[0];
+    let noteIdx = 0;
+    const beatMs = (60 / songCurrentTempo) * 1000;
+
+    function step() {
+        if (!isSongPlaying) return;
+        if (noteIdx < song.notesList.length) {
+            const item = song.notesList[noteIdx];
+            
+            // 1. Play Pure Melody Tine
+            const tine = findTineByNumString(item.num);
+            if (tine) {
+                playKalimbaTineSound(tine, false, 1.0);
+            }
+
+            const dotsText = tine ? (tine.dotCount === 2 ? '••' : (tine.dotCount === 1 ? '•' : '')) : '';
+
+            // Animated Vibrant Karaoke Syllable with Glow & Note info
+            document.getElementById('songLyricsLine').innerHTML = `
+                <div style="display:flex; flex-direction:column; align-items:center; gap:8px;">
+                    <div style="font-size:36px; color:#fde047; font-weight:900; text-shadow:0 0 28px rgba(253,224,71,0.7), 0 0 10px rgba(245,158,11,0.9); transform:scale(1.08); transition:transform 0.15s ease;">
+                        ${item.lyric}
+                    </div>
+                    <div style="display:flex; align-items:center; gap:12px; font-size:15px;">
+                        <span style="color:#38bdf8; font-family:'JetBrains Mono', monospace; font-weight:800; background:rgba(56,189,248,0.15); padding:4px 12px; border-radius:12px; border:1px solid rgba(56,189,248,0.35);">
+                            🎯 கம்பி: ${dotsText ? dotsText + ' ' : ''}${tine ? tine.numClean : item.num} (${tine ? tine.letter : ''} • ${tine ? tine.carnaticFull : ''})
+                        </span>
+                        <span style="color:#a855f7; font-size:13px; font-weight:700;">
+                            ⌨️ கீபோர்டு பட்டன்: <b style="color:#fff; background:#a855f7; padding:2px 8px; border-radius:6px;">${tine ? tine.key : ''}</b>
+                        </span>
+                    </div>
+                </div>
+            `;
+
+            const durFactor = item.dur !== undefined ? item.dur : 1.0;
+            const noteIntervalMs = Math.max(140, beatMs * durFactor);
+
+            noteIdx++;
+            songTimeoutId = setTimeout(step, noteIntervalMs);
+        } else {
+            stopTamilSongPlayback();
+            document.getElementById('songLyricsLine').innerHTML = `
+                <div style="font-size:24px; color:#10b981; font-weight:800;">
+                    🎉 ${song.title} பாடல் இனிமையாக நிறைவடைந்தது! மீண்டும் கேட்க 'Play' அழுத்தவும்.
+                </div>
+            `;
+        }
+    }
+    step();
+}
+
+function stopTamilSongPlayback() {
+    isSongPlaying = false;
+    if (songTimeoutId) clearTimeout(songTimeoutId);
+    document.getElementById('songPlayIcon').innerText = "▶️";
+    document.getElementById('songPlayText').innerText = "பாடலைக் கேட்க (Play Song)";
+}
+
+function updateSongTempo(val) {
+    songCurrentTempo = parseInt(val);
+    document.getElementById('songTempoVal').innerText = `${val} BPM`;
+}
+
+function copySongTabs() {
+    const text = document.getElementById('songTabSheet').innerText;
+    navigator.clipboard.writeText(text).then(() => {
+        alert("📋 கலிம்பா ஸ்வரக் குறிப்புகள் கிளிப்போர்டில் வெற்றிகரமாக நகலெடுக்கப்பட்டன!");
+    });
+}
+
+// =============================================================
+// CUSTOM TAB COMPOSER & AUDIO RECORDER
+// =============================================================
+let mediaRecorder = null;
+let recordedChunks = [];
+let isRecording = false;
+
+function playCustomNotes() {
+    initAudio();
+    const text = document.getElementById('customTabTextarea').value;
+    const tokens = text.trim().split(/[\s,|-]+/);
+    if (!tokens.length) return;
+
+    let idx = 0;
+    function next() {
+        if (idx < tokens.length) {
+            const token = tokens[idx];
+            if (token) {
+                const tine = findTineByNumString(token);
+                if (tine) playKalimbaTineSound(tine);
+            }
+            idx++;
+            setTimeout(next, 380);
+        }
+    }
+    next();
+}
+
+function clearCustomNotes() {
+    document.getElementById('customTabTextarea').value = '';
+}
+
+async function toggleAudioRecording() {
+    initAudio();
+    const btn = document.getElementById('btnRecordAudio');
+    const list = document.getElementById('recordingsList');
+
+    if (isRecording) {
+        if (mediaRecorder && mediaRecorder.state !== 'inactive') {
+            mediaRecorder.stop();
+        }
+        isRecording = false;
+        btn.classList.remove('listening');
+        document.getElementById('recIcon').innerText = "🔴";
+        document.getElementById('recBtnText').innerText = "ரெக்கார்ட் செய் (Record)";
+    } else {
+        try {
+            const dest = audioCtx.createMediaStreamDestination();
+            masterGain.connect(dest);
+
+            recordedChunks = [];
+            mediaRecorder = new MediaRecorder(dest.stream);
+
+            mediaRecorder.ondataavailable = (e) => {
+                if (e.data.size > 0) recordedChunks.push(e.data);
+            };
+
+            mediaRecorder.onstop = () => {
+                const blob = new Blob(recordedChunks, { type: 'audio/webm' });
+                const audioUrl = URL.createObjectURL(blob);
+                const item = document.createElement('div');
+                item.style.cssText = "background: rgba(15,23,42,0.8); padding: 10px; border-radius: 8px; display: flex; align-items: center; justify-content: space-between; gap: 10px;";
+                item.innerHTML = `
+                    <span>🎵 பதிவு ${new Date().toLocaleTimeString()}</span>
+                    <audio controls src="${audioUrl}" style="height: 32px;"></audio>
+                    <a href="${audioUrl}" download="kalimba_recording.webm" class="btn-toggle" style="text-decoration:none;">⬇️ சேமி</a>
+                `;
+                list.appendChild(item);
+            };
+
+            mediaRecorder.start();
+            isRecording = true;
+            btn.classList.add('listening');
+            document.getElementById('recIcon').innerText = "⏹️";
+            document.getElementById('recBtnText').innerText = "பதிவை நிறுத்து (Stop Record)";
+        } catch (err) {
+            alert("ரெக்கார்டர் பிழை: " + err.message);
+        }
+    }
+}
+
+// =============================================================
+// FREQUENCY & SWARA CHART RENDERER
+// =============================================================
+function renderFrequencyChart() {
+    const tbody = document.getElementById('chartTableBody');
+    tbody.innerHTML = '';
+
+    KALIMBA_TINES.forEach((t, i) => {
+        const tr = document.createElement('tr');
+        tr.style.borderBottom = "1px solid rgba(255,255,255,0.06)";
+        tr.style.background = i % 2 === 0 ? "rgba(15,23,42,0.6)" : "transparent";
+        const dotsText = t.dotCount === 2 ? '••' : (t.dotCount === 1 ? '•' : '');
+        tr.innerHTML = `
+            <td style="padding: 10px; font-weight:800; color:#cbd5e1;">${t.id + 1}</td>
+            <td style="padding: 10px; color:${t.side==='left'?'#38bdf8':(t.side==='right'?'#f59e0b':'#10b981')}; font-weight:700;">${t.side.toUpperCase()}</td>
+            <td style="padding: 10px; font-weight:900; font-family:'Outfit'; color:#38bdf8; font-size:15px;">${t.letter}</td>
+            <td style="padding: 10px; font-weight:900; font-family:'JetBrains Mono';">
+                <div style="display:inline-flex; flex-direction:column; align-items:center; line-height:1;">
+                    <span style="font-size:11px; color:#fde047; font-weight:900; line-height:7px; height:7px; letter-spacing:2px;">${dotsText || '&nbsp;'}</span>
+                    <span style="font-size:16px; color:#fef08a;">${t.numClean}</span>
+                </div>
+            </td>
+            <td style="padding: 10px; font-size:12px; color:#94a3b8;">${t.octaveName}</td>
+            <td style="padding: 10px; font-family:'JetBrains Mono'; color:#a855f7;">${t.freq.toFixed(2)} Hz</td>
+            <td style="padding: 10px; font-weight:800; color:#34d399;">${t.carnaticFull}</td>
+            <td style="padding: 10px;">
+                <span class="tine-color-pill sticker-${t.sticker}">${t.sticker.toUpperCase()}</span>
+            </td>
+        `;
+        tbody.appendChild(tr);
+    });
+}
+
+// =============================================================
+// TAB NAVIGATION SYSTEM
+// =============================================================
+
+const TAB_DEFINITIONS = [
+    { id: 'simulator', num: 1, title: '🎹 1. எலக்ட்ரானிக் கலிம்பா சாதகம் (Simulator)' },
+    { id: 'theory', num: 2, title: '📖 2. புள்ளிகள் & எழுத்துக்கள் தத்துவம் (Theory)' },
+    { id: 'tuner', num: 3, title: '🎛️ 3. நேரலை மைக் சுருதிமானி (Live Tuner)' },
+    { id: 'lessons', num: 4, title: '🎓 4. அடுக்குமுறை பாடங்கள் (Step Lessons)' },
+    { id: 'songs', num: 5, title: '🎵 5. தமிழ் திரைப்பாடல்கள் (Tamil Songs)' },
+    { id: 'composer', num: 6, title: '🎼 6. சொந்த மெல்லிசை & ரெக்கார்டர் (Studio)' },
+    { id: 'chart', num: 7, title: '📊 7. சுவர & அதிர்வெண் அட்டவணை (Chart)' }
+];
+
+function switchTab(tabId, scrollIntoView = false) {
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.dock-btn').forEach(b => b.classList.remove('active'));
+
+    const panel = document.getElementById(`tab-${tabId}`);
+    if (panel) panel.classList.add('active');
+
+    const topBtn = document.getElementById(`tabbtn-${tabId}`);
+    if (topBtn) {
+        topBtn.classList.add('active');
+        topBtn.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+    }
+
+    const dockBtn = document.getElementById(`dockbtn-${tabId}`);
+    if (dockBtn) dockBtn.classList.add('active');
+
+    if (tabId === 'tuner') {
+        drawTunerGauge(0, 0, false);
+    }
+
+    // Update URL Hash
+    try {
+        history.replaceState(null, null, '#' + tabId);
+    } catch (e) {}
+
+    // Toast notification
+    const tabDef = TAB_DEFINITIONS.find(t => t.id === tabId);
+    if (tabDef) {
+        showTabToast(tabDef.title);
+    }
+
+    if (scrollIntoView && window.scrollY > 180) {
+        const navContainer = document.querySelector('.nav-tabs-container');
+        if (navContainer) {
+            navContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    }
+}
+
+function showTabToast(msg) {
+    const toast = document.getElementById('tabToastNotice');
+    if (!toast) return;
+    toast.innerHTML = `<span>⚡</span> <span>${msg}</span>`;
+    toast.classList.add('show');
+    if (window.toastTimeout) clearTimeout(window.toastTimeout);
+    window.toastTimeout = setTimeout(() => toast.classList.remove('show'), 1500);
+}
+
+function scrollNavTabs(direction) {
+    const bar = document.getElementById('mainNavTabsBar');
+    if (!bar) return;
+    bar.scrollBy({ left: direction === 'left' ? -220 : 220, behavior: 'smooth' });
+}
+
+// Initialize on page load
+window.addEventListener('DOMContentLoaded', () => {
+    renderKalimbaTines();
+    renderSongMiniKalimba();
+    setNotationMode('numbered');
+    renderTargetTinesMatrix();
+    renderLessonsSidebar();
+    loadLesson(0);
+    renderSongsStrip();
+    selectTamilSong(0);
+    renderFrequencyChart();
+    drawTunerGauge(0, 0, false);
+
+    // Initial hash routing (e.g. #songs or #lessons)
+    const hash = window.location.hash.replace('#', '');
+    if (hash && ['simulator', 'theory', 'tuner', 'lessons', 'songs', 'composer', 'chart'].includes(hash)) {
+        switchTab(hash);
+    }
+});
+</script>
+
+
+<!-- Floating Quick Switcher Dock -->
+<div class="floating-quick-dock" id="floatingQuickDock" title="1-Click Tab Switcher (விசைப்பலகை சுருக்குவழிகள்: 1 முதல் 7 அல்லது Alt+1 முதல் Alt+7)">
+    <button class="dock-btn active" id="dockbtn-simulator" onclick="switchTab('simulator')" title="1. 🎹 சாதகம் (Simulator) [Key 1]">🎹</button>
+    <button class="dock-btn" id="dockbtn-theory" onclick="switchTab('theory')" title="2. 📖 தத்துவம் (Theory) [Key 2]">📖</button>
+    <button class="dock-btn" id="dockbtn-tuner" onclick="switchTab('tuner')" title="3. 🎛️ சுருதிமானி (Tuner) [Key 3]">🎛️</button>
+    <button class="dock-btn" id="dockbtn-lessons" onclick="switchTab('lessons')" title="4. 🎓 பாடங்கள் (Lessons) [Key 4]">🎓</button>
+    <button class="dock-btn" id="dockbtn-songs" onclick="switchTab('songs')" title="5. 🎵 பாடல்கள் (Songs) [Key 5]">🎵</button>
+    <button class="dock-btn" id="dockbtn-composer" onclick="switchTab('composer')" title="6. 🎼 ரெக்கார்டர் (Studio) [Key 6]">🎼</button>
+    <button class="dock-btn" id="dockbtn-chart" onclick="switchTab('chart')" title="7. 📊 அட்டவணை (Chart) [Key 7]">📊</button>
+    <button class="dock-btn dock-btn-top" onclick="window.scrollTo({top:0, behavior:'smooth'})" title="⬆️ மேலே செல்க (Scroll Top)">⬆️</button>
+</div>
+
+<!-- Toast Notice Box -->
+<div id="tabToastNotice"></div>
+
+</body>
+</html>

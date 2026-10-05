@@ -1,0 +1,754 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#13203a">
+  <title>Play Any Song in 21 Days — Keyboard Ear Practice</title>
+  <style>
+    :root{
+      color-scheme:light;--navy:#172541;--navy2:#233654;--ink:#202b3d;--muted:#68758a;
+      --paper:#f6f1e7;--paper2:#fffdf7;--line:#d9cfba;--gold:#d6a746;--gold2:#efc76e;
+      --blue:#7199c5;--blue2:#e8f1fa;--green:#3a8c70;--green2:#e5f2eb;--red:#b65d5d;
+      --shadow:0 16px 40px rgba(31,43,62,.11);--round:20px
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:var(--paper);color:var(--ink);font:15px/1.55 "Segoe UI",Arial,sans-serif;min-width:320px}
+    button,input,select{font:inherit}
+    button{color:inherit}
+    button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #e1ad42;outline-offset:2px}
+    .app{max-width:1500px;margin:auto;padding:18px clamp(12px,3vw,36px) 42px}
+    .topbar{display:flex;justify-content:space-between;align-items:center;gap:14px;margin-bottom:16px}
+    .brand{display:flex;align-items:center;gap:11px;min-width:0;color:#fff}
+    .brand-mark{width:44px;height:44px;border-radius:14px;background:linear-gradient(145deg,#f4d78f,#d7a84c);display:grid;place-items:center;color:#20304c;font-size:23px}
+    .brand-copy{padding:7px 14px 7px 0}
+    .brand-name{font-weight:850;letter-spacing:.01em}
+    .brand small{display:block;color:#c6d1e0;font-size:11px}
+    .topbar{background:var(--navy);border-radius:17px;padding:9px 13px 9px 10px;box-shadow:var(--shadow)}
+    .top-actions{display:flex;gap:8px}
+    .btn,.tab-btn,.day-link,.choice,.pill,.tiny-btn,.select,.text-input{border:1px solid var(--line);border-radius:11px;background:var(--paper2);cursor:pointer;transition:transform .15s,border-color .15s,background .15s}
+    .btn:hover,.tab-btn:hover,.day-link:hover,.choice:hover,.pill:hover,.tiny-btn:hover{transform:translateY(-1px);border-color:#b69a5e}
+    .btn{padding:9px 13px;font-size:12px;font-weight:750}
+    .btn.primary{background:var(--gold2);border-color:var(--gold2);color:#332713}
+    .btn.dark{background:var(--navy2);border-color:var(--navy2);color:#fff}
+    .btn.ghost{background:transparent;color:#f5ecd7;border-color:#53647c}
+    .btn:disabled{opacity:.45;cursor:not-allowed;transform:none}
+    .hero{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(260px,.65fr);gap:20px;align-items:center;padding:clamp(22px,4vw,40px);border-radius:26px;background:linear-gradient(125deg,#1a2947,#263b5d 76%,#32445b);color:#fff;box-shadow:var(--shadow);overflow:hidden;position:relative}
+    .hero:before{content:"";position:absolute;inset:auto -50px -185px auto;width:350px;height:350px;border:1px solid #ffffff25;border-radius:50%;box-shadow:0 0 0 34px #ffffff08,0 0 0 72px #ffffff05}
+    .hero-copy,.hero-card{position:relative;z-index:1}
+    .eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:#eccb83;font-weight:850}
+    h1{font-size:clamp(30px,4.2vw,49px);line-height:1.04;letter-spacing:-.045em;margin:11px 0 12px}
+    .hero p{max-width:680px;color:#d6deea;margin:0 0 16px}
+    .hero-card{border:1px solid #ffffff26;background:#111d32a8;border-radius:17px;padding:17px}
+    .hero-card strong{display:block;margin-bottom:6px}
+    .hero-card p{font-size:12px;margin:0;color:#c5d0dd}
+    .source-tag{display:inline-block;margin-top:11px;border:1px solid #ffffff2c;border-radius:999px;padding:5px 9px;color:#eee2c8;font-size:10px}
+    .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:14px 0 18px}
+    .stat{border:1px solid var(--line);border-radius:15px;background:var(--paper2);padding:12px 15px;box-shadow:0 4px 14px #37486209}
+    .stat small{display:block;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);font-size:10px}
+    .stat b{display:block;font-size:21px;color:var(--navy);line-height:1.3}
+    .stat span{font-size:11px;color:var(--muted)}
+    .main-nav{display:flex;gap:8px;overflow:auto;padding:0 0 10px;scrollbar-width:thin;scrollbar-color:#bba771 transparent}
+    .tab-btn{white-space:nowrap;padding:10px 14px;font-weight:750;font-size:13px;color:#45536a}
+    .tab-btn.active{background:var(--navy);border-color:var(--navy);color:#fff;box-shadow:inset 0 -2px 0 var(--gold2)}
+    .tab-btn span{margin-right:7px}
+    .view{display:none}.view.active{display:block}
+    .course-layout{display:grid;grid-template-columns:265px minmax(0,1fr);gap:15px;align-items:start}
+    .day-rail,.day-card,.surface{background:var(--paper2);border:1px solid var(--line);border-radius:var(--round);box-shadow:var(--shadow)}
+    .day-rail{position:sticky;top:12px;padding:14px}
+    .rail-head{display:flex;justify-content:space-between;align-items:center;padding:1px 4px 10px;border-bottom:1px solid #ece4d4}
+    .rail-head strong{color:var(--navy);font-size:14px}.rail-head small{color:var(--muted);font-size:10px}
+    .part-label{margin:13px 4px 6px;color:#927236;text-transform:uppercase;letter-spacing:.1em;font-size:10px;font-weight:900}
+    .day-link{width:100%;display:grid;grid-template-columns:31px 1fr 15px;gap:8px;align-items:center;text-align:left;padding:8px;border-color:transparent;background:transparent;margin:2px 0}
+    .day-link.active{border-color:#d5bb82;background:#fbf5e4}
+    .day-number{width:28px;height:28px;border-radius:9px;background:#f0eadd;display:grid;place-items:center;color:#49566b;font-weight:800;font-size:11px}
+    .day-link.active .day-number{background:var(--gold2);color:#392d18}
+    .day-title{font-size:11px;line-height:1.22;font-weight:700;color:#39465a}
+    .day-check{color:var(--green);font-size:14px}
+    .day-card{padding:clamp(17px,3vw,30px);min-height:690px}
+    .day-top{display:flex;align-items:start;justify-content:space-between;gap:15px;padding-bottom:15px;border-bottom:1px solid #ece4d4}
+    .day-part{font-size:11px;color:#a07a2d;font-weight:850;text-transform:uppercase;letter-spacing:.09em}
+    h2{font-size:clamp(24px,3vw,35px);line-height:1.15;color:var(--navy);margin:7px 0}
+    .day-goal{color:#5d6c80;margin:0;max-width:760px}
+    .page-ref{flex:none;text-align:right;border:1px solid #e0d5c0;border-radius:11px;padding:8px 10px;font-size:11px;color:#637086;background:#fcfaf4}
+    .page-ref b{display:block;color:#a17b34;font-size:10px;text-transform:uppercase;letter-spacing:.1em}
+    .progress-row{display:flex;align-items:center;gap:10px;margin:14px 0 18px;color:#778197;font-size:11px}
+    .progress-bar{height:8px;flex:1;border-radius:99px;background:#eee8dc;overflow:hidden}
+    .progress-bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#71ad91,#b5ce75);border-radius:99px;transition:width .2s}
+    .day-columns{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(270px,.9fr);gap:14px}
+    .block{border:1px solid #e7dece;background:#fffdf8;border-radius:15px;padding:15px;margin-bottom:11px}
+    .block h3{font-size:14px;color:var(--navy);margin:0 0 8px}
+    .block p{font-size:12px;color:#677488;margin:0 0 9px}.block p:last-child{margin-bottom:0}
+    .learn-list,.check-list{list-style:none;padding:0;margin:0;display:grid;gap:8px}
+    .learn-list li{display:flex;gap:8px;color:#47556a;font-size:12px}
+    .learn-list li:before{content:"✦";color:#bd9140;font-size:11px;margin-top:1px}
+    .check-list label{display:flex;align-items:start;gap:8px;font-size:11px;color:#536177;cursor:pointer}
+    .check-list input{margin:2px 0 0;accent-color:var(--green);width:14px;height:14px}
+    .activity-card{border:1px solid #dfd1b5;background:linear-gradient(150deg,#fff9e8,#fffdf7);border-radius:16px;padding:15px}
+    .activity-card h3{font-size:14px;color:#634d27;margin:0 0 4px}
+    .activity-card>p{font-size:11px;color:#766e5e;margin:0 0 11px}
+    .activity-content{min-height:120px}
+    .day-bottom{display:flex;justify-content:space-between;align-items:center;gap:10px;border-top:1px solid #ece4d4;padding-top:14px;margin-top:15px}
+    .button-row{display:flex;gap:7px;flex-wrap:wrap}
+    .status-note{color:#778197;font-size:11px}
+    .tiny-btn{padding:7px 10px;font-size:11px;font-weight:700;color:#42516a}
+    .select,.text-input{padding:8px 10px;color:#28364b;background:#fffefa;border-color:#d5cab6}
+    .meter-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+    .chip-row{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
+    .chip,.solfege-chip{display:inline-flex;align-items:center;border:1px solid #e1d3b7;background:#faf4e7;border-radius:999px;padding:5px 9px;color:#5a513e;font-size:10px}
+    .feedback{min-height:19px;margin:8px 0 0;font-size:11px;color:var(--green);font-weight:650}
+    .inline-piano-wrap{overflow:hidden;border:1px solid #ded5c4;border-radius:15px;background:#eee8dc}
+    .piano-scroll{overflow-x:auto;overscroll-behavior-x:contain;scrollbar-width:thin;scrollbar-color:#9a8b6e #e9e1d2;-webkit-overflow-scrolling:touch;padding:9px}
+    .keybed{position:relative;height:185px;width:1276px;min-width:1276px}
+    .white-keys{display:flex;position:absolute;inset:0}
+    .white-key{width:58px;height:180px;flex:0 0 58px;border:1px solid #a9a69e;border-radius:0 0 7px 7px;background:linear-gradient(#fff,#fbfaf6 82%,#ece9e1);display:flex;align-items:end;justify-content:center;padding:0 0 9px;cursor:pointer;color:#4a5666;font-weight:750;font-size:10px;box-shadow:inset 0 -4px 0 #dfddd5}
+    .white-key.selected,.white-key.pressed{background:linear-gradient(#fff5d9,#f7d985);box-shadow:inset 0 -4px 0 #d4a846}
+    .white-key.scale-key{box-shadow:inset 0 -5px 0 #9ac7ab}
+    .white-key.selected.scale-key{box-shadow:inset 0 -5px 0 #d3a341}
+    .black-key{position:absolute;top:0;width:36px;height:111px;z-index:2;border:1px solid #111d31;border-radius:0 0 6px 6px;background:linear-gradient(90deg,#131d30,#34415a 50%,#10192a);color:#dce2ea;box-shadow:0 5px 6px #16213a4a;cursor:pointer;font-size:8px;display:flex;align-items:end;justify-content:center;padding-bottom:7px}
+    .black-key.selected,.black-key.pressed{background:linear-gradient(90deg,#bc8c36,#f2ca69,#986b24);color:#231d14;border-color:#936a29}
+    .piano-caption{display:flex;justify-content:space-between;gap:8px;align-items:center;flex-wrap:wrap;padding:8px 11px;font-size:10px;color:#677489}
+    .quiz-box{background:var(--navy);border-radius:14px;padding:13px;color:#fff;text-align:center;margin:9px 0}
+    .quiz-box small{display:block;color:#d4dceb;font-size:10px;text-transform:uppercase;letter-spacing:.1em}
+    .quiz-box strong{display:block;color:var(--gold2);font-size:25px;line-height:1.25;margin:3px 0}
+    .quiz-options{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+    .choice-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}
+    .choice{padding:8px 5px;font-size:11px;font-weight:750;color:#46556b}
+    .choice.correct{background:var(--green2);border-color:#75ac8d;color:#286c53}
+    .choice.wrong{background:#fae9e6;border-color:#d1948b;color:#9d4941}
+    .keyboard-card,.surface{padding:18px;margin-bottom:14px}
+    .surface h2,.keyboard-card h2{font-size:24px;margin:5px 0}
+    .surface p,.keyboard-card p{color:#6c788b;font-size:12px}
+    .split-grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(290px,.95fr);gap:13px}
+    .lab-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
+    .sub-card{border:1px solid #e2d8c7;border-radius:15px;background:#fffdf8;padding:15px}
+    .sub-card h3{font-size:15px;color:var(--navy);margin:0 0 5px}
+    .sub-card p{font-size:11px;color:#707d90;margin:0 0 10px}
+    .interval-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
+    .key-readout{display:flex;align-items:center;gap:8px;margin:9px 0}
+    .key-note{background:var(--navy);color:#fff;border-radius:10px;padding:8px 12px;font-weight:850;font-size:17px}
+    .key-readout span{font-size:11px;color:#65748a}
+    .scale-display{display:flex;flex-wrap:wrap;gap:5px;margin:9px 0}
+    .scale-step{border:1px solid #e1d1ad;background:#fbf2df;border-radius:9px;padding:7px 8px;text-align:center;min-width:39px}
+    .scale-step b{display:block;color:#283956;font-size:13px}
+    .scale-step small{color:#8c7750;font-size:9px}
+    .drill-sequence{display:flex;gap:4px;flex-wrap:wrap;margin:10px 0}
+    .solfege-chip{font-weight:800;font-size:11px;background:#fffdf7}
+    .solfege-chip.home{background:#fff0c5;border-color:#daba68;color:#594319}
+    .large-count{font-size:28px;font-weight:900;color:var(--navy)}
+    .audio-player{width:100%;margin:8px 0}
+    .local-file-note{color:#717d8c;font-size:10px}
+    .song-actions{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin:10px 0}
+    .step-card{border:1px solid #e3d6bd;border-radius:13px;background:#fffaf0;padding:12px;font-size:11px;color:#687589}
+    .step-card b{display:block;color:#755a23;margin-bottom:4px;font-size:12px}
+    .phrase-list{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:10px 0}
+    .phrase-card{border:1px solid #ded3bf;border-radius:12px;background:#fffdf8;padding:10px}
+    .phrase-card b{display:block;color:var(--navy);font-size:12px}
+    .phrase-card span{display:block;color:#718095;font-size:10px;margin:4px 0}
+    .phrase-beats{display:flex;gap:4px;flex-wrap:wrap;margin:6px 0}
+    .clap-dot{width:12px;height:12px;border-radius:50%;background:#eadbb8}
+    .clap-dot.hit{background:#cf9f43}
+    .note-strip{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0}
+    .note-token{border:1px solid #bdcbe0;border-radius:11px;background:#eff4fa;padding:7px 9px;min-width:50px;text-align:center;color:#314767;font-size:11px;font-weight:800}
+    .note-token small{display:block;color:#718098;font-size:9px;font-weight:500}
+    .meter-dots{display:flex;gap:6px;align-items:center;margin:9px 0}
+    .meter-dot{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;background:#ede7d9;color:#536077;font-size:10px}
+    .meter-dot.active{background:#f0c65e;color:#3d301a;transform:scale(1.1)}
+    .timer-display{font-size:38px;font-weight:850;color:var(--navy);font-variant-numeric:tabular-nums;margin:12px 0}
+    .bar{height:8px;background:#ece4d4;border-radius:99px;overflow:hidden;margin:9px 0}
+    .bar i{height:100%;width:0;background:linear-gradient(90deg,#7bb394,#c2cd76);display:block}
+    .studio-shell{border:1px solid #2f496d;border-radius:21px;background:linear-gradient(135deg,#162b4a,#243e63 70%,#36506d);padding:clamp(16px,3vw,26px);color:#fff;box-shadow:var(--shadow)}
+    .studio-shell h2{color:#fff;margin:6px 0}.studio-shell>p{color:#d0dbe8;max-width:780px}
+    .studio-mode-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:15px 0}
+    .studio-mode{min-height:72px;text-align:left;background:#ffffff0d;border-color:#ffffff28;color:#e7eef6;padding:11px}
+    .studio-mode b,.studio-mode small{display:block}.studio-mode b{font-size:12px}.studio-mode small{font-size:10px;color:#c6d2e1;margin-top:3px;line-height:1.25}
+    .studio-mode.active{background:#f3c96f;color:#302516;border-color:#f3c96f}.studio-mode.active small{color:#654d27}
+    .studio-grid{display:grid;grid-template-columns:minmax(310px,.9fr) minmax(0,1.1fr);gap:14px;align-items:start;margin-top:13px}
+    .studio-round{border:1px solid #ffffff24;border-radius:17px;background:#0d1d33b5;padding:16px}
+    .studio-round-label{font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:#f2cf84;font-weight:850}
+    .studio-prompt{font-size:clamp(24px,3vw,36px);line-height:1.08;margin:7px 0;color:#fff}
+    .studio-copy{font-size:12px;color:#cbd6e5;margin:0 0 11px}
+    .studio-options{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;margin-top:10px}
+    .studio-options .choice{background:#fffdf8;color:#40506a;border-color:#d4dbe6}.studio-options .choice.correct{background:#cdeedc;border-color:#72ad90;color:#256348}.studio-options .choice.wrong{background:#fae8e5;border-color:#d4948a;color:#973f39}
+    .studio-score{display:flex;gap:7px;flex-wrap:wrap;margin-top:11px}.studio-score .chip{background:#ffffff12;border-color:#ffffff2c;color:#eaf1f8}.studio-score .chip b{color:#f6d785}
+    .studio-keyboard{border:1px solid #ffffff28;border-radius:17px;background:#f7f0e3;padding:11px;color:#33435a}.studio-keyboard .piano-caption{color:#53647a}
+    .footer{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;color:#788398;font-size:10px;margin-top:18px}
+    .toast{position:fixed;z-index:99;left:50%;bottom:18px;transform:translate(-50%,15px);opacity:0;pointer-events:none;background:#18304d;color:#fff;padding:10px 15px;border-radius:11px;box-shadow:var(--shadow);font-size:12px;transition:.2s}
+    .toast.show{opacity:1;transform:translate(-50%,0)}
+    @media(max-width:1060px){.course-layout{grid-template-columns:225px minmax(0,1fr)}.day-columns{grid-template-columns:1fr}.activity-card{margin-top:2px}}
+    @media(max-width:760px){.app{padding:10px 10px 28px}.hero{grid-template-columns:1fr;border-radius:21px}.stats{grid-template-columns:repeat(2,1fr);gap:7px}.stat{padding:10px}.course-layout{grid-template-columns:1fr}.day-rail{position:static;padding:11px}.part-label{display:none}.day-list{display:flex;gap:7px;overflow-x:auto;padding:0 0 5px;scrollbar-width:thin;scrollbar-color:#aa9666 transparent}.day-link{min-width:190px;margin:0}.day-card{min-height:unset}.day-top{flex-direction:column}.page-ref{text-align:left}.lab-grid,.split-grid,.studio-grid{grid-template-columns:1fr}.studio-mode-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.song-actions{grid-template-columns:repeat(2,1fr)}.phrase-list{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:480px){.top-actions .btn.ghost{display:none}.hero-actions .btn{flex:1}.interval-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.studio-options{grid-template-columns:repeat(2,minmax(0,1fr))}.day-bottom{flex-direction:column;align-items:flex-start}.song-actions{grid-template-columns:1fr 1fr}.source-tag{line-height:1.4}}
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true">🎹</div>
+        <div class="brand-copy"><div class="brand-name">Play Any Song · 21 Days</div><small>Keyboard ear-training practice · படிப்படியாகக் கேட்டு வாசிக்க</small></div>
+      </div>
+      <div class="top-actions"><button class="btn ghost" type="button" data-action="reset">Reset saved progress</button><button class="btn primary" type="button" data-action="view" data-view="song">Open song workbench</button></div>
+    </header>
+    <section class="hero">
+      <div class="hero-copy">
+        <span class="eyebrow">Listen first · then find it on the keys</span>
+        <h1>Train your ear.<br>Work out a melody yourself.</h1>
+        <p>The book teaches a 21-day route from sound and intervals to playing a melody by ear. This keyboard companion follows that route with audible pitch drills and a hands-on “your song” workspace.</p>
+        <div class="button-row hero-actions"><button class="btn primary" type="button" data-action="view" data-view="practice">▶ Start practice studio</button><button class="btn ghost" type="button" data-action="resume">Continue Day</button></div>
+      </div>
+      <aside class="hero-card"><strong>Use your own song on Day 19–21.</strong><p>Load a local audio file, slow it to 50–70%, hum without lyrics, clap short phrases, match the first pitch, then add the remaining notes by comparing each one with the last.</p><span class="source-tag">Adapted from the complete 65-page guide · 21 daily lessons</span></aside>
+    </section>
+    <section class="stats" aria-label="Your progress">
+      <div class="stat"><small>21-day route</small><b id="progressPercent">0%</b><span>days completed</span></div>
+      <div class="stat"><small>Current lesson</small><b id="currentDayStat">Day 1</b><span id="currentTitleStat">What is music?</span></div>
+      <div class="stat"><small>Ear drill</small><b id="earScoreStat">0 / 0</b><span>interval answers right</span></div>
+      <div class="stat"><small>Practice habit</small><b id="practiceMinutesStat">0 min</b><span>saved on this device</span></div>
+    </section>
+    <nav class="main-nav" aria-label="Practice sections">
+      <button class="tab-btn active" type="button" data-action="view" data-view="course" aria-current="page"><span>🧭</span>21-day path</button>
+      <button class="tab-btn" type="button" data-action="view" data-view="ear"><span>👂</span>Ear-training lab</button>
+      <button class="tab-btn" type="button" data-action="view" data-view="song"><span>🎵</span>Your song workbench</button>
+      <button class="tab-btn" type="button" data-action="view" data-view="practice"><span>🎹</span>Practice studio</button>
+    </nav>
+
+    <main>
+      <section class="view active" id="view-course">
+        <div class="course-layout">
+          <aside class="day-rail"><div class="rail-head"><strong>21 daily steps</strong><small>Go in order · no rushing</small></div><div class="day-list" id="dayList"></div></aside>
+          <article class="day-card" id="dayContent" aria-live="polite"></article>
+        </div>
+      </section>
+
+      <section class="view" id="view-ear">
+        <section class="keyboard-card">
+          <div class="eyebrow">Tap a key to hear a clean reference pitch</div><h2>Keyboard note finder</h2>
+          <p>Play the same note on your Yamaha keyboard. Three octaves are shown; drag the bottom bar sideways on a phone. These are simple browser tones, not sampled keyboard sounds.</p>
+          <div class="key-readout"><strong class="key-note" id="selectedNote">C4</strong><span id="selectedNoteHint">Selected reference pitch · middle C</span><button class="tiny-btn" type="button" data-action="play-selected">Hear it again</button></div>
+          <div class="inline-piano-wrap"><div class="piano-scroll"><div class="keybed" id="keyboardMain"></div></div><div class="piano-caption"><span>Lowest key: C3</span><span id="keyboardLegend">Green lower edge marks current scale notes</span><span>Highest key: C6</span></div></div>
+        </section>
+        <div class="lab-grid">
+          <section class="surface sub-card">
+            <span class="eyebrow">Day 4–8 · Intervals</span><h3>Hear the distance</h3><p>Listen to two notes. Choose the semitone distance, then check its interval name. Start with small gaps; expand to the octave when ready.</p>
+            <div class="quiz-box"><small>Listen first, then answer</small><strong id="intervalPrompt">Ready?</strong><span id="intervalSubprompt" style="font-size:10px;color:#d5ddec">Press “Play interval”</span></div>
+            <div class="interval-grid" id="intervalOptions"></div>
+            <div class="button-row" style="margin-top:9px"><button class="btn primary" type="button" data-action="play-interval">▶ Play interval</button><button class="btn" type="button" data-action="new-interval">New interval</button><select class="select" id="intervalRange" aria-label="Interval difficulty"><option value="4">Small · 1–4 semitones</option><option value="7">Medium · 1–7 semitones</option><option value="12" selected>Full octave · 1–12</option></select></div>
+            <p class="feedback" id="intervalFeedback"></p>
+          </section>
+          <section class="surface sub-card">
+            <span class="eyebrow">Day 2 & 9 · Pitch direction</span><h3>Higher, lower or the same?</h3><p>Hear a pair and notice direction before trying to name the notes.</p>
+            <div class="quiz-box"><small>Compare note two with note one</small><strong id="directionPrompt">Ready?</strong><span id="directionSubprompt" style="font-size:10px;color:#d5ddec">Listen for the movement</span></div>
+            <div class="button-row"><button class="btn primary" type="button" data-action="play-direction">▶ Play pair</button><button class="btn" type="button" data-action="new-direction">New pair</button></div>
+            <div class="choice-grid" style="margin-top:9px"><button class="choice" data-action="direction-answer" data-answer="up">Higher ↑</button><button class="choice" data-action="direction-answer" data-answer="same">Same ↔</button><button class="choice" data-action="direction-answer" data-answer="down">Lower ↓</button></div>
+            <p class="feedback" id="directionFeedback"></p>
+          </section>
+          <section class="surface sub-card">
+            <span class="eyebrow">Day 11–13 · Scales</span><h3>Build a scale like a ruler</h3><p>Every major scale uses T–T–S–T–T–T–S. Natural minor uses T–S–T–T–S–T–T.</p>
+            <div class="meter-row"><label class="local-file-note" for="scaleRoot">Start note</label><select class="select" id="scaleRoot"><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>A</option><option>B</option></select><select class="select" id="scaleMode"><option value="major">Major · Do Re Mi</option><option value="minor">Natural minor · Do Re Me</option></select><button class="tiny-btn" type="button" data-action="build-scale">Build</button></div>
+            <div class="scale-display" id="scaleDisplay"></div>
+            <div class="button-row"><button class="btn primary" type="button" data-action="play-built-scale">▶ Hear scale</button><button class="btn" type="button" data-action="apply-drill">Use in ear drill</button></div>
+          </section>
+          <section class="surface sub-card">
+            <span class="eyebrow">Day 14 · Match your sung pitch</span><h3>Voice-to-key check</h3><p>Select a keyboard note, play it, sing it back, then compare with the microphone tuner. Permission is requested only when you start it.</p>
+            <div class="quiz-box"><small>Current voice pitch</small><strong id="micNote">—</strong><span id="micCents" style="font-size:10px;color:#d5ddec">Microphone is off</span></div>
+            <div class="button-row"><button class="btn primary" type="button" data-action="mic-toggle" id="micButton">Start microphone</button><button class="btn" type="button" data-action="set-target">Set target to selected key</button><button class="btn" type="button" data-action="count-match">Count attempt</button></div>
+            <p class="feedback" id="micStatus">Aim to match within ±20 cents. Day 14 suggests moving on after about 70% accuracy.</p>
+            <div class="chip-row"><span class="chip">Target: <b id="micTargetLabel">C4</b></span><span class="chip">Accuracy: <b id="micAccuracy">0%</b></span><span class="chip">Attempts: <b id="micAttempts">0</b></span><button class="tiny-btn" type="button" data-action="reset-match">Reset score</button></div>
+          </section>
+          <section class="surface sub-card">
+            <span class="eyebrow">Day 15–18 · Solfege</span><h3>Sing before you play</h3><p>Choose a drill. Sing the pattern first, then hear it on the reference keyboard. Repeat in natural minor after the major pattern feels familiar.</p>
+            <div class="meter-row"><label class="local-file-note" for="drillKind">Drill</label><select class="select" id="drillKind"><option value="linear">Linear · up and down</option><option value="ladder">Ladder · build to the top</option><option value="skip">Skip · interval pairs</option><option value="jump">Jump away from Do and return</option></select><select class="select" id="drillLevel" aria-label="Drill level"><option value="1">Level 1</option><option value="2">Level 2</option><option value="3" selected>Level 3</option><option value="4">Level 4</option><option value="5">Level 5</option><option value="6">Level 6</option><option value="7">Level 7</option></select></div>
+            <div class="drill-sequence" id="drillSequence"></div>
+            <div class="button-row"><button class="btn primary" type="button" data-action="play-drill">▶ Hear drill</button><button class="btn" type="button" data-action="drill-mode">Switch major / minor</button></div>
+          </section>
+          <section class="surface sub-card">
+            <span class="eyebrow">Day 8 · Interval table</span><h3>From C to the octave</h3><p>Use this as a reference after guessing by ear. Distances are counted in semitones.</p>
+            <div class="scale-display" id="intervalReference"></div>
+          </section>
+        </div>
+      </section>
+
+      <section class="view" id="view-song">
+        <section class="surface">
+          <span class="eyebrow">Day 19 · Slow down and hum it out</span><h2>Your song-by-ear workbench</h2>
+          <p>Choose a simple song you already know. This book does not provide a song list or recorded song tracks, so use a source you choose and work out its melody by listening.</p>
+          <div class="split-grid">
+            <section class="sub-card">
+              <h3>1 · Slow the song down</h3><p>Load an audio file from your device. It plays locally in this browser tab; it is not uploaded. The book recommends 50–70% speed and many listening/humming repetitions.</p>
+              <label class="local-file-note" for="songTitle">Song title (optional)</label><input class="text-input" id="songTitle" type="text" maxlength="100" placeholder="Name your practice piece">
+              <label class="local-file-note" for="songFile" style="display:block;margin-top:8px">Local audio file</label><input id="songFile" type="file" accept="audio/*">
+              <audio class="audio-player" id="songAudio" controls preload="metadata"></audio>
+              <div class="meter-row"><label class="local-file-note" for="speedRange">Playback speed</label><input id="speedRange" type="range" min="0.5" max="0.7" step="0.05" value="0.6"><b id="speedLabel">0.60×</b></div>
+              <div class="meter-row" style="margin-top:8px"><button class="tiny-btn" type="button" data-action="set-loop-start">Set phrase start here</button><button class="tiny-btn" type="button" data-action="set-loop-end">Set phrase end here</button><button class="tiny-btn" type="button" data-action="clear-loop">Clear loop</button><span class="local-file-note" id="loopLabel">Loop not set</span></div>
+              <p class="local-file-note">Listen to the whole melody slowly, then repeat a short section until the sound is clear. Sing on “aa” or “oo” rather than focusing on words.</p>
+            </section>
+            <section class="sub-card">
+              <h3>2 · Count your listening rounds</h3><p>Before touching the keys, listen and hum. The guide suggests roughly 15–20 repeats before moving on.</p>
+              <div class="quiz-box"><small>Listening / humming rounds</small><strong><span id="listenCount">0</span> / 20</strong><span style="font-size:10px;color:#d5ddec">One click after a full listen-and-hum round</span></div>
+              <div class="button-row"><button class="btn primary" type="button" data-action="listen-round">+ I listened and hummed</button><button class="btn" type="button" data-action="reset-listens">Reset rounds</button></div>
+              <p class="feedback" id="listenMessage"></p>
+              <div class="block" style="margin-top:12px"><h3>3 · Break the phrase into syllables</h3><p>Clap once for each small sung sound. Keep your own phrase labels; no lyrics are needed here.</p><div class="phrase-list" id="phraseList"></div><button class="tiny-btn" type="button" data-action="add-phrase">+ Add phrase</button></div>
+            </section>
+          </div>
+        </section>
+        <section class="surface">
+          <span class="eyebrow">Day 20–21 · Pitch match and relative pitch</span><h2>Find the first note, then follow its neighbours</h2>
+          <p>Hum only the first pitch, compare it with one key at a time, and mark a match. For each next note, ask: same, higher, lower, small move or larger jump?</p>
+          <div class="key-readout"><strong class="key-note" id="songSelectedNote">C4</strong><span id="songSelectedHint">Tap a key below to choose your next pitch</span></div>
+          <div class="inline-piano-wrap"><div class="piano-scroll"><div class="keybed" id="keyboardSong"></div></div><div class="piano-caption"><span>Play a note and compare it with your humming</span><span>Keyboard range C3–C6</span></div></div>
+          <div class="button-row" style="margin-top:11px"><button class="btn primary" type="button" data-action="song-anchor">Use selected key as first note</button><button class="btn" type="button" data-action="song-add-note">Add selected key as next note</button><button class="btn" type="button" data-action="song-play-notes">▶ Hear my note list</button><button class="btn" type="button" data-action="song-undo">Undo</button><button class="btn" type="button" data-action="song-clear">Clear phrase</button></div>
+          <div class="note-strip" id="melodyNotes"></div>
+          <p class="feedback" id="songNoteFeedback"></p>
+          <div class="song-actions"><div class="step-card"><b>Step 1 · Slow</b>Use the audio speed control and listen repeatedly.</div><div class="step-card"><b>Step 2 · Hum</b>Replace the words with one open sound.</div><div class="step-card"><b>Step 3 · Phrase</b>Clap the small phrases before finding keys.</div><div class="step-card"><b>Step 4–5 · Notes</b>Match the start, then compare each following pitch.</div></div>
+        </section>
+      </section>
+
+      <section class="view" id="view-practice">
+        <section class="surface">
+          <div class="studio-shell" id="practiceStudio" aria-live="polite"></div>
+          <div class="chip-row" style="margin-top:16px"><span class="chip">Interval lab: <b id="practiceScore">0 / 0</b></span><span class="chip">Song listens: <b id="practiceListens">0</b></span><span class="chip">Voice match: <b id="practicePitchAccuracy">0%</b></span></div>
+          <h2 style="margin-top:18px">Your 21-day route</h2><p>Mark a day complete after you can answer its checkpoint in your own words and finish its exercise. The route stays saved on this device.</p>
+          <div id="progressDays" class="phrase-list"></div>
+          <div class="split-grid">
+            <section class="sub-card"><h3>Short session timer</h3><p>Pick 5–20 minutes for focused listening, humming or keyboard matching.</p><select class="select" id="practiceDuration"><option value="5">5 minutes</option><option value="10" selected>10 minutes</option><option value="15">15 minutes</option><option value="20">20 minutes</option></select><div class="timer-display" id="timerDisplay">10:00</div><div class="bar"><i id="timerBar"></i></div><div class="button-row"><button class="btn primary" type="button" data-action="timer-toggle" id="timerButton">Start timer</button><button class="btn" type="button" data-action="timer-reset">Reset timer</button></div><p class="feedback" id="timerFeedback"></p></section>
+            <section class="sub-card"><h3>My next focus</h3><p>Choose one thing to listen for in your next session.</p><select class="select" id="nextFocus"><option>Hear the difference between higher and lower pitches</option><option>Recognize a semitone and a tone</option><option>Sing the major scale before playing it</option><option>Match my voice to the keyboard</option><option>Slow one phrase of my own song</option><option>Compare each melody note with the last one</option></select><p class="feedback" id="focusSaved">Focus is stored on this device.</p></section>
+          </div>
+        </section>
+      </section>
+    </main>
+    <footer class="footer"><span>Companion to <i>Play Any Song in 21 Days</i> by Daniel Prabakar · Jubal Music Academy.</span><span>Original practice UI · no song transcriptions or backing tracks embedded</span></footer>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    "use strict";
+    const days=[
+      {title:"What is music? What is sound?",part:"Part I · Foundations",pages:"6",goal:"Understand music as organised sound, and sound as vibration.",learn:["Sound begins with vibration; a plucked string, a piano key and a humming voice all create vibration.","Music shapes sounds into patterns with pitch and timing so that they can express an idea or feeling."],check:["I can describe how vibration creates a sound.","I noticed a sound source vibrate or felt my own voice vibrate while humming."],kind:"sound"},
+      {title:"Pitch: how sound becomes musical",part:"Part I · Foundations",pages:"8",goal:"Hear pitch as the highness or lowness of a sound.",learn:["A thin, tight string tends to sound higher; a thick, loose string tends to sound lower.","Play two notes and compare their direction before trying to identify their names."],check:["I can tell whether the second of two notes is higher or lower.","I can find a low and a high note on the keyboard."],kind:"pitch"},
+      {title:"Notes as the alphabet of music",part:"Part I · Foundations",pages:"10–11",goal:"Know the seven note letters and see how they form melodies, chords and scales.",learn:["The natural-note sequence is C–D–E–F–G–A–B, then it repeats at the next C.","The black keys add the remaining pitches between most natural notes; E–F and B–C are already a semitone apart."],check:["I can say C–D–E–F–G–A–B in order.","I know that the same note names return in the next octave."],kind:"notes"},
+      {title:"From notes to intervals",part:"Part II · Intervals",pages:"13",goal:"Understand an interval as the distance between two notes.",learn:["C to D and C to G are both intervals, but their distances sound different.","Play a close pair and a wider pair; first describe the gap as small or large."],check:["I can point to two notes and describe their gap as small or large.","I can play C then D, and C then G, and hear they are different distances."],kind:"interval"},
+      {title:"Why intervals matter",part:"Part II · Intervals",pages:"15",goal:"Connect intervals to melodies, chords and scales.",learn:["Melodies move through note-to-note relationships.","Chords and scales also depend on measured note distances.","Listen to a short phrase you know and notice where it steps or jumps."],check:["I can name melody, chords and scales as structures built with intervals.","I can identify one small move and one larger jump by ear."],kind:"interval"},
+      {title:"Measure a semitone",part:"Part II · Intervals",pages:"17",goal:"Find the smallest one-key move on a keyboard.",learn:["A semitone is the distance to the very next key, black or white.","C–C-sharp, E–F and B–C are each one semitone apart.","Move one neighbouring key at a time and count your steps."],check:["I can move one semitone above or below a chosen key.","I can show a semitone on white-to-black and white-to-white keys."],kind:"semitone"},
+      {title:"Measure a tone",part:"Part II · Intervals",pages:"19–20",goal:"Hear a tone as two semitones.",learn:["A tone spans two semitones, such as C–D or F–G.","Compare a one-key move with a two-key move; notice how much farther the second travels."],check:["I can move one tone above a starting note.","I can show that a tone contains two semitones."],kind:"tone"},
+      {title:"The interval reference table",part:"Part II · Intervals",pages:"22–23",goal:"Learn interval names and their semitone distances from C.",learn:["Use the reference after listening: minor 2nd = 1 semitone, major 2nd = 2, then minor and major 3rds = 3 and 4.","The perfect fourth is 5, tritone 6, perfect fifth 7, minor sixth 8, major sixth 9, minor seventh 10, major seventh 11 and octave 12."],check:["I can name several distances from C without reading the full table.","I can guess the interval before revealing its name."],kind:"interval-table"},
+      {title:"Why trained ears hear more",part:"Part III · Ear training",pages:"25–26",goal:"Understand the gap between hearing a sound and interpreting it.",learn:["Recognising that two sounds differ is a start; ear training helps name what changed.","Practise listening, describing what happened and then checking the keyboard."],check:["I can explain the difference between hearing a melody and understanding its movements.","I tried to repeat a short note pattern and noticed what I guessed."],kind:"aural"},
+      {title:"Intervals connect hearing to playing",part:"Part III · Ear training",pages:"28",goal:"Use note distances as a framework for translating a melody.",learn:["When you hear a phrase, compare each note with the previous one.","Ask whether the movement is close or wide before searching the keyboard."],check:["I can explain why intervals help connect hearing with playing.","I can listen to a short phrase and mark one move that sounds wider than another."],kind:"interval"},
+      {title:"Major and minor shades",part:"Part IV · Scales",pages:"30–31",goal:"Notice the different character of major and minor sounds.",learn:["The guide invites you to compare the feeling of major-key and minor-key music.","Listen to each pattern, describe your own impression and avoid guessing by speed or volume alone."],check:["I can hear the major and natural-minor patterns from a chosen starting note.","I can describe what I notice in my own words."],kind:"scale"},
+      {title:"A scale is a musical ruler",part:"Part IV · Scales",pages:"33–34",goal:"Build a consistent note set from a fixed pattern of whole and half steps.",learn:["Think of notes as marks on a ruler and intervals as the distances between them.","Major pattern: tone–tone–semitone–tone–tone–tone–semitone.","Start on C, then try a different root and follow the same distances."],check:["I can build C major by following T–T–S–T–T–T–S.","I can try the same pattern from another note."],kind:"scale"},
+      {title:"What a scale really does",part:"Part IV · Scales",pages:"36–41",goal:"Use a scale as an organised set of pitches, not just a memorised list.",learn:["A scale helps narrow down likely notes in a melody; it does not reveal the melody by itself.","The natural minor pattern is T–S–T–T–S–T–T.","C major is C–D–E–F–G–A–B; A natural minor is A–B–C–D–E–F–G."],check:["I can explain why scales help when searching for song notes.","I can compare the major and natural-minor patterns from a root."],kind:"scale"},
+      {title:"Ear training and pitch matching",part:"Part V · Ear training drills",pages:"43–44",goal:"Begin by matching one heard or played note with your voice.",learn:["Play one key, listen carefully, then hum the same pitch before checking it.","Repeat until the voice-to-key match feels reliable; the guide suggests about 70% accuracy before the scale drills."],check:["I played a note, sang it back and compared the pitch.","I reached a comfortable match rate or know to repeat this step."],kind:"match"},
+      {title:"Sing the major scale linearly",part:"Part V · Ear training drills",pages:"46",goal:"Sing each major-scale note in order before playing it.",learn:["Use Do–Re–Mi–Fa–So–La–Ti–Do going up, then return down to Do.","Your voice gives the ear a bridge to the fingers; sing first, then check on the keyboard.","Stay with the major sound first; revisit all drills in minor afterward."],check:["I can sing the scale up and down at an even pace.","I sang before I played the keyboard reference."],kind:"linear"},
+      {title:"Ladder exercise",part:"Part V · Ear training drills",pages:"48",goal:"Build a longer scale phrase gradually and return to Do.",learn:["Begin with Do–Re–Do, then extend one step higher at a time.","Each new level climbs farther before descending to Do.","The home note helps you hear how each scale degree relates to the tonic."],check:["I can sing a short ladder level without losing the home note.","I can continue the pattern one step higher when ready."],kind:"ladder"},
+      {title:"Skip exercise",part:"Part V · Ear training drills",pages:"50",goal:"Recognise wider scale relationships by skipping notes.",learn:["Start with skip-one pairs such as Do–Mi and Re–Fa.","Move to skip-two and skip-three pairs only when the closer jumps sound steady.","Keep the notes accurate; speed is not the goal."],check:["I can sing a skip-one pair accurately.","I can identify whether the jump got larger when I skip more scale notes."],kind:"skip"},
+      {title:"Jump exercise",part:"Part V · Ear training drills",pages:"52",goal:"Hear each scale note in relation to Do by returning home after every jump.",learn:["Practise Do–Re–Do, then Do–Mi–Do and the wider scale jumps.","Return to Do after each target so the home pitch stays clear.","Repeat slowly until the jump feels heard rather than guessed."],check:["I can sing a jump from Do and return to Do in tune.","I can keep the home pitch in mind during a wider jump."],kind:"jump"},
+      {title:"Slow the song and hum it",part:"Part VI · Play a melody by ear",pages:"54–55",goal:"Separate the melody from tempo and lyrics before touching the keyboard.",learn:["Choose a simple song you already know and listen at about 50–70% speed.","Listen and hum the melody several times before moving to a keyboard.","Replace words with one open vowel sound so attention stays on pitch."],check:["I slowed my chosen song and listened repeatedly.","I hummed it without singing its words."],kind:"song"},
+      {title:"Break phrases and find the first note",part:"Part VI · Play a melody by ear",pages:"57–59",goal:"Clap small phrase units and pitch-match the melody's first note.",learn:["Break the humming into manageable phrases; clap once for each sung sound unit.","Pause at the very beginning of the song and hum only its first pitch.","Try one key at a time until a keyboard pitch matches that hum."],check:["I divided a short part of my song into phrases.","I found and marked a first-note candidate by listening and comparing."],kind:"song"},
+      {title:"Use relative pitch to find the rest",part:"Part VI · Play a melody by ear",pages:"61–62",goal:"Find remaining notes by comparing each pitch with the previous one.",learn:["After the first note is found, ask whether the next note is higher, lower, the same, nearby or a larger jump.","Search within the chosen scale rather than scanning every key.","Repeat the linear, ladder, skip and jump drills in natural minor, then compare with major."],check:["I added notes by comparing each one with the previous pitch.","I tried one major and one minor drill and noticed the scale-degree differences."],kind:"song"}
+    ];
+    const semitoneNames=[
+      {n:1,name:"Minor 2nd",short:"m2"},{n:2,name:"Major 2nd",short:"M2"},{n:3,name:"Minor 3rd",short:"m3"},{n:4,name:"Major 3rd",short:"M3"},
+      {n:5,name:"Perfect 4th",short:"P4"},{n:6,name:"Tritone",short:"TT"},{n:7,name:"Perfect 5th",short:"P5"},{n:8,name:"Minor 6th",short:"m6"},
+      {n:9,name:"Major 6th",short:"M6"},{n:10,name:"Minor 7th",short:"m7"},{n:11,name:"Major 7th",short:"M7"},{n:12,name:"Octave",short:"8ve"}
+    ];
+    const state=readState();
+    let currentDay=Math.max(1,Math.min(21,state.currentDay||1)),view="course",selectedMidi=60,currentScale={root:"C",mode:"major",midi:60,notes:[],labels:[]},scaleSemis=[];
+    let audioCtx=null,intervalTarget=0,intervalRoot=60,directionTarget="up",directionFirst=60,directionSecond=62;
+    let drillMode="major",drillKind="linear",drillLevel=3,intervalRight=state.intervalRight||0,intervalAsked=state.intervalAsked||0;
+    let listenCount=state.listenCount||0,phrases=state.phrases||[],melodyNotes=state.melodyNotes||[],songAnchor=null,localAudioUrl=null,loopStart=null,loopEnd=null;
+    let timerId=null,timerRemain=0,timerFull=0,micStream=null,micContext=null,micRaf=null,micCentsNow=null,micPitchNow=null,micTarget=60,micGood=0,micTried=0;
+    let studioMode=state.studioMode||"direction",studioRoot=60,studioAnswer=null,studioRight=state.studioRight||0,studioAsked=state.studioAsked||0,studioTarget="up",studioStepDistance=1,studioDegree=0;
+    const whitePcs=[0,2,4,5,7,9,11],naturalSemis={C:0,D:2,E:4,F:5,G:7,A:9,B:11},rootMidis={C:60,D:62,E:64,F:65,G:67,A:69,B:71};
+    function readState(){try{return JSON.parse(localStorage.getItem("playAnySong21PracticeV1")||"{}")}catch(e){return {}}}
+    function saveState(){try{localStorage.setItem("playAnySong21PracticeV1",JSON.stringify(state))}catch(e){}}
+    function safeText(v){return String(v).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})}
+    function toast(msg){const box=document.getElementById("toast");box.textContent=msg;box.classList.add("show");clearTimeout(toast.timer);toast.timer=setTimeout(function(){box.classList.remove("show")},2100)}
+    function noteName(midi){const pc=((midi%12)+12)%12,table=["C","C♯","D","D♯","E","F","F♯","G","G♯","A","A♯","B"];return table[pc]}
+    function noteOctave(midi){return Math.floor(midi/12)-1}
+    function noteFull(midi){return noteName(midi)+noteOctave(midi)}
+    function renderStats(){
+      const completed=state.completed||[];
+      document.getElementById("progressPercent").textContent=Math.round(completed.length/21*100)+"%";
+      document.getElementById("currentDayStat").textContent="Day "+currentDay;
+      document.getElementById("currentTitleStat").textContent=days[currentDay-1].title;
+      document.getElementById("earScoreStat").textContent=(state.intervalRight||0)+" / "+(state.intervalAsked||0);
+      document.getElementById("practiceMinutesStat").textContent=(state.practiceMinutes||0)+" min";
+    }
+    function renderDayList(){
+      const groups=[
+        {from:1,to:3,label:"Part I · Sound & notes"},{from:4,to:8,label:"Part II · Intervals"},
+        {from:9,to:10,label:"Part III · Listening"},{from:11,to:13,label:"Part IV · Scales"},
+        {from:14,to:18,label:"Part V · Ear drills"},{from:19,to:21,label:"Part VI · Play by ear"}
+      ];
+      const host=document.getElementById("dayList"),completed=state.completed||[];let html="";
+      groups.forEach(function(g){html+='<div class="part-label">'+g.label+'</div>';for(let d=g.from;d<=g.to;d++){html+='<button type="button" class="day-link '+(d===currentDay?"active":"")+'" data-action="day" data-day="'+d+'" aria-current="'+(d===currentDay?"step":"false")+'"><span class="day-number">'+d+'</span><span class="day-title">'+safeText(days[d-1].title)+'</span><span class="day-check">'+(completed.includes(d)?"✓":"")+'</span></button>'}});
+      host.innerHTML=html;
+    }
+    function checklist(items,day){
+      const saved=state.dayChecks||{};
+      return items.map(function(text,index){const checked=((saved[day]||[]).includes(index))?" checked":"";return '<label><input type="checkbox" data-day-check="'+day+'" data-check-index="'+index+'"'+checked+'> <span>'+safeText(text)+'</span></label>'}).join("");
+    }
+    function dayActivity(d){
+      if(d.kind==="sound")return '<div class="quiz-box"><small>Listen to one note, then notice its vibration</small><strong id="daySoundNote">C4</strong><span style="font-size:10px;color:#d5ddec">Play a reference tone and hum it gently</span></div><div class="button-row"><button class="btn primary" data-action="day-tone">▶ Play selected note</button><button class="btn" data-action="view" data-view="ear">Open the keyboard →</button></div><p class="feedback">Try the gentle hum and feel the vibration at your throat, just as the guide suggests.</p>';
+      if(d.kind==="pitch")return '<div class="quiz-box"><small>Two notes</small><strong id="dayPitchPrompt">Higher or lower?</strong><span class="local-file-note">Listen before looking at the key labels</span></div><div class="button-row"><button class="btn primary" data-action="day-pitch-play">▶ Play pair</button><button class="btn" data-action="day-pitch-new">New pair</button></div><div class="choice-grid" style="margin-top:8px"><button class="choice" data-action="day-pitch-answer" data-answer="up">Second higher</button><button class="choice" data-action="day-pitch-answer" data-answer="same">Same pitch</button><button class="choice" data-action="day-pitch-answer" data-answer="down">Second lower</button></div><p class="feedback" id="dayPitchFeedback"></p>';
+      if(d.kind==="notes")return '<div class="quiz-box"><small>Say then play the note alphabet</small><strong>C · D · E · F · G · A · B</strong><span style="font-size:10px;color:#d5ddec">Play each white key from C4 to B4 on the keyboard</span></div><div class="button-row"><button class="btn" data-action="view" data-view="ear">Open keyboard →</button><button class="btn" data-action="chromatic-sequence">Hear the 12-note cycle</button></div>';
+      if(d.kind==="interval"||d.kind==="interval-table"||d.kind==="aural")return '<div class="quiz-box"><small>Listen to note movement</small><strong id="dayIntervalPrompt">Try an interval</strong><span class="local-file-note">Guess small / wide first, then name it</span></div><div class="button-row"><button class="btn primary" data-action="play-interval">▶ Hear interval</button><button class="btn" data-action="new-interval">New interval</button><button class="btn" data-action="view" data-view="ear">Open interval lab →</button></div><p class="feedback" id="dayIntervalFeedback"></p>';
+      if(d.kind==="semitone"||d.kind==="tone")return '<div class="quiz-box"><small>'+ (d.kind==="semitone"?"One key next to this note":"Two keys above this note")+'</small><strong id="stepTarget">C4</strong><span class="local-file-note">Choose a starting pitch, then hear its neighbour</span></div><div class="button-row"><button class="btn primary" data-action="step-drill">▶ Play the step</button><button class="btn" data-action="new-step">New starting note</button><button class="btn" data-action="view" data-view="ear">Use piano keys →</button></div><p class="feedback" id="stepFeedback"></p>';
+      if(d.kind==="scale")return '<div class="quiz-box"><small>Scale builder</small><strong>T–T–S–T–T–T–S</strong><span style="font-size:10px;color:#d5ddec">Try C major or compare with natural minor</span></div><div class="button-row"><button class="btn primary" data-action="view" data-view="ear">Build and hear a scale →</button></div>';
+      if(d.kind==="match")return '<div class="quiz-box"><small>Pitch matching check</small><strong id="dayMatchTarget">'+noteFull(selectedMidi)+'</strong><span style="font-size:10px;color:#d5ddec">Pick a key in the lab, sing it back, compare with a tuner</span></div><div class="button-row"><button class="btn primary" data-action="view" data-view="ear">Open voice-to-key check →</button></div>';
+      if(d.kind==="linear"||d.kind==="ladder"||d.kind==="skip"||d.kind==="jump")return '<div class="quiz-box"><small>Sing the pattern first</small><strong>'+({linear:"Do → Re → Mi → … → Do",ladder:"Do → Re → Do · then climb",skip:"Do → Mi · Re → Fa · …",jump:"Do → So → Do"})[d.kind]+'</strong><span style="font-size:10px;color:#d5ddec">Use the solfege drill and play it only after singing</span></div><div class="button-row"><button class="btn primary" data-action="set-drill" data-kind="'+d.kind+'">Open this drill →</button><button class="btn" data-action="view" data-view="ear">Ear-training lab</button></div>';
+      return '<div class="quiz-box"><small>Use your own song</small><strong>Slow · Hum · Phrase · Match · Compare</strong><span style="font-size:10px;color:#d5ddec">No song list is provided in the guide; bring a song you already know</span></div><div class="button-row"><button class="btn primary" data-action="view" data-view="song">Open song workbench →</button></div>';
+    }
+    function renderDay(){
+      const d=days[currentDay-1],completed=(state.completed||[]).includes(currentDay),checked=(state.dayChecks||{})[currentDay]||[],pct=Math.round(checked.length/d.check.length*100);
+      document.getElementById("dayContent").innerHTML='<div class="day-top"><div><span class="day-part">Day '+currentDay+' · '+safeText(d.part)+'</span><h2>'+safeText(d.title)+'</h2><p class="day-goal">'+safeText(d.goal)+'</p></div><div class="page-ref"><b>PDF page</b>'+d.pages+'</div></div>'+
+        '<div class="progress-row"><span>'+checked.length+' / '+d.check.length+' self-checks</span><div class="progress-bar"><i style="width:'+pct+'%"></i></div><span>'+pct+'%</span></div>'+
+        '<div class="day-columns"><div><section class="block"><h3>Learn the idea</h3><ul class="learn-list">'+d.learn.map(function(x){return '<li>'+safeText(x)+'</li>'}).join("")+'</ul></section><section class="block"><h3>Checkpoint</h3><p>Before going forward, answer this honestly in your own words:</p><div class="chip">'+safeText(d.check[0])+'</div></section><section class="block"><h3>My checkpoint notes</h3><div class="check-list">'+checklist(d.check,currentDay)+'</div><p class="local-file-note" style="margin-top:8px">Ticks save in this browser. You can return to any day whenever you want.</p></section></div><aside class="activity-card"><h3>Practise Day '+currentDay+'</h3><p>Listen, try, then explain what you heard.</p><div class="activity-content">'+dayActivity(d)+'</div></aside></div>'+
+        '<div class="day-bottom"><span class="status-note">'+(completed?"✓ This day is marked complete":"Take your time; the guide recommends moving in order.")+'</span><div class="button-row"><button class="btn" type="button" data-action="previous-day" '+(currentDay===1?"disabled":"")+'>← Previous</button><button class="btn primary" type="button" data-action="complete-day">'+(completed?"Completed ✓":"Mark day complete")+'</button><button class="btn" type="button" data-action="next-day">'+(currentDay===21?"Finish":"Next day →")+'</button></div></div>';
+      renderDayList();renderStats();updateDayDrill();
+    }
+    function setDay(day){currentDay=Math.max(1,Math.min(21,day));state.currentDay=currentDay;saveState();renderDay();window.scrollTo({top:0,behavior:"smooth"})}
+    function switchView(name){
+      view=name;document.querySelectorAll(".view").forEach(function(v){v.classList.toggle("active",v.id==="view-"+name)});
+      document.querySelectorAll(".tab-btn").forEach(function(b){const active=b.dataset.view===name;b.classList.toggle("active",active);if(active)b.setAttribute("aria-current","page");else b.removeAttribute("aria-current")});
+      if(name==="ear")updateKeyboard();if(name==="song"){updateKeyboard();renderPhrases();renderMelody()}if(name==="practice"){renderProgressDays();renderStudio();}
+      window.scrollTo({top:0,behavior:"smooth"});
+    }
+    function setupAudio(){if(!audioCtx){const AC=window.AudioContext||window.webkitAudioContext;if(!AC){toast("Audio is not available in this browser.");return null}audioCtx=new AC()}if(audioCtx.state==="suspended")audioCtx.resume();return audioCtx}
+    function playMidi(midi,when,duration,volume){
+      const ctx=setupAudio();if(!ctx)return;
+      const start=when||ctx.currentTime,life=duration||.78,amp=volume||.12,freq=440*Math.pow(2,(midi-69)/12);
+      const osc=ctx.createOscillator(),second=ctx.createOscillator(),gain=ctx.createGain(),filter=ctx.createBiquadFilter(),mix=ctx.createGain();
+      osc.type="triangle";second.type="sine";osc.frequency.setValueAtTime(freq,start);second.frequency.setValueAtTime(freq*2,start);
+      mix.gain.value=.23;filter.type="lowpass";filter.frequency.setValueAtTime(Math.min(3600,freq*7),start);
+      gain.gain.setValueAtTime(.0001,start);gain.gain.exponentialRampToValueAtTime(amp,start+.012);gain.gain.exponentialRampToValueAtTime(amp*.36,start+.15);gain.gain.exponentialRampToValueAtTime(.0001,start+life);
+      osc.connect(filter);second.connect(mix);mix.connect(filter);filter.connect(gain);gain.connect(ctx.destination);osc.start(start);second.start(start);osc.stop(start+life+.025);second.stop(start+life+.025);
+    }
+    function playSequence(notes,spacing,life,volume){
+      const ctx=setupAudio();if(!ctx)return;const start=ctx.currentTime+.04;
+      notes.forEach(function(midi,i){if(midi!==null)playMidi(midi,start+i*(spacing||.6),life||.48,volume||.09)});
+    }
+    function studioModeInfo(mode){
+      return {
+        direction:{label:"Pitch direction",note:"Hear higher, lower or same"},
+        interval:{label:"Interval distance",note:"Name the semitone distance"},
+        step:{label:"Key steps",note:"Tell semitone from tone"},
+        solfege:{label:"Scale degree",note:"Hear Do and name the degree"}
+      }[mode]||{label:"Pitch direction",note:"Hear higher, lower or same"};
+    }
+    function newStudioRound(){
+      studioAnswer=null;studioRoot=60+Math.floor(Math.random()*9);
+      if(studioMode==="direction"){const same=Math.random()<.2,distance=1+Math.floor(Math.random()*5),up=Math.random()<.5;studioTarget=same?"same":up?"up":"down";}
+      if(studioMode==="interval")studioTarget=1+Math.floor(Math.random()*12);
+      if(studioMode==="step")studioStepDistance=Math.random()<.5?1:2;
+      if(studioMode==="solfege")studioDegree=Math.floor(Math.random()*8);
+      renderStudio();
+    }
+    function studioChoices(){
+      if(studioMode==="direction")return [["up","Higher ↑"],["same","Same ↔"],["down","Lower ↓"]];
+      if(studioMode==="interval")return semitoneNames.map(function(item){return [String(item.n),item.n+" · "+item.short]});
+      if(studioMode==="step")return [["1","1 semitone"],["2","1 tone · 2 semitones"]];
+      const mode=(document.getElementById("scaleMode")||{value:"major"}).value;
+      return Array.from({length:8},function(_,i){return [String(i),solf(i,mode)]});
+    }
+    function renderStudio(){
+      const host=document.getElementById("practiceStudio");if(!host)return;
+      const info=studioModeInfo(studioMode),modes=["direction","interval","step","solfege"];
+      const prompt={direction:"Which way did the second note move?",interval:"How far apart are the two notes?",step:"Is the move a semitone or a tone?",solfege:"After Do, which scale degree did you hear?"}[studioMode];
+      const options=studioChoices().map(function(item){return '<button class="choice" type="button" data-action="studio-answer" data-studio-answer="'+item[0]+'">'+item[1]+'</button>'}).join("");
+      host.innerHTML='<span class="eyebrow" style="color:#f2cf84">Live keyboard practice</span><h2>Practice Studio</h2><p>Choose a drill, listen without looking at the keys, answer, then use the keyboard to check your ear. Every round makes a fresh question.</p><div class="studio-mode-grid">'+modes.map(function(mode){const m=studioModeInfo(mode);return '<button class="studio-mode '+(mode===studioMode?"active":"")+'" type="button" data-action="studio-mode" data-studio-mode="'+mode+'"><b>'+m.label+'</b><small>'+m.note+'</small></button>'}).join("")+'</div><div class="studio-grid"><section class="studio-round"><span class="studio-round-label">'+info.label+' · Round '+(studioAsked+1)+'</span><h3 class="studio-prompt">'+prompt+'</h3><p class="studio-copy">Press play first. Answer by ear. You can use the reference keyboard after your answer.</p><div class="button-row"><button class="btn primary" type="button" data-action="studio-play">▶ Play question</button><button class="btn" type="button" data-action="studio-new">New round</button><button class="btn" type="button" data-action="view" data-view="ear">Open full lab</button></div><div class="studio-options">'+options+'</div><p class="feedback" id="studioFeedback">Listen, then choose one answer.</p><div class="studio-score"><span class="chip">Studio score: <b id="studioScore">'+studioRight+' / '+studioAsked+'</b></span><span class="chip">Current focus: <b>'+info.label+'</b></span></div></section><section class="studio-keyboard"><div class="key-readout"><strong class="key-note" id="studioSelectedNote">C4</strong><span id="studioSelectedHint">Tap a key after answering to check the pitch.</span><button class="tiny-btn" type="button" data-action="play-selected">Hear selected key</button></div><div class="inline-piano-wrap"><div class="piano-scroll"><div class="keybed" id="keyboardPractice"></div></div><div class="piano-caption"><span>C3</span><span>Reference keyboard · tap a key to hear it</span><span>C6</span></div></div></section></div>';
+      updateKeyboard();
+    }
+    function playStudioRound(){
+      if(studioMode==="direction"){const second=studioTarget==="same"?studioRoot:studioTarget==="up"?studioRoot+4:studioRoot-4;playSequence([studioRoot,second],.72,.52,.1);return}
+      if(studioMode==="interval"){playSequence([studioRoot,studioRoot+Number(studioTarget)],.72,.52,.1);return}
+      if(studioMode==="step"){playSequence([studioRoot,studioRoot+studioStepDistance],.72,.52,.1);return}
+      const root=(document.getElementById("scaleRoot")||{value:"C"}).value,mode=(document.getElementById("scaleMode")||{value:"major"}).value,scale=spellScale(root,mode);playSequence([scale.midi,scale.midi+modeSemis(mode)[studioDegree]],.72,.52,.1);
+    }
+    function answerStudio(value,button){
+      let correct=false,answer="";
+      if(studioMode==="direction"){correct=value===studioTarget;answer=studioTarget==="same"?"same pitch":studioTarget;}
+      if(studioMode==="interval"){correct=Number(value)===Number(studioTarget);answer=semitoneNames[Number(studioTarget)-1].name+" · "+studioTarget+" semitones";}
+      if(studioMode==="step"){correct=Number(value)===studioStepDistance;answer=studioStepDistance===1?"a semitone":"a tone (2 semitones)";}
+      if(studioMode==="solfege"){correct=Number(value)===studioDegree;const mode=(document.getElementById("scaleMode")||{value:"major"}).value;answer=solf(studioDegree,mode);}
+      studioAsked++;if(correct)studioRight++;state.studioMode=studioMode;state.studioRight=studioRight;state.studioAsked=studioAsked;saveState();
+      document.querySelectorAll("[data-action='studio-answer']").forEach(function(item){item.disabled=true});button.classList.add(correct?"correct":"wrong");
+      const feedback=document.getElementById("studioFeedback");feedback.textContent=correct?"Correct. Now find and play that sound on the keyboard.":"The answer was "+answer+". Press Play once more, then try a new round.";
+      document.getElementById("studioScore").textContent=studioRight+" / "+studioAsked;renderStats();
+    }
+    function buildKeyboard(hostId){
+      const host=document.getElementById(hostId);if(!host)return;
+      const whites=[];for(let octave=3;octave<=5;octave++){whitePcs.forEach(function(pc){whites.push((octave+1)*12+pc)})}whites.push(84);
+      let html='<div class="white-keys">';
+      whites.forEach(function(midi){const selected=midi===selectedMidi?" selected":"",scale=scaleSemis.includes(midi%12)?" scale-key":"";html+='<button type="button" class="white-key'+selected+scale+'" data-action="play-key" data-midi="'+midi+'" aria-label="'+noteFull(midi)+'">'+noteFull(midi)+'</button>'});
+      html+='</div>';
+      for(let midi=49;midi<84;midi++){
+        const pc=midi%12;if(![1,3,6,8,10].includes(pc))continue;
+        const whiteBefore=whites.filter(function(n){return n<midi}).length;
+        html+='<button type="button" class="black-key '+(midi===selectedMidi?"selected ":"")+(scaleSemis.includes(pc)?"scale-key":"")+'" style="left:'+(whiteBefore*58-18)+'px" data-action="play-key" data-midi="'+midi+'" aria-label="'+noteFull(midi)+'">♯</button>';
+      }
+      host.innerHTML=html;
+    }
+    function updateKeyboard(){
+      buildKeyboard("keyboardMain");buildKeyboard("keyboardSong");buildKeyboard("keyboardPractice");
+      const note=noteFull(selectedMidi);document.getElementById("selectedNote").textContent=note;document.getElementById("selectedNoteHint").textContent="Selected reference pitch · play the same note on your keyboard";
+      document.getElementById("songSelectedNote").textContent=note;document.getElementById("songSelectedHint").textContent="Selected pitch · use it to match or add a note";
+      const studioNote=document.getElementById("studioSelectedNote"),studioHint=document.getElementById("studioSelectedHint");if(studioNote)studioNote.textContent=note;if(studioHint)studioHint.textContent="Selected reference pitch · compare it with your answer.";
+      const dayTarget=document.getElementById("daySoundNote");if(dayTarget)dayTarget.textContent=note;
+      const matchTarget=document.getElementById("dayMatchTarget");if(matchTarget)matchTarget.textContent=note;
+    }
+    function chooseKey(midi){selectedMidi=Number(midi);updateKeyboard();playMidi(selectedMidi)}
+    function modeSemis(mode){return mode==="minor"?[0,2,3,5,7,8,10,12]:[0,2,4,5,7,9,11,12]}
+    function spellScale(root,mode){
+      const letters=["C","D","E","F","G","A","B"],rootIndex=letters.indexOf(root),formula=mode==="minor"?[2,1,2,2,1,2,2]:[2,2,1,2,2,2,1];
+      const rootMidi=rootMidis[root],semitones=[0];for(let i=0;i<formula.length;i++)semitones.push(semitones[i]+formula[i]);
+      const rootPc=rootMidi%12,labels=semitones.map(function(offset,i){
+        const desired=(rootPc+offset)%12,letter=letters[(rootIndex+i)%7],natural=(naturalSemis[letter]+rootPc-naturalSemis[root]+24)%12;
+        const diff=(desired-natural+12)%12;
+        return letter+(diff===1?"♯":diff===11?"♭":"");
+      });
+      return {midi:rootMidi,labels:labels,notes:semitones.map(function(n){return rootMidi+n}),pcs:semitones.slice(0,7).map(function(n){return (rootMidi+n)%12}),semitones:semitones};
+    }
+    function buildScale(){
+      const root=document.getElementById("scaleRoot").value,mode=document.getElementById("scaleMode").value,scale=spellScale(root,mode);
+      currentScale={root:root,mode:mode,midi:scale.midi,notes:scale.notes,labels:scale.labels};scaleSemis=scale.pcs;
+      const steps=scale.labels.map(function(label,index){return '<span class="scale-step"><b>'+label+'</b><small>'+(index===7?"Do":"degree "+(index+1))+'</small></span>'}).join("");
+      document.getElementById("scaleDisplay").innerHTML=steps;
+      document.getElementById("keyboardLegend").textContent=(mode==="major"?"Major":"Natural minor")+" scale notes highlighted along the keyboard";
+      document.getElementById("drillModeLabel")&&(document.getElementById("drillModeLabel").textContent=mode);
+      updateKeyboard();updateDayDrill();
+    }
+    function playBuiltScale(){
+      const scale=spellScale(document.getElementById("scaleRoot").value,document.getElementById("scaleMode").value);
+      playSequence(scale.notes.concat(scale.notes.slice(0,7).reverse()),.5,.4,.075);
+    }
+    const majorSolf=["Do","Re","Mi","Fa","So","La","Ti","Do"],minorSolf=["Do","Re","Me","Fa","So","Le","Te","Do"];
+    function solf(index,mode){const a=mode==="minor"?minorSolf:majorSolf;return a[Math.max(0,Math.min(7,index))]}
+    function drillDegrees(){
+      const kind=document.getElementById("drillKind").value,level=Number(document.getElementById("drillLevel").value);
+      drillKind=kind;drillLevel=level;
+      if(kind==="linear")return [0,1,2,3,4,5,6,7,6,5,4,3,2,1,0];
+      if(kind==="ladder"){const top=Math.max(1,Math.min(7,level));return Array.from({length:top+1},function(_,i){return i}).concat(Array.from({length:top},function(_,i){return top-1-i}))}
+      if(kind==="skip"){
+        const jump=Math.max(1,Math.min(3,level<=3?level:1)),out=[];
+        for(let i=0;i+jump<7;i++)out.push(i,i+jump);
+        return out;
+      }
+      const target=Math.max(1,Math.min(7,level));return [0,target,0];
+    }
+    function updateDayDrill(){
+      const host=document.getElementById("drillSequence");if(host){
+        const mode=(document.getElementById("scaleMode")||{value:drillMode}).value;
+        const degrees=drillDegrees();
+        host.innerHTML=degrees.map(function(d,i){return '<span class="solfege-chip '+(d===0||d===7?"home":"")+'">'+solf(d,mode)+'</span>'}).join("");
+      }
+    }
+    function playDrill(){
+      const mode=document.getElementById("scaleMode").value,root=document.getElementById("scaleRoot").value,scale=spellScale(root,mode),degrees=drillDegrees();
+      const notes=degrees.map(function(d){return scale.midi+modeSemis(mode)[d]});
+      playSequence(notes,.48,.42,.08);
+    }
+    function renderIntervalOptions(){
+      document.getElementById("intervalOptions").innerHTML=semitoneNames.map(function(x){return '<button class="choice" type="button" data-action="answer-interval" data-semis="'+x.n+'">'+x.n+' · '+x.short+'</button>'}).join("");
+      document.getElementById("intervalReference").innerHTML=semitoneNames.map(function(x){return '<span class="scale-step"><b>'+x.short+'</b><small>'+x.n+' semi</small></span>'}).join("");
+    }
+    function newInterval(){
+      const range=Number(document.getElementById("intervalRange").value);
+      intervalTarget=1+Math.floor(Math.random()*range);intervalRoot=60+Math.floor(Math.random()*Math.max(1,13-range));
+      document.getElementById("intervalPrompt").textContent="Listen to the pair";
+      document.getElementById("intervalSubprompt").textContent="Two notes · choose the distance";
+      document.getElementById("intervalFeedback").textContent="";
+      const dayPrompt=document.getElementById("dayIntervalPrompt");if(dayPrompt)dayPrompt.textContent="Listen, then describe the gap";
+      const dayFeedback=document.getElementById("dayIntervalFeedback");if(dayFeedback)dayFeedback.textContent="";
+      document.querySelectorAll("[data-action='answer-interval']").forEach(function(btn){btn.classList.remove("correct","wrong")});
+    }
+    function playInterval(){
+      if(!intervalTarget)newInterval();
+      const ctx=setupAudio();if(!ctx)return;playMidi(intervalRoot,ctx.currentTime+.03,.52,.1);playMidi(intervalRoot+intervalTarget,ctx.currentTime+.75,.58,.1);
+    }
+    function answerInterval(semitones,button){
+      intervalAsked++;state.intervalAsked=intervalAsked;
+      const correct=Number(semitones)===intervalTarget,info=semitoneNames.find(function(x){return x.n===intervalTarget});
+      if(correct){intervalRight++;state.intervalRight=intervalRight;button.classList.add("correct");document.getElementById("intervalFeedback").textContent="Yes · "+info.name+" ("+intervalTarget+" semitone"+(intervalTarget===1?"":"s")+")."}
+      else{button.classList.add("wrong");document.getElementById("intervalFeedback").textContent="The pair is "+info.name+" · "+intervalTarget+" semitones. Listen once more."}
+      document.getElementById("intervalSubprompt").textContent="Anchor "+noteFull(intervalRoot)+" · upper note "+noteFull(intervalRoot+intervalTarget);
+      saveState();renderStats();document.getElementById("practiceScore").textContent=intervalRight+" / "+intervalAsked;
+    }
+    function newDirection(){
+      const same=Math.random()<.2,dist=1+Math.floor(Math.random()*5),up=Math.random()<.5;
+      directionFirst=60+Math.floor(Math.random()*7);directionSecond=same?directionFirst:directionFirst+(up?dist:-dist);
+      directionTarget=same?"same":up?"up":"down";
+      document.getElementById("directionPrompt").textContent="Ready?";
+      document.getElementById("directionSubprompt").textContent="Listen for the movement";
+      document.getElementById("directionFeedback").textContent="";
+    }
+    function playDirection(){
+      const ctx=setupAudio();if(!ctx)return;playMidi(directionFirst,ctx.currentTime+.04,.48,.095);playMidi(directionSecond,ctx.currentTime+.74,.5,.095);
+    }
+    function answerDirection(answer){
+      const el=document.getElementById("directionFeedback");el.textContent=answer===directionTarget?"Correct — the second pitch is "+(directionTarget==="same"?"the same":directionTarget)+".":"Listen again: the second pitch is "+(directionTarget==="same"?"the same":directionTarget)+".";
+    }
+    let stepMidi=60;
+    function makeStep(){stepMidi=60+Math.floor(Math.random()*13);const box=document.getElementById("stepTarget");if(box)box.textContent=noteFull(stepMidi);const fb=document.getElementById("stepFeedback");if(fb)fb.textContent=""}
+    function playStep(){
+      const isTone=days[currentDay-1].kind==="tone",jump=isTone?2:1,ctx=setupAudio();if(!ctx)return;
+      playMidi(stepMidi,ctx.currentTime+.04,.55,.1);playMidi(stepMidi+jump,ctx.currentTime+.75,.58,.1);
+      const fb=document.getElementById("stepFeedback");if(fb)fb.textContent=isTone?"The second note is two semitones up (one tone).":"The second note is the very next key up (one semitone).";
+    }
+    function renderPhrases(){
+      const host=document.getElementById("phraseList");if(!host)return;
+      host.innerHTML=phrases.map(function(p,index){const dots=Array.from({length:Math.min(16,p.claps||0)},function(){return '<i class="clap-dot hit"></i>'}).join("");return '<div class="phrase-card"><b>Phrase '+(index+1)+'</b><span>'+(p.claps||0)+' claps · '+(p.claps?"one clap per sound unit":"tap once for each hummed syllable")+'</span><div class="phrase-beats">'+dots+'</div><div class="button-row"><button class="tiny-btn" data-action="clap" data-index="'+index+'">👏 Clap</button><button class="tiny-btn" data-action="phrase-reset" data-index="'+index+'">Reset</button></div></div>'}).join("")||'<p class="local-file-note">Add one card for each short phrase you hear.</p>';
+    }
+    function renderMelody(){
+      const host=document.getElementById("melodyNotes");if(!host)return;
+      host.innerHTML=melodyNotes.map(function(note,index){let relation=index===0?"first note":(note.midi===melodyNotes[index-1].midi?"same":note.midi>melodyNotes[index-1].midi?"+"+(note.midi-melodyNotes[index-1].midi)+" semitones":"−"+(melodyNotes[index-1].midi-note.midi)+" semitones");return '<span class="note-token">'+safeText(noteFull(note.midi))+'<small>'+(index===0?"anchor · ":relation)+'</small></span>'}).join("")||'<span class="local-file-note">Your note choices appear here.</span>';
+    }
+    function addSongNote(isFirst){
+      if(isFirst){melodyNotes=[{midi:selectedMidi}];songAnchor=selectedMidi;document.getElementById("songNoteFeedback").textContent="First-note candidate set to "+noteFull(selectedMidi)+". Compare it with your hum before you continue."}
+      else if(!melodyNotes.length){document.getElementById("songNoteFeedback").textContent="Choose a first-note candidate before adding the next pitch.";return}
+      else{melodyNotes.push({midi:selectedMidi});document.getElementById("songNoteFeedback").textContent="Added "+noteFull(selectedMidi)+". Compare this movement with your previous note."}
+      state.melodyNotes=melodyNotes;saveState();renderMelody();
+    }
+    function loadLocalAudio(file){
+      if(localAudioUrl)URL.revokeObjectURL(localAudioUrl);
+      if(!file)return;
+      localAudioUrl=URL.createObjectURL(file);
+      const audio=document.getElementById("songAudio");audio.src=localAudioUrl;audio.playbackRate=Number(document.getElementById("speedRange").value);
+      listenCount=0;state.listenCount=0;saveState();document.getElementById("listenCount").textContent="0";document.getElementById("listenMessage").textContent="New local audio loaded. Start with listening and humming.";
+      loopStart=null;loopEnd=null;updateLoopLabel();
+    }
+    function updateLoopLabel(){document.getElementById("loopLabel").textContent=loopStart!==null&&loopEnd!==null?"Loop "+loopStart.toFixed(1)+"s–"+loopEnd.toFixed(1)+"s":loopStart!==null?"Start "+loopStart.toFixed(1)+"s · set an end":"Loop not set"}
+    function renderProgressDays(){
+      document.getElementById("practiceScore").textContent=(state.intervalRight||0)+" / "+(state.intervalAsked||0);
+      document.getElementById("practiceListens").textContent=listenCount;
+      const accuracy=micTried?Math.round(micGood/micTried*100):0;document.getElementById("practicePitchAccuracy").textContent=accuracy+"%";
+      const completed=state.completed||[];
+      document.getElementById("progressDays").innerHTML=days.map(function(d,index){const n=index+1,isDone=completed.includes(n);return '<button class="day-link '+(isDone?"active":"")+'" style="text-align:left" data-action="day" data-day="'+n+'"><span class="day-number">'+(isDone?"✓":n)+'</span><span class="day-title">Day '+n+' · '+safeText(d.title)+'</span><span class="day-check">→</span></button>'}).join("");
+    }
+    function formatTimer(){
+      const m=String(Math.floor(Math.max(0,timerRemain)/60)).padStart(2,"0"),s=String(Math.max(0,timerRemain)%60).padStart(2,"0");
+      document.getElementById("timerDisplay").textContent=m+":"+s;
+      document.getElementById("timerBar").style.width=(timerFull?Math.min(100,(1-timerRemain/timerFull)*100):0)+"%";
+    }
+    function resetTimer(){
+      if(timerId){clearInterval(timerId);timerId=null}
+      timerFull=Number(document.getElementById("practiceDuration").value)*60;timerRemain=timerFull;
+      document.getElementById("timerButton").textContent="Start timer";document.getElementById("timerFeedback").textContent="Ready for a focused listening round.";formatTimer();
+    }
+    function startTimer(){
+      if(timerId){clearInterval(timerId);timerId=null;document.getElementById("timerButton").textContent="Resume timer";return}
+      if(timerRemain<=0)resetTimer();
+      document.getElementById("timerButton").textContent="Pause timer";timerId=setInterval(function(){timerRemain--;formatTimer();if(timerRemain<=0){clearInterval(timerId);timerId=null;document.getElementById("timerButton").textContent="Start another round";state.practiceMinutes=(state.practiceMinutes||0)+Math.max(1,Math.round(timerFull/60));saveState();renderStats();document.getElementById("timerFeedback").textContent="Practice round complete. Small, accurate listening rounds add up.";toast("Practice round saved.")}},1000);
+    }
+    function autoCorrelate(buf,sampleRate){
+      let size=buf.length,rms=0;for(let i=0;i<size;i++)rms+=buf[i]*buf[i];rms=Math.sqrt(rms/size);if(rms<.012)return -1;
+      let r1=0,r2=size-1,threshold=.2;for(let i=0;i<size/2;i++){if(Math.abs(buf[i])<threshold){r1=i;break}}for(let i=1;i<size/2;i++){if(Math.abs(buf[size-i])<threshold){r2=size-i;break}}
+      const data=buf.slice(r1,r2);size=data.length;const corr=new Float32Array(size);
+      for(let lag=0;lag<size;lag++){let sum=0;for(let j=0;j<size-lag;j++)sum+=data[j]*data[j+lag];corr[lag]=sum}
+      let d=0;while(d+1<size&&corr[d]>corr[d+1])d++;let max=-1,period=-1;for(let i=d;i<size;i++){if(corr[i]>max){max=corr[i];period=i}}
+      if(period<1)return -1;const x1=corr[period-1]||0,x2=corr[period],x3=corr[period+1]||0,a=(x1+x3-2*x2)/2,b=(x3-x1)/2,adjust=a?period-b/(2*a):period;return sampleRate/adjust;
+    }
+    async function toggleMic(){
+      if(micStream){micStream.getTracks().forEach(function(t){t.stop()});micStream=null;if(micRaf)cancelAnimationFrame(micRaf);if(micContext)micContext.close();micContext=null;document.getElementById("micButton").textContent="Start microphone";document.getElementById("micNote").textContent="—";document.getElementById("micCents").textContent="Microphone is off";return}
+      if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia){document.getElementById("micStatus").textContent="This browser cannot provide a microphone tuner here. A clip-on tuner still works for checking a sung pitch.";return}
+      try{
+        micStream=await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:false,noiseSuppression:false,autoGainControl:false}});
+        const AC=window.AudioContext||window.webkitAudioContext;micContext=new AC();const source=micContext.createMediaStreamSource(micStream),analyser=micContext.createAnalyser();analyser.fftSize=4096;source.connect(analyser);
+        const buf=new Float32Array(analyser.fftSize);document.getElementById("micButton").textContent="Stop microphone";document.getElementById("micStatus").textContent="Sing the target note steadily. Count one comparison attempt when ready.";
+        const frame=function(){analyser.getFloatTimeDomainData(buf);const hz=autoCorrelate(buf,micContext.sampleRate);if(hz>55&&hz<1100){const midi=Math.round(69+12*Math.log2(hz/440)),freq=440*Math.pow(2,(midi-69)/12),cents=Math.round(1200*Math.log2(hz/freq));micPitchNow=midi;micCentsNow=cents;document.getElementById("micNote").textContent=noteFull(midi);document.getElementById("micCents").textContent=(cents>0?"+":"")+cents+" cents · "+(Math.abs(cents)<20?"close match":cents<0?"a little flat":"a little sharp")}micRaf=requestAnimationFrame(frame)};
+        frame();
+      }catch(e){micStream=null;document.getElementById("micStatus").textContent="Microphone permission was not available. Allow it or use another tuner for your voice check."}
+    }
+    function countMatch(){
+      micTried++;if(micCentsNow!==null&&Math.abs(micCentsNow)<=20&&micPitchNow===micTarget)micGood++;
+      document.getElementById("micAttempts").textContent=micTried;document.getElementById("micTargetLabel").textContent=noteFull(micTarget);
+      const pct=micTried?Math.round(micGood/micTried*100):0;document.getElementById("micAccuracy").textContent=pct+"%";
+      document.getElementById("micStatus").textContent=(micCentsNow!==null&&Math.abs(micCentsNow)<=20&&micPitchNow===micTarget)?"Good match · within ±20 cents.":"Not a close match yet. Listen to the target again and try another steady hum.";
+      renderProgressDays();
+    }
+    function setMicTarget(){micTarget=selectedMidi;document.getElementById("micTargetLabel").textContent=noteFull(micTarget);playMidi(micTarget);document.getElementById("micStatus").textContent="Listen to "+noteFull(micTarget)+", sing it back, then count one attempt."}
+    function updateSongRate(){const rate=Number(document.getElementById("speedRange").value);document.getElementById("speedLabel").textContent=rate.toFixed(2)+"×";const audio=document.getElementById("songAudio");audio.playbackRate=rate}
+    function init(){
+      renderDay();renderIntervalOptions();buildScale();newInterval();newDirection();makeStep();updateKeyboard();renderPhrases();renderMelody();renderProgressDays();renderStudio();resetTimer();
+      document.getElementById("listenCount").textContent=listenCount;
+      if(state.songTitle)document.getElementById("songTitle").value=state.songTitle;
+      document.getElementById("speedRange").addEventListener("input",updateSongRate);
+      document.getElementById("songFile").addEventListener("change",function(){loadLocalAudio(this.files&&this.files[0])});
+      document.getElementById("songTitle").addEventListener("input",function(){state.songTitle=this.value;saveState()});
+      document.getElementById("scaleRoot").addEventListener("change",buildScale);
+      document.getElementById("scaleMode").addEventListener("change",function(){buildScale();updateDayDrill()});
+      document.getElementById("drillKind").addEventListener("change",updateDayDrill);
+      document.getElementById("drillLevel").addEventListener("change",updateDayDrill);
+      document.getElementById("practiceDuration").addEventListener("change",function(){if(!timerId)resetTimer()});
+      document.getElementById("nextFocus").addEventListener("change",function(){state.nextFocus=this.value;saveState();document.getElementById("focusSaved").textContent="Saved: "+this.value});
+      if(state.nextFocus){document.getElementById("nextFocus").value=state.nextFocus;document.getElementById("focusSaved").textContent="Saved: "+state.nextFocus}
+      document.getElementById("songAudio").addEventListener("timeupdate",function(){if(loopStart!==null&&loopEnd!==null&&this.currentTime>=loopEnd)this.currentTime=loopStart});
+    }
+    document.addEventListener("click",function(event){
+      const el=event.target.closest("[data-action]");if(!el)return;const a=el.dataset.action;
+      if(a==="view")switchView(el.dataset.view);
+      if(a==="resume"){switchView("course");setDay(currentDay)}
+      if(a==="day")setDay(Number(el.dataset.day));
+      if(a==="previous-day")setDay(currentDay-1);
+      if(a==="next-day")setDay(currentDay===21?1:currentDay+1);
+      if(a==="complete-day"){state.completed=state.completed||[];if(!state.completed.includes(currentDay))state.completed.push(currentDay);saveState();renderDay();renderProgressDays();toast("Day "+currentDay+" saved complete.")}
+      if(a==="reset"){if(confirm("Clear the saved 21-day progress and practice notes on this device?")){localStorage.removeItem("playAnySong21PracticeV1");location.reload()}}
+      if(a==="play-key")chooseKey(el.dataset.midi);
+      if(a==="play-selected")playMidi(selectedMidi);
+      if(a==="studio-mode"){studioMode=el.dataset.studioMode;state.studioMode=studioMode;saveState();newStudioRound();}
+      if(a==="studio-new")newStudioRound();
+      if(a==="studio-play")playStudioRound();
+      if(a==="studio-answer")answerStudio(el.dataset.studioAnswer,el);
+      if(a==="new-interval")newInterval();
+      if(a==="play-interval"){playInterval();const p=document.getElementById("intervalPrompt");if(p)p.textContent="Listen to "+noteFull(intervalRoot)+" then the next pitch";}
+      if(a==="answer-interval")answerInterval(Number(el.dataset.semis),el);
+      if(a==="new-direction")newDirection();
+      if(a==="play-direction")playDirection();
+      if(a==="direction-answer")answerDirection(el.dataset.answer);
+      if(a==="build-scale")buildScale();
+      if(a==="play-built-scale")playBuiltScale();
+      if(a==="apply-drill"){document.getElementById("drillKind").value=drillKind;updateDayDrill();document.getElementById("drillSequence").scrollIntoView({behavior:"smooth",block:"center"})}
+      if(a==="play-drill")playDrill();
+      if(a==="drill-mode"){const mode=document.getElementById("scaleMode");mode.value=mode.value==="major"?"minor":"major";buildScale();document.getElementById("drillModeLabel")&&(document.getElementById("drillModeLabel").textContent=mode.value);toast("Now using "+mode.value+" scale.")}
+      if(a==="day-tone")playMidi(selectedMidi);
+      if(a==="day-pitch-new")newDirection();
+      if(a==="day-pitch-play"){playDirection();document.getElementById("dayPitchPrompt").textContent="Listen for the second pitch"}
+      if(a==="day-pitch-answer"){const correct=el.dataset.answer===directionTarget;document.getElementById("dayPitchFeedback").textContent=correct?"Correct — you heard the direction.":"Try again: the second note is "+(directionTarget==="same"?"the same":directionTarget)+"."}
+      if(a==="step-drill")playStep();
+      if(a==="new-step")makeStep();
+      if(a==="chromatic-sequence")playSequence(Array.from({length:13},function(_,i){return 60+i}),.32,.28,.075);
+      if(a==="set-drill"){document.getElementById("drillKind").value=el.dataset.kind;drillKind=el.dataset.kind;updateDayDrill();switchView("ear")}
+      if(a==="set-target")setMicTarget();
+      if(a==="mic-toggle")toggleMic();
+      if(a==="count-match")countMatch();
+      if(a==="reset-match"){micGood=0;micTried=0;micCentsNow=null;micPitchNow=null;document.getElementById("micAttempts").textContent="0";document.getElementById("micAccuracy").textContent="0%";document.getElementById("micStatus").textContent="Score reset. Play and sing a target note again.";renderProgressDays()}
+      if(a==="listen-round"){listenCount++;state.listenCount=listenCount;saveState();document.getElementById("listenCount").textContent=listenCount;document.getElementById("listenMessage").textContent=listenCount>=20?"20 rounds reached. Move on when the melody feels familiar.":"Good. Hum the tune once more before moving to the next step."}
+      if(a==="reset-listens"){listenCount=0;state.listenCount=0;saveState();document.getElementById("listenCount").textContent="0";document.getElementById("listenMessage").textContent="Count reset. Start another focused listen."}
+      if(a==="set-loop-start"){const audio=document.getElementById("songAudio");loopStart=audio.currentTime;updateLoopLabel()}
+      if(a==="set-loop-end"){const audio=document.getElementById("songAudio");loopEnd=audio.currentTime;if(loopStart===null||loopEnd<=loopStart){loopEnd=null;document.getElementById("loopLabel").textContent="Set the end after the start";return}updateLoopLabel()}
+      if(a==="clear-loop"){loopStart=null;loopEnd=null;updateLoopLabel()}
+      if(a==="add-phrase"){phrases.push({claps:0});state.phrases=phrases;saveState();renderPhrases()}
+      if(a==="clap"){const i=Number(el.dataset.index);phrases[i].claps=Math.min(16,(phrases[i].claps||0)+1);state.phrases=phrases;saveState();renderPhrases()}
+      if(a==="phrase-reset"){const i=Number(el.dataset.index);phrases[i].claps=0;state.phrases=phrases;saveState();renderPhrases()}
+      if(a==="song-anchor")addSongNote(true);
+      if(a==="song-add-note")addSongNote(false);
+      if(a==="song-undo"){melodyNotes.pop();state.melodyNotes=melodyNotes;saveState();renderMelody()}
+      if(a==="song-clear"){melodyNotes=[];songAnchor=null;state.melodyNotes=[];saveState();renderMelody();document.getElementById("songNoteFeedback").textContent="Phrase note list cleared."}
+      if(a==="song-play-notes"){if(melodyNotes.length)playSequence(melodyNotes.map(function(n){return n.midi}),.55,.43,.08);else document.getElementById("songNoteFeedback").textContent="Add a first-note candidate before playing your note list."}
+      if(a==="timer-toggle")startTimer();
+      if(a==="timer-reset")resetTimer();
+    });
+    document.addEventListener("change",function(event){
+      const el=event.target;
+      if(el.matches("[data-day-check]")){
+        const d=Number(el.dataset.dayCheck),i=Number(el.dataset.checkIndex);state.dayChecks=state.dayChecks||{};state.dayChecks[d]=state.dayChecks[d]||[];
+        if(el.checked&&!state.dayChecks[d].includes(i))state.dayChecks[d].push(i);if(!el.checked)state.dayChecks[d]=state.dayChecks[d].filter(function(x){return x!==i});
+        saveState();renderDay();
+      }
+      if(el.id==="intervalRange")newInterval();
+      if(el.id==="drillKind"||el.id==="drillLevel")updateDayDrill();
+    });
+    window.addEventListener("beforeunload",function(){if(localAudioUrl)URL.revokeObjectURL(localAudioUrl);if(micStream)micStream.getTracks().forEach(function(t){t.stop()});if(timerId)clearInterval(timerId)});
+    init();
+  </script>
+</body>
+</html>

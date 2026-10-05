@@ -1,0 +1,796 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0c1321">
+  <title>Guitar Made Easy — Interactive Practice Room</title>
+  <style>
+    :root{
+      color-scheme:dark;
+      --bg:#0b111d;--bg2:#101a2a;--panel:#121e30;--panel2:#17253a;--line:#2b3b52;
+      --ink:#f5f7fb;--muted:#a8b5c7;--soft:#d6deea;--gold:#ffc768;--mint:#6de0b2;
+      --blue:#74c6ff;--rose:#ff8c98;--shadow:0 18px 48px rgba(0,0,0,.28);
+      --radius:20px;--radius-sm:13px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:radial-gradient(ellipse at 82% -4%,#1b3151 0,transparent 36%),var(--bg);color:var(--ink);font:15px/1.55 "Segoe UI",Arial,sans-serif;min-width:320px}
+    button,input,select{font:inherit}
+    button{color:inherit}
+    button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+    .app{max-width:1510px;margin:auto;padding:20px clamp(14px,3vw,36px) 42px}
+    .topbar{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:20px}
+    .brand{display:flex;align-items:center;gap:12px;min-width:0}
+    .brand-mark{width:43px;height:43px;display:grid;place-items:center;border-radius:15px;background:linear-gradient(145deg,#ffcf7b,#e89d49);color:#1b2130;font-size:23px;box-shadow:0 8px 22px #e89d4930}
+    .brand strong{display:block;letter-spacing:.01em}.brand small{display:block;color:var(--muted);font-size:12px}
+    .top-actions{display:flex;align-items:center;gap:9px}
+    .icon-btn,.quiet-btn,.primary-btn,.tab-btn,.rail-link,.choice-btn,.action-btn,.mini-btn{border:1px solid var(--line);background:var(--panel);border-radius:12px;cursor:pointer;transition:transform .16s,border-color .16s,background .16s}
+    .icon-btn:hover,.quiet-btn:hover,.tab-btn:hover,.rail-link:hover,.choice-btn:hover,.action-btn:hover,.mini-btn:hover{border-color:#607b9e;transform:translateY(-1px)}
+    .icon-btn{width:42px;height:42px;font-size:17px}
+    .quiet-btn{padding:9px 12px;font-size:13px;color:var(--soft)}
+    .primary-btn{padding:11px 17px;border:0;background:linear-gradient(135deg,#ffc96e,#ec9f50);color:#201a13;font-weight:800;box-shadow:0 8px 24px #efab5940}
+    .primary-btn:hover{transform:translateY(-2px);filter:brightness(1.06)}
+    .hero{position:relative;overflow:hidden;display:grid;grid-template-columns:minmax(0,1.35fr) minmax(260px,.65fr);gap:25px;align-items:center;padding:clamp(23px,4vw,44px);border:1px solid #344760;border-radius:28px;background:linear-gradient(123deg,#17263a 0%,#182944 56%,#22344b 100%);box-shadow:var(--shadow)}
+    .hero:after{content:"";position:absolute;width:280px;height:280px;right:9%;top:-190px;border:1px solid #ffffff18;border-radius:50%;box-shadow:0 0 0 28px #ffffff07,0 0 0 58px #ffffff05;pointer-events:none}
+    .eyebrow{display:inline-flex;align-items:center;gap:8px;color:var(--gold);font-weight:800;font-size:12px;letter-spacing:.1em;text-transform:uppercase}
+    h1{font-size:clamp(30px,4vw,49px);letter-spacing:-.045em;line-height:1.05;margin:12px 0 12px;max-width:730px}
+    .hero p{max-width:690px;color:#c2cede;margin:0 0 18px;font-size:16px}
+    .hero-actions{display:flex;gap:10px;flex-wrap:wrap}
+    .hero-note{position:relative;z-index:1;border:1px solid #ffffff17;background:#0d1725aa;border-radius:19px;padding:18px}
+    .hero-note strong{display:block;margin-bottom:7px}
+    .hero-note p{font-size:13px;margin:0;color:#b8c5d5}
+    .source-chip{display:inline-flex;margin-top:13px;border:1px solid #ffffff22;border-radius:999px;padding:6px 10px;color:#d9e0e9;font-size:11px}
+    .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:15px 0 20px}
+    .stat{border:1px solid var(--line);background:#111b2a;border-radius:16px;padding:13px 16px;min-width:0}
+    .stat-label{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+    .stat-value{font-size:21px;font-weight:850;margin-top:2px}
+    .stat-sub{font-size:11px;color:#9cacc0}
+    .main-nav{display:flex;gap:8px;overflow-x:auto;padding:0 0 10px;margin-bottom:9px;scrollbar-width:thin;scrollbar-color:#526a85 transparent}
+    .tab-btn{display:inline-flex;align-items:center;gap:9px;padding:11px 15px;white-space:nowrap;color:#c2cddd;background:#101a28}
+    .tab-btn.active{background:#253750;border-color:#6c8eae;color:#fff;box-shadow:inset 0 -2px 0 var(--gold)}
+    .tab-btn span{font-size:16px}
+    .view{display:none}.view.active{display:block}
+    .course-layout{display:grid;grid-template-columns:274px minmax(0,1fr);gap:17px;align-items:start}
+    .rail,.lesson-panel,.tool-card,.song-list-wrap,.song-detail,.practice-card{border:1px solid var(--line);background:linear-gradient(180deg,#131f30,#101a28);border-radius:var(--radius);box-shadow:var(--shadow)}
+    .rail{position:sticky;top:12px;padding:15px}
+    .rail-head{display:flex;align-items:center;justify-content:space-between;margin:1px 3px 10px}
+    .rail-head strong{font-size:14px}.rail-head span{font-size:11px;color:var(--muted)}
+    .phase-label{margin:15px 4px 7px;color:#94a8c0;font-size:10px;font-weight:850;letter-spacing:.12em;text-transform:uppercase}
+    .rail-link{display:grid;grid-template-columns:30px minmax(0,1fr) 17px;align-items:center;gap:8px;width:100%;border:1px solid transparent;background:transparent;text-align:left;padding:8px;border-radius:11px;color:#c4cede;margin:3px 0}
+    .rail-link.active{background:#263851;border-color:#587393;color:#fff}
+    .rail-num{width:27px;height:27px;display:grid;place-items:center;background:#202d40;border-radius:9px;font-size:11px;color:#d5dfeb}
+    .rail-link.active .rail-num{background:#f8c66f;color:#292114;font-weight:900}
+    .rail-title{font-size:12px;font-weight:650;line-height:1.25}
+    .rail-check{font-size:13px;color:var(--mint)}
+    .lesson-panel{padding:clamp(17px,3vw,30px);min-height:690px}
+    .lesson-top{display:flex;justify-content:space-between;gap:20px;align-items:start;padding-bottom:17px;border-bottom:1px solid #26374b}
+    .chapter-tag{display:inline-flex;align-items:center;gap:7px;color:var(--gold);font-size:11px;text-transform:uppercase;letter-spacing:.09em;font-weight:850}
+    h2{font-size:clamp(24px,3vw,34px);line-height:1.15;margin:8px 0}
+    .lesson-subtitle{color:#b4c1d1;margin:0}
+    .ref-box{flex:none;border:1px solid #3b506a;background:#101a28;padding:10px 12px;border-radius:12px;color:#ccd7e5;font-size:12px;text-align:right}
+    .ref-box strong{display:block;color:var(--gold);font-size:11px;text-transform:uppercase;letter-spacing:.08em}
+    .lesson-progress{display:flex;align-items:center;gap:10px;margin:15px 0 19px;color:var(--muted);font-size:12px}
+    .progress-track{height:8px;flex:1;background:#243246;border-radius:999px;overflow:hidden}
+    .progress-fill{height:100%;width:0;background:linear-gradient(90deg,var(--mint),#b5edac);border-radius:999px;transition:width .25s}
+    .lesson-columns{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(280px,.9fr);gap:17px}
+    .content-block{border:1px solid #293a50;background:#111b29;border-radius:16px;padding:17px;margin-bottom:13px}
+    .content-block h3{font-size:15px;margin:0 0 10px}
+    .content-block p{color:#b9c6d5;margin:0 0 10px;font-size:13px}
+    .content-block p:last-child{margin-bottom:0}
+    .learn-list,.check-list{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+    .learn-list li{display:flex;gap:9px;color:#d4dce7;font-size:13px}
+    .learn-list li:before{content:"✦";color:var(--gold);font-size:12px;margin-top:1px}
+    .check-list label{display:flex;align-items:start;gap:9px;color:#cad5e1;font-size:12px;cursor:pointer}
+    .check-list input{margin:2px 0 0;accent-color:var(--mint);width:15px;height:15px;flex:none}
+    .try-card{border:1px solid #40536b;background:linear-gradient(145deg,#1a2b40,#132134);border-radius:17px;padding:16px}
+    .try-card h3{margin:0 0 4px;font-size:15px}
+    .try-card .try-hint{color:#aebdd0;font-size:12px;margin:0 0 12px}
+    .activity{min-height:150px}
+    .lesson-bottom{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:17px;padding-top:16px;border-top:1px solid #26374b}
+    .lesson-bottom .muted{color:var(--muted);font-size:12px}
+    .button-row{display:flex;gap:8px;flex-wrap:wrap}
+    .action-btn{padding:9px 12px;font-size:12px;font-weight:750}
+    .action-btn.gold{background:#f7c66e;color:#231d12;border-color:#f7c66e}
+    .mini-btn{padding:7px 10px;font-size:11px;background:#17263a}
+    .chip-row{display:flex;gap:7px;flex-wrap:wrap;margin:9px 0}
+    .chip{border:1px solid #3b4e66;background:#162438;border-radius:999px;padding:5px 9px;color:#d4dfec;font-size:11px}
+    .choice-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+    .choice-btn{padding:10px;text-align:left;color:#d7e0eb;font-size:12px}
+    .choice-btn.selected{border-color:var(--mint);background:#17372f;color:#eafff5}
+    .feedback{font-size:12px;min-height:19px;color:var(--mint);margin:8px 0 0}
+    .meter-dots{display:flex;align-items:center;gap:7px;margin:12px 0}
+    .meter-dot{width:29px;height:29px;border-radius:50%;display:grid;place-items:center;background:#23334a;color:#bfcada;font-size:11px}
+    .meter-dot.strong{color:var(--gold)}
+    .meter-dot.current{background:var(--gold);color:#211b13;transform:scale(1.08)}
+    .pattern-strip{display:flex;gap:5px;flex-wrap:wrap;margin:12px 0}
+    .beat-cell{flex:1;min-width:36px;text-align:center;background:#213148;border:1px solid #3a4f69;border-radius:9px;padding:9px 5px;font-size:14px;font-weight:850}
+    .beat-cell.down{color:#ffca72}.beat-cell.up{color:#7bc9ff}.beat-cell.rest{color:#a9b6c8}
+    .small-note{font-size:11px;color:var(--muted)}
+    .meter-row{display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+    .select,.text-input{background:#0e1826;border:1px solid #40536a;border-radius:10px;padding:9px 10px;color:#e9eef5}
+    .select{max-width:100%}.text-input{width:100%}
+    .tool-grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:16px}
+    .tool-card{padding:20px}
+    .tool-card h2{font-size:23px}
+    .tool-card h3{font-size:16px;margin:0 0 8px}
+    .tool-card p{color:#b6c3d3;font-size:13px}
+    .tool-heading{display:flex;justify-content:space-between;align-items:start;gap:12px;margin-bottom:13px}
+    .tool-heading p{margin:3px 0}
+    .board-shell{overflow:hidden;border:1px solid #40536b;border-radius:14px;background:#0c1624}
+    .board-scroll{overflow-x:auto;overscroll-behavior-x:contain;scrollbar-width:thin;scrollbar-color:#8090a1 #152236;-webkit-overflow-scrolling:touch}
+    .fretboard{min-width:650px;padding:10px;background:linear-gradient(90deg,#3a261a,#251b18 94%);border-radius:13px}
+    .fret-row{display:grid;grid-template-columns:65px repeat(6,minmax(78px,1fr));min-height:43px}
+    .fret-cell{position:relative;display:grid;place-items:center;border-right:3px solid #c1c8ce;border-bottom:1px solid #c1c8ce;background:linear-gradient(180deg,#5a3927,#3c281d);padding:2px}
+    .fret-cell:first-child{border:0;background:#152236;text-align:center;font-size:11px;color:#dce4ee}
+    .fret-cell.open-col{border-right:5px solid #e5d9bd;background:#211a18}
+    .fret-cell:last-child{border-right:0}
+    .fret-label{min-height:22px;background:#152236;color:#9eafc1;text-align:center;font-size:10px;padding:2px}
+    .fret-dot{width:30px;height:30px;border-radius:50%;border:1px solid #f4d59a;background:#172337d9;color:#fff;cursor:pointer;font-size:10px;font-weight:800}
+    .fret-dot:hover,.fret-dot:focus-visible{background:var(--gold);color:#221b10}
+    .fret-dot.hidden-note{width:15px;height:15px;background:#d4c39d;border:0;font-size:0}
+    .fret-dot.root-note{background:#f7c66e;color:#211b13}
+    .board-legend{display:flex;justify-content:space-between;gap:9px;flex-wrap:wrap;padding:10px 12px;color:#adbacb;font-size:11px}
+    .quiz-target{border:1px solid #506887;border-radius:13px;background:#182b42;padding:14px;text-align:center;margin:11px 0}
+    .quiz-target small{display:block;color:#b2c1d2;font-size:11px;text-transform:uppercase;letter-spacing:.1em}
+    .quiz-target strong{display:block;color:var(--gold);font-size:32px;line-height:1.2}
+    .answer-grid{display:grid;grid-template-columns:repeat(7,minmax(34px,1fr));gap:6px}
+    .answer-btn{background:#19283c;border:1px solid #3c4e65;border-radius:9px;padding:8px 2px;color:#e0e7ef;cursor:pointer;font-weight:800}
+    .answer-btn:hover{border-color:var(--gold)}
+    .chord-toolbar{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:11px}
+    .chord-pill{border:1px solid #435773;background:#152338;border-radius:999px;padding:7px 11px;color:#c6d1df;cursor:pointer;font-size:12px}
+    .chord-pill.active{background:#f7c66e;border-color:#f7c66e;color:#211b13;font-weight:850}
+    .chord-display{display:grid;grid-template-columns:165px minmax(0,1fr);gap:16px;align-items:center;border:1px solid #344862;border-radius:15px;background:#101b2a;padding:12px}
+    .chord-diagram{width:160px;max-width:100%;height:auto}
+    .chord-notes{display:flex;gap:6px;flex-wrap:wrap}
+    .chord-notes span{border:1px solid #3a4c64;background:#1a2a40;border-radius:8px;padding:5px 8px;font-size:11px;color:#dae4ef}
+    .song-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px}
+    .song-card{border:1px solid #32455c;background:#132033;border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:7px;min-height:172px}
+    .song-card h3{margin:0;font-size:14px}
+    .song-card p{margin:0;color:#aebdd0;font-size:11px}
+    .song-meta{display:flex;justify-content:space-between;align-items:center;gap:6px;margin-top:auto}
+    .song-stage{color:var(--gold);font-size:10px;font-weight:800}
+    .song-detail{margin-top:14px;padding:17px}
+    .song-detail[hidden]{display:none}
+    .song-flow{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:12px 0}
+    .song-step{padding:11px;border:1px solid #334962;background:#15253a;border-radius:12px;color:#c6d2df;font-size:11px}
+    .song-step b{display:block;color:#f5cb7e;font-size:12px;margin-bottom:4px}
+    .meter-controls{display:grid;grid-template-columns:1fr auto;gap:8px 12px;align-items:center}
+    .meter-controls input[type=range]{width:100%;accent-color:var(--gold)}
+    .beat-lamp{width:23px;height:23px;border-radius:50%;background:#25354b;border:2px solid #51647c}
+    .beat-lamp.on{background:var(--gold);box-shadow:0 0 22px #ffc7687a}
+    .metro-count{font-size:24px;font-weight:900;color:var(--gold);min-width:58px}
+    .timer-display{font-size:45px;font-variant-numeric:tabular-nums;font-weight:850;letter-spacing:-.04em;margin:13px 0}
+    .timer-progress{height:9px;background:#26374c;border-radius:99px;overflow:hidden;margin:12px 0}
+    .timer-progress span{display:block;height:100%;background:linear-gradient(90deg,var(--mint),#b9e885);width:0;transition:width .3s}
+    .two-voice{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+    .voice-lane{border:1px solid #3b4e66;border-radius:12px;padding:12px;background:#132136}
+    .voice-lane strong{display:block;margin-bottom:7px}
+    .voice-pulses{display:flex;gap:5px}
+    .voice-pulse{height:12px;flex:1;border-radius:999px;background:#263750}
+    .voice-pulse.hit{background:#ffc768}.voice-lane.upper .voice-pulse.hit{background:#71c9ff}
+    .footer{margin-top:20px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;color:#8495aa;font-size:11px}
+    .toast{position:fixed;left:50%;bottom:20px;transform:translate(-50%,18px);opacity:0;pointer-events:none;z-index:99;background:#edf6ef;color:#142319;border-radius:12px;padding:10px 15px;font-weight:750;font-size:13px;box-shadow:var(--shadow);transition:.22s}
+    .toast.show{opacity:1;transform:translate(-50%,0)}
+    .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+    @media(max-width:1060px){.course-layout{grid-template-columns:230px minmax(0,1fr)}.lesson-columns{grid-template-columns:1fr}.song-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media(max-width:760px){.app{padding:12px 12px 30px}.hero{grid-template-columns:1fr;padding:22px;border-radius:21px}.hero-note{max-width:unset}.stats{grid-template-columns:repeat(2,1fr);gap:8px}.stat{padding:11px}.course-layout{grid-template-columns:1fr}.rail{position:static;padding:12px}.rail-head{margin:0 3px 8px}.phase-label{display:none}.lesson-list{display:flex;overflow-x:auto;gap:7px;padding-bottom:5px;scrollbar-width:thin;scrollbar-color:#60738a transparent}.rail-link{min-width:190px;margin:0;grid-template-columns:28px 1fr 15px}.lesson-panel{min-height:unset}.lesson-top{flex-direction:column}.ref-box{text-align:left}.tool-grid{grid-template-columns:1fr}.song-grid{grid-template-columns:1fr 1fr}.song-flow{grid-template-columns:1fr 1fr}}
+    @media(max-width:470px){.topbar{align-items:flex-start}.brand small{max-width:210px}.top-actions .quiet-btn{display:none}.hero-actions .primary-btn,.hero-actions .quiet-btn{flex:1}.stats{grid-template-columns:1fr 1fr}.lesson-bottom{align-items:flex-start;flex-direction:column}.song-grid{grid-template-columns:1fr}.chord-display{grid-template-columns:120px minmax(0,1fr)}.chord-diagram{width:120px}.two-voice{grid-template-columns:1fr}.answer-grid{gap:4px}.answer-btn{font-size:12px}}
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true">🎸</div>
+        <div><strong>Guitar Made Easy</strong><small>90-day interactive practice room · guitar beginner guide-ஐ அடிப்படையாகக் கொண்டு</small></div>
+      </div>
+      <div class="top-actions">
+        <button class="quiet-btn" type="button" data-action="reset-progress" title="Clear saved lesson ticks and practice stats">Reset progress</button>
+        <button class="icon-btn" type="button" data-action="change-view" data-view="practice" aria-label="Open practice tools">♩</button>
+      </div>
+    </header>
+
+    <section class="hero" aria-labelledby="page-title">
+      <div>
+        <span class="eyebrow">A guided path from first touch to two-voice guitar</span>
+        <h1 id="page-title">Learn one small skill.<br>Play it with confidence.</h1>
+        <p>Follow the guide chapter by chapter, hear clear reference notes, see where they live on the fretboard, and practise rhythm at a pace that feels comfortable.</p>
+        <div class="hero-actions">
+          <button class="primary-btn" type="button" data-action="resume-course">▶ Continue your lesson</button>
+          <button class="quiet-btn" type="button" data-action="change-view" data-view="songs">Browse the song list</button>
+        </div>
+      </div>
+      <aside class="hero-note">
+        <strong>Start with your guitar beside you.</strong>
+        <p>The sound buttons are simple pitch references made with your browser. They are not recordings from the book. Work from the matching printed exercise when you reach a song page.</p>
+        <span class="source-chip">Based on the 2026 beginner guide · 14 chapters · 90 days</span>
+      </aside>
+    </section>
+
+    <section class="stats" aria-label="Your learning progress">
+      <div class="stat"><div class="stat-label">Course progress</div><div class="stat-value" id="statProgress">0%</div><div class="stat-sub">chapters checked off</div></div>
+      <div class="stat"><div class="stat-label">Current lesson</div><div class="stat-value" id="statLesson">Chapter 1</div><div class="stat-sub" id="statLessonName">Getting started</div></div>
+      <div class="stat"><div class="stat-label">Practice time</div><div class="stat-value" id="statMinutes">0 min</div><div class="stat-sub">saved on this device</div></div>
+      <div class="stat"><div class="stat-label">Learning route</div><div class="stat-value">90 days</div><div class="stat-sub">foundation → full guitar → musicianship</div></div>
+    </section>
+
+    <nav class="main-nav" aria-label="Practice room sections">
+      <button class="tab-btn active" type="button" data-action="change-view" data-view="course" aria-current="page"><span>🧭</span> Course path</button>
+      <button class="tab-btn" type="button" data-action="change-view" data-view="fretboard"><span>🎼</span> Fretboard lab</button>
+      <button class="tab-btn" type="button" data-action="change-view" data-view="chords"><span>🪕</span> Chord lab</button>
+      <button class="tab-btn" type="button" data-action="change-view" data-view="songs"><span>♫</span> Song practice</button>
+      <button class="tab-btn" type="button" data-action="change-view" data-view="practice"><span>⏱</span> Practice tools</button>
+    </nav>
+
+    <main>
+      <section class="view active" id="view-course">
+        <div class="course-layout">
+          <aside class="rail" aria-label="Chapter list">
+            <div class="rail-head"><strong>90-day course</strong><span>14 chapters</span></div>
+            <div class="lesson-list" id="lessonList"></div>
+          </aside>
+          <article class="lesson-panel" id="lessonContent" aria-live="polite"></article>
+        </div>
+      </section>
+
+      <section class="view" id="view-fretboard">
+        <div class="tool-grid">
+          <section class="tool-card">
+            <div class="tool-heading">
+              <div><span class="eyebrow">Listen · locate · remember</span><h2>Fretboard note finder</h2><p>Tap any fret to hear its reference pitch. Scroll sideways on a small screen.</p></div>
+              <button class="mini-btn" type="button" data-action="toggle-note-labels">Hide note names</button>
+            </div>
+            <div class="board-shell"><div class="board-scroll"><div class="fretboard" id="mainFretboard"></div></div><div class="board-legend"><span>String 1 = thinnest/high E · String 6 = thickest/low E</span><span>Frets 0–5 shown</span></div></div>
+            <div class="meter-row" style="margin-top:12px"><label class="small-note" for="boardScope">Note set</label><select class="select" id="boardScope"><option value="natural">Guide notes through chapter 8</option><option value="chromatic">Add sharps and flats from chapter 9</option></select></div>
+            <p class="small-note">Standard tuning reference: E–A–D–G–B–E. A microphone tuner is optional and only starts when you press its button.</p>
+          </section>
+          <section class="tool-card">
+            <span class="eyebrow">Quick recall</span><h2>Find the note</h2>
+            <p>Choose the note you hear or see in the prompt, then find it on the fretboard.</p>
+            <div class="quiz-target"><small>Name the note at this position</small><strong id="quizTarget">—</strong><span class="small-note" id="quizHint">Press “New note” to begin</span></div>
+            <div class="answer-grid" id="noteAnswers"></div>
+            <div class="button-row" style="margin-top:11px"><button class="action-btn gold" type="button" data-action="new-note-quiz">New note</button><button class="action-btn" type="button" data-action="play-quiz-note">Hear note</button></div>
+            <p class="feedback" id="quizFeedback" aria-live="polite"></p>
+            <div class="chip-row"><span class="chip">Correct: <b id="quizCorrect">0</b></span><span class="chip">Try again: <b id="quizMisses">0</b></span></div>
+            <div class="content-block" style="margin-top:14px"><h3>Open-string memory</h3><p>Thick → thin: <b>E A D G B E</b>. Say the names once, then play each string slowly.</p><div class="button-row" id="stringTones"></div></div>
+          </section>
+        </div>
+      </section>
+
+      <section class="view" id="view-chords">
+        <div class="tool-grid">
+          <section class="tool-card">
+            <span class="eyebrow">Shape · check · listen</span><h2>Chord shape studio</h2>
+            <p>Start with the three-string C, G and G7 shapes. Open the full chord set as the guide introduces chord diagrams.</p>
+            <div class="chord-toolbar" id="chordPicker"></div>
+            <div id="chordDisplay"></div>
+            <div class="button-row" style="margin-top:12px"><button class="action-btn gold" type="button" data-action="play-chord">Hear chord</button><button class="action-btn" type="button" data-action="new-chord-challenge">Next chord challenge</button></div>
+            <p class="feedback" id="chordFeedback"></p>
+          </section>
+          <section class="tool-card">
+            <span class="eyebrow">Change without losing the beat</span><h2>Transition practice</h2>
+            <p>Use one gentle downstroke per bar. Let the chord ring while your fretting hand prepares the next shape.</p>
+            <div class="quiz-target"><small>Your two-chord loop</small><strong id="chordLoop">C → G</strong><span class="small-note" id="chordLoopCount">4 beats each · slow and clear</span></div>
+            <div class="button-row"><button class="action-btn gold" type="button" data-action="play-transition">Play slow loop</button><button class="action-btn" type="button" data-action="next-transition">Choose another pair</button></div>
+            <div class="content-block" style="margin-top:15px"><h3>Three checkpoints</h3><ul class="learn-list"><li>Place fingertips just behind the fret wire.</li><li>Pluck each used string one at a time; fix buzzes before strumming.</li><li>Keep a light strumming motion through the chord change.</li></ul></div>
+          </section>
+        </div>
+      </section>
+
+      <section class="view" id="view-songs">
+        <div class="tool-card">
+          <div class="tool-heading">
+            <div><span class="eyebrow">Use the guide's printed practice sheets</span><h2>Song practice shelf</h2><p>Choose a piece, then practise it in short sections. The song pages stay in your PDF; this page adds a slower practice routine and timing tools.</p></div>
+          </div>
+          <div class="meter-row" style="margin-bottom:13px">
+            <label class="sr-only" for="songSearch">Search songs</label><input class="text-input" style="max-width:350px" id="songSearch" type="search" placeholder="Search a song or skill…">
+            <label class="sr-only" for="songPhase">Filter by journey stage</label><select class="select" id="songPhase"><option value="all">All journey stages</option><option value="1">Days 1–30 · first sounds & songs</option><option value="2">Days 31–60 · rhythm & full fretboard</option><option value="3">Days 61–90 · integration & two voices</option><option value="bonus">Bonus pages</option></select>
+          </div>
+          <div class="song-grid" id="songGrid"></div>
+          <section class="song-detail" id="songDetail" hidden></section>
+        </div>
+      </section>
+
+      <section class="view" id="view-practice">
+        <div class="tool-grid">
+          <section class="tool-card">
+            <span class="eyebrow">Steady pulse, no rush</span><h2>Metronome</h2>
+            <p>Start at a tempo where every note is relaxed and clean. Beat 1 is accented in 3/4 so the waltz feel is easy to hear.</p>
+            <div class="meter-controls">
+              <div><label class="small-note" for="bpmRange">Tempo · <b id="bpmLabel">60 BPM</b></label><input id="bpmRange" type="range" min="40" max="140" value="60"></div><div class="beat-lamp" id="beatLamp" aria-hidden="true"></div>
+              <label class="small-note" for="timeSignature">Count</label><select class="select" id="timeSignature"><option value="4">4/4 · one two three four</option><option value="3">3/4 · ONE two three</option></select>
+              <label class="small-note" for="subdivision">Clicks</label><select class="select" id="subdivision"><option value="1">Quarter notes</option><option value="2">Eighth notes · 1 &amp; 2 &amp;</option></select>
+              <span class="small-note">Beat</span><strong class="metro-count" id="metroCount">—</strong>
+            </div>
+            <div class="meter-dots" id="meterDots"></div>
+            <div class="button-row"><button class="action-btn gold" type="button" data-action="metronome-toggle" id="metroToggle">Start metronome</button><button class="action-btn" type="button" data-action="metro-tap">Tap tempo</button></div>
+          </section>
+          <section class="tool-card">
+            <span class="eyebrow">A small session counts</span><h2>Practice timer</h2>
+            <p>Pick one focus and keep the session short enough to finish with good posture and a clear sound.</p>
+            <label class="small-note" for="practiceFocus">Today I will practise</label><select class="select" id="practiceFocus" style="width:100%;margin-top:5px"><option>Open strings and right-hand control</option><option>Clean fretted notes</option><option>Chord changes</option><option>Rhythm and strumming</option><option>Scales and note reading</option><option>A song section from the guide</option><option>Two-voice coordination</option></select>
+            <label class="small-note" for="timerDuration" style="display:block;margin-top:10px">Session length</label><select class="select" id="timerDuration" style="width:100%;margin-top:5px"><option value="5">5 minutes</option><option value="10" selected>10 minutes</option><option value="15">15 minutes</option><option value="20">20 minutes</option></select>
+            <div class="timer-display" id="timerDisplay">10:00</div>
+            <div class="timer-progress"><span id="timerFill"></span></div>
+            <div class="button-row"><button class="action-btn gold" type="button" data-action="timer-start" id="timerStart">Start session</button><button class="action-btn" type="button" data-action="timer-reset">Reset</button></div>
+            <p class="feedback" id="timerStatus" aria-live="polite">Your progress is saved in this browser only.</p>
+          </section>
+          <section class="tool-card">
+            <span class="eyebrow">Optional · use your device mic</span><h2>Simple tuner</h2>
+            <p>Microphone access starts only after you press the button. If this page is opened directly as a file and your browser blocks the mic, use your usual clip-on tuner. Reference pitches remain available in the fretboard lab.</p>
+            <div class="quiz-target"><small>Detected pitch</small><strong id="tunerNote">—</strong><span class="small-note" id="tunerCents">Microphone is off</span></div>
+            <div class="button-row"><button class="action-btn gold" type="button" data-action="tuner-toggle" id="tunerToggle">Start microphone tuner</button><button class="action-btn" type="button" data-action="play-a">Play A reference</button></div>
+            <p class="feedback" id="tunerStatus" aria-live="polite"></p>
+          </section>
+          <section class="tool-card">
+            <span class="eyebrow">Session notes</span><h2>Your practice history</h2>
+            <div class="quiz-target"><small>Completed sessions</small><strong id="sessionCount">0</strong><span class="small-note" id="sessionLast">No session saved yet</span></div>
+            <p>Keep a simple record of what felt easy and what needs another slow round. Nothing is uploaded or shared.</p>
+            <div class="content-block"><h3>Good practice checkpoint</h3><ul class="learn-list"><li>Relax the shoulder and keep the wrist comfortable.</li><li>Stop if you feel pain; rest and check your setup.</li><li>Increase tempo only after the notes sound clean several times.</li></ul></div>
+          </section>
+        </div>
+      </section>
+    </main>
+    <footer class="footer"><span>Study companion for <i>Guitar Made Easy: A Step-by-Step Guide for Beginners (India)</i> by Mayank Bhadra.</span><span>Original practice prompts · no song scores or recordings embedded</span></footer>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    "use strict";
+    const lessons=[
+      {title:"Getting started with guitar",phase:1,range:"Days 1–30 · Start here",pages:"11–17",goal:"Choose an instrument and practice setup that makes daily playing comfortable.",learn:["Compare acoustic, classical and electric guitars by sound, comfort and setup needs.","Check guitar size, playability, tuner and a quiet place to practise.","Keep the first setup simple: the instrument, a tuner and a case are enough to begin."],check:["I can name the kind of guitar I have and why it suits my goal.","The guitar feels comfortable to hold; its size and string height are manageable.","My tuner and practice spot are ready."],activity:"setup"},
+      {title:"Posture, parts and tuning",phase:1,range:"Days 1–30 · Build good habits",pages:"18–26",goal:"Hold the guitar without strain, recognise its parts and tune before practice.",learn:["Choose a seated position that keeps the guitar stable and the shoulders relaxed.","Keep the fretting thumb behind the neck and the wrist as straight as is comfortable.","Learn the standard string order E–A–D–G–B–E and tune each string carefully."],check:["I can identify the head, tuning pegs, neck, frets, sound hole and bridge.","I can sit with the guitar stable without squeezing the neck.","I check tuning before I practise and wipe the strings after."],activity:"posture"},
+      {title:"Your first sounds and rhythm",phase:1,range:"Days 1–30 · Open strings",pages:"27–42",goal:"Create clear open-string notes with your picking hand and feel a steady 4/4 pulse.",learn:["Start with the right hand only: relaxed forearm, wrist and fingers.","Use P–I–M–I on G–B–high E–B; with a pick, keep down and up strokes even.","Count quarter, half and whole notes in 4/4. Learn what staff notation and TAB each tell you."],check:["I can play P–I–M–I slowly without catching another string.","I can alternate down and up strokes evenly on one string.","I can clap four steady beats and hold a note for one, two or four beats."],activity:"open"},
+      {title:"Create your first melodies",phase:1,range:"Days 1–30 · First frets",pages:"43–54",goal:"Read simple TAB and make clean melody notes on the first three strings.",learn:["Use fingertip contact just behind the fret wire; keep the other fingers curved.","Learn the first natural notes on high E, B and G strings: E–F–G, B–C–D and G–A.","Read TAB from left to right: 0 is an open string; the number is the fret to press."],check:["I can play the guide's first-three-fret natural notes with a clear tone.","I can connect a TAB number to a string and fret.","I can play a short note pattern slowly while saying its note names."],activity:"melody"},
+      {title:"First chords and expression",phase:1,range:"Days 1–30 · Harmony",pages:"55–69",goal:"Move from single notes into beginner chords, simple scales and expressive playing.",learn:["Begin with the guide's three-string C, G and G7 shapes; check each string before strumming.","Practise C–G and C–G–G7–C without stopping the pulse.","Explore quarter-note rests, soft/medium/loud touch and the C-major scale."],check:["C, G and G7 sound clear on their used strings.","I can change between two chords slowly without losing count.","I can play a short C-major note run up and down with an even pulse."],activity:"chords-basic"},
+      {title:"Play your first full song",phase:1,range:"Days 1–30 · First performance",pages:"70–72",goal:"Prepare, practise and perform a complete piece without rushing through difficult bars.",learn:["Use the printed score and TAB on the guide's song page as your music reference.","Mark a comfortable starting tempo; work on one short section at a time.","Join sections only after each one is steady; add expression after the notes are secure."],check:["I have checked the song's time signature and starting note.","I can play the most difficult short section slowly several times.","I can reach the final bar while keeping a steady beat."],activity:"song"},
+      {title:"Unlock all six strings",phase:2,range:"Days 31–60 · Full guitar",pages:"73–82",goal:"Bring the lower D, A and low-E strings into your note map and picking hand.",learn:["Remember the open strings from thickest to thinnest: E–A–D–G–B–E.","Expand the right hand to P–I–M–A: thumb for bass strings, fingers for the top three.","Find the natural notes introduced on the first few frets of D, A and low E."],check:["I can name and sound all six open strings in order.","I can use P–I–M–A with relaxed movements across the strings.","I can play the C-major exercise from the fifth-string starting position."],activity:"pima"},
+      {title:"Chord diagrams and 3/4 time",phase:2,range:"Days 31–60 · Chord vocabulary",pages:"83–92",goal:"Read a chord diagram, form fuller shapes and feel the three-beat waltz pulse.",learn:["Read X as mute, O as open, and numbered dots as fingers; string lines run low E to high E.","Build new chords gradually and test each string before using a full strum.","Count ONE-two-three with a stronger first beat; the quarter note still gets one beat."],check:["I can read a chord diagram and identify open/muted strings.","I can form at least four familiar chords cleanly.","I can clap and strum a steady 3/4 pattern with beat 1 emphasized."],activity:"chords-full"},
+      {title:"Eighth notes, strumming and sharps",phase:2,range:"Days 31–60 · Stronger rhythm",pages:"93–104",goal:"Subdivide a beat evenly, play simple down/up patterns and recognise sharp notes.",learn:["Count eighth notes as 1-and-2-and-3-and-4-and; the second sound falls between beats.","Keep the strumming hand moving evenly, including on silent up/down motions.","A sharp raises a note by one fret; practise clean legato connections and crisp staccato notes."],check:["I can clap evenly through four 1-and pairs.","I can keep a slow down/up motion going without speeding up.","I can find a few newly introduced sharp notes and play one note smoothly, then detached."],activity:"rhythm"},
+      {title:"G-major scale and dotted rhythm",phase:2,range:"Days 31–60 · New key",pages:"105–115",goal:"Hear the G-major scale's F-sharp and count a dotted quarter note as one-and-a-half beats.",learn:["The major-scale spacing is whole, whole, half, whole, whole, whole, half.","G major uses F-sharp so that the half step lands between F-sharp and G.","A dot adds half of the note's value; a dotted quarter lasts 1.5 beats."],check:["I can say the G-major notes in order and identify F-sharp.","I can explain the W–W–H–W–W–W–H scale pattern.","I can count a dotted quarter across the beat without shortening it."],activity:"gscale"},
+      {title:"Accidentals and chord progressions",phase:3,range:"Days 61–90 · Join the ideas",pages:"116–124",goal:"Read a temporary sharp, flat or natural and connect melody work with chord changes.",learn:["A printed accidental changes that pitch for its measure; then follow the score's next instruction.","Locate the same pitch in more than one fretboard position when useful.","Use slow sectional practice for the guide's progression and song studies."],check:["I can explain how sharp, flat and natural signs change a note.","I can find an accidental note on the fretboard before playing it.","I can move through a short progression in time and resume after a rest."],activity:"accidentals"},
+      {title:"How scales create chord families",phase:3,range:"Days 61–90 · Harmony",pages:"125–133",goal:"Build a simple map of the chords that belong to C major and G major.",learn:["Make a triad by taking a scale note, skipping one scale degree, taking the next, skipping one, then taking the next.","Use I, ii, iii, IV, V, vi and vii° to describe chord roles in a major key.","Listen for home, movement and return while comparing familiar C- and G-major progressions."],check:["I can find the I, IV and V chords in C major and in G major.","I can explain why G major includes F-sharp.","I can play a short three-chord progression with even changes."],activity:"harmony"},
+      {title:"Two-voice guitar playing",phase:3,range:"Days 61–90 · Independent hands",pages:"134–145",goal:"Practise a clear melody voice over a steady bass voice, first separately and then together.",learn:["The thumb usually carries the lower bass line; I–M–A shape the upper line.","Learn each voice separately before pairing notes that happen together.","Keep the melody clear while the bass remains steady; increase tempo only after coordination feels easy."],check:["I can play the upper pattern alone and the bass pattern alone.","I can coordinate one bass note with a simple upper note.","I can keep the two parts steady at a slow practice tempo."],activity:"voices"},
+      {title:"Review, glossary and next steps",phase:3,range:"Days 61–90 · Make it your own",pages:"146–160",goal:"Name the musical ideas you use and build a personal plan for the next month.",learn:["Review the guide's vocabulary for notes, rhythms, rests, TAB, chords and dynamics.","Choose one reading skill, one technical skill and one song section to keep developing.","Finish with a calm play-through and note one thing that became easier."],check:["I can explain a few key terms in my own words.","I know which skill to practise next and can make the task small and specific.","I can play one piece or exercise from start to finish at a comfortable tempo."],activity:"review"}
+    ];
+    const songs=[
+      {name:"The Mountain",page:"50",phase:1,skill:"First melody · read the finger-number cue and keep the phrase even."},
+      {name:"Twinkle Twinkle Little Star",page:"51",phase:1,skill:"First tune · use the printed music and work in short note groups."},
+      {name:"Machli Jal Ki Rani",page:"52",phase:1,skill:"First tune · connect notes cleanly across strings."},
+      {name:"Nani Teri Morni",page:"53",phase:1,skill:"First tune · practise a small phrase, then join the phrases."},
+      {name:"Ode to Joy",page:"63",phase:1,skill:"Chord and melody study · count before you play and shape the phrase."},
+      {name:"Lakdi Ki Kathi",page:"71",phase:1,skill:"First complete song · rehearse the melody and any marked chord layer."},
+      {name:"River Sunset",page:"79",phase:2,skill:"Six-string reading · notice the pickup before the first full bar."},
+      {name:"My Bonnie Lies Over the Ocean",page:"90",phase:2,skill:"3/4 waltz · feel a longer note across the bar where the tie is shown."},
+      {name:"Blue Danube",page:"91",phase:2,skill:"3/4 waltz · keep the strong-weak-weak pulse flowing."},
+      {name:"Jadoo Teri Nazar",page:"101",phase:2,skill:"Eighth notes and hammer-on study · isolate the marked phrase."},
+      {name:"Minuet",page:"103",phase:2,skill:"Articulation · practise connected notes and clear note endings."},
+      {name:"Aaha Tamatar",page:"112",phase:2,skill:"G-major and dotted-rhythm study · count each 1.5-beat note carefully."},
+      {name:"Scarborough Fair",page:"113",phase:2,skill:"G-major reading · use the score's phrase and rhythm markings."},
+      {name:"Counting Rhythms",page:"114",phase:2,skill:"Rhythm worksheet · count and clap first, then play the written line."},
+      {name:"Tu Tu Hai Wahi",page:"122",phase:3,skill:"Integration study · review the accidental signs and chord changes in the score."},
+      {name:"Pal Pal Dil Ke Pass",page:"123",phase:3,skill:"Eighth-note and accidental study · take one measure at a time."},
+      {name:"Cactus Sunset",page:"142",phase:3,skill:"Two-voice introduction · practise bass and melody separately first."},
+      {name:"Happy Birthday · two voices",page:"143",phase:3,skill:"Two-voice coordination · let the melody speak above the bass."},
+      {name:"Tum Hi Ho",page:"144",phase:3,skill:"Two-voice integration · start very slowly and shape the upper line."},
+      {name:"Kesariya · bonus",page:"157–158",phase:"bonus",skill:"Bonus score · use the chord/rhythm ideas already learned."},
+      {name:"Jana Gana Mana · bonus",page:"159",phase:"bonus",skill:"Bonus score · read carefully and keep the pulse steady."}
+    ];
+    const strings=[
+      {name:"e",label:"1 · high E",midi:64,note:"E"},
+      {name:"B",label:"2 · B",midi:59,note:"B"},
+      {name:"G",label:"3 · G",midi:55,note:"G"},
+      {name:"D",label:"4 · D",midi:50,note:"D"},
+      {name:"A",label:"5 · A",midi:45,note:"A"},
+      {name:"E",label:"6 · low E",midi:40,note:"E"}
+    ];
+    const pitchNames=["C","C♯","D","D♯","E","F","F♯","G","G♯","A","A♯","B"];
+    const chordData={
+      C:{shape:["x","x","x",0,1,0],fingers:["","","","","1",""],notes:["C","E","G"],type:"Major · guide's three-string starter voicing"},
+      G:{shape:["x","x","x",0,0,3],fingers:["","","","","","3"],notes:["G","B","D"],type:"Major · guide's three-string starter voicing"},
+      G7:{shape:["x","x","x",0,0,1],fingers:["","","","","","1"],notes:["G","B","F"],type:"Dominant seventh · guide's three-string starter voicing"},
+      "C (full)":{shape:["x",3,2,0,1,0],fingers:["","3","2","","1",""],notes:["C","E","G"],type:"Major · fuller open voicing"},
+      "G (full)":{shape:[3,2,0,0,0,3],fingers:["2","1","","","","3"],notes:["G","B","D"],type:"Major · fuller open voicing"},
+      Am:{shape:["x",0,2,2,1,0],fingers:["","","2","3","1",""],notes:["A","C","E"],type:"Minor"},
+      A7:{shape:["x",0,2,0,2,0],fingers:["","","2","","3",""],notes:["A","C♯","E","G"],type:"Seventh"},
+      D:{shape:["x","x",0,2,3,2],fingers:["","","","1","3","2"],notes:["D","F♯","A"],type:"Major"},
+      Dm:{shape:["x","x",0,2,3,1],fingers:["","","","2","3","1"],notes:["D","F","A"],type:"Minor"},
+      D7:{shape:["x","x",0,2,1,2],fingers:["","","","2","1","3"],notes:["D","F♯","A","C"],type:"Seventh"},
+      Em:{shape:[0,2,2,0,0,0],fingers:["","2","3","","",""],notes:["E","G","B"],type:"Minor"},
+      E:{shape:[0,2,2,1,0,0],fingers:["","2","3","1","",""],notes:["E","G♯","B"],type:"Major"},
+      E7:{shape:[0,2,0,1,0,0],fingers:["","2","","1","",""],notes:["E","G♯","B","D"],type:"Seventh"},
+      F:{shape:[1,3,3,2,1,1],fingers:["1","3","4","2","1","1"],notes:["F","A","C"],type:"Major · barre shape"}
+    };
+    const state=readState();
+    let currentLesson=Math.max(0,Math.min(lessons.length-1,state.currentLesson||0));
+    let currentView="course",showNoteNames=true,selectedChord="C",quizTarget=null,quizPosition=null,quizMidi=null,quizChromatic=false,quizCorrect=0,quizMisses=0;
+    let audioCtx=null,metroTimer=null,metroTick=0,lastTap=0,timerInterval=null,timerRemaining=0,timerTotal=0;
+    let activeSong=null,tunerStream=null,tunerFrame=null,tunerCtx=null;
+    function readState(){try{return JSON.parse(localStorage.getItem("guitarMadeEasyPracticeV1")||"{}")}catch(e){return {}}}
+    function saveState(){try{localStorage.setItem("guitarMadeEasyPracticeV1",JSON.stringify(state))}catch(e){}}
+    function safeText(value){return String(value).replace(/[&<>"']/g,function(ch){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch]})}
+    function showToast(message){const t=document.getElementById("toast");t.textContent=message;t.classList.add("show");clearTimeout(showToast.timer);showToast.timer=setTimeout(function(){t.classList.remove("show")},2100)}
+    function escapeAttr(text){return safeText(text)}
+    function renderStats(){
+      const done=state.done||[];
+      document.getElementById("statProgress").textContent=Math.round(done.length/lessons.length*100)+"%";
+      document.getElementById("statLesson").textContent="Chapter "+(currentLesson+1);
+      document.getElementById("statLessonName").textContent=lessons[currentLesson].title;
+      document.getElementById("statMinutes").textContent=(state.minutes||0)+" min";
+      document.getElementById("sessionCount").textContent=(state.sessions||[]).length;
+      document.getElementById("sessionLast").textContent=(state.sessions||[]).length?state.sessions[(state.sessions||[]).length-1].focus:"No session saved yet";
+    }
+    function renderLessonList(){
+      const host=document.getElementById("lessonList");
+      const labels=["Days 1–30 · Begin","Days 31–60 · Expand","Days 61–90 · Integrate"];
+      let html="";
+      lessons.forEach(function(item,index){
+        if(index===0||lessons[index-1].phase!==item.phase)html+='<div class="phase-label">'+labels[item.phase-1]+'</div>';
+        html+='<button type="button" class="rail-link '+(index===currentLesson?"active":"")+'" data-action="lesson" data-index="'+index+'" aria-current="'+(index===currentLesson?"step":"false")+'"><span class="rail-num">'+(index+1)+'</span><span class="rail-title">'+safeText(item.title)+'</span><span class="rail-check">'+((state.done||[]).includes(index)?"✓":"")+'</span></button>';
+      });
+      host.innerHTML=html;
+    }
+    function activityMarkup(item){
+      const commonQuiz='<div class="quiz-target"><small>Name the note at this position</small><strong id="inlineQuizTarget">—</strong><span class="small-note" id="inlineQuizHint">Choose the pitch name below</span></div><div class="answer-grid" id="inlineNoteAnswers"></div><div class="button-row" style="margin-top:9px"><button class="mini-btn" type="button" data-action="inline-new-note">New note</button><button class="mini-btn" type="button" data-action="inline-hear-note">Hear note</button></div><p class="feedback" id="inlineQuizFeedback"></p>';
+      if(item.activity==="setup")return '<div class="activity"><label class="small-note" for="guitarChoice">My guitar type</label><select class="select" id="guitarChoice" style="width:100%;margin:5px 0 10px"><option>Acoustic</option><option>Classical / nylon string</option><option>Electric</option></select><div class="content-block"><h3>Ready-to-play setup</h3><div class="check-list">'+checkRows(["Instrument feels a comfortable size","Tuner is within reach","Pick or fingers are comfortable","Practice spot is easy to return to"],"setup")+'</div></div><p class="feedback" id="setupFeedback">Pick a guitar type to see a quick starting tip.</p></div>';
+      if(item.activity==="posture")return '<div class="activity"><div class="check-list">'+checkRows(["Guitar rests securely without sliding","Shoulders feel loose; no neck squeeze","Fretting thumb stays relaxed behind the neck","I know the six strings from thick to thin"],"posture")+'</div><div class="content-block" style="margin-top:12px"><h3>String memory</h3><div class="chip-row"><span class="chip">Low E · 6</span><span class="chip">A · 5</span><span class="chip">D · 4</span><span class="chip">G · 3</span><span class="chip">B · 2</span><span class="chip">High E · 1</span></div><div class="button-row" id="postureTones"></div></div></div>';
+      if(item.activity==="open")return '<div class="activity"><div class="chip-row"><span class="chip">P = thumb · G string</span><span class="chip">I = index · B string</span><span class="chip">M = middle · high E</span></div><div class="pattern-strip" id="pimPattern"></div><div class="button-row"><button class="action-btn gold" type="button" data-action="play-pim">▶ Hear P–I–M–I</button><button class="mini-btn" type="button" data-action="play-string-sequence">Hear open strings</button></div><div class="content-block" style="margin-top:12px"><h3>Count along</h3><p>Tap 1–2–3–4 with the metronome. Start at 50–60 BPM; let every note ring before the next one.</p><button class="mini-btn" type="button" data-action="change-view" data-view="practice">Open metronome →</button></div></div>';
+      if(item.activity==="melody")return '<div class="activity"><div class="quiz-target"><small>Natural notes on high E, B and G</small><strong>E · F · G / B · C · D / G · A</strong><span class="small-note">Only the frets introduced in this chapter</span></div>'+commonQuiz+'<div class="small-note">TAB reads left to right; 0 is open. Press just behind the fret wire for a clear note.</div></div>';
+      if(item.activity==="chords-basic")return '<div class="activity"><div class="chord-toolbar">'+chordButtons(["C","G","G7"])+'</div><div id="inlineChordDisplay"></div><div class="button-row" style="margin-top:9px"><button class="mini-btn" type="button" data-action="inline-play-chord">Hear this shape</button><button class="mini-btn" type="button" data-action="play-transition">Practise C → G</button></div><div class="content-block" style="margin-top:12px"><h3>C-major scale</h3><div class="chip-row"><span class="chip">C · D · E · F · G · A · B · C</span><span class="chip">Do–Re–Mi / Sa–Re–Ga</span></div><button class="mini-btn" type="button" data-action="play-scale-c">Hear slow scale</button></div></div>';
+      if(item.activity==="song")return '<div class="activity"><div class="quiz-target"><small>Guide score reference</small><strong>Lakdi Ki Kathi</strong><span class="small-note">Printed melody / TAB · PDF page 71</span></div><div class="check-list">'+checkRows(["Name the count and locate the first phrase on the page","Practise the opening phrase at a slow tempo","Repeat the tricky bar three clean times","Join two phrases, then play the complete page"],"firstsong")+'</div><div class="button-row" style="margin-top:10px"><button class="mini-btn" type="button" data-action="change-view" data-view="songs">Open song practice shelf</button><button class="mini-btn" type="button" data-action="change-view" data-view="practice">Set a practice timer</button></div><p class="small-note" style="margin-top:9px">Use the notes and arrangement printed in your own guide. This companion does not reproduce the score.</p></div>';
+      if(item.activity==="pima")return '<div class="activity"><div class="two-voice"><div class="voice-lane"><strong>Thumb · bass strings</strong><div class="chip-row"><span class="chip">P → low E</span><span class="chip">P → A</span><span class="chip">P → D</span></div></div><div class="voice-lane upper"><strong>I–M–A · upper strings</strong><div class="chip-row"><span class="chip">I → G</span><span class="chip">M → B</span><span class="chip">A → high E</span></div></div></div><div class="pattern-strip"><span class="beat-cell">P</span><span class="beat-cell up">I</span><span class="beat-cell up">M</span><span class="beat-cell down">A</span><span class="beat-cell">P</span><span class="beat-cell up">I</span></div><div class="button-row"><button class="action-btn gold" type="button" data-action="play-pima">▶ Hear P–I–M–A</button><button class="mini-btn" type="button" data-action="new-note-quiz">Open-string note quiz</button></div></div>';
+      if(item.activity==="chords-full")return '<div class="activity"><div class="chord-toolbar">'+chordButtons(["C (full)","G (full)","Am","D","Em","F"])+'</div><div id="inlineChordDisplay"></div><div class="button-row" style="margin-top:9px"><button class="mini-btn" type="button" data-action="inline-play-chord">Hear this shape</button><button class="mini-btn" type="button" data-action="new-chord-challenge">Choose a chord challenge</button></div><div class="content-block" style="margin-top:12px"><h3>3/4 count</h3><div class="meter-dots"><span class="meter-dot strong">1</span><span class="meter-dot">2</span><span class="meter-dot">3</span></div><button class="mini-btn" type="button" data-action="change-view" data-view="practice">Practise with 3/4 metronome →</button></div></div>';
+      if(item.activity==="rhythm")return '<div class="activity"><label class="small-note" for="patternSelect">Strum exercise</label><select class="select" id="patternSelect" style="width:100%;margin:5px 0 10px"><option value="downup">Even eighths · ↓ ↑ ↓ ↑ ↓ ↑ ↓ ↑</option><option value="pop">Popular loop · ↓ ↓ ↑ ↑ ↓ ↑</option><option value="rests">Rest practice · ↓ — ↓ ↑ — ↑</option><option value="waltz">Waltz pulse · ↓ — ↓ — ↓ —</option></select><div class="pattern-strip" id="inlineStrumPattern"></div><div class="button-row"><button class="action-btn gold" type="button" data-action="play-strum-pattern">▶ Count and play pattern</button><button class="mini-btn" type="button" data-action="new-note-quiz">Sharp-note finder</button></div><p class="small-note">Keep the hand moving evenly through silent strokes. Start slowly and say “1-and-2-and…” out loud.</p></div>';
+      if(item.activity==="gscale")return '<div class="activity"><div class="quiz-target"><small>G-major scale</small><strong>G · A · B · C · D · E · F♯ · G</strong><span class="small-note">Same major pattern: W–W–H–W–W–W–H</span></div><div class="button-row"><button class="action-btn gold" type="button" data-action="play-scale-g">▶ Hear slow scale</button><button class="mini-btn" type="button" data-action="play-dotted">Count dotted quarters</button></div><p class="feedback" id="rhythmFeedback"></p><div class="content-block" style="margin-top:12px"><p>At each dotted-quarter note, keep sounding for 1½ beats. Count subdivisions if you need help feeling the length.</p></div></div>';
+      if(item.activity==="accidentals")return '<div class="activity"><div class="quiz-target"><small>What does a sharp do?</small><strong>F → ?</strong><span class="small-note">Choose the correct fretboard change</span></div><div class="choice-grid"><button class="choice-btn" type="button" data-action="accidental-answer" data-answer="same">Keep the same pitch</button><button class="choice-btn" type="button" data-action="accidental-answer" data-answer="up">Raise by one fret</button><button class="choice-btn" type="button" data-action="accidental-answer" data-answer="down">Lower by one fret</button><button class="choice-btn" type="button" data-action="accidental-answer" data-answer="octave">Move one octave</button></div><p class="feedback" id="accidentalFeedback"></p><div class="content-block" style="margin-top:12px"><h3>Try a short progression</h3><div class="chip-row"><span class="chip">C → Am → F → G</span><span class="chip">G → Em → Am → D</span></div><button class="mini-btn" type="button" data-action="next-transition">Choose chord changes</button></div></div>';
+      if(item.activity==="harmony")return '<div class="activity"><label class="small-note" for="harmonyKey">Build from this key</label><select class="select" id="harmonyKey" style="width:100%;margin:5px 0 10px"><option value="C">C major</option><option value="G">G major</option></select><div id="harmonyCards" class="choice-grid"></div><div class="button-row" style="margin-top:10px"><button class="mini-btn" type="button" data-action="play-progression">Hear I–IV–V–I</button><button class="mini-btn" type="button" data-action="random-progression">Make a new progression</button></div><p class="small-note">Say the Roman numerals as you play: they show each chord role, so the pattern can move to another key.</p></div>';
+      if(item.activity==="voices")return '<div class="activity"><div class="two-voice"><div class="voice-lane"><strong>Lower voice · P thumb</strong><div class="voice-pulses" id="bassPulses"></div><p class="small-note">Steady, supportive bass notes.</p></div><div class="voice-lane upper"><strong>Upper voice · I–M–A</strong><div class="voice-pulses" id="melodyPulses"></div><p class="small-note">The melody can move between bass notes.</p></div></div><div class="button-row" style="margin-top:10px"><button class="action-btn gold" type="button" data-action="voice-demo">▶ Hear a slow two-part exercise</button><button class="mini-btn" type="button" data-action="change-view" data-view="practice">Set a slow metronome</button></div><p class="small-note">First tap each lane alone. Then combine them; the upper note lands between two bass notes in this tiny original coordination drill.</p></div>';
+      return '<div class="activity"><div class="quiz-target"><small>Review prompt</small><strong id="reviewTerm">TAB</strong><span class="small-note" id="reviewDefinition">Pick “New card” to practise a term.</span></div><div class="button-row"><button class="action-btn gold" type="button" data-action="review-card">New card</button><button class="mini-btn" type="button" data-action="reveal-review">Show meaning</button></div><p class="feedback" id="reviewFeedback"></p><div class="content-block" style="margin-top:11px"><h3>Choose your next step</h3><div class="check-list">'+checkRows(["Keep one technical exercise in your weekly routine","Read a short line of notation before searching for a video","Write down a small goal for the next seven days"],"nextstep")+'</div></div></div>';
+    }
+    function checkRows(items,prefix){return items.map(function(text,index){const checked=((state.checks||{})[prefix+"-"+index])?" checked":"";return '<label><input type="checkbox" data-check="'+prefix+"-"+index+'"'+checked+'> <span>'+safeText(text)+'</span></label>'}).join("")}
+    function chordButtons(names){return names.map(function(name){return '<button type="button" class="chord-pill '+(name===selectedChord?"active":"")+'" data-action="select-chord" data-chord="'+name+'">'+name+'</button>'}).join("")}
+    function lessonCheckRows(items,index){const done=(state.lessonChecks||{})[index]||[];return items.map(function(text,n){return '<label><input type="checkbox" data-lesson-check="'+index+'" data-check-index="'+n+'"'+(done.includes(n)?" checked":"")+'> <span>'+safeText(text)+'</span></label>'}).join("")}
+    function renderLesson(){
+      const l=lessons[currentLesson],done=(state.done||[]).includes(currentLesson),checkCount=((state.lessonChecks||{})[currentLesson]||[]).length;
+      const progress=Math.round(checkCount/l.check.length*100);
+      document.getElementById("lessonContent").innerHTML=
+        '<div class="lesson-top"><div><span class="chapter-tag">Chapter '+(currentLesson+1)+' · '+l.range+'</span><h2>'+safeText(l.title)+'</h2><p class="lesson-subtitle">'+safeText(l.goal)+'</p></div><div class="ref-box"><strong>Guide pages</strong>'+l.pages+'</div></div>'+
+        '<div class="lesson-progress"><span>'+checkCount+' / '+l.check.length+' checkpoints</span><div class="progress-track"><div class="progress-fill" style="width:'+progress+'%"></div></div><span>'+progress+'%</span></div>'+
+        '<div class="lesson-columns"><div><section class="content-block"><h3>Learn these ideas</h3><ul class="learn-list">'+l.learn.map(function(x){return '<li>'+safeText(x)+'</li>'}).join("")+'</ul></section><section class="content-block"><h3>Before you move on</h3><div class="check-list">'+lessonCheckRows(l.check,currentLesson)+'</div></section><section class="content-block"><h3>Practice rhythm</h3><p>Use short, focused rounds: slow and clear first, then repeat without stopping. Guide routines often revisit one skill across several days; your checkpoints stay saved on this device.</p><button class="mini-btn" type="button" data-action="change-view" data-view="practice">Open metronome and timer →</button></section></div><aside><section class="try-card"><h3>Try it now</h3><p class="try-hint">A small interactive exercise for this chapter.</p><div class="activity">'+activityMarkup(l)+'</div></section></aside></div>'+
+        '<div class="lesson-bottom"><span class="muted">'+(done?"✓ Chapter marked complete":"Tick the checkpoints as you build confidence")+'</span><div class="button-row"><button class="action-btn" type="button" data-action="previous-lesson" '+(currentLesson===0?"disabled":"")+'>← Previous</button><button class="action-btn gold" type="button" data-action="complete-lesson">'+(done?"Completed ✓":"Mark chapter complete")+'</button><button class="action-btn" type="button" data-action="next-lesson">'+(currentLesson===lessons.length-1?"Finish":"Next chapter →")+'</button></div></div>';
+      renderLessonList();renderStats();refreshInlineWidgets();
+    }
+    function setLesson(index){currentLesson=Math.max(0,Math.min(lessons.length-1,index));quizPosition=null;quizTarget=null;state.currentLesson=currentLesson;saveState();renderLesson();window.scrollTo({top:0,behavior:"smooth"})}
+    function switchView(view){
+      currentView=view;
+      document.querySelectorAll(".view").forEach(function(el){el.classList.toggle("active",el.id==="view-"+view)});
+      document.querySelectorAll(".tab-btn").forEach(function(el){const active=el.dataset.view===view;el.classList.toggle("active",active);if(active)el.setAttribute("aria-current","page");else el.removeAttribute("aria-current")});
+      if(view==="fretboard"){renderFretboard();ensureQuiz();}
+      if(view==="chords"){renderChordPicker();renderChord(selectedChord)}
+      if(view==="songs")renderSongs();
+      if(view==="practice")refreshMeterDots();
+      window.scrollTo({top:0,behavior:"smooth"});
+    }
+    function ensureAudio(){if(!audioCtx){const AC=window.AudioContext||window.webkitAudioContext;if(!AC){showToast("Audio is not available in this browser.");return null}audioCtx=new AC()}if(audioCtx.state==="suspended")audioCtx.resume();return audioCtx}
+    function playTone(midi,when,duration,volume,type){
+      const ctx=ensureAudio();if(!ctx)return;
+      const start=when||ctx.currentTime,life=duration||.72,amp=volume||.12,freq=440*Math.pow(2,(midi-69)/12);
+      const osc=ctx.createOscillator(),gain=ctx.createGain(),filter=ctx.createBiquadFilter();
+      osc.type=type||"triangle";osc.frequency.setValueAtTime(freq,start);
+      filter.type="lowpass";filter.frequency.setValueAtTime(Math.min(2800,freq*8),start);
+      gain.gain.setValueAtTime(.0001,start);gain.gain.exponentialRampToValueAtTime(amp,start+.012);gain.gain.exponentialRampToValueAtTime(.0001,start+life);
+      osc.connect(filter);filter.connect(gain);gain.connect(ctx.destination);osc.start(start);osc.stop(start+life+.03);
+    }
+    function noteAt(stringIndex,fret){return strings[stringIndex].midi+fret}
+    function noteName(midi){return pitchNames[(midi%12+12)%12]}
+    function renderFretboard(labels){
+      const show=typeof labels==="boolean"?labels:showNoteNames;
+      const host=document.getElementById("mainFretboard");if(!host)return;
+      let html='<div class="fret-row"><div class="fret-label">String</div>';
+      for(let f=0;f<=5;f++)html+='<div class="fret-label">'+(f===0?"Open":f+" fret")+'</div>';
+      html+='</div>';
+      strings.forEach(function(str,s){
+        html+='<div class="fret-row"><div class="fret-cell"><b>'+str.name+'</b><br>'+str.label.split(" · ")[1]+'</div>';
+        for(let fret=0;fret<=5;fret++){
+          const midi=noteAt(s,fret),name=noteName(midi),noteMatch=name.replace("♯","#");
+          const naturalAllowed=["C","D","E","F","G","A","B"].includes(name);
+          const naturalScope=document.getElementById("boardScope")&&document.getElementById("boardScope").value==="natural";
+          const hidden=!show||(!naturalAllowed&&naturalScope);
+          html+='<div class="fret-cell '+(fret===0?"open-col":"")+'"><button type="button" class="fret-dot '+(hidden?"hidden-note":"")+' '+(!hidden&&(name==="C"||name==="G")?"root-note":"")+'" data-action="play-fret" data-string="'+s+'" data-fret="'+fret+'" data-midi="'+midi+'" aria-label="'+str.label+', fret '+fret+', '+noteMatch+'" title="'+(hidden?"Play "+str.label+" fret "+fret:noteMatch)+'">'+(hidden?"·":noteMatch)+'</button></div>';
+        }
+        html+='</div>';
+      });
+      host.innerHTML=html;
+    }
+    function renderAnswers(hostId){const host=document.getElementById(hostId);if(!host)return;const options=quizChromatic?pitchNames:["C","D","E","F","G","A","B"];host.innerHTML=options.map(function(p){return '<button type="button" class="answer-btn" data-action="note-answer" data-note="'+p+'">'+p.replace("♯","#")+'</button>'}).join("")}
+    function ensureQuiz(){
+      renderAnswers("noteAnswers");
+      if(!quizTarget)nextQuiz();
+    }
+    function nextQuiz(inline){
+      const lessonNumber=currentLesson+1;
+      const restricted=!!inline&&lessonNumber===4;
+      const allowChromatic=inline?lessonNumber>=9:(document.getElementById("boardScope")&&document.getElementById("boardScope").value==="chromatic");
+      const locations=[];
+      strings.forEach(function(str,s){
+        if(restricted&&s>2)return;
+        const maxFret=restricted?3:5;
+        for(let fret=0;fret<=maxFret;fret++){
+          const note=noteName(noteAt(s,fret));
+          if(allowChromatic||["C","D","E","F","G","A","B"].includes(note))locations.push({string:s,fret:fret,note:note,midi:noteAt(s,fret)});
+        }
+      });
+      quizPosition=locations.length?locations[Math.floor(Math.random()*locations.length)]:{string:0,fret:0,note:"E",midi:64};
+      quizChromatic=allowChromatic;
+      quizTarget=quizPosition.note;
+      quizMidi=quizPosition.midi;
+      const fretText=quizPosition.fret===0?"open string":quizPosition.fret+" "+(quizPosition.fret===1?"st":quizPosition.fret===2?"nd":quizPosition.fret===3?"rd":"th")+" fret";
+      ["quizTarget","inlineQuizTarget"].forEach(function(id){const target=document.getElementById(id);if(target)target.textContent=strings[quizPosition.string].label+" · "+fretText});
+      ["quizFeedback","inlineQuizFeedback"].forEach(function(id){const feedback=document.getElementById(id);if(feedback)feedback.textContent=""});
+      const hint=document.getElementById("quizHint");if(hint)hint.textContent=allowChromatic?"Sharps and flats are included":"Natural notes only";
+      renderAnswers("noteAnswers");renderAnswers("inlineNoteAnswers");
+    }
+    function answerQuiz(note){
+      const target=quizTarget||"C";let msg;
+      if(note===target){quizCorrect++;msg="Correct — "+target+" is right.";playTone(quizMidi||60,undefined,.48,.1,"sine")}
+      else{quizMisses++;msg="Not quite. That position is "+target+"; try another note."}
+      ["quizFeedback","inlineQuizFeedback"].forEach(function(id){const el=document.getElementById(id);if(el)el.textContent=msg});
+      document.getElementById("quizCorrect").textContent=quizCorrect;document.getElementById("quizMisses").textContent=quizMisses;
+    }
+    function renderChordPicker(){
+      const host=document.getElementById("chordPicker");if(host)host.innerHTML=chordButtons(Object.keys(chordData));
+    }
+    function renderChord(name,targetId){
+      const d=chordData[name];if(!d)return;
+      const svgX=[24,48,72,96,120,144],y0=36,gap=29,stringsSvg=svgX.map(function(x,i){return '<line x1="'+x+'" y1="'+y0+'" x2="'+x+'" y2="'+(y0+gap*4)+'" stroke="#cbd6e4" stroke-width="'+(i===0?2.2:1.2)+'"/>'}).join("");
+      let svg='<svg class="chord-diagram" viewBox="0 0 168 190" role="img" aria-label="'+name+' chord diagram"><text x="84" y="18" text-anchor="middle" fill="#ffd17b" font-size="16" font-weight="800">'+name+'</text>'+stringsSvg;
+      for(let f=0;f<=4;f++)svg+='<line x1="24" y1="'+(y0+f*gap)+'" x2="144" y2="'+(y0+f*gap)+'" stroke="#cbd6e4" stroke-width="'+(f===0?3:1.5)+'"/>';
+      d.shape.forEach(function(pos,i){const x=svgX[i];if(pos==="x"){svg+='<text x="'+x+'" y="30" text-anchor="middle" fill="#ff99a2" font-size="13" font-weight="800">×</text>'}else if(pos===0){svg+='<circle cx="'+x+'" cy="26" r="5" fill="none" stroke="#a8d7c2" stroke-width="1.5"/>'}else{const y=y0+(Number(pos)-.5)*gap;svg+='<circle cx="'+x+'" cy="'+y+'" r="9" fill="#f8c76f"/><text x="'+x+'" y="'+(y+3.5)+'" text-anchor="middle" fill="#241e14" font-size="9" font-weight="900">'+(d.fingers[i]||"")+'</text>'}});
+      svg+='<text x="24" y="177" text-anchor="middle" fill="#9aacc0" font-size="9">E</text><text x="48" y="177" text-anchor="middle" fill="#9aacc0" font-size="9">A</text><text x="72" y="177" text-anchor="middle" fill="#9aacc0" font-size="9">D</text><text x="96" y="177" text-anchor="middle" fill="#9aacc0" font-size="9">G</text><text x="120" y="177" text-anchor="middle" fill="#9aacc0" font-size="9">B</text><text x="144" y="177" text-anchor="middle" fill="#9aacc0" font-size="9">e</text></svg>';
+      const target=document.getElementById(targetId||"chordDisplay");if(!target)return;
+      const noteChips=d.notes.map(function(n){return "<span>"+n+"</span>"}).join("");
+      target.innerHTML='<div class="chord-display">'+svg+'<div><h3 style="margin:0 0 4px">'+name+' <span class="small-note">· '+d.type+'</span></h3><p class="small-note">Dots show which fret to press; × means mute and ○ means open.</p><div class="chord-notes">'+noteChips+'</div><p class="small-note" style="margin-top:9px">Finger number: 1 index · 2 middle · 3 ring · 4 little finger.</p></div></div>';
+      document.querySelectorAll("#chordPicker .chord-pill,.activity .chord-pill").forEach(function(btn){btn.classList.toggle("active",btn.dataset.chord===name)});
+      selectedChord=name;
+    }
+    function playChord(name){
+      const d=chordData[name||selectedChord];if(!d)return;
+      const now=(ensureAudio()||{currentTime:0}).currentTime;
+      d.shape.forEach(function(fret,index){if(fret==="x")return;const s=5-index;playTone(noteAt(s,Number(fret)),now+index*.045,1,.065,"triangle")});
+    }
+    function playSequence(notes,delay,duration,volume){
+      const ctx=ensureAudio();if(!ctx)return;const start=ctx.currentTime+.04;
+      notes.forEach(function(n,i){playTone(typeof n==="number"?n:60+pitchNames.indexOf(n),start+i*(delay||.55),duration||.4,volume||.08,"triangle")});
+    }
+    function refreshInlineWidgets(){
+      if(document.getElementById("inlineChordDisplay"))renderChord(selectedChord,"inlineChordDisplay");
+      if(document.getElementById("pimPattern"))document.getElementById("pimPattern").innerHTML=["P","I","M","I","P","I","M","I"].map(function(n,i){return '<span class="beat-cell '+(n==="P"?"down":"up")+'">'+n+(i%4===3?" ·":"")+'</span>'}).join("");
+      if(document.getElementById("inlineStrumPattern"))drawStrumPattern();
+      if(document.getElementById("harmonyCards"))renderHarmony();
+      if(document.getElementById("bassPulses"))renderVoicePulses();
+      if(document.getElementById("postureTones"))document.getElementById("postureTones").innerHTML=strings.slice().reverse().map(function(s,i){return '<button class="mini-btn" type="button" data-action="play-string" data-string="'+(5-i)+'">'+s.label+' ♪</button>'}).join("");
+      if(document.getElementById("inlineNoteAnswers")){renderAnswers("inlineNoteAnswers");if(!quizPosition)nextQuiz(true)}
+      if(document.getElementById("guitarChoice"))updateSetupTip();
+    }
+    function midiOpenString(button){const s=Number(button.dataset.string);return strings[s].midi}
+    function playString(index){playTone(strings[index].midi,undefined,.9,.1,"triangle")}
+    function drawStrumPattern(){
+      const select=document.getElementById("patternSelect"),host=document.getElementById("inlineStrumPattern");if(!select||!host)return;
+      const patterns={downup:["↓","↑","↓","↑","↓","↑","↓","↑"],pop:["↓","—","↓","↑","—","↑","↓","↑"],rests:["↓","—","↓","↑","—","↑","—","—"],waltz:["↓","—","↓","—","↓","—"]};
+      host.innerHTML=patterns[select.value].map(function(x){return '<span class="beat-cell '+(x==="↓"?"down":x==="↑"?"up":"rest")+'">'+x+'</span>'}).join("");
+    }
+    function renderHarmony(){
+      const key=(document.getElementById("harmonyKey")||{value:"C"}).value;
+      const c=[["I","C major","C–E–G"],["ii","D minor","D–F–A"],["iii","E minor","E–G–B"],["IV","F major","F–A–C"],["V","G major","G–B–D"],["vi","A minor","A–C–E"],["vii°","B diminished","B–D–F"]];
+      const g=[["I","G major","G–B–D"],["ii","A minor","A–C–E"],["iii","B minor","B–D–F♯"],["IV","C major","C–E–G"],["V","D major","D–F♯–A"],["vi","E minor","E–G–B"],["vii°","F♯ diminished","F♯–A–C"]];
+      document.getElementById("harmonyCards").innerHTML=(key==="C"?c:g).map(function(row){return '<div class="choice-btn"><b>'+row[0]+' · '+row[1]+'</b><br><span class="small-note">'+row[2]+'</span></div>'}).join("");
+    }
+    function renderVoicePulses(){
+      document.getElementById("bassPulses").innerHTML=[1,2,3,4].map(function(){return '<span class="voice-pulse hit"></span>'}).join("");
+      document.getElementById("melodyPulses").innerHTML=[1,2,3,4].map(function(_,i){return '<span class="voice-pulse '+(i===0||i===2?"hit":"")+'"></span>'}).join("");
+    }
+    function renderSongs(){
+      const q=(document.getElementById("songSearch").value||"").toLowerCase(),filter=document.getElementById("songPhase").value;
+      const shown=songs.filter(function(s){return (filter==="all"||String(s.phase)===filter)&&(!q||(s.name+" "+s.skill).toLowerCase().includes(q))});
+      document.getElementById("songGrid").innerHTML=shown.map(function(s){
+        const phase=s.phase==="bonus"?"Bonus":("Days "+(s.phase===1?"1–30":s.phase===2?"31–60":"61–90"));
+        return '<article class="song-card"><div class="song-stage">'+phase+' · PDF p. '+s.page+'</div><h3>'+safeText(s.name)+'</h3><p>'+safeText(s.skill)+'</p><div class="song-meta"><span class="small-note">Printed sheet reference</span><button class="mini-btn" type="button" data-action="open-song" data-song="'+escapeAttr(s.name)+'">Practice plan →</button></div></article>';
+      }).join("")||'<p class="small-note">No songs match that search.</p>';
+    }
+    function openSong(name){
+      const song=songs.find(function(s){return s.name===name});if(!song)return;activeSong=song;
+      const box=document.getElementById("songDetail");box.hidden=false;
+      box.innerHTML='<div class="tool-heading"><div><span class="eyebrow">Selected practice sheet · PDF pages '+song.page+'</span><h2 style="font-size:23px">'+safeText(song.name)+'</h2><p>'+safeText(song.skill)+'</p></div><button class="mini-btn" type="button" data-action="close-song">Close</button></div><div class="song-flow"><div class="song-step"><b>1 · Preview</b>Check the key, time signature and first phrase in your printed page.</div><div class="song-step"><b>2 · Isolate</b>Practise one short phrase at a slow tempo; pause between tries.</div><div class="song-step"><b>3 · Connect</b>Join two phrases when both feel steady, then repeat with a metronome.</div><div class="song-step"><b>4 · Perform</b>Play the whole passage and add dynamics after the notes are secure.</div></div><div class="button-row"><button class="action-btn gold" type="button" data-action="change-view" data-view="practice">Set a 10-minute practice session</button><button class="action-btn" type="button" data-action="mark-song-practised">Mark this sheet practised today</button></div><p class="small-note" style="margin-top:10px">Keep the printed notation open in your guide. This practice companion includes song titles and study prompts only; it does not include the score or lyrics.</p>';
+      box.scrollIntoView({behavior:"smooth",block:"nearest"});
+    }
+    function refreshMeterDots(){
+      const count=Number(document.getElementById("timeSignature").value),host=document.getElementById("meterDots");
+      host.innerHTML=Array.from({length:count},function(_,i){return '<span class="meter-dot '+(i===0?"strong":"")+'" data-beat-dot="'+i+'">'+(i+1)+'</span>'}).join("");
+    }
+    function setMetroBeat(beat){
+      const count=Number(document.getElementById("timeSignature").value);
+      document.querySelectorAll(".meter-dot").forEach(function(el,i){el.classList.toggle("current",i===((beat-1)%count))});
+      document.getElementById("metroCount").textContent=String(((beat-1)%count)+1);
+      document.getElementById("beatLamp").classList.add("on");setTimeout(function(){document.getElementById("beatLamp").classList.remove("on")},110);
+    }
+    function metroClick(beat,sub){
+      const ctx=ensureAudio();if(!ctx)return;
+      const osc=ctx.createOscillator(),gain=ctx.createGain(),now=ctx.currentTime;
+      osc.type="sine";osc.frequency.value=sub?920:(beat===1?1350:850);
+      gain.gain.setValueAtTime(.0001,now);gain.gain.exponentialRampToValueAtTime(sub?.045:.11,now+.003);gain.gain.exponentialRampToValueAtTime(.0001,now+.055);
+      osc.connect(gain);gain.connect(ctx.destination);osc.start(now);osc.stop(now+.06);
+    }
+    function toggleMetro(){
+      if(metroTimer){clearInterval(metroTimer);metroTimer=null;document.getElementById("metroToggle").textContent="Start metronome";document.getElementById("metroCount").textContent="—";return}
+      const bpm=Number(document.getElementById("bpmRange").value),sub=Number(document.getElementById("subdivision").value),stepMs=60000/bpm/sub,count=Number(document.getElementById("timeSignature").value);
+      metroTick=0;document.getElementById("metroToggle").textContent="Stop metronome";
+      metroTimer=setInterval(function(){const beat=Math.floor(metroTick/sub)+1;metroClick(beat,sub===2&&metroTick%2===1);if(metroTick%sub===0)setMetroBeat(beat);metroTick=(metroTick+1)%(count*sub)},stepMs);
+      metroClick(1,false);setMetroBeat(1);metroTick=1;
+    }
+    function tapTempo(){const now=Date.now();if(lastTap){const delta=now-lastTap;if(delta>250&&delta<2000){const bpm=Math.round(60000/delta);document.getElementById("bpmRange").value=Math.max(40,Math.min(140,bpm));document.getElementById("bpmLabel").textContent=document.getElementById("bpmRange").value+" BPM"}}lastTap=now}
+    function playPim(){playSequence([55,59,64,59,55,59,64,59],.58,.5,.085)}
+    function playPima(){playSequence([40,55,59,64,45,55,59,64],.52,.46,.075)}
+    function playStrum(){
+      const select=document.getElementById("patternSelect"),kind=select?select.value:"downup";
+      const patterns={downup:["down","up","down","up","down","up","down","up"],pop:["down","rest","down","up","rest","up","down","up"],rests:["down","rest","down","up","rest","up","rest","rest"],waltz:["down","rest","down","rest","down","rest"]};
+      const vals=patterns[kind],bpm=Number(document.getElementById("bpmRange").value),beat=60000/bpm/1000/2;
+      vals.forEach(function(v,i){setTimeout(function(){const host=document.getElementById("inlineStrumPattern");if(host){Array.from(host.children).forEach(function(x){x.style.boxShadow="none"});if(host.children[i])host.children[i].style.boxShadow="0 0 0 2px #f7c66e"}if(v!=="rest")playChord(selectedChord)},i*beat*1000)});
+    }
+    function playScale(which){
+      const seq=which==="G"?["G","A","B","C","D","E","F♯","G","F♯","E","D","C","B","A","G"]:["C","D","E","F","G","A","B","C","B","A","G","F","E","D","C"];
+      const base=60;
+      const map={C:0,"C♯":1,D:2,"D♯":3,E:4,F:5,"F♯":6,G:7,"G♯":8,A:9,"A♯":10,B:11};
+      const notes=seq.map(function(n){return base+(map[n]||0)});
+      playSequence(notes,.55,.43,.08);
+    }
+    function playDotted(){
+      const bpm=Number(document.getElementById("bpmRange").value),beat=60000/bpm;
+      const el=document.getElementById("rhythmFeedback");if(el)el.textContent="Count 1 — and — 2 — and. Each dotted quarter lasts 1½ beats.";
+      [0,1,2,3].forEach(function(i){setTimeout(function(){metroClick(i%2+1,false);showToast(i===0?"Dotted quarter · 1½ beats":"Hold through the next half-beat")},i*beat*1.5)});
+    }
+    function newChordChallenge(){
+      const names=["C","G","G7","Am","D","Em","E","A7"],a=names[Math.floor(Math.random()*names.length)],b=names[Math.floor(Math.random()*names.length)];
+      document.getElementById("chordLoop").textContent=a+" → "+b;document.getElementById("chordLoopCount").textContent="4 beats each · keep the pulse moving";
+      selectedChord=a;renderChord(a);if(document.getElementById("inlineChordDisplay"))renderChord(a,"inlineChordDisplay");
+    }
+    function playTransition(){
+      const pair=(document.getElementById("chordLoop").textContent||"C → G").split(" → "),bpm=Math.min(76,Number(document.getElementById("bpmRange").value)),barMs=4*60000/bpm;
+      playChord(pair[0]);setTimeout(function(){playChord(pair[1])},barMs);
+    }
+    function playProgression(){
+      const key=(document.getElementById("harmonyKey")||{value:"C"}).value,pair=key==="C"?["C","F","G","C"]:["G","C","D","G"];
+      const beat=60000/Number(document.getElementById("bpmRange").value);
+      pair.forEach(function(chord,i){setTimeout(function(){selectedChord=chord;playChord(chord);showToast((i+1)+" · "+chord)},i*beat*4)});
+    }
+    function randomProgression(){
+      const key=(document.getElementById("harmonyKey")||{value:"C"}).value,sets=key==="C"?[["C","Am","F","G"],["Dm","G","C"],["C","G","Am","F"]]:[["G","Em","C","D"],["Am","D","G"],["G","C","D","G"]];
+      const selected=sets[Math.floor(Math.random()*sets.length)];
+      const host=document.getElementById("harmonyCards");host.insertAdjacentHTML("beforebegin",'<div class="chip-row"><span class="chip">Try: '+selected.join(" → ")+'</span></div>');
+    }
+    function voiceDemo(){
+      const base=ensureAudio();if(!base)return;const now=base.currentTime+.1;
+      [40,47,43,47].forEach(function(n,i){playTone(n,now+i*.75,.62,.06,"triangle")});
+      [67,69,71,67].forEach(function(n,i){playTone(n,now+i*.75+.35,.42,.07,"sine")});
+      showToast("Listen: bass first, melody between the bass notes");
+    }
+    function updateSetupTip(){const pick=document.getElementById("guitarChoice");if(!pick)return;const tips={Acoustic:"A good all-round starting point for pop, folk and singing along.","Classical / nylon string":"Nylon strings feel softer under the fingers; check the wider neck feels comfortable.","Electric":"Use a comfortable low volume and keep the amp and cable safely placed."};document.getElementById("setupFeedback").textContent=tips[pick.value]}
+    const reviewTerms=[["Beat","A steady pulse that helps music move evenly."],["TAB","Guitar lines that show which string and fret to play."],["Open string","A string played without pressing any fret."],["Chord","Several different pitches played together."],["Legato","A smooth, connected way to play notes."],["Staccato","A short, clearly separated way to play notes."],["Accidental","A sign that temporarily changes a note's pitch."],["Arpeggio","The notes of a chord played one after another."],["Dynamics","Changes in how softly or strongly music is played."],["Tempo","The speed of the musical pulse."]];
+    let reviewIndex=0;
+    function setReview(){reviewIndex=Math.floor(Math.random()*reviewTerms.length);document.getElementById("reviewTerm").textContent=reviewTerms[reviewIndex][0];document.getElementById("reviewDefinition").textContent="Say the meaning in your own words, then reveal the short reminder.";document.getElementById("reviewFeedback").textContent=""}
+    function startTimer(){
+      if(timerInterval)return;
+      if(timerRemaining<=0){timerTotal=Number(document.getElementById("timerDuration").value)*60;timerRemaining=timerTotal}
+      const focus=document.getElementById("practiceFocus").value;
+      document.getElementById("timerStatus").textContent="Now practising: "+focus;
+      document.getElementById("timerStart").textContent="Pause session";
+      timerInterval=setInterval(function(){timerRemaining--;updateTimer();if(timerRemaining<=0)finishTimer()},1000);
+    }
+    function updateTimer(){
+      const m=String(Math.floor(Math.max(0,timerRemaining)/60)).padStart(2,"0"),s=String(Math.max(0,timerRemaining)%60).padStart(2,"0");
+      document.getElementById("timerDisplay").textContent=m+":"+s;
+      document.getElementById("timerFill").style.width=(timerTotal?Math.min(100,(1-timerRemaining/timerTotal)*100):0)+"%";
+    }
+    function pauseTimer(){if(timerInterval){clearInterval(timerInterval);timerInterval=null;document.getElementById("timerStart").textContent="Resume session";document.getElementById("timerStatus").textContent="Paused. Take a breath, then continue when ready."}}
+    function resetTimer(){pauseTimer();timerRemaining=Number(document.getElementById("timerDuration").value)*60;timerTotal=timerRemaining;document.getElementById("timerStart").textContent="Start session";document.getElementById("timerStatus").textContent="Ready for a short practice round.";updateTimer()}
+    function finishTimer(){
+      pauseTimer();const focus=document.getElementById("practiceFocus").value,seconds=Math.max(0,timerTotal-timerRemaining);
+      if(seconds>15){state.minutes=(state.minutes||0)+Math.max(1,Math.round(seconds/60));state.sessions=state.sessions||[];state.sessions.push({focus:focus,at:new Date().toLocaleDateString()});saveState();renderStats()}
+      document.getElementById("timerStatus").textContent=seconds>=timerTotal?"Session complete — nice steady work.":"Session saved. Small rounds build a habit.";
+      document.getElementById("timerStart").textContent="Start another session";timerRemaining=0;updateTimer();showToast("Practice session saved on this device.");
+    }
+    async function toggleTuner(){
+      if(tunerStream){tunerStream.getTracks().forEach(function(t){t.stop()});tunerStream=null;if(tunerFrame)cancelAnimationFrame(tunerFrame);if(tunerCtx)tunerCtx.close();tunerCtx=null;document.getElementById("tunerToggle").textContent="Start microphone tuner";document.getElementById("tunerStatus").textContent="Microphone is off.";document.getElementById("tunerCents").textContent="Microphone is off";return}
+      if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia){document.getElementById("tunerStatus").textContent="Microphone tuner needs a browser with microphone support; use a clip-on tuner or reference tones.";return}
+      try{
+        tunerStream=await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:false,noiseSuppression:false,autoGainControl:false}});
+        const AC=window.AudioContext||window.webkitAudioContext;tunerCtx=new AC();const source=tunerCtx.createMediaStreamSource(tunerStream),analyser=tunerCtx.createAnalyser();analyser.fftSize=4096;source.connect(analyser);
+        const buffer=new Float32Array(analyser.fftSize);document.getElementById("tunerToggle").textContent="Stop microphone tuner";document.getElementById("tunerStatus").textContent="Play one open string near your device.";
+        const detect=function(){analyser.getFloatTimeDomainData(buffer);const hz=autoCorrelate(buffer,tunerCtx.sampleRate);if(hz>45&&hz<800){const midi=Math.round(69+12*Math.log2(hz/440)),name=pitchNames[(midi%12+12)%12],cents=Math.round(1200*Math.log2(hz/(440*Math.pow(2,(midi-69)/12))));document.getElementById("tunerNote").textContent=name+(Math.floor(midi/12)-1);document.getElementById("tunerCents").textContent=(cents>0?"+":"")+cents+" cents · "+(Math.abs(cents)<8?"in tune":cents<0?"tune up slowly":"tune down slowly")}tunerFrame=requestAnimationFrame(detect)};
+        detect();
+      }catch(e){tunerStream=null;document.getElementById("tunerStatus").textContent="Microphone access was unavailable. Allow access or use a clip-on tuner and the reference tones."}
+    }
+    function autoCorrelate(buf,sampleRate){
+      let size=buf.length,rms=0;for(let i=0;i<size;i++)rms+=buf[i]*buf[i];rms=Math.sqrt(rms/size);if(rms<.012)return -1;
+      let r1=0,r2=size-1,threshold=.2;for(let i=0;i<size/2;i++){if(Math.abs(buf[i])<threshold){r1=i;break}}for(let i=1;i<size/2;i++){if(Math.abs(buf[size-i])<threshold){r2=size-i;break}}
+      const data=buf.slice(r1,r2);size=data.length;const corr=new Float32Array(size);
+      for(let lag=0;lag<size;lag++){let sum=0;for(let j=0;j<size-lag;j++)sum+=data[j]*data[j+lag];corr[lag]=sum}
+      let d=0;while(d+1<size&&corr[d]>corr[d+1])d++;let max=-1,period=-1;for(let i=d;i<size;i++){if(corr[i]>max){max=corr[i];period=i}}
+      if(period<1)return -1;
+      let x1=corr[period-1]||0,x2=corr[period],x3=corr[period+1]||0,a=(x1+x3-2*x2)/2,b=(x3-x1)/2,adjust=a?period-b/(2*a):period;
+      return sampleRate/adjust;
+    }
+    document.addEventListener("click",function(event){
+      const el=event.target.closest("[data-action]");if(!el)return;const action=el.dataset.action;
+      if(action==="change-view")switchView(el.dataset.view);
+      if(action==="resume-course"){switchView("course");setLesson(currentLesson)}
+      if(action==="lesson")setLesson(Number(el.dataset.index));
+      if(action==="previous-lesson")setLesson(currentLesson-1);
+      if(action==="next-lesson")setLesson(currentLesson===lessons.length-1?0:currentLesson+1);
+      if(action==="complete-lesson"){state.done=state.done||[];if(!state.done.includes(currentLesson))state.done.push(currentLesson);saveState();renderLesson();showToast("Chapter progress saved.")}
+      if(action==="reset-progress"){if(confirm("Clear saved chapter progress and practice history on this device?")){localStorage.removeItem("guitarMadeEasyPracticeV1");location.reload()}}
+      if(action==="play-fret"){playTone(Number(el.dataset.midi),undefined,.9,.1,"triangle")}
+      if(action==="play-string")playString(Number(el.dataset.string));
+      if(action==="play-quiz-note"||action==="inline-hear-note"){if(quizTarget)playTone(quizMidi||60,undefined,.6,.1,"sine")}
+      if(action==="new-note-quiz"||action==="inline-new-note")nextQuiz(action==="inline-new-note");
+      if(action==="note-answer")answerQuiz(el.dataset.note.replace("#","♯"));
+      if(action==="toggle-note-labels"){showNoteNames=!showNoteNames;el.textContent=showNoteNames?"Hide note names":"Show note names";renderFretboard()}
+      if(action==="select-chord"){selectedChord=el.dataset.chord;renderChord(selectedChord);if(document.getElementById("inlineChordDisplay"))renderChord(selectedChord,"inlineChordDisplay")}
+      if(action==="play-chord"||action==="inline-play-chord")playChord(selectedChord);
+      if(action==="new-chord-challenge"||action==="next-transition")newChordChallenge();
+      if(action==="play-transition")playTransition();
+      if(action==="play-pim")playPim();
+      if(action==="play-pima")playPima();
+      if(action==="play-string-sequence")playSequence([40,45,50,55,59,64],.62,.54,.08);
+      if(action==="play-strum-pattern")playStrum();
+      if(action==="play-scale-c")playScale("C");
+      if(action==="play-scale-g")playScale("G");
+      if(action==="play-dotted")playDotted();
+      if(action==="accidental-answer"){const fb=document.getElementById("accidentalFeedback");if(el.dataset.answer==="up"){fb.textContent="Yes — one fret raises a pitch by a semitone.";el.classList.add("selected")}else fb.textContent="A sharp raises the written note by one semitone, which is one fret on a guitar."}
+      if(action==="play-progression")playProgression();
+      if(action==="random-progression")randomProgression();
+      if(action==="voice-demo")voiceDemo();
+      if(action==="review-card")setReview();
+      if(action==="reveal-review"){document.getElementById("reviewDefinition").textContent=reviewTerms[reviewIndex][1];document.getElementById("reviewFeedback").textContent="Now use the word in a sentence about your practice."}
+      if(action==="open-song")openSong(el.dataset.song);
+      if(action==="close-song")document.getElementById("songDetail").hidden=true;
+      if(action==="mark-song-practised"&&activeSong){state.songDone=state.songDone||[];if(!state.songDone.includes(activeSong.name))state.songDone.push(activeSong.name);saveState();showToast("Song practice marked for today.")}
+      if(action==="metronome-toggle")toggleMetro();
+      if(action==="metro-tap")tapTempo();
+      if(action==="timer-start"){if(timerInterval)pauseTimer();else startTimer()}
+      if(action==="timer-reset")resetTimer();
+      if(action==="tuner-toggle")toggleTuner();
+      if(action==="play-a")playTone(69,undefined,.9,.12,"sine");
+    });
+    document.addEventListener("change",function(event){
+      const el=event.target;
+      if(el.matches("[data-lesson-check]")){
+        const index=Number(el.dataset.lessonCheck),checkIndex=Number(el.dataset.checkIndex);state.lessonChecks=state.lessonChecks||{};state.lessonChecks[index]=state.lessonChecks[index]||[];
+        if(el.checked&&!state.lessonChecks[index].includes(checkIndex))state.lessonChecks[index].push(checkIndex);
+        if(!el.checked)state.lessonChecks[index]=state.lessonChecks[index].filter(function(n){return n!==checkIndex});
+        saveState();renderLesson();
+      }
+      if(el.matches("[data-check]")){state.checks=state.checks||{};state.checks[el.dataset.check]=el.checked;saveState()}
+      if(el.id==="guitarChoice")updateSetupTip();
+      if(el.id==="patternSelect")drawStrumPattern();
+      if(el.id==="harmonyKey")renderHarmony();
+      if(el.id==="songSearch"||el.id==="songPhase")renderSongs();
+      if(el.id==="bpmRange")document.getElementById("bpmLabel").textContent=el.value+" BPM";
+      if(el.id==="timeSignature"){if(metroTimer)toggleMetro();refreshMeterDots()}
+      if(el.id==="timerDuration"&&!timerInterval)resetTimer();
+      if(el.id==="boardScope")renderFretboard();
+    });
+    document.addEventListener("input",function(event){if(event.target.id==="songSearch")renderSongs();if(event.target.id==="bpmRange")document.getElementById("bpmLabel").textContent=event.target.value+" BPM"});
+    function initialize(){
+      renderLesson();renderFretboard();renderChordPicker();renderChord("C");refreshInlineWidgets();renderSongs();refreshMeterDots();renderStats();
+      document.getElementById("bpmRange").addEventListener("dblclick",function(){this.value=60;document.getElementById("bpmLabel").textContent="60 BPM"});
+      document.getElementById("guitarChoice").addEventListener("change",updateSetupTip);
+      if(document.getElementById("inlineNoteAnswers"))renderAnswers("inlineNoteAnswers");
+      if(!quizTarget)nextQuiz();
+      timerRemaining=Number(document.getElementById("timerDuration").value)*60;timerTotal=timerRemaining;updateTimer();
+    }
+    window.addEventListener("beforeunload",function(){if(tunerStream)tunerStream.getTracks().forEach(function(t){t.stop()});if(metroTimer)clearInterval(metroTimer);if(timerInterval)clearInterval(timerInterval)});
+    initialize();
+  </script>
+</body>
+</html>
