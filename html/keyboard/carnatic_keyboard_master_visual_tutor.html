@@ -1393,17 +1393,75 @@
             padding-left: 20px;
         }
 
-        /* Responsive */
+        /* ========================================================
+           RESPONSIVE SUITE: TABLET & MOBILE (WITHOUT BREAKING LAPTOP)
+           ======================================================== */
+        @media (max-width: 1024px) {
+            .studio-top-grid { grid-template-columns: 1fr; }
+            .header-tabs {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+        }
+
         @media (max-width: 768px) {
+            body { padding: 10px; }
             header.app-header {
                 flex-direction: column;
                 align-items: stretch;
+                padding: 14px;
+                gap: 12px;
             }
             .header-tabs {
                 overflow-x: auto;
+                flex-wrap: nowrap;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+                padding-bottom: 4px;
+                gap: 6px;
+            }
+            .header-tabs::-webkit-scrollbar { display: none; }
+            .header-tab-btn {
+                white-space: nowrap;
+                flex-shrink: 0;
+                padding: 7px 12px;
+                font-size: 0.8rem;
+            }
+            .controls-row {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 8px;
+            }
+            .select-group {
+                min-width: 100%;
+                width: 100%;
+            }
+            .playback-strip {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 10px;
+                padding: 10px 12px;
+            }
+            .btn-group {
+                justify-content: center;
+                flex-wrap: wrap;
+                gap: 8px;
+                width: 100%;
+            }
+            .btn-ctrl {
+                flex: 1;
+                min-width: 110px;
+                justify-content: center;
+                min-height: 40px;
+            }
+            .piano-bed-scroll {
+                -webkit-overflow-scrolling: touch;
+                padding-bottom: 8px;
             }
             .tala-dots-row {
                 gap: 4px;
+                flex-wrap: wrap;
+                justify-content: center;
             }
             .tala-dot {
                 width: 24px;
@@ -1411,8 +1469,18 @@
                 font-size: 0.65rem;
             }
             .quiz-choices-grid {
-                grid-template-columns: repeat(3, 1fr);
+                grid-template-columns: repeat(2, 1fr);
             }
+            .hud-display {
+                flex-direction: column;
+                align-items: stretch;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body { padding: 6px; }
+            .btn-ctrl { min-width: 100%; }
+            .quiz-choices-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>

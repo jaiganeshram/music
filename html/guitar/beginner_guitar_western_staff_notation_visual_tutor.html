@@ -1020,15 +1020,123 @@
             color: #ffffff;
         }
 
-        /* Responsive */
-        @media (max-width: 900px) {
+        /* ========================================================
+           RESPONSIVE SUITE: TABLET & MOBILE (WITHOUT BREAKING LAPTOP)
+           ======================================================== */
+        @media (max-width: 1024px) {
+            .container { max-width: 100%; }
+            header { padding: 20px 24px; gap: 16px; }
+            .lesson-selection-bar { gap: 14px; }
+        }
+
+        @media (max-width: 768px) {
+            body { padding: 10px; }
             header {
+                padding: 16px;
                 flex-direction: column;
                 align-items: flex-start;
+                gap: 14px;
+            }
+            .header-title-group {
+                gap: 12px;
+                align-items: center;
+            }
+            .header-icon {
+                width: 46px;
+                height: 46px;
+                font-size: 24px;
+            }
+            h1 {
+                font-size: 20px;
+                line-height: 1.25;
+            }
+            .subtitle {
+                font-size: 12.5px;
+            }
+            .header-stats {
+                width: 100%;
+                flex-wrap: wrap;
+                gap: 6px;
+            }
+            .stat-pill {
+                padding: 6px 12px;
+                font-size: 12px;
+                flex: 1;
+                min-width: 120px;
+            }
+            .studio-nav-bar {
+                overflow-x: auto;
+                flex-wrap: nowrap;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+                padding: 5px;
+                gap: 6px;
+            }
+            .studio-nav-bar::-webkit-scrollbar { display: none; }
+            .studio-tab-btn {
+                padding: 8px 14px;
+                font-size: 13px;
+                white-space: nowrap;
+                flex-shrink: 0;
             }
             .lesson-selection-bar {
+                padding: 14px;
                 flex-direction: column;
                 align-items: stretch;
+                gap: 12px;
+            }
+            .lesson-dropdown-group {
+                width: 100%;
+                flex-direction: column;
+                align-items: stretch;
+                gap: 6px;
+            }
+            .lesson-select { width: 100%; font-size: 13.5px; }
+            .transport-controls {
+                width: 100%;
+                justify-content: center;
+                flex-wrap: wrap;
+                gap: 8px;
+            }
+            .btn-ctrl {
+                padding: 9px 12px;
+                font-size: 12.5px;
+                min-height: 40px;
+            }
+            .speed-pill-group {
+                width: 100%;
+                justify-content: center;
+                margin-top: 4px;
+            }
+            .score-container, .fretboard-card, .tab-view-card {
+                padding: 14px 10px;
+                -webkit-overflow-scrolling: touch;
+            }
+            .fretboard-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+            .fretboard-wrapper {
+                -webkit-overflow-scrolling: touch;
+            }
+            .exercise-flow-bar {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body { padding: 6px; }
+            header { padding: 14px 12px; }
+            h1 { font-size: 18px; }
+            .btn-ctrl {
+                flex: 1;
+                min-width: 100px;
+                justify-content: center;
+            }
+            .btn-ctrl.btn-primary, .btn-ctrl.btn-mic {
+                min-width: 100%;
             }
         }
     

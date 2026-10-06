@@ -1,0 +1,1434 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎹 சப்த தாள அலங்காரங்கள் & கீதம் | Saptha Tala Alankarams Keyboard Practice (Gana Amrutha Bodhini)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Noto+Sans+Tamil:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #070c18;
+            --card-bg: rgba(15, 23, 42, 0.9);
+            --card-border: rgba(16, 185, 129, 0.25);
+            --accent-emerald: #10b981;
+            --accent-cyan: #38bdf8;
+            --accent-gold: #f59e0b;
+            --accent-amber: #fbbf24;
+            --accent-purple: #c084fc;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Outfit', 'Noto Sans Tamil', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(16, 185, 129, 0.15) 0px, transparent 45%),
+                radial-gradient(at 100% 0%, rgba(245, 158, 11, 0.1) 0px, transparent 40%),
+                radial-gradient(at 50% 100%, rgba(56, 189, 248, 0.08) 0px, transparent 50%);
+            background-attachment: fixed;
+            color: var(--text-main);
+            min-height: 100vh;
+            padding: 16px 20px;
+        }
+
+        .container {
+            max-width: 1360px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        /* Top Header */
+        .app-header {
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(8, 14, 28, 0.98));
+            border: 1px solid var(--card-border);
+            border-top: 4px solid var(--accent-emerald);
+            border-radius: 18px;
+            padding: 20px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.45);
+        }
+
+        .header-title-box {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .header-icon {
+            width: 52px;
+            height: 52px;
+            background: linear-gradient(135deg, #059669, #10b981);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            box-shadow: 0 0 18px rgba(16, 185, 129, 0.45);
+            flex-shrink: 0;
+        }
+
+        .header-text h1 {
+            font-size: 21px;
+            font-weight: 800;
+            background: linear-gradient(90deg, #34d399, #38bdf8, #fbbf24);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.3;
+        }
+
+        .header-text p {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-top: 3px;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .action-link-btn {
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #e2e8f0;
+            padding: 8px 14px;
+            border-radius: 10px;
+            font-size: 12.5px;
+            font-weight: 700;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            transition: all 0.2s;
+        }
+
+        .action-link-btn:hover {
+            border-color: var(--accent-emerald);
+            color: #ffffff;
+            background: rgba(16, 185, 129, 0.15);
+        }
+
+        .action-link-btn.gold {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.2), rgba(180, 83, 9, 0.2));
+            border-color: rgba(245, 158, 11, 0.4);
+            color: #fbbf24;
+        }
+
+        .action-link-btn.gold:hover {
+            border-color: #f59e0b;
+            background: rgba(245, 158, 11, 0.3);
+            color: #ffffff;
+        }
+
+        /* Controls Deck Card */
+        .controls-deck {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 16px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            box-shadow: 0 6px 24px rgba(0,0,0,0.3);
+        }
+
+        .deck-top-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .lesson-picker-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex: 1;
+            min-width: 280px;
+        }
+
+        .lesson-picker-group label {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--accent-gold);
+            white-space: nowrap;
+        }
+
+        .lesson-select {
+            background: #090e1a;
+            color: #ffffff;
+            border: 1.5px solid #334155;
+            padding: 9px 14px;
+            border-radius: 10px;
+            font-size: 13.5px;
+            font-weight: 700;
+            outline: none;
+            cursor: pointer;
+            width: 100%;
+            transition: border-color 0.2s;
+        }
+
+        .lesson-select:focus {
+            border-color: var(--accent-emerald);
+        }
+
+        .transport-controls-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+            background: rgba(10, 16, 30, 0.95);
+            padding: 10px 14px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .btn-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .btn-ctrl {
+            background: #1e293b;
+            color: #ffffff;
+            border: 1px solid #334155;
+            padding: 8px 14px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.15s ease;
+        }
+
+        .btn-ctrl:hover {
+            background: #334155;
+            border-color: #64748b;
+        }
+
+        .btn-ctrl.primary {
+            background: linear-gradient(135deg, #059669, #047857);
+            border-color: #34d399;
+            box-shadow: 0 0 14px rgba(16, 185, 129, 0.4);
+        }
+
+        .btn-ctrl.primary.playing {
+            background: linear-gradient(135deg, #e11d48, #be123c);
+            border-color: #fda4af;
+            box-shadow: 0 0 16px rgba(225, 29, 72, 0.5);
+        }
+
+        .btn-ctrl.active-toggle {
+            background: #059669;
+            border-color: #10b981;
+        }
+
+        .speed-pills {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .speed-pill-btn {
+            background: #0f172a;
+            border: 1px solid #334155;
+            color: #94a3b8;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+        .speed-pill-btn.active {
+            background: #10b981;
+            color: #ffffff;
+            border-color: #34d399;
+            box-shadow: 0 0 10px rgba(16, 185, 129, 0.4);
+        }
+
+        /* Real-Time Dynamic Tala Tracker Bar */
+        .tala-tracker-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: linear-gradient(90deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.9));
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: 12px;
+            padding: 10px 16px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .tala-info {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--accent-gold);
+        }
+
+        .tala-beats-flow {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .tala-beat-dot {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: #1e293b;
+            border: 2px solid #475569;
+            color: #94a3b8;
+            font-size: 11.5px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.12s ease;
+        }
+
+        .tala-beat-dot.active-hit {
+            background: #10b981;
+            border-color: #ffffff;
+            color: #0f172a;
+            box-shadow: 0 0 16px rgba(16, 185, 129, 0.9);
+            transform: scale(1.18);
+        }
+
+        .tala-divider {
+            color: var(--accent-gold);
+            font-weight: 900;
+            font-size: 18px;
+            user-select: none;
+            padding: 0 2px;
+        }
+
+        /* 61-Key Virtual Piano */
+        .piano-section-card {
+            background: #080c16;
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 14px 18px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .piano-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--text-muted);
+        }
+
+        .piano-scroll-container {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            padding: 4px 0 8px 0;
+            scrollbar-width: thin;
+        }
+
+        .piano-bed {
+            min-width: 960px;
+            height: 180px;
+            position: relative;
+            display: flex;
+            background: #0b0f19;
+            border: 3px solid #1e293b;
+            border-radius: 10px;
+            padding: 4px 6px;
+            user-select: none;
+            box-shadow: inset 0 4px 10px rgba(0,0,0,0.8);
+        }
+
+        .white-key {
+            flex: 1;
+            height: 100%;
+            background: linear-gradient(180deg, #f8fafc 0%, #e2e8f0 85%, #cbd5e1 100%);
+            border: 1px solid #94a3b8;
+            border-radius: 0 0 6px 6px;
+            position: relative;
+            cursor: pointer;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: center;
+            padding-bottom: 8px;
+            color: #0f172a;
+            font-size: 11px;
+            font-weight: 800;
+            box-shadow: inset 0 -4px 0 #94a3b8;
+            transition: all 0.1s ease;
+        }
+
+        .white-key.active-key {
+            background: linear-gradient(180deg, #34d399 0%, #059669 100%);
+            color: #ffffff;
+            box-shadow: 0 0 18px rgba(16, 185, 129, 0.95);
+            transform: translateY(2px);
+        }
+
+        .black-key {
+            position: absolute;
+            width: 26px;
+            height: 60%;
+            background: linear-gradient(180deg, #334155 0%, #0f172a 80%, #020617 100%);
+            border: 1px solid #000000;
+            border-radius: 0 0 4px 4px;
+            z-index: 3;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: center;
+            padding-bottom: 6px;
+            color: #94a3b8;
+            font-size: 9.5px;
+            font-weight: 700;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.6);
+            transition: all 0.1s ease;
+        }
+
+        .black-key.active-key {
+            background: linear-gradient(180deg, #f43f5e 0%, #be123c 100%);
+            color: #ffffff;
+            box-shadow: 0 0 16px rgba(244, 63, 94, 0.95);
+            transform: translateY(2px);
+        }
+
+        .swara-pill-tag {
+            font-size: 9px;
+            font-weight: 800;
+            padding: 2px 4px;
+            border-radius: 4px;
+            margin-top: 2px;
+            background: rgba(15, 23, 42, 0.85);
+            color: #fbbf24;
+            line-height: 1;
+        }
+
+        .white-key.active-key .swara-pill-tag,
+        .black-key.active-key .swara-pill-tag {
+            background: #ffffff;
+            color: #0f172a;
+        }
+
+        /* Notation Sheet Section */
+        .notation-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 20px 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+        }
+
+        .notation-title-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            padding-bottom: 12px;
+        }
+
+        .notation-title-row h2 {
+            font-size: 18px;
+            font-weight: 800;
+            color: #fbbf24;
+        }
+
+        .notation-title-row p {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-top: 3px;
+        }
+
+        .notation-table-wrap {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        table.notation-table {
+            width: 100%;
+            min-width: 780px;
+            border-collapse: collapse;
+            text-align: center;
+        }
+
+        table.notation-table th {
+            background: rgba(15, 23, 42, 0.95);
+            color: #94a3b8;
+            font-size: 11px;
+            font-weight: 800;
+            padding: 8px 4px;
+            border: 1px solid #334155;
+        }
+
+        table.notation-table td {
+            padding: 9px 5px;
+            border: 1px solid #334155;
+            vertical-align: middle;
+            transition: all 0.15s ease;
+            cursor: pointer;
+        }
+
+        table.notation-table tr.swara-row td {
+            font-size: 15px;
+            font-weight: 900;
+            color: #fbbf24;
+            background: rgba(245, 158, 11, 0.05);
+            letter-spacing: 0.5px;
+        }
+
+        table.notation-table tr.west-row td {
+            font-size: 12.5px;
+            font-weight: 800;
+            color: #38bdf8;
+            background: rgba(56, 189, 248, 0.05);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        table.notation-table tr.sahitya-row td {
+            font-size: 12px;
+            font-weight: 700;
+            color: #a7f3d0;
+            background: rgba(16, 185, 129, 0.06);
+        }
+
+        table.notation-table td.active-beat-cell {
+            background: #059669 !important;
+            color: #ffffff !important;
+            box-shadow: 0 0 16px rgba(16, 185, 129, 0.9);
+            transform: scale(1.04);
+            z-index: 5;
+        }
+
+        /* Quick Jumper Grid for 8 Lessons */
+        .lessons-grid-nav {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .lesson-nav-chip {
+            background: #0f172a;
+            border: 1px solid #334155;
+            color: #cbd5e1;
+            padding: 9px 10px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 700;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+
+        .lesson-nav-chip:hover {
+            border-color: var(--accent-emerald);
+            color: #ffffff;
+            background: #1e293b;
+        }
+
+        .lesson-nav-chip.active {
+            background: linear-gradient(135deg, #059669, #047857);
+            border-color: #34d399;
+            color: #ffffff;
+            box-shadow: 0 0 12px rgba(16, 185, 129, 0.4);
+        }
+
+        /* Footer */
+        .studio-footer {
+            text-align: center;
+            font-size: 12.5px;
+            color: var(--text-muted);
+            padding: 16px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        /* Responsive Suite */
+        @media (max-width: 1024px) {
+            .container { max-width: 100%; }
+        }
+
+        @media (max-width: 768px) {
+            body { padding: 10px; }
+            .app-header {
+                padding: 16px 14px;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
+            .header-text h1 { font-size: 18px; }
+            .header-actions { width: 100%; }
+            .action-link-btn { flex: 1; justify-content: center; min-height: 40px; }
+            .controls-deck { padding: 14px; gap: 12px; }
+            .deck-top-row { flex-direction: column; align-items: stretch; }
+            .lesson-picker-group { min-width: 100%; flex-direction: column; align-items: stretch; }
+            .transport-controls-row {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 10px;
+            }
+            .btn-group { width: 100%; justify-content: center; }
+            .btn-ctrl { flex: 1; min-width: 100px; justify-content: center; min-height: 40px; }
+            .speed-pills { width: 100%; justify-content: center; }
+            .tala-tracker-bar { flex-direction: column; align-items: stretch; gap: 8px; }
+            .tala-beats-flow { justify-content: center; }
+            .tala-beat-dot { width: 26px; height: 26px; font-size: 10.5px; }
+            .notation-card { padding: 14px; }
+            .notation-title-row { flex-direction: column; align-items: flex-start; }
+            table.notation-table tr.swara-row td { font-size: 13.5px; }
+            table.notation-table tr.west-row td { font-size: 11px; }
+        }
+
+        @media (max-width: 480px) {
+            body { padding: 6px; }
+            .header-text h1 { font-size: 16px; }
+            .lessons-grid-nav { grid-template-columns: repeat(2, 1fr); }
+            .btn-ctrl { min-width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- Top Header -->
+    <header class="app-header">
+        <div class="header-title-box">
+            <div class="header-icon">🎹</div>
+            <div class="header-text">
+                <h1>சப்த தாள அலங்காரங்கள் & கீதம் | Saptha Tala Alankarams Studio</h1>
+                <p>கானாம்ருத போதினி • Gana Amrutha Bodhini • 7 தாள கட்டமைப்பு & ஆரம்ப கீதம் • Sa = C4 (1-ம் கட்டை)</p>
+            </div>
+        </div>
+        <div class="header-actions">
+            <a href="../../PDF/Alankaram_Saptha_Tala_Swaram_Western_Below_gana_amitha_pothini.pdf" target="_blank" download class="action-link-btn gold">
+                📄 Download Original PDF
+            </a>
+            <a href="sarali_varisai_keyboard_practice.html" class="action-link-btn">
+                🎼 சரளி (Sarali)
+            </a>
+            <a href="jantai_varisai_keyboard_practice.html" class="action-link-btn">
+                🎶 ஜண்டை (Jantai)
+            </a>
+            <a href="dhatu_varisai_keyboard_practice.html" class="action-link-btn">
+                ⚡ தாட்டு (Dhatu)
+            </a>
+            <a href="../../index.html" class="action-link-btn">
+                🏠 Home
+            </a>
+        </div>
+    </header>
+
+    <!-- Controls Deck -->
+    <div class="controls-deck">
+        <div class="deck-top-row">
+            <div class="lesson-picker-group">
+                <label for="lessonSelect">பாடம் தெரிவு (Select Alankaram/Geetham):</label>
+                <select id="lessonSelect" class="lesson-select" onchange="loadAlankaramLesson(parseInt(this.value))">
+                    <!-- Populated dynamically -->
+                </select>
+            </div>
+            <div class="speed-pills">
+                <button class="speed-pill-btn active" id="spd1" onclick="setSpeed(60, this)">1-ம் காலம் (60)</button>
+                <button class="speed-pill-btn" id="spd2" onclick="setSpeed(90, this)">2-ம் காலம் (90)</button>
+                <button class="speed-pill-btn" id="spd3" onclick="setSpeed(130, this)">3-ம் காலம் (130)</button>
+            </div>
+        </div>
+
+        <div class="transport-controls-row">
+            <div class="btn-group">
+                <button id="playBtn" class="btn-ctrl primary" onclick="togglePlay()">
+                    ▶️ வாசி (Play Lesson)
+                </button>
+                <button class="btn-ctrl" onclick="prevLesson()">⏮️ முந்தைய (Prev)</button>
+                <button class="btn-ctrl" onclick="nextLesson()">அடுத்த (Next) ⏭️</button>
+                <button class="btn-ctrl" onclick="resetPlayback()">🔄 தொடக்கம் (Reset)</button>
+            </div>
+            <div class="btn-group">
+                <button id="droneBtn" class="btn-ctrl" onclick="toggleDrone()">🪕 தம்புரா (Tanpura: Off)</button>
+                <button id="loopBtn" class="btn-ctrl active-toggle" onclick="toggleLoop()">🔁 தொடர் சுழற்சி (Loop: On)</button>
+            </div>
+        </div>
+
+        <!-- Dynamic Real-Time Tala Tracker Strip -->
+        <div class="tala-tracker-bar">
+            <div class="tala-info">
+                <span id="currentTalaLabel">🥁 துருவ தாளம் (Dhruva - 14 அக்ஷரங்கள்):</span>
+                <span id="currentBeatLabel" style="color:#ffffff;">Beat 1</span>
+            </div>
+            <div class="tala-beats-flow" id="talaBeatsFlow">
+                <!-- Dynamically generated according to active Tala Angas -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Interactive 61-Key Piano -->
+    <div class="piano-section-card">
+        <div class="piano-card-header">
+            <span>🎹 61-விசை மெய்நிகர் பியானோ (Interactive Virtual Piano - Active Range C4 to C5 Highlighted)</span>
+            <span style="color:#34d399;">Mayamalavagowla / Malahari: C4 • C#4 • E4 • F4 • G4 • G#4 • B4 • C5</span>
+        </div>
+        <div class="piano-scroll-container" id="pianoScrollWrap">
+            <div class="piano-bed" id="pianoBed">
+                <!-- Keys rendered via JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Notation Sheet Section (Exact PDF Layout) -->
+    <div class="notation-card">
+        <div class="notation-title-row">
+            <div>
+                <h2 id="lessonTitle">1. துருவ தாளம் (Dhruva Talam)</h2>
+                <p id="lessonDesc">சதுஸ்ர ஜாதி துருவ தாளம் (I4 + O + I4 + I4 = 14 அக்ஷரங்கள்) • மாயாமாளவகௌளை ராகம்</p>
+            </div>
+            <div style="font-size:12px; color:#34d399; font-weight:700;">
+                💡 கீழே உள்ள சுவரத்தை கிளிக் செய்து குறிப்பிட்ட சுவரத்தில் இருந்து வாசிக்கலாம்
+            </div>
+        </div>
+
+        <div class="notation-table-wrap">
+            <table class="notation-table" id="notationTable">
+                <!-- Table dynamically populated -->
+            </table>
+        </div>
+
+        <!-- Quick 8 Lessons Nav Grid -->
+        <div style="margin-top:12px;">
+            <div style="font-size:12.5px; font-weight:800; color:#94a3b8; margin-bottom:6px;">
+                🚀 விரைவு பாடம் தேர்வு (7 தாளங்கள் + மலயஹரி கீதம்):
+            </div>
+            <div class="lessons-grid-nav" id="lessonsGridNav">
+                <!-- Buttons rendered dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="studio-footer">
+        <div>🎵 சங்கீத வித்யா கேந்திரா • Sangeetha Vidya Kendra — Carnatic Keyboard Master Practice Series</div>
+        <div>கானாம்ருத போதினி பாடத்திட்ட வழிகாட்டல் • Reference: Sangeetha Vidwan A.S. Panchapakesa Iyer Repertoire</div>
+    </footer>
+
+</div>
+
+<script>
+    // Audio Context Setup
+    let audioCtx = null;
+    let isPlaying = false;
+    let currentStepIndex = 0;
+    let playbackTimer = null;
+    let subBeatTimer = null;
+    let bpm = 60;
+    let isLooping = true;
+    let isDroneOn = false;
+    let droneOscs = [];
+    let currentLessonIdx = 0;
+
+    // Scale Frequencies (C4 as Sa)
+    const FREQS = {
+        'C4': 261.63,
+        'C#4': 277.18,
+        'D4': 293.66,
+        'D#4': 311.13,
+        'E4': 329.63,
+        'F4': 349.23,
+        'F#4': 369.99,
+        'G4': 392.00,
+        'G#4': 415.30,
+        'A4': 440.00,
+        'A#4': 466.16,
+        'B4': 493.88,
+        'C5': 523.25,
+        'C#5': 554.37,
+        'D5': 587.33,
+        'D#5': 622.25,
+        'E5': 659.25,
+        'F5': 698.46
+    };
+
+    // Swara mapping
+    const SWARA_MAP = {
+        'C4': 'ச (S)',
+        'C#4': 'ரி (R1)',
+        'E4': 'க (G3)',
+        'F4': 'ம (M1)',
+        'G4': 'ப (P)',
+        'G#4': 'த (D1)',
+        'B4': 'நி (N3)',
+        'C5': 'ஸ் (S\')',
+        'C#5': 'ரி் (R1\')'
+    };
+
+    function initAudio() {
+        if (!audioCtx) {
+            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        if (audioCtx.state === 'suspended') {
+            audioCtx.resume();
+        }
+    }
+
+    function playPianoTone(freq, durationSec = 0.4) {
+        if (!freq || freq <= 0) return;
+        initAudio();
+        const now = audioCtx.currentTime;
+
+        const osc = audioCtx.createOscillator();
+        const osc2 = audioCtx.createOscillator();
+        const filter = audioCtx.createBiquadFilter();
+        const gain = audioCtx.createGain();
+
+        osc.type = 'triangle';
+        osc2.type = 'sine';
+        osc.frequency.setValueAtTime(freq, now);
+        osc2.frequency.setValueAtTime(freq * 2, now);
+
+        filter.type = 'lowpass';
+        filter.frequency.setValueAtTime(2600, now);
+        filter.frequency.exponentialRampToValueAtTime(700, now + durationSec);
+
+        gain.gain.setValueAtTime(0.001, now);
+        gain.gain.linearRampToValueAtTime(0.48, now + 0.015);
+        gain.gain.exponentialRampToValueAtTime(0.0001, now + durationSec);
+
+        osc.connect(filter);
+        osc2.connect(filter);
+        filter.connect(gain);
+        gain.connect(audioCtx.destination);
+
+        osc.start(now);
+        osc2.start(now);
+        osc.stop(now + durationSec);
+        osc2.stop(now + durationSec);
+    }
+
+    function toggleDrone() {
+        initAudio();
+        isDroneOn = !isDroneOn;
+        const droneBtn = document.getElementById('droneBtn');
+        if (isDroneOn) {
+            droneBtn.classList.add('active-toggle');
+            droneBtn.textContent = '🪕 தம்புரா (Tanpura: On)';
+            [130.81, 196.00, 261.63].forEach(f => {
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(f, audioCtx.currentTime);
+                const filter = audioCtx.createBiquadFilter();
+                filter.type = 'lowpass';
+                filter.frequency.value = 450;
+                gain.gain.value = 0.08;
+                osc.connect(filter);
+                filter.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start();
+                droneOscs.push({ osc, gain });
+            });
+        } else {
+            droneBtn.classList.remove('active-toggle');
+            droneBtn.textContent = '🪕 தம்புரா (Tanpura: Off)';
+            droneOscs.forEach(d => {
+                try { d.osc.stop(); } catch(e){}
+            });
+            droneOscs = [];
+        }
+    }
+
+    const ALANKARAM_LESSONS = [
+        {
+            num: 1,
+            title: "1. துருவ தாளம் (Dhruva Talam)",
+            talaName: "துருவ தாளம் (Dhruva - 14 அக்ஷரங்கள்)",
+            desc: "சதுஸ்ர ஜாதி துருவ தாளம் (I4 + O + I4 + I4 = 14 அக்ஷரங்கள்) • அங்கம்: லகு(4) + திருதம்(2) + லகு(4) + லகு(4)",
+            beatsCount: 8, // Represented in 8-cell Adi equivalent lines for PDF structure
+            angaDividers: [4, 6],
+            lines: [
+                {
+                    label: "ஆரோகணம் 1",
+                    swaras: ["ச  ரி", "க  ம", "ப  த", "நி  ஸ்", "ரி  க", "ம  ப", "த  நி", "ஸ்  -"],
+                    west: ["C4 C#4", "E4 F4", "G4 G#4", "B4 C5", "C#4 E4", "F4 G4", "G#4 B4", "C5 -"]
+                },
+                {
+                    label: "அவரோகணம் 1",
+                    swaras: ["ஸ்  நி", "த  ப", "ம  க", "ரி  ச", "நி  த", "ப  ம", "க  ரி", "ச  -"],
+                    west: ["C5 B4", "G#4 G4", "F4 E4", "C#4 C4", "B4 G#4", "G4 F4", "E4 C#4", "C4 -"]
+                }
+            ]
+        },
+        {
+            num: 2,
+            title: "2. மட்ய தாளம் (Matya Talam)",
+            talaName: "மட்ய தாளம் (Matya - 10 அக்ஷரங்கள்)",
+            desc: "சதுஸ்ர ஜாதி மட்ய தாளம் (I4 + O + I4 = 10 அக்ஷரங்கள்) • அங்கம்: லகு(4) + திருதம்(2) + லகு(4)",
+            beatsCount: 8,
+            angaDividers: [4, 6],
+            lines: [
+                {
+                    label: "ஆரோகணம் 1",
+                    swaras: ["ச  ரி", "க  ம", "ப  த", "ச  ரி", "க  ம", "ரி  க", "ம  ப", "த  நி"],
+                    west: ["C4 C#4", "E4 F4", "G4 G#4", "C4 C#4", "E4 F4", "C#4 E4", "F4 G4", "G#4 B4"]
+                },
+                {
+                    label: "அவரோகணம் 1",
+                    swaras: ["ஸ்  நி", "த  ப", "ம  க", "ஸ்  நி", "த  ப", "நி  த", "ப  ம", "க  ரி"],
+                    west: ["C5 B4", "G#4 G4", "F4 E4", "C5 B4", "G#4 G4", "B4 G#4", "G4 F4", "E4 C#4"]
+                }
+            ]
+        },
+        {
+            num: 3,
+            title: "3. ரூபக தாளம் (Roopaka Talam)",
+            talaName: "ரூபக தாளம் (Roopaka - 6 அக்ஷரங்கள்)",
+            desc: "சதுஸ்ர ஜாதி ரூபக தாளம் (O + I4 = 6 அக்ஷரங்கள்) • அங்கம்: திருதம்(2) + லகு(4)",
+            beatsCount: 8,
+            angaDividers: [4, 6],
+            lines: [
+                {
+                    label: "ஆரோகணம் 1",
+                    swaras: ["ச  ரி", "க  ம", "ப  த", "ரி  க", "ம  ப", "த  நி", "க  ம", "ப  த"],
+                    west: ["C4 C#4", "E4 F4", "G4 G#4", "C#4 E4", "F4 G4", "G#4 B4", "E4 F4", "G4 G#4"]
+                },
+                {
+                    label: "அவரோகணம் 1",
+                    swaras: ["ம  ப", "த  நி", "ஸ்  -", "ஸ்  நி", "த  ப", "ம  க", "நி  த", "ப  ம"],
+                    west: ["F4 G4", "G#4 B4", "C5 -", "C5 B4", "G#4 G4", "F4 E4", "B4 G#4", "G4 F4"]
+                }
+            ]
+        },
+        {
+            num: 4,
+            title: "4. ஜம்பை தாளம் (Jhampa Talam)",
+            talaName: "ஜம்பை தாளம் (Jhampa - 10 அக்ஷரங்கள்)",
+            desc: "மிஸ்ர ஜாதி ஜம்பை தாளம் (I7 + U + O = 10 அக்ஷரங்கள்) • அங்கம்: லகு(7) + அணுதிருதம்(1) + திருதம்(2)",
+            beatsCount: 8,
+            angaDividers: [4, 6],
+            lines: [
+                {
+                    label: "ஆரோகணம் 1",
+                    swaras: ["ச  ரி", "க  ச", "ரி  க", "ம  ப", "த  நி", "ரி  க", "ம  ரி", "க  ம"],
+                    west: ["C4 C#4", "E4 C4", "C#4 E4", "F4 G4", "G#4 B4", "C#4 E4", "F4 C#4", "E4 F4"]
+                },
+                {
+                    label: "அவரோகணம் 1",
+                    swaras: ["ஸ்  நி", "த  ஸ்", "நி  த", "ப  ம", "க  ரி", "நி  த", "ப  நி", "த  ப"],
+                    west: ["C5 B4", "G#4 C5", "B4 G#4", "G4 F4", "E4 C#4", "B4 G#4", "G4 B4", "G#4 G4"]
+                }
+            ]
+        },
+        {
+            num: 5,
+            title: "5. த்ரிபுட தாளம் (Thriputa Talam)",
+            talaName: "த்ரிபுட தாளம் (Thriputa - 7 அக்ஷரங்கள்)",
+            desc: "திஸ்ர ஜாதி த்ரிபுட தாளம் (I3 + O + O = 7 அக்ஷரங்கள்) • அங்கம்: லகு(3) + திருதம்(2) + திருதம்(2)",
+            beatsCount: 8,
+            angaDividers: [4, 6],
+            lines: [
+                {
+                    label: "ஆரோகணம் 1",
+                    swaras: ["ச  ரி", "க  ச", "ரி  க", "ம  -", "ரி  க", "ம  ரி", "க  ம", "ப  -"],
+                    west: ["C4 C#4", "E4 C4", "C#4 E4", "F4 -", "C#4 E4", "F4 C#4", "E4 F4", "G4 -"]
+                },
+                {
+                    label: "அவரோகணம் 1",
+                    swaras: ["ஸ்  நி", "த  ஸ்", "நி  த", "ப  -", "நி  த", "ப  நி", "த  ப", "ம  -"],
+                    west: ["C5 B4", "G#4 C5", "B4 G#4", "G4 -", "B4 G#4", "G4 B4", "G#4 G4", "F4 -"]
+                }
+            ]
+        },
+        {
+            num: 6,
+            title: "6. அட தாளம் (Ata Talam)",
+            talaName: "அட தாளம் (Ata - 14 அக்ஷரங்கள்)",
+            desc: "கண்ட ஜாதி அட தாளம் (I5 + I5 + O + O = 14 அக்ஷரங்கள்) • அங்கம்: லகு(5) + லகு(5) + திருதம்(2) + திருதம்(2)",
+            beatsCount: 8,
+            angaDividers: [4, 6],
+            lines: [
+                {
+                    label: "ஆரோகணம் 1",
+                    swaras: ["ச  ரி", "க  ம", "க  -", "ச  ரி", "க  ம", "ப  த", "நி  ஸ்", "ரி  க"],
+                    west: ["C4 C#4", "E4 F4", "E4 -", "C4 C#4", "E4 F4", "G4 G#4", "B4 C5", "C#4 E4"]
+                },
+                {
+                    label: "அவரோகணம் 1",
+                    swaras: ["ஸ்  நி", "த  ப", "த  -", "ஸ்  நி", "த  ப", "ம  க", "ரி  ச", "நி  த"],
+                    west: ["C5 B4", "G#4 G4", "G#4 -", "C5 B4", "G#4 G4", "F4 E4", "C#4 C4", "B4 G#4"]
+                }
+            ]
+        },
+        {
+            num: 7,
+            title: "7. ஏக தாளம் (Eka Talam)",
+            talaName: "ஏக தாளம் (Eka - 4 அக்ஷரங்கள்)",
+            desc: "சதுஸ்ர ஜாதி ஏக தாளம் (I4 = 4 அக்ஷரங்கள்) • அங்கம்: லகு(4)",
+            beatsCount: 8,
+            angaDividers: [4, 6],
+            lines: [
+                {
+                    label: "ஆரோகணம் 1",
+                    swaras: ["ச  ரி", "க  ம", "ரி  க", "ம  ப", "க  ம", "ப  த", "ம  ப", "த  நி"],
+                    west: ["C4 C#4", "E4 F4", "C#4 E4", "F4 G4", "E4 F4", "G4 G#4", "F4 G4", "G#4 B4"]
+                },
+                {
+                    label: "அவரோகணம் 1",
+                    swaras: ["ப  த", "நி  ஸ்", "ஸ்  நி", "த  ப", "நி  த", "ப  ம", "த  ப", "ம  க"],
+                    west: ["G4 G#4", "B4 C5", "C5 B4", "G#4 G4", "B4 G#4", "G4 F4", "G#4 G4", "F4 E4"]
+                }
+            ]
+        },
+        {
+            num: 8,
+            title: "8. ஸ்ரீ கணநாதா கீதம் (Sri Gananatha Geetham)",
+            talaName: "மலயஹரி ராகம் • ரூபக தாளம் (Roopaka - 6 Beats)",
+            desc: "ராகம்: மலயஹரி (ஆரோ: ச ரி ம ப த ஸ் | அவரோ: ஸ் த ப ம க ரி ச) • தாளம்: ரூபகம் • இயற்றியவர்: புரந்தரதாசர்",
+            beatsCount: 8,
+            angaDividers: [2, 6],
+            lines: [
+                {
+                    label: "பல்லவி வரி 1 (Pallavi Line 1)",
+                    swaras: ["ம", "ப", "த", "ப", "ம", "க", "ரி", "ச"],
+                    west: ["F4", "G4", "G#4", "G4", "F4", "E4", "C#4", "C4"],
+                    sahitya: ["ஸ்ரீ", "க", "ண", "நா", "-", "த", "ஸிந்", "தூ"]
+                },
+                {
+                    label: "பல்லவி வரி 2 (Pallavi Line 2)",
+                    swaras: ["ரி", "ம", "ப", "த", "ப", "ம", "ரி", "ச"],
+                    west: ["C#4", "F4", "G4", "G#4", "G4", "F4", "C#4", "C4"],
+                    sahitya: ["ர", "வ", "ரு", "ண", "க", "ரு", "ணா", "-"]
+                },
+                {
+                    label: "சரணம் வரி 1 (Charanam Line 1)",
+                    swaras: ["ம", "ப", "த", "ஸ்", "ஸ்", "ரி", "ஸ்", "த"],
+                    west: ["F4", "G4", "G#4", "C5", "C5", "C#5", "C5", "G#4"],
+                    sahitya: ["லம்", "போ", "த", "ர", "ல", "கு", "மி", "க"]
+                },
+                {
+                    label: "சரணம் வரி 2 (Charanam Line 2)",
+                    swaras: ["த", "ப", "ம", "க", "ரி", "ச", "ரி", "ம"],
+                    west: ["G#4", "G4", "F4", "E4", "C#4", "C4", "C#4", "F4"],
+                    sahitya: ["ரா", "-", "அம்", "பா", "சு", "த", "அ", "ம"]
+                }
+            ]
+        }
+    ];
+
+    function renderPiano() {
+        const pianoBed = document.getElementById('pianoBed');
+        pianoBed.innerHTML = '';
+
+        const whiteNotes = ['C3', 'D3', 'E3', 'F3', 'G3', 'A3', 'B3', 'C4', 'D4', 'E4', 'F4', 'G4', 'A4', 'B4', 'C5', 'D5', 'E5'];
+        const blackNotesMap = {
+            'C3': 'C#3', 'D3': 'D#3', 'F3': 'F#3', 'G3': 'G#3', 'A3': 'A#3',
+            'C4': 'C#4', 'D4': 'D#4', 'F4': 'F#4', 'G4': 'G#4', 'A4': 'A#4',
+            'C5': 'C#5', 'D5': 'D#5'
+        };
+
+        const totalWhites = whiteNotes.length;
+        const keyWidthPct = 100 / totalWhites;
+
+        whiteNotes.forEach((wn, idx) => {
+            const wKey = document.createElement('div');
+            wKey.className = 'white-key';
+            wKey.id = 'key-' + wn.replace('#', 's');
+            wKey.dataset.note = wn;
+
+            let labelHtml = `<span>${wn}</span>`;
+            if (SWARA_MAP[wn]) {
+                labelHtml += `<span class="swara-pill-tag">${SWARA_MAP[wn].split(' ')[0]}</span>`;
+            }
+            wKey.innerHTML = labelHtml;
+            wKey.addEventListener('mousedown', () => playManualNote(wn));
+            wKey.addEventListener('touchstart', (e) => { e.preventDefault(); playManualNote(wn); });
+            pianoBed.appendChild(wKey);
+
+            if (blackNotesMap[wn]) {
+                const bn = blackNotesMap[wn];
+                const bKey = document.createElement('div');
+                bKey.className = 'black-key';
+                bKey.id = 'key-' + bn.replace('#', 's');
+                bKey.dataset.note = bn;
+                bKey.style.left = `calc(${idx * keyWidthPct}% + ${keyWidthPct * 0.65}%)`;
+
+                let bLabelHtml = `<span>${bn}</span>`;
+                if (SWARA_MAP[bn]) {
+                    bLabelHtml += `<span class="swara-pill-tag">${SWARA_MAP[bn].split(' ')[0]}</span>`;
+                }
+                bKey.innerHTML = bLabelHtml;
+                bKey.addEventListener('mousedown', () => playManualNote(bn));
+                bKey.addEventListener('touchstart', (e) => { e.preventDefault(); playManualNote(bn); });
+                pianoBed.appendChild(bKey);
+            }
+        });
+    }
+
+    function playManualNote(note) {
+        if (FREQS[note]) {
+            playPianoTone(FREQS[note], 0.5);
+            highlightPianoKey(note);
+            setTimeout(() => unhighlightPianoKey(note), 300);
+        }
+    }
+
+    function highlightPianoKey(note) {
+        if (!note || note === '-') return;
+        const id = 'key-' + note.replace('#', 's');
+        const el = document.getElementById(id);
+        if (el) el.classList.add('active-key');
+    }
+
+    function unhighlightPianoKey(note) {
+        if (!note || note === '-') return;
+        const id = 'key-' + note.replace('#', 's');
+        const el = document.getElementById(id);
+        if (el) el.classList.remove('active-key');
+    }
+
+    function clearAllHighlights() {
+        document.querySelectorAll('.active-key').forEach(k => k.classList.remove('active-key'));
+        document.querySelectorAll('.active-beat-cell').forEach(c => c.classList.remove('active-beat-cell'));
+        document.querySelectorAll('.tala-beat-dot').forEach(d => d.classList.remove('active-hit'));
+    }
+
+    function renderTalaStrip(lesson) {
+        const flow = document.getElementById('talaBeatsFlow');
+        flow.innerHTML = '';
+        document.getElementById('currentTalaLabel').textContent = `🥁 ${lesson.talaName}:`;
+
+        const bCount = lesson.beatsCount || 8;
+        const dividers = lesson.angaDividers || [4, 6];
+
+        for (let i = 0; i < bCount; i++) {
+            const dot = document.createElement('div');
+            dot.className = 'tala-beat-dot';
+            dot.id = `tala-${i}`;
+            dot.textContent = i + 1;
+            flow.appendChild(dot);
+
+            if (dividers.includes(i + 1) && i < bCount - 1) {
+                const sep = document.createElement('span');
+                sep.className = 'tala-divider';
+                sep.textContent = '|';
+                flow.appendChild(sep);
+            }
+        }
+    }
+
+    function loadAlankaramLesson(idx) {
+        currentLessonIdx = idx;
+        const lesson = ALANKARAM_LESSONS[idx];
+        document.getElementById('lessonSelect').value = idx;
+        document.getElementById('lessonTitle').textContent = lesson.title;
+        document.getElementById('lessonDesc').textContent = lesson.desc;
+
+        document.querySelectorAll('.lesson-nav-chip').forEach((c, i) => {
+            if (i === idx) c.classList.add('active');
+            else c.classList.remove('active');
+        });
+
+        renderTalaStrip(lesson);
+
+        const table = document.getElementById('notationTable');
+        table.innerHTML = '';
+
+        const thead = document.createElement('thead');
+        const htr = document.createElement('tr');
+        const bCount = lesson.beatsCount || 8;
+        for (let b = 1; b <= bCount; b++) {
+            const th = document.createElement('th');
+            th.textContent = `அக்ஷரம் ${b}`;
+            htr.appendChild(th);
+        }
+        thead.appendChild(htr);
+        table.appendChild(thead);
+
+        const tbody = document.createElement('tbody');
+        let globalStep = 0;
+
+        lesson.lines.forEach((line) => {
+            const lblTr = document.createElement('tr');
+            lblTr.innerHTML = `<td colspan="${bCount}" style="background:#0f172a; color:#34d399; text-align:left; font-size:12px; font-weight:800; padding:6px 12px; border:none; letter-spacing:0.5px;">🎼 ${line.label}</td>`;
+            tbody.appendChild(lblTr);
+
+            const swaraTr = document.createElement('tr');
+            swaraTr.className = 'swara-row';
+            line.swaras.forEach((sw, bIdx) => {
+                const td = document.createElement('td');
+                td.textContent = sw;
+                td.id = `beat-swara-${globalStep + bIdx}`;
+                td.dataset.step = globalStep + bIdx;
+                td.title = `Beat ${bIdx + 1}: ${sw} (${line.west[bIdx]})`;
+                td.addEventListener('click', () => jumpToStep(parseInt(td.dataset.step)));
+                swaraTr.appendChild(td);
+            });
+            tbody.appendChild(swaraTr);
+
+            const westTr = document.createElement('tr');
+            westTr.className = 'west-row';
+            line.west.forEach((wn, bIdx) => {
+                const td = document.createElement('td');
+                td.textContent = wn;
+                td.id = `beat-west-${globalStep + bIdx}`;
+                td.dataset.step = globalStep + bIdx;
+                td.addEventListener('click', () => jumpToStep(parseInt(td.dataset.step)));
+                westTr.appendChild(td);
+            });
+            tbody.appendChild(westTr);
+
+            if (line.sahitya) {
+                const sahityaTr = document.createElement('tr');
+                sahityaTr.className = 'sahitya-row';
+                line.sahitya.forEach((txt, bIdx) => {
+                    const td = document.createElement('td');
+                    td.textContent = txt;
+                    td.id = `beat-sahitya-${globalStep + bIdx}`;
+                    td.dataset.step = globalStep + bIdx;
+                    td.addEventListener('click', () => jumpToStep(parseInt(td.dataset.step)));
+                    sahityaTr.appendChild(td);
+                });
+                tbody.appendChild(sahityaTr);
+            }
+
+            globalStep += bCount;
+        });
+
+        table.appendChild(tbody);
+        resetPlayback();
+    }
+
+    function getAllStepsInCurrentLesson() {
+        const lesson = ALANKARAM_LESSONS[currentLessonIdx];
+        const bCount = lesson.beatsCount || 8;
+        const steps = [];
+        lesson.lines.forEach(line => {
+            for (let i = 0; i < bCount; i++) {
+                steps.push({
+                    swara: line.swaras[i] || '',
+                    noteStr: line.west[i] || '',
+                    sahitya: line.sahitya ? line.sahitya[i] : null,
+                    beatInTala: i
+                });
+            }
+        });
+        return steps;
+    }
+
+    function togglePlay() {
+        initAudio();
+        if (isPlaying) {
+            pausePlayback();
+        } else {
+            startPlayback();
+        }
+    }
+
+    function startPlayback() {
+        isPlaying = true;
+        const playBtn = document.getElementById('playBtn');
+        playBtn.classList.add('playing');
+        playBtn.textContent = '⏸️ நிறுத்து (Pause)';
+        scheduleNextStep();
+    }
+
+    function pausePlayback() {
+        isPlaying = false;
+        clearTimeout(playbackTimer);
+        clearTimeout(subBeatTimer);
+        const playBtn = document.getElementById('playBtn');
+        playBtn.classList.remove('playing');
+        playBtn.textContent = '▶️ வாசி (Play Lesson)';
+        clearAllHighlights();
+    }
+
+    function resetPlayback() {
+        pausePlayback();
+        currentStepIndex = 0;
+        clearAllHighlights();
+        document.getElementById('currentBeatLabel').textContent = 'Beat 1';
+    }
+
+    function jumpToStep(stepIdx) {
+        initAudio();
+        currentStepIndex = stepIdx;
+        const steps = getAllStepsInCurrentLesson();
+        if (steps[stepIdx]) {
+            executeStep(steps[stepIdx], stepIdx);
+        }
+    }
+
+    function executeStep(step, stepIdx) {
+        clearAllHighlights();
+
+        const beatDurationMs = (60 / bpm) * 1000;
+        const noteDurationSec = (60 / bpm) * 0.42;
+        const subBeatDelayMs = beatDurationMs / 2;
+
+        const notes = step.noteStr.trim().split(/\s+/);
+        const note1 = notes[0] || '-';
+        const note2 = notes[1] || null;
+
+        // Sound Note 1
+        if (note1 !== '-' && FREQS[note1]) {
+            playPianoTone(FREQS[note1], noteDurationSec);
+            highlightPianoKey(note1);
+        }
+
+        // Sound Note 2 if twin sub-beats present
+        if (note2) {
+            subBeatTimer = setTimeout(() => {
+                unhighlightPianoKey(note1);
+                if (note2 !== '-' && FREQS[note2]) {
+                    playPianoTone(FREQS[note2], noteDurationSec);
+                    highlightPianoKey(note2);
+                }
+            }, subBeatDelayMs);
+        }
+
+        // Highlight cells
+        const swCell = document.getElementById(`beat-swara-${stepIdx}`);
+        const westCell = document.getElementById(`beat-west-${stepIdx}`);
+        const sahCell = document.getElementById(`beat-sahitya-${stepIdx}`);
+        if (swCell) swCell.classList.add('active-beat-cell');
+        if (westCell) westCell.classList.add('active-beat-cell');
+        if (sahCell) sahCell.classList.add('active-beat-cell');
+
+        if (swCell) {
+            swCell.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+        }
+
+        // Pulse Tala Beat
+        const beatNum = step.beatInTala;
+        const dot = document.getElementById(`tala-${beatNum}`);
+        if (dot) dot.classList.add('active-hit');
+        document.getElementById('currentBeatLabel').textContent = `Beat ${beatNum + 1}`;
+    }
+
+    function scheduleNextStep() {
+        if (!isPlaying) return;
+        const steps = getAllStepsInCurrentLesson();
+
+        if (currentStepIndex >= steps.length) {
+            if (isLooping) {
+                currentStepIndex = 0;
+            } else {
+                pausePlayback();
+                return;
+            }
+        }
+
+        executeStep(steps[currentStepIndex], currentStepIndex);
+        currentStepIndex++;
+
+        const stepInterval = (60 / bpm) * 1000;
+        playbackTimer = setTimeout(() => {
+            scheduleNextStep();
+        }, stepInterval);
+    }
+
+    function setSpeed(speedBpm, btn) {
+        bpm = speedBpm;
+        document.querySelectorAll('.speed-pill-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+    }
+
+    function toggleLoop() {
+        isLooping = !isLooping;
+        const loopBtn = document.getElementById('loopBtn');
+        if (isLooping) {
+            loopBtn.classList.add('active-toggle');
+            loopBtn.textContent = '🔁 தொடர் சுழற்சி (Loop: On)';
+        } else {
+            loopBtn.classList.remove('active-toggle');
+            loopBtn.textContent = '🔁 சுழற்சி (Loop: Off)';
+        }
+    }
+
+    function prevLesson() {
+        const nextIdx = (currentLessonIdx - 1 + ALANKARAM_LESSONS.length) % ALANKARAM_LESSONS.length;
+        loadAlankaramLesson(nextIdx);
+    }
+
+    function nextLesson() {
+        const nextIdx = (currentLessonIdx + 1) % ALANKARAM_LESSONS.length;
+        loadAlankaramLesson(nextIdx);
+    }
+
+    function initUI() {
+        const select = document.getElementById('lessonSelect');
+        const grid = document.getElementById('lessonsGridNav');
+        select.innerHTML = '';
+        grid.innerHTML = '';
+
+        ALANKARAM_LESSONS.forEach((les, idx) => {
+            const opt = document.createElement('option');
+            opt.value = idx;
+            opt.textContent = `${les.num}. ${les.title}`;
+            select.appendChild(opt);
+
+            const chip = document.createElement('div');
+            chip.className = 'lesson-nav-chip';
+            chip.textContent = les.num <= 7 ? `தாளம் ${les.num}` : 'கீதம் 1';
+            chip.title = les.title;
+            chip.addEventListener('click', () => loadAlankaramLesson(idx));
+            grid.appendChild(chip);
+        });
+
+        renderPiano();
+        loadAlankaramLesson(0);
+
+        setTimeout(() => {
+            const c4 = document.getElementById('key-C4');
+            const wrap = document.getElementById('pianoScrollWrap');
+            if (c4 && wrap) {
+                wrap.scrollLeft = c4.offsetLeft - wrap.offsetWidth / 2 + 40;
+            }
+        }, 200);
+    }
+
+    window.addEventListener('DOMContentLoaded', initUI);
+</script>
+
+</body>
+</html>

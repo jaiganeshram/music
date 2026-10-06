@@ -1281,6 +1281,68 @@
             pointer-events: none;
             transition: opacity 0.3s;
         }
+    
+        /* ========================================================
+           RESPONSIVE SUITE: TABLET & MOBILE (WITHOUT BREAKING LAPTOP)
+           ======================================================== */
+        @media (max-width: 1024px) {
+            .header-tabs-bar {
+                overflow-x: auto;
+                flex-wrap: nowrap;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+            }
+            .header-tabs-bar::-webkit-scrollbar { display: none; }
+            .tab-btn { flex-shrink: 0; white-space: nowrap; }
+        }
+
+        @media (max-width: 768px) {
+            body { padding: 10px; }
+            header {
+                padding: 16px;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
+            .header-title-group h1 { font-size: 20px; }
+            .header-tabs-bar {
+                overflow-x: auto;
+                flex-wrap: nowrap;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+                padding: 6px;
+                gap: 6px;
+            }
+            .header-tabs-bar::-webkit-scrollbar { display: none; }
+            .tab-btn {
+                padding: 8px 14px;
+                font-size: 13px;
+                flex-shrink: 0;
+                white-space: nowrap;
+            }
+            .vocal-scope-canvas-wrap {
+                -webkit-overflow-scrolling: touch;
+                overflow-x: auto;
+            }
+            .mic-sensor-card, .mic-result-card {
+                padding: 14px;
+            }
+            .preset-pills-row {
+                overflow-x: auto;
+                flex-wrap: nowrap;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+            }
+            .preset-pills-row::-webkit-scrollbar { display: none; }
+            .preset-pill { flex-shrink: 0; white-space: nowrap; }
+        }
+
+        @media (max-width: 480px) {
+            body { padding: 6px; }
+            .header-title-group h1 { font-size: 18px; }
+            .kattai-grid { grid-template-columns: repeat(2, 1fr); }
+            .sacred-speak-btn-row button { width: 100%; min-height: 40px; }
+        }
     </style>
 </head>
 <body>

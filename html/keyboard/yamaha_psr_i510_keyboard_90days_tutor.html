@@ -1323,10 +1323,97 @@
             margin: 0 auto;
         }
 
+        /* ========================================================
+           RESPONSIVE SUITE: TABLET & MOBILE (WITHOUT BREAKING LAPTOP)
+           ======================================================== */
+        @media (max-width: 1024px) {
+            .app-header { padding: 18px 20px; }
+            .practice-grid {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            }
+            .nav-tabs-bar {
+                overflow-x: auto;
+                flex-wrap: nowrap;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+            }
+            .nav-tabs-bar::-webkit-scrollbar { display: none; }
+            .nav-tab-btn { flex-shrink: 0; white-space: nowrap; }
+        }
+
         @media (max-width: 900px) {
             .app-header { flex-direction: column; align-items: flex-start; }
             .psr-lcd-screen { min-width: 100%; }
             .keyboard-inner { min-width: 850px; height: 180px; }
+        }
+
+        @media (max-width: 768px) {
+            body { padding: 10px; }
+            .app-header {
+                padding: 14px;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
+            .header-title-box h1 {
+                font-size: 20px;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 6px;
+            }
+            .nav-tabs-bar {
+                overflow-x: auto;
+                flex-wrap: nowrap;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+                padding: 6px;
+                gap: 6px;
+            }
+            .nav-tabs-bar::-webkit-scrollbar { display: none; }
+            .nav-tab-btn {
+                padding: 8px 14px;
+                font-size: 13px;
+                flex-shrink: 0;
+                white-space: nowrap;
+            }
+            .keyboard-wrapper {
+                -webkit-overflow-scrolling: touch;
+                padding: 8px;
+            }
+            .keyboard-inner {
+                min-width: 800px;
+                height: 170px;
+            }
+            .psr-lcd-screen {
+                min-width: 100%;
+                padding: 12px;
+            }
+            .controls-grid {
+                grid-template-columns: 1fr;
+            }
+            .practice-grid {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+            .practice-card {
+                padding: 14px;
+            }
+            .family-chords-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 8px;
+            }
+            .scale-chords-container {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body { padding: 6px; }
+            .header-title-box h1 { font-size: 17px; }
+            .family-chords-grid { grid-template-columns: 1fr; }
+            .action-btn-row { flex-direction: column; }
+            .action-btn-row button { min-height: 40px; width: 100%; }
         }
     
         /* Master Practice Studio Cards */

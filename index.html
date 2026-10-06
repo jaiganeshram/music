@@ -1235,15 +1235,217 @@
         .filter-tab-btn { border-radius: 999px; }
         .app-footer { border-top-color: rgba(148, 163, 184, 0.14); line-height: 1.6; }
         section[id] { scroll-margin-top: 86px; }
+        /* ========================================================
+           RESPONSIVE SUITE: TABLET & MOBILE (WITHOUT BREAKING LAPTOP)
+           ======================================================== */
+        @media (max-width: 1024px) {
+            .lessons-grid {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            }
+            .controls-search-row {
+                gap: 10px;
+            }
+            .search-box-wrapper {
+                min-width: 240px;
+            }
+        }
+
         @media (max-width: 768px) {
-            body { padding: 12px; }
-            .container { gap: 13px; }
-            .site-nav { position: static; }
-            .site-nav a { padding: 8px 10px; font-size: 12px; }
-            .tutor-categories { grid-template-columns: 1fr; }
-            .hero-title-area { gap: 12px; }
-            .hero-logo { flex-basis: 48px; width: 48px; height: 48px; font-size: 23px; }
-            .catalog-header { flex-direction: column; }
+            body {
+                padding: 12px;
+            }
+            .container {
+                gap: 14px;
+            }
+            .site-nav {
+                position: static;
+                overflow-x: auto;
+                flex-wrap: nowrap;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+                padding: 6px;
+                gap: 6px;
+            }
+            .site-nav::-webkit-scrollbar {
+                display: none;
+            }
+            .site-nav a {
+                padding: 8px 12px;
+                font-size: 12.5px;
+                white-space: nowrap;
+                flex-shrink: 0;
+            }
+            .tutor-categories {
+                grid-template-columns: 1fr;
+            }
+            .hero-header {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 18px 16px;
+            }
+            .hero-title-area {
+                gap: 12px;
+                align-items: center;
+            }
+            .hero-logo {
+                flex-basis: 46px;
+                width: 46px;
+                height: 46px;
+                font-size: 22px;
+            }
+            .hero-text h1 {
+                font-size: clamp(20px, 4.2vw, 28px);
+                line-height: 1.25;
+            }
+            .hero-text p {
+                font-size: 13.5px;
+                margin-top: 6px;
+            }
+            .stats-badges {
+                gap: 6px;
+                margin-top: 6px;
+                flex-wrap: wrap;
+            }
+            .stat-pill {
+                padding: 6px 10px;
+                font-size: 11.5px;
+            }
+            /* Player Controls */
+            .player-controls-bar {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 12px;
+                padding: 12px 14px;
+            }
+            .player-controls-bar .btn-group {
+                width: 100%;
+                justify-content: center;
+                flex-wrap: wrap;
+                gap: 8px;
+            }
+            .player-controls-bar .slider-group {
+                width: 100%;
+                justify-content: space-between;
+            }
+            .player-controls-bar .select-input {
+                width: 100%;
+            }
+            .ctrl-btn {
+                min-height: 40px;
+                padding: 9px 14px;
+                font-size: 12.5px;
+                justify-content: center;
+            }
+            /* Active Swara HUD */
+            .active-hud-row {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 10px;
+            }
+            .hud-swara-box {
+                padding: 10px 14px;
+                width: 100%;
+                justify-content: flex-start;
+            }
+            .hud-swara-box .main-char {
+                font-size: 28px;
+            }
+            /* Scrollable Instruments */
+            .fretboard-card,
+            .piano-card {
+                padding: 12px 10px;
+                -webkit-overflow-scrolling: touch;
+            }
+            /* Search & Filters */
+            .catalog-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            .controls-search-row {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 10px;
+            }
+            .search-box-wrapper {
+                min-width: 100%;
+                width: 100%;
+            }
+            .filter-selects-group {
+                width: 100%;
+                flex-wrap: wrap;
+                gap: 8px;
+            }
+            .filter-selects-group select {
+                flex: 1;
+                min-width: 130px;
+            }
+            .filter-tabs-row {
+                overflow-x: auto;
+                flex-wrap: nowrap;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+                padding-bottom: 6px;
+            }
+            .filter-tabs-row::-webkit-scrollbar {
+                display: none;
+            }
+            .filter-tab-btn {
+                flex-shrink: 0;
+            }
+            /* Lessons Cards Grid */
+            .lessons-grid {
+                grid-template-columns: 1fr;
+                gap: 14px;
+            }
+            .lesson-card {
+                padding: 16px;
+            }
+            .lesson-card-actions {
+                grid-template-columns: 1fr 1fr;
+                gap: 6px;
+            }
+            /* Modal dialogs */
+            .modal-content-card {
+                padding: 16px;
+                width: 95vw;
+                max-height: 88vh;
+            }
+            .modal-close-btn {
+                top: 12px;
+                right: 12px;
+                width: 32px;
+                height: 32px;
+                font-size: 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 8px;
+            }
+            .tutor-section,
+            .studio-section,
+            .catalog-section,
+            .diagrams-bar-section {
+                padding: 14px;
+            }
+            .diagrams-grid {
+                grid-template-columns: 1fr;
+            }
+            .lesson-card-actions {
+                grid-template-columns: 1fr;
+            }
+            .card-btn.full-app {
+                grid-column: span 1;
+            }
+            .hero-header {
+                padding: 14px;
+            }
+            .stat-pill {
+                font-size: 11px;
+                padding: 5px 8px;
+            }
         }
     </style>
 </head>
@@ -1269,6 +1471,7 @@
 
     <nav class="site-nav" aria-label="Main navigation">
         <a href="#tutors">Choose a studio</a>
+        <a href="#gana-amrutha">Carnatic Keyboard PDFs & Studios</a>
         <a href="#lesson-catalog">Lesson library</a>
         <a href="#studio-anchor">Practice room</a>
         <a href="#diagrams">Visual guides</a>
@@ -1281,9 +1484,9 @@
             <p>Open a dedicated studio, or browse by instrument to find the right place to begin.</p>
         </div>
         <div class="tutor-filter-tabs" role="group" aria-label="Filter studios by instrument">
-            <button type="button" class="active" aria-pressed="true" onclick="filterTutorCategory('all', this)">All studios <span class="count-tag">10</span></button>
+            <button type="button" class="active" aria-pressed="true" onclick="filterTutorCategory('all', this)">All studios <span class="count-tag">14</span></button>
             <button type="button" aria-pressed="false" onclick="filterTutorCategory('guitar', this)">🎸 Guitar <span class="count-tag">4</span></button>
-            <button type="button" aria-pressed="false" onclick="filterTutorCategory('keyboard', this)">🎹 Keyboard <span class="count-tag">2</span></button>
+            <button type="button" aria-pressed="false" onclick="filterTutorCategory('keyboard', this)">🎹 Keyboard <span class="count-tag">6</span></button>
             <button type="button" aria-pressed="false" onclick="filterTutorCategory('recorder', this)">🎼 Recorder <span class="count-tag">1</span></button>
             <button type="button" aria-pressed="false" onclick="filterTutorCategory('vocal', this)">🎤 Vocal <span class="count-tag">2</span></button>
             <button type="button" aria-pressed="false" onclick="filterTutorCategory('other', this)">🎵 Other <span class="count-tag">1</span></button>
@@ -1299,8 +1502,12 @@
                 </div>
             </section>
             <section class="tutor-category" data-category="keyboard">
-                <div class="tutor-category-heading"><span class="tutor-category-icon">🎹</span><h3>Keyboard</h3><span>2 studios</span></div>
+                <div class="tutor-category-heading"><span class="tutor-category-icon">🎹</span><h3>Keyboard</h3><span>6 studios</span></div>
                 <div class="tutor-category-cards">
+                    <a href="html/keyboard/sarali_varisai_keyboard_practice.html" class="tutor-card" target="_blank" rel="noopener"><div class="tutor-info"><div class="tutor-icon">🎹</div><div class="tutor-text"><h3>சரளி வரிசைகள் 1-14 (Sarali Varisai)</h3><span>Gana Amrutha Bodhini exact PDF practice with 61-key piano, Western notes & Adi Tala tracker</span></div></div><span class="tutor-card-arrow" aria-hidden="true">↗</span></a>
+                    <a href="html/keyboard/jantai_varisai_keyboard_practice.html" class="tutor-card" target="_blank" rel="noopener"><div class="tutor-info"><div class="tutor-icon">🎶</div><div class="tutor-text"><h3>ஜண்டை வரிசைகள் 1-10 (Jantai Varisai)</h3><span>Twin notes (Sphuritham) practice with Western notes, fingering & audio synthesizer</span></div></div><span class="tutor-card-arrow" aria-hidden="true">↗</span></a>
+                    <a href="html/keyboard/dhatu_varisai_keyboard_practice.html" class="tutor-card" target="_blank" rel="noopener"><div class="tutor-info"><div class="tutor-icon">⚡</div><div class="tutor-text"><h3>தாட்டு வரிசைகள் 1-4 (Dhatu Varisai)</h3><span>Zig-zag finger leap drills with Western notes, 61-key piano & Tala tracker</span></div></div><span class="tutor-card-arrow" aria-hidden="true">↗</span></a>
+                    <a href="html/keyboard/alankaram_geetham_keyboard_practice.html" class="tutor-card" target="_blank" rel="noopener"><div class="tutor-info"><div class="tutor-icon">🎼</div><div class="tutor-text"><h3>சப்த தாள அலங்காரங்கள் & கீதம்</h3><span>7 Saptha Tala Alankarams & Sri Gananatha Geetham with dynamic Tala counters</span></div></div><span class="tutor-card-arrow" aria-hidden="true">↗</span></a>
                     <a href="html/keyboard/carnatic_keyboard_master_visual_tutor.html" class="tutor-card" target="_blank" rel="noopener"><div class="tutor-info"><div class="tutor-icon">🎹</div><div class="tutor-text"><h3>Carnatic Keyboard Master</h3><span>77 lessons, ragas, shruti tools, and rhythm practice</span></div></div><span class="tutor-card-arrow" aria-hidden="true">↗</span></a>
                     <a href="html/keyboard/yamaha_psr_i510_keyboard_90days_tutor.html" class="tutor-card" target="_blank" rel="noopener"><div class="tutor-info"><div class="tutor-icon">🎹</div><div class="tutor-text"><h3>Yamaha 90-Day Course</h3><span>61-key note finder and guided daily practice</span></div></div><span class="tutor-card-arrow" aria-hidden="true">↗</span></a>
                 </div>
@@ -1324,6 +1531,88 @@
                     <a href="html/other/kalimba_learning_tuning_studio.html" class="tutor-card" target="_blank" rel="noopener"><div class="tutor-info"><div class="tutor-icon">🎵</div><div class="tutor-text"><h3>17-Key Kalimba Studio</h3><span>Tuner, guided lessons, and song collection</span></div></div><span class="tutor-card-arrow" aria-hidden="true">↗</span></a>
                 </div>
             </section>
+        </div>
+    </section>
+
+    <!-- Dedicated Carnatic Keyboard Gana Amrutha Bodhini Series & PDF Downloads -->
+    <section class="glass-panel" id="gana-amrutha" style="padding: 24px 28px; border-top: 3px solid #fbbf24; display: flex; flex-direction: column; gap: 20px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px;">
+            <div>
+                <p style="font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px; color: #fbbf24;">கானாம்ருத போதினி பாடத்திட்டம் • Gana Amrutha Bodhini Master Series</p>
+                <h2 style="font-size: 22px; font-weight: 800; color: #f8fafc; margin-top: 4px;">🎹 கர்நாடக விசைப்பலகை பயிற்சிகள் & PDF தொகுப்புகள் (Carnatic Keyboard Studios & PDFs)</h2>
+                <p style="font-size: 13.5px; color: #94a3b8; margin-top: 4px;">கர்நாடக சுவரத்திற்கு கீழே மேற்கத்திய விசை (Swaram on top, Western notes below, C4=Sa) அமைந்த முழுமையான ஊடாடும் பயிற்சிகள் மற்றும் அச்சிடத்தக்க PDF கோப்புகள்.</p>
+            </div>
+            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                <span style="background: rgba(245, 158, 11, 0.15); border: 1px solid rgba(245, 158, 11, 0.35); color: #fbbf24; font-size: 12px; font-weight: 700; padding: 6px 14px; border-radius: 20px;">🎶 மாயாமாளவகௌளை</span>
+                <span style="background: rgba(56, 189, 248, 0.15); border: 1px solid rgba(56, 189, 248, 0.35); color: #38bdf8; font-size: 12px; font-weight: 700; padding: 6px 14px; border-radius: 20px;">🥁 ஆதி & சப்த தாளங்கள்</span>
+                <span style="background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.35); color: #10b981; font-size: 12px; font-weight: 700; padding: 6px 14px; border-radius: 20px;">🎹 Sa = C4 (1-ம் கட்டை)</span>
+            </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 16px;">
+            <!-- Sarali Card -->
+            <div style="background: rgba(15, 23, 42, 0.85); border: 1px solid rgba(56, 189, 248, 0.3); border-radius: 14px; padding: 18px; display: flex; flex-direction: column; justify-content: space-between; gap: 14px;">
+                <div>
+                    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+                        <span style="font-size: 24px;">🎹</span>
+                        <span style="background: rgba(56, 189, 248, 0.2); color: #38bdf8; font-size: 11px; font-weight: 800; padding: 3px 8px; border-radius: 6px;">14 பாடங்கள்</span>
+                    </div>
+                    <h3 style="font-size: 16px; font-weight: 800; color: #f8fafc; margin-bottom: 6px;">1. சரளி வரிசைகள் (Sarali Varisai 1 to 14)</h3>
+                    <p style="font-size: 12.5px; color: #94a3b8; line-height: 1.5;">அடிப்படை ஏறுவரிசை, இறங்குவரிசை & 14 கானாம்ருத போதினி சரளி பாடங்கள். 61-விசை மெய்நிகர் பியானோ மற்றும் நிகழ்நேர ஆதி தாள தட்டு காட்டி.</p>
+                </div>
+                <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                    <a href="html/keyboard/sarali_varisai_keyboard_practice.html" target="_blank" style="flex: 1; min-width: 130px; text-align: center; background: linear-gradient(135deg, #0284c7, #2563eb); color: #fff; padding: 8px 12px; border-radius: 8px; font-size: 12.5px; font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; gap: 6px;">▶️ பயில்க (Practice)</a>
+                    <a href="PDF/Sarali_1_to_14_Swaram_Western_Below_gana_amitha_pothini.pdf" target="_blank" download style="background: rgba(245, 158, 11, 0.15); border: 1px solid rgba(245, 158, 11, 0.4); color: #fbbf24; padding: 8px 12px; border-radius: 8px; font-size: 12px; font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; gap: 5px;">📄 PDF</a>
+                </div>
+            </div>
+
+            <!-- Jantai Card -->
+            <div style="background: rgba(15, 23, 42, 0.85); border: 1px solid rgba(168, 85, 247, 0.3); border-radius: 14px; padding: 18px; display: flex; flex-direction: column; justify-content: space-between; gap: 14px;">
+                <div>
+                    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+                        <span style="font-size: 24px;">🎶</span>
+                        <span style="background: rgba(168, 85, 247, 0.2); color: #c084fc; font-size: 11px; font-weight: 800; padding: 3px 8px; border-radius: 6px;">10 பாடங்கள்</span>
+                    </div>
+                    <h3 style="font-size: 16px; font-weight: 800; color: #f8fafc; margin-bottom: 6px;">2. ஜண்டை வரிசைகள் (Jantai Varisai 1 to 10)</h3>
+                    <p style="font-size: 12.5px; color: #94a3b8; line-height: 1.5;">இரட்டை சுவரங்கள் (SS RR GG MM) & ஸ்புரித அழுத்தப் பயிற்சிகள். சப்-பீட் இரட்டை விசை ஒலி அமைப்பு மற்றும் விரல் வழிகாட்டல்.</p>
+                </div>
+                <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                    <a href="html/keyboard/jantai_varisai_keyboard_practice.html" target="_blank" style="flex: 1; min-width: 130px; text-align: center; background: linear-gradient(135deg, #7c3aed, #9333ea); color: #fff; padding: 8px 12px; border-radius: 8px; font-size: 12.5px; font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; gap: 6px;">▶️ பயில்க (Practice)</a>
+                    <a href="PDF/Janta_1_to_10_Swaram_Western_Below_gana_amitha_pothini.pdf" target="_blank" download style="background: rgba(245, 158, 11, 0.15); border: 1px solid rgba(245, 158, 11, 0.4); color: #fbbf24; padding: 8px 12px; border-radius: 8px; font-size: 12px; font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; gap: 5px;">📄 PDF</a>
+                </div>
+            </div>
+
+            <!-- Dhatu Card -->
+            <div style="background: rgba(15, 23, 42, 0.85); border: 1px solid rgba(249, 115, 22, 0.3); border-radius: 14px; padding: 18px; display: flex; flex-direction: column; justify-content: space-between; gap: 14px;">
+                <div>
+                    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+                        <span style="font-size: 24px;">⚡</span>
+                        <span style="background: rgba(249, 115, 22, 0.2); color: #fb923c; font-size: 11px; font-weight: 800; padding: 3px 8px; border-radius: 6px;">4 பாடங்கள்</span>
+                    </div>
+                    <h3 style="font-size: 16px; font-weight: 800; color: #f8fafc; margin-bottom: 6px;">3. தாட்டு வரிசைகள் (Dhatu Varisai 1 to 4)</h3>
+                    <p style="font-size: 12.5px; color: #94a3b8; line-height: 1.5;">குறுக்கு சுவர தாவல் & ஜண்டை தாட்டு பயிற்சிகள் (S G R M | G P M D). அதிவேக விரல் சுழற்சி திறன் மேம்பாட்டு பயிற்சி.</p>
+                </div>
+                <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                    <a href="html/keyboard/dhatu_varisai_keyboard_practice.html" target="_blank" style="flex: 1; min-width: 130px; text-align: center; background: linear-gradient(135deg, #ea580c, #c2410c); color: #fff; padding: 8px 12px; border-radius: 8px; font-size: 12.5px; font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; gap: 6px;">▶️ பயில்க (Practice)</a>
+                    <a href="PDF/Dhatu_1_to_4_Swaram_Western_Below_gana_amitha_pothini.pdf" target="_blank" download style="background: rgba(245, 158, 11, 0.15); border: 1px solid rgba(245, 158, 11, 0.4); color: #fbbf24; padding: 8px 12px; border-radius: 8px; font-size: 12px; font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; gap: 5px;">📄 PDF</a>
+                </div>
+            </div>
+
+            <!-- Alankaram Card -->
+            <div style="background: rgba(15, 23, 42, 0.85); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 14px; padding: 18px; display: flex; flex-direction: column; justify-content: space-between; gap: 14px;">
+                <div>
+                    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+                        <span style="font-size: 24px;">🎼</span>
+                        <span style="background: rgba(16, 185, 129, 0.2); color: #34d399; font-size: 11px; font-weight: 800; padding: 3px 8px; border-radius: 6px;">7 தாளம் + கீதம்</span>
+                    </div>
+                    <h3 style="font-size: 16px; font-weight: 800; color: #f8fafc; margin-bottom: 6px;">4. சப்த தாள அலங்காரங்கள் & கீதம்</h3>
+                    <p style="font-size: 12.5px; color: #94a3b8; line-height: 1.5;">துருவ, மட்ய, ரூபக, ஜம்பை, த்ரிபுட, அட, ஏக தாளங்கள் மற்றும் புரந்தரதாசரின் மலயஹரி கீதம் (ஸ்ரீ கணநாதா). மாறும் தாளக் கட்டமைப்பு காட்டி.</p>
+                </div>
+                <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                    <a href="html/keyboard/alankaram_geetham_keyboard_practice.html" target="_blank" style="flex: 1; min-width: 130px; text-align: center; background: linear-gradient(135deg, #059669, #047857); color: #fff; padding: 8px 12px; border-radius: 8px; font-size: 12.5px; font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; gap: 6px;">▶️ பயில்க (Practice)</a>
+                    <a href="PDF/Alankaram_Saptha_Tala_Swaram_Western_Below_gana_amitha_pothini.pdf" target="_blank" download style="background: rgba(245, 158, 11, 0.15); border: 1px solid rgba(245, 158, 11, 0.4); color: #fbbf24; padding: 8px 12px; border-radius: 8px; font-size: 12px; font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; gap: 5px;">📄 PDF</a>
+                </div>
+            </div>
         </div>
     </section>
 

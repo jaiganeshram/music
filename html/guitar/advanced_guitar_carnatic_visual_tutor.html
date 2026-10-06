@@ -830,6 +830,119 @@
             padding: 6px;
         }
     
+    
+        /* ========================================================
+           RESPONSIVE SUITE: TABLET & MOBILE (WITHOUT BREAKING LAPTOP)
+           ======================================================== */
+        @media (max-width: 1024px) {
+            .container { max-width: 100%; }
+            .control-panel { gap: 10px; }
+            .lesson-select-wrapper { min-width: 260px; }
+            .action-details-grid { grid-template-columns: repeat(2, 1fr); }
+            .mela-chakras-grid { grid-template-columns: repeat(2, 1fr); }
+            .gamaka-types-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 768px) {
+            body { padding: 10px; }
+            .main-header { padding: 16px 14px; }
+            .main-header h1 { font-size: 20px; flex-direction: column; gap: 8px; text-align: center; }
+            .main-header h1 .badge-kutcheri { font-size: 11.5px; }
+            .main-header p { font-size: 12.5px; }
+            .studio-nav-tabs {
+                overflow-x: auto;
+                flex-wrap: nowrap;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+                padding-bottom: 4px;
+                gap: 6px;
+            }
+            .studio-nav-tabs::-webkit-scrollbar { display: none; }
+            .nav-tab-btn {
+                padding: 8px 14px;
+                font-size: 12.5px;
+                white-space: nowrap;
+                flex-shrink: 0;
+            }
+            .control-panel {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 12px;
+                padding: 12px 14px;
+            }
+            .lesson-select-wrapper {
+                min-width: 100%;
+                width: 100%;
+                flex-direction: column;
+                align-items: stretch;
+                gap: 6px;
+            }
+            .lesson-dropdown { width: 100%; font-size: 13px; }
+            .btn-group {
+                width: 100%;
+                justify-content: center;
+                flex-wrap: wrap;
+                gap: 8px;
+            }
+            .action-btn, .play-btn, .tanpura-btn, .mic-btn {
+                flex: 1;
+                min-width: 120px;
+                justify-content: center;
+                padding: 10px 12px;
+                font-size: 13px;
+                min-height: 42px;
+            }
+            .kattai-dropdown-group {
+                width: 100%;
+                justify-content: space-between;
+            }
+            .kattai-select { flex: 1; }
+            .fretboard-card {
+                -webkit-overflow-scrolling: touch;
+                padding: 12px 10px;
+            }
+            .fretboard-direction-bar {
+                font-size: 11.5px;
+                flex-direction: column;
+                gap: 6px;
+                text-align: center;
+            }
+            .gamaka-card { padding: 12px; }
+            .gamaka-canvas-wrapper { padding: 8px; -webkit-overflow-scrolling: touch; }
+            .lesson-banner {
+                padding: 12px 14px;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+            .lesson-title-area h2 { font-size: 17px; }
+            .action-details-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
+            .action-card-item { padding: 10px 12px; }
+            .action-card-item .card-value { font-size: 13.5px; }
+            .flow-line-row { padding: 8px 10px; }
+            .flow-measure-grid { gap: 4px; }
+            .flow-measure-box { padding: 4px 6px; gap: 4px; }
+            .c-swara-box { min-width: 48px; padding: 4px 6px; }
+            .c-swara-box .c-swara { font-size: 13px; }
+            .mela-chakras-grid { grid-template-columns: 1fr; }
+            .gamaka-types-grid { grid-template-columns: 1fr; }
+            .mic-monitor-card {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 10px;
+                padding: 12px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body { padding: 6px; }
+            .main-header { padding: 14px 10px; }
+            .main-header h1 { font-size: 17px; }
+            .action-details-grid { grid-template-columns: 1fr; }
+            .btn-group { gap: 6px; }
+            .action-btn, .play-btn, .tanpura-btn, .mic-btn { min-width: 100%; }
+            .speed-btn { padding: 6px 9px; font-size: 11.5px; }
+        }
     </style>
 </head>
 <body>

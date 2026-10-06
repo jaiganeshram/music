@@ -1526,6 +1526,91 @@
             line-height: 1;
         }
 
+    
+        /* ========================================================
+           RESPONSIVE SUITE: TABLET & MOBILE (WITHOUT BREAKING LAPTOP)
+           ======================================================== */
+        @media (max-width: 1024px) {
+            .tabs-nav {
+                overflow-x: auto;
+                flex-wrap: nowrap;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+            }
+            .tabs-nav::-webkit-scrollbar { display: none; }
+            .tab-nav-btn { flex-shrink: 0; white-space: nowrap; }
+        }
+
+        @media (max-width: 768px) {
+            body { padding: 10px; }
+            header {
+                padding: 14px;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
+            .header-title-group h1 { font-size: 20px; }
+            .tabs-nav {
+                overflow-x: auto;
+                flex-wrap: nowrap;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+                padding: 5px;
+                gap: 6px;
+            }
+            .tabs-nav::-webkit-scrollbar { display: none; }
+            .tab-nav-btn {
+                padding: 8px 14px;
+                font-size: 13px;
+                flex-shrink: 0;
+                white-space: nowrap;
+            }
+            .kalimba-stage-container {
+                padding: 14px 8px;
+                -webkit-overflow-scrolling: touch;
+            }
+            .kalimba-controls-toolbar {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 10px;
+                padding: 10px 12px;
+            }
+            .kalimba-controls-toolbar .toolbar-group {
+                justify-content: center;
+                flex-wrap: wrap;
+                width: 100%;
+            }
+            .kalimba-body {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                padding: 16px 8px 24px 8px;
+            }
+            .kalimba-tines-rack {
+                min-width: 440px;
+                min-height: 300px;
+            }
+            .kalimba-tine {
+                min-width: 18px;
+            }
+            .tuner-meter-panel {
+                padding: 16px;
+            }
+            .lessons-sidebar {
+                max-height: 420px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body { padding: 6px; }
+            .kalimba-controls-toolbar .toolbar-group {
+                flex-direction: column;
+                width: 100%;
+            }
+            .kalimba-controls-toolbar button {
+                width: 100%;
+                min-height: 40px;
+            }
+        }
     </style>
 </head>
 <body>
